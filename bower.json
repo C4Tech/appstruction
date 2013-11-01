@@ -7,7 +7,6 @@
   ],
   "dependencies": {
     "lungo": "~2.2.1",
-    "quojs": "*",
     "jquery": "~2.0.3",
     "cordova": "~3.0.0"
   },
