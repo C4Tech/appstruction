@@ -16,8 +16,6 @@
     "test": "brunch test"
   },
   "dependencies": {
-    "cordova": "~3.0",
-
     "coffee-script-brunch": "~1.7",
     "javascript-brunch": "~1.7",
     "uglify-js-brunch": "~1.7",
