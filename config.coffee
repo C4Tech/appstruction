@@ -4,26 +4,28 @@ exports.config =
       debug: "comments"
 
   paths:
-    public: "build"
+    public: "build/www"
 
   files:
     javascripts:
       joinTo:
-        "www/js/app.js": /^app/
-        "www/js/vendor.js": /^(bower_components|vendor)/
+        "js/app.js": /^app/
+        "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
-          "bower_components/jquery/jquery.js"
+          "bower_components/jquery/jquery.js",
+          "app/scripts/cordova.js",
+          "app/scripts/lungo.js"
         ]
 
     stylesheets:
       joinTo:
-        "www/css/app.css": /^app/
-        "www/css/vendor.css": /^(bower_components|vendor)/
+        "css/app.css": /^app/
+        "css/vendor.css": /^(bower_components|vendor)/
       order:
         before: [
           "bower_components/lungo/lungo.css"
         ]
 
     templates:
-      joinTo: "www/js/layout.js"
+      joinTo: "js/layout.js"
