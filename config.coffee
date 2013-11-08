@@ -9,8 +9,8 @@ exports.config =
   files:
     javascripts:
       joinTo:
-        "js/app.js": /^app/
-        "js/vendor.js": /^(bower_components|vendor)/
+        "www/js/app.js": /^app/
+        "www/js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
           "bower_components/jquery/jquery.js"
@@ -18,12 +18,12 @@ exports.config =
 
     stylesheets:
       joinTo:
-        "css/app.css": /^app/
-        "css/vendor.css": /^(bower_components|vendor)/
+        "www/css/app.css": /^app/
+        "www/css/vendor.css": /^(bower_components|vendor)/
       order:
         before: [
           "bower_components/lungo/lungo.css"
         ]
 
     templates:
-      joinTo: "js/layout.js"
+      joinTo: "www/js/layout.js"
