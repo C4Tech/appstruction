@@ -13,9 +13,7 @@ exports.config =
         "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
-          "bower_components/jquery/jquery.js",
-          "bower_components/quojs/quo.js",
-          "bower_components/lungo/lungo.js"
+          "bower_components/jquery/jquery.js"
         ]
 
     stylesheets:

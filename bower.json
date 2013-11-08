@@ -3,8 +3,22 @@
   "version": "0.1",
   "description": "Cole construction app",
   "dependencies": {
-    "jquery": "~2.0",
+    "lungo": "~2.2",
     "quojs": "~2.3",
-    "lungo": "~2.2"
+    "jquery": "~2.0"
+  },
+  "overrides": {
+    "lungo": {
+        "main": [
+            "lungo.js",
+            "lungo.css"
+        ],
+        "dependencies": {
+            "quojs": "~2.3"
+        }
+    },
+    "quojs": {
+        "main": "quojs.debug.js"
+    }
   }
 }
