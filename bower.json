@@ -11,7 +11,9 @@
     "lungo": {
         "main": [
             "lungo.js",
-            "lungo.css"
+            "lungo.css",
+            "lungo.icon.css",
+            "lungo.theme.css"
         ],
         "dependencies": {
             "quojs": "~2.3"
