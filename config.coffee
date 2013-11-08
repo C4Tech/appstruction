@@ -1,15 +1,31 @@
 exports.config =
   plugins:
     sass:
-      debug: 'comments'
+      debug: "comments"
+
+  paths:
+    public: "build"
+
   files:
     javascripts:
       joinTo:
-        'javascripts/app.js': /^app/
-        'javascripts/vendor.js': /^(bower_components)/
+        "js/app.js": /^app/
+        "js/vendor.js": /^(bower_components|vendor)/
+      order:
+        before: [
+          "bower_components/jquery/jquery.js",
+          "bower_components/quojs/quo.js",
+          "bower_components/lungo/lungo.js"
+        ]
+
     stylesheets:
       joinTo:
-        'stylesheets/app.css': /^(app|bower_components)/
-    templates:
-      joinTo: 'javascripts/app.js'
+        "css/app.css": /^app/
+        "css/vendor.css": /^(bower_components|vendor)/
+      order:
+        before: [
+          "bower_components/lungo/lungo.css"
+        ]
 
+    templates:
+      joinTo: "js/layout.js"

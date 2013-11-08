@@ -6,9 +6,8 @@
     "bower_components"
   ],
   "dependencies": {
-    "lungo": "~2.2",
     "jquery": "~2.0",
-    "cordova": "~3.0"
-  },
-  "overrides": {}
+    "quojs": "~2.3",
+    "lungo": "~2.2"
+  }
 }
