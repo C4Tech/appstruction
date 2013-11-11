@@ -14,6 +14,7 @@ exports.config =
       order:
         before: [
           "bower_components/jquery/jquery.js",
+          "bower_components/quojs/quo.debug.js",
           "app/scripts/cordova.js",
           "app/scripts/lungo.js"
         ]
