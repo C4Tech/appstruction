@@ -6,6 +6,9 @@ exports.config =
   paths:
     public: "build/www"
 
+  modules:
+    wrapper: false
+
   files:
     javascripts:
       joinTo:
@@ -14,7 +17,7 @@ exports.config =
       order:
         before: [
           "bower_components/jquery/jquery.js",
-          "bower_components/quojs/quo.debug.js",
+          "bower_components/quojs/quo.js",
           "app/scripts/cordova.js",
           "app/scripts/lungo.js"
         ]

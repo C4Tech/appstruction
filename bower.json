@@ -18,9 +18,6 @@
         "dependencies": {
             "quojs": "~2.3"
         }
-    },
-    "quojs": {
-        "main": "quojs.debug.js"
     }
   }
 }
