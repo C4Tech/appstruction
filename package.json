@@ -22,13 +22,5 @@
     "static-handlebars-brunch": "~0.1",
     "css-brunch": "~1.7",
     "clean-css-brunch": "~1.7"
-  },
-  "devDependencies": {
-      "mocha": "~1.14",
-      "chai": "~1.8",
-      "debug": "~0.7",
-      "rewire": "~1.1",
-      "mocha-phantomjs": "~3.1",
-      "phantomjs": "~1.9"
   }
 }
