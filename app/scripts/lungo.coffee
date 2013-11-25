@@ -18,4 +18,9 @@ Lungo.dom("nav > button").tap (e) ->
         Lungo.Router.section toSection
 
     if toArticle
-        Lungo.Router.article toArticle
+        if not toSection
+            parent = $$(this).parent("section")
+            toSection = parent.attr("id")
+            Lungo.Router.section toSection
+        Lungo.Router.article toSection, toArticle
+    true

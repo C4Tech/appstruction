@@ -11,17 +11,18 @@
 <body>
     <section id="home">
         <header data-title="home"></header>
+        <nav>
+            <button class="button" data-view-section="maker" data-view-article="concrete">Create new estimate</button>
+            <button class="button" data-view-section="loader">Load estimate</button>
+        </nav>
         <article id="start">
-            <a class="button" data-view-section="maker">Create new estimate
-            </a>
-            <a class="button" data-view-section="loader">Load estimate
-            </a>
+            <p>This is where we begin.</p>
         </article>
     </section>
 
     <section id="maker">
         <header data-back="home" data-title="Make an estimate"></header>
-        <article id="primary" data-view-article="concrete" class="active">
+        <article id="concrete">
             <p>Go to concrete</p>
         </article>
     </section>
