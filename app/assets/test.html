@@ -9,37 +9,28 @@
     <link rel="apple-touch-icon" href="icon.png" />
 </head>
 <body>
-    <section id="main">
-        <header data-title="Welcome!"></header>
+    <section id="home">
+        <header data-title="todo: Add home button"></header>
         <nav>
-            <button class="button" data-view-section="something" data-icon="forward">Skip It!</button>
-            <button class="button" data-view-article="second" data-icon="forward">Second!</button>
+            <button class="button" data-view-section="EstimateMaker">Create new estimate</button>
+            <button class="button" data-view-section="EstimateLoader">Load saved estimate</button>
         </nav>
-        <article id="home" class="active">
-            <label>Type in your name:</label>
-            <input type="text" id="name" />
-            <a href="#" class="button big red" id="submitButton">Submit</a>
-        </article>
-
-        <article id="second">
-            <p>This is the second article.</p>
-        </article>
     </section>
 
-    <section id="hello">
-        <header data-back="left" data-title="Welcome!"></header>
-        <div>This is a test</div>
-        <article>
-            <p id="hello-name">Hello name!</p>
-        </article>
-    </section>
-
-    <section id="something">
+    <section id="EstimateMaker">
         <header data-back="home" data-title="Welcome!"></header>
         <article id="somethingelse">
-            <p>This worked!</p>
+            <p>Make estimate</p>
         </article>
     </section>
+
+    <section id="EstimateLoader">
+        <header data-back="left" data-title="Menus Section"></header>
+        <article>
+            <p id="hello-name">load up estimate</p>
+        </article>
+    </section>
+
 
     <script src="js/vendor.js"></script>
     <script src="js/app.js"></script>
