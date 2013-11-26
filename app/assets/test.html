@@ -17,10 +17,8 @@
         </nav>
         <article id="start">
             <p>This is where we begin.</p>
-            <a class="button link" data-view-article="silly">Go to silly</a>
-        </article>
-        <article id="silly">
-            <p>This is where silliness begins.</p>
+            <a class="button link" data-view-section="maker">Go to maker</a>
+            <a class="button link" data-view-section="loader">Go to loader</a>
         </article>
     </section>
 
@@ -28,17 +26,40 @@
         <header data-back="home" data-title="Make an estimate"></header>
         <article id="concrete">
             <p>In Concrete.</p>
-            <a class="button" data-view-article="dirt">Go to dirt</a>
+            <a class="button" data-view-article="labor">Go to dirt</a>
         </article>
         <article id="dirt">
-            <p>Go to concrete</p>
+            <p>In dirt.</p>
+            <a class="button" data-view-article="labor">Go to labor</a>
+        </article>
+        <article id="labor">
+            <p>In labor.</p>
+            <a class="button" data-view-article="materials">Go to materials</a>
+        </article>
+        <article id="materials">
+            <p>In materials</p>
+            <a class="button" data-view-article="equipment">Go to equipment</a>
+        </article>
+        <article id="equipment">
+            <p>Equipment</p>
+            <a class="button" data-view-article="joboverview">Go to overview</a>
+        </article>
+        <article id="joboverview">
+            <p>in joboverview</p>
+            <a class="button" data-view-article="savejob">go to save</a>
+        </article>
+        <article id="savejob">
+            <p>in save job</p>
         </article>
     </section>
 
     <section id="loader">
         <header data-back="home" data-title="Load an estimate"></header>
-        <article>
-            <p id="hello-name" data-view-section="loader">load up estimate</p>
+        <article id="loaderhome">
+            <p data-view-article="loaddetail">load up estimate</p>
+        </article>
+         <article id="loaddetail">
+            <p>load up estimate</p>
         </article>
     </section>
 
