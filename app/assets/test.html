@@ -1,68 +1,217 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=0"
+    name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+
     <title>Hello Lungo</title>
-    <link rel="stylesheet" href="css/vendor.css" />
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="apple-touch-icon" href="icon.png" />
+    <link href="css/vendor.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="icon.png" rel="apple-touch-icon">
 </head>
+
 <body>
     <section id="home">
-        <header data-title="Home" class="extended"></header>
+        <header class="extended" data-title="Home"></header>
+
         <nav data-control="groupbar">
-            <a class="button" href="#!concrete" data-view-section="maker" data-view-article="concrete">Create new estimate</a>
-            <a class="button" href="#!loader" data-view-section="loader">Load estimate</a>
+            <a class="button" data-view-article="concrete" data-view-section=
+            "maker" href="#!concrete">Create new estimate</a> <a class="button"
+            data-view-section="loader" href="#!loader">Load estimate</a>
         </nav>
+
         <article id="start">
-            <p>This is where we begin.</p>
-            <a class="button link" data-view-section="maker">Go to maker</a>
-            <a class="button link" data-view-section="loader">Go to loader</a>
+            <p>This is where we begin.</p><a class="button link"
+            data-view-section="maker">Go to maker</a> <a class="button link"
+            data-view-section="loader">Go to loader</a>
         </article>
     </section>
 
     <section id="maker">
         <header data-back="home" data-title="Make an estimate"></header>
-            <article id="mainMenu" class="active">
-                <div class="form">
-                   <fieldset>
-                    <label>Select a job type</label>
-                    <select>
-                        <option value="1">Uno</option>
-                        <option value="2">Dos</option>
-                        <option value="3">Tres</option>
+
+        <article class="active" id="mainMenu">
+            <div class="form">
+                <fieldset>
+                    <label>Select a job type</label> <select>
+                        <option value="1">
+                            Uno
+                        </option>
+
+                        <option value="2">
+                            Dos
+                        </option>
+
+                        <option value="3">
+                            Tres
+                        </option>
                     </select>
-                    </label>
                 </fieldset>
-            </div>
-            <a class="button" data-view-article="concrete">Next</a>
+            </div><a class="button" data-view-article="concrete">Next</a>
         </article>
 
         <article id="concrete">
-            <p>In Concrete.</p>
-            <a class="button" data-view-article="labor">Go to dirt</a>
+            <p>In Concrete.</p><a class="button" data-view-article="labor">Go
+            to dirt</a>
+
+            <div class="form">
+                <fieldset>
+                    <label>Input</label> <input placeholder="value" type=
+                    "text"> <label>Input styled</label> <input class=
+                    "text align_right error" placeholder="value on right" type=
+                    "text"> <label>Select</label> <label class=
+                    "select"><select>
+                        <option value="1">
+                            HTML5
+                        </option>
+
+                        <option value="2">
+                            CSS3
+                        </option>
+
+                        <option value="3">
+                            JavaScript
+                        </option>
+                    </select></label> <label>Input date</label> <input class=
+                    "align_right" placeholder="Select finish" type="date"
+                    value="10/04/1980"> <label class="anchor">Example of touch
+                    checkbox</label> <input class="inline right" type=
+                    "checkbox">
+                </fieldset>
+            </div>
         </article>
+
         <article id="dirt">
-            <p>In dirt.</p>
-            <a class="button" data-view-article="labor">Go to labor</a>
+            <p>In dirt.</p><a class="button" data-view-article="labor">Go to
+            labor</a>
+
+            <div class="form">
+                <fieldset>
+                    <label>Input</label> <input placeholder="value" type=
+                    "text"> <label>Input styled</label> <input class=
+                    "text align_right error" placeholder="value on right" type=
+                    "text"> <label>Select</label> <label class=
+                    "select"><select>
+                        <option value="1">
+                            HTML5
+                        </option>
+
+                        <option value="2">
+                            CSS3
+                        </option>
+
+                        <option value="3">
+                            JavaScript
+                        </option>
+                    </select></label> <label>Input date</label> <input class=
+                    "align_right" placeholder="Select finish" type="date"
+                    value="10/04/1980"> <label class="anchor">Example of touch
+                    checkbox</label> <input class="inline right" type=
+                    "checkbox">
+                </fieldset>
+            </div>
         </article>
+
         <article id="labor">
-            <p>In labor.</p>
-            <a class="button" data-view-article="materials">Go to materials</a>
+            <p>In labor.</p><a class="button" data-view-article="materials">Go
+            to materials</a>
+
+            <div class="form">
+                <fieldset>
+                    <label>Input</label> <input placeholder="value" type=
+                    "text"> <label>Input styled</label> <input class=
+                    "text align_right error" placeholder="value on right" type=
+                    "text"> <label>Select</label> <label class=
+                    "select"><select>
+                        <option value="1">
+                            HTML5
+                        </option>
+
+                        <option value="2">
+                            CSS3
+                        </option>
+
+                        <option value="3">
+                            JavaScript
+                        </option>
+                    </select></label> <label>Input date</label> <input class=
+                    "align_right" placeholder="Select finish" type="date"
+                    value="10/04/1980"> <label class="anchor">Example of touch
+                    checkbox</label> <input class="inline right" type=
+                    "checkbox">
+                </fieldset>
+            </div>
         </article>
+
         <article id="materials">
-            <p>In materials</p>
-            <a class="button" data-view-article="equipment">Go to equipment</a>
+            <p>In materials</p><a class="button" data-view-article=
+            "equipment">Go to equipment</a>
+
+            <div class="form">
+                <fieldset>
+                    <label>Input</label> <input placeholder="value" type=
+                    "text"> <label>Input styled</label> <input class=
+                    "text align_right error" placeholder="value on right" type=
+                    "text"> <label>Select</label> <label class=
+                    "select"><select>
+                        <option value="1">
+                            HTML5
+                        </option>
+
+                        <option value="2">
+                            CSS3
+                        </option>
+
+                        <option value="3">
+                            JavaScript
+                        </option>
+                    </select></label> <label>Input date</label> <input class=
+                    "align_right" placeholder="Select finish" type="date"
+                    value="10/04/1980"> <label class="anchor">Example of touch
+                    checkbox</label> <input class="inline right" type=
+                    "checkbox">
+                </fieldset>
+            </div>
         </article>
+
         <article id="equipment">
-            <p>Equipment</p>
-            <a class="button" data-view-article="joboverview">Go to overview</a>
+            <p>Equipment</p><a class="button" data-view-article=
+            "joboverview">Go to overview</a>
+
+            <div class="form">
+                <fieldset>
+                    <label>Input</label> <input placeholder="value" type=
+                    "text"> <label>Input styled</label> <input class=
+                    "text align_right error" placeholder="value on right" type=
+                    "text"> <label>Select</label> <label class=
+                    "select"><select>
+                        <option value="1">
+                            HTML5
+                        </option>
+
+                        <option value="2">
+                            CSS3
+                        </option>
+
+                        <option value="3">
+                            JavaScript
+                        </option>
+                    </select></label> <label>Input date</label> <input class=
+                    "align_right" placeholder="Select finish" type="date"
+                    value="10/04/1980"> <label class="anchor">Example of touch
+                    checkbox</label> <input class="inline right" type=
+                    "checkbox">
+                </fieldset>
+            </div>
         </article>
+
         <article id="joboverview">
-            <p>in joboverview</p>
-            <a class="button" data-view-article="savejob">go to save</a>
+            <p>in joboverview</p><a class="button" data-view-article=
+            "savejob">go to save</a>
         </article>
+
         <article id="savejob">
             <p>in save job</p>
         </article>
@@ -70,15 +219,14 @@
 
     <section id="loader">
         <header data-back="home" data-title="Load an estimate"></header>
+
         <article id="loaderhome">
             <p data-view-article="loaddetail">load up estimate</p>
         </article>
-         <article id="loaddetail">
+
+        <article id="loaddetail">
             <p>load up estimate</p>
         </article>
-    </section>
-
-    <script src="js/vendor.js"></script>
-    <script src="js/app.js"></script>
+    </section><script src="js/vendor.js"></script><script src="js/app.js"></script>
 </body>
 </html>
