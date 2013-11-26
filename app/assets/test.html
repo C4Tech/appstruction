@@ -10,20 +10,25 @@
 </head>
 <body>
     <section id="home">
-        <header data-title="home"></header>
-        <nav>
-            <button class="button" data-view-section="maker" data-view-article="concrete">Create new estimate</button>
-            <button class="button" data-view-section="loader">Load estimate</button>
+        <header data-title="Home" class="extended"></header>
+        <nav data-control="groupbar">
+            <a class="button" href="#!concrete" data-view-section="maker" data-view-article="concrete">Create new estimate</a>
+            <a class="button" href="#!loader" data-view-section="loader">Load estimate</a>
         </nav>
         <article id="start">
             <p>This is where we begin.</p>
+            <a class="button link" data-view-article="silly">Go to silly</a>
+        </article>
+        <article id="silly">
+            <p>This is where silliness begins.</p>
         </article>
     </section>
 
     <section id="maker">
         <header data-back="home" data-title="Make an estimate"></header>
-        <article id="concrete" class="active">
-            <p data-view-article="dirt">Go to dirt</p>
+        <article id="concrete">
+            <p>In Concrete.</p>
+            <a class="button" data-view-article="dirt">Go to dirt</a>
         </article>
         <article id="dirt">
             <p>Go to concrete</p>

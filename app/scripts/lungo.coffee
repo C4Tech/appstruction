@@ -3,24 +3,25 @@ Lungo.init
     name: 'Hello Lungo'
     version: '0.1'
 
-Lungo.dom("#submitButton").tap (e) ->
-    name = Lungo.dom("#name").val()
-
-    Lungo.dom("#hello-name").html "Hello " + name + "!"
-
-    Lungo.Router.section "hello"
-
-Lungo.dom("nav > button").tap (e) ->
+navLink = (e) ->
     toSection = Lungo.dom(this).data "view-section"
     toArticle = Lungo.dom(this).data "view-article"
 
     if toSection
         Lungo.Router.section toSection
+    else
+        parent = Lungo.dom(this).parent "section"
+        toSection = parent.attr "id"
 
     if toArticle
-        if not toSection
-            parent = $$(this).parent("section")
-            toSection = parent.attr("id")
-            Lungo.Router.section toSection
         Lungo.Router.article toSection, toArticle
-    true
+    e
+
+Lungo.dom("button.link").tap navLink
+Lungo.dom("a").tap navLink
+
+Lungo.dom("#submitButton").tap (e) ->
+    name = Lungo.dom("#name").val()
+    Lungo.dom("#hello-name").html "Hello " + name + "!"
+    Lungo.Router.section "hello"
+
