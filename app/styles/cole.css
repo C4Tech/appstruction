@@ -1,0 +1,28 @@
+body > section > article, body > section > [data-control="pull"], body > section > article a, body > section > [data-control="pull"] a {
+color: white;
+}
+body * {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-ms-box-sizing: border-box;
+-o-box-sizing: border-box;
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+background-color:black;
+color:white;
+}
+
+body > section > header {
+background-color: black;
+}
+
+form input[type="text"], .form input[type="text"], form input[type="password"], .form input[type="password"], form input[type="date"], .form input[type="date"], form input[type="datetime"], .form input[type="datetime"], form input[type="email"], .form input[type="email"], form input[type="number"], .form input[type="number"], form input[type="search"], .form input[type="search"], form input[type="tel"], .form input[type="tel"], form input[type="time"], .form input[type="time"], form input[type="url"], .form input[type="url"], form select, .form select, form textarea, .form textarea, form label.select, .form label.select {
+background-color: black;
+color: white;
+}
+
+.form fieldset {
+background: black;
+border-bottom: none;
+}
