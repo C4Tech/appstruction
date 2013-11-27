@@ -26,3 +26,59 @@ color: white;
 background: black;
 border-bottom: none;
 }
+
+article .button {
+background-color: black;
+}
+
+nav[data-control=groupbar] > a:active {
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+-ms-box-shadow: none;
+-o-box-shadow: none;
+box-shadow: none;
+}
+
+body > section > nav[data-control=groupbar], body > section > footer {
+background-color: black;
+}
+
+body > aside > header > .title.centered, body > section > header > .title.centered, body > aside > footer > .title.centered, body > section > footer > .title.centered {
+background-color: #2f2f2f;
+}
+
+section > footer > nav > a, nav[data-control=groupbar] > a {
+color: white;
+-webkit-transition-property: color, box-shadow;
+-moz-transition-property: color, box-shadow;
+-ms-transition-property: color, box-shadow;
+-o-transition-property: color, box-shadow;
+transition-property: color, box-shadow;
+-webkit-transition-duration: 400ms;
+-moz-transition-duration: 400ms;
+-ms-transition-duration: 400ms;
+-o-transition-duration: 400ms;
+transition-duration: 400ms;
+-webkit-transition-timing-function: ease;
+-moz-transition-timing-function: ease;
+-ms-transition-timing-function: ease;
+-o-transition-timing-function: ease;
+transition-timing-function: ease;
+}
+
+body > section > header .title {
+-webkit-text-shadow: none;
+-moz-text-shadow: none;
+-ms-text-shadow: none;
+-o-text-shadow: none;
+text-shadow: none;
+width: 100%;
+}
+
+body > aside > header > .title.centered, body > section > header > .title.centered, body > aside > footer > .title.centered, body > section > footer > .title.centered {
+position: absolute;
+left: 0em;
+right: 0em;
+text-align: center;
+display: inline-block;
+}
