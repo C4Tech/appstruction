@@ -113,7 +113,31 @@ color: black;
 text-shadow: black;
 }
 
+.coleheader {
+color: black;
+-webkit-box-shadow: none;
+-moz-text-shadow: none;
+-ms-text-shadow: none;
+-o-text-shadow: none;
+text-shadow: none;
+}
+
 section header > nav:not(.on-right) a, section header > nav:not(.on-right) button {
 color: black;
 text-shadow: black;
 }
+
+body > section > header .title {
+text-shadow: none;
+}
+
+section header > nav:not(.on-right) a, section header > nav:not(.on-right) button {
+text-shadow: none;
+}
+
+body > section > header {
+background-color: black;
+-webkit-box-shadow: none;
+}
+nav[data-control=groupbar] > a.active, nav[data-control=groupbar] > a:active {
+-webkit-box-shadow: none;
