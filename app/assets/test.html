@@ -6,7 +6,7 @@
     name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
 
-    <title>Hello Lungo</title>
+    <title>Cole</title>
     <link href="css/vendor.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <link href="icon.png" rel="apple-touch-icon">
@@ -18,13 +18,13 @@
 
         <nav data-control="groupbar">
             <a class="button" data-view-article="mainMenu" data-view-section=
-            "maker" href="#!concrete">Create new estimate</a> <a class="button"
+            "makerOne" href="#!concrete">Create new estimate</a> <a class="button"
             data-view-section="loader" href="#!loader">Load estimate</a>
         </nav>
     </section>
 
-    <section id="maker">
-        <header data-back="home" data-title="Make an estimate"></header>
+    <section id="makerOne">
+        <header data-back="home" data-title="Maker One"></header>
 
         <article class="active" id="mainMenu">
             <div class="form">
@@ -43,8 +43,14 @@
                         </option>
                     </select>
                 </fieldset>
-            </div><a class="button" data-view-article="concrete">Next</a>
+            </div><a class="button" data-view-article="concrete"
+                    data-view-section="makerTwo"
+            >Next</a>
         </article>
+    </section>
+
+        <section id="makerTwo">
+        <header data-back="home" data-title="Maker Two"></header>
 
         <article id="concrete">
             <p>Concrete</p>
@@ -139,8 +145,14 @@
         </article>
 
         <article id="joboverview">
-            <p>in joboverview</p><a class="button" data-view-article=
-            "savejob">Next</a>
+            <fieldset>
+                     <input placeholder="Profit Margin" type=
+                    "text"> </input>
+            </fieldset>
+            <a class="button" data-view-article=
+            "savejob">Save</a>
+            <a class="button" data-view-article=
+            "mainMenu">Start Over</a>
         </article>
 
         <article id="savejob">
@@ -150,10 +162,6 @@
 
     <section id="loader">
         <header data-back="home" data-title="Load an estimate"></header>
-
-        <article id="loaderhome">
-            <p data-view-article="loaddetail">load up estimate</p>
-        </article>
 
         <article id="loaddetail">
             <p>load up estimate</p>

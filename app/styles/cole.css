@@ -67,11 +67,11 @@ transition-timing-function: ease;
 }
 
 body > section > header .title {
--webkit-text-shadow: none;
--moz-text-shadow: none;
--ms-text-shadow: none;
--o-text-shadow: none;
-text-shadow: none;
+-webkit-text-shadow: black;
+-moz-text-shadow: black;
+-ms-text-shadow: black;
+-o-text-shadow: black;
+text-shadow: black;
 width: 100%;
 }
 
@@ -81,4 +81,39 @@ left: 0em;
 right: 0em;
 text-align: center;
 display: inline-block;
+}
+
+body > aside > header > .title.centered, body > section > header > .title.centered, body > aside > footer > .title.centered, body > section > footer > .title.centered {
+background-color: black;
+}
+
+nav[data-control=groupbar] > a.active, nav[data-control=groupbar] > a:active {
+-webkit-box-shadow: black;
+-moz-box-shadow: black;
+-ms-box-shadow: black;
+-o-box-shadow: black;
+box-shadow: black;
+}
+
+body > section > header {
+background-color: black;
+-webkit-box-shadow: black;
+-moz-box-shadow: black;
+-ms-box-shadow: black;
+-o-box-shadow: black;
+box-shadow: black;
+}
+
+section header > nav:not(.on-right) a, section header > nav:not(.on-right) button {
+color: black;
+-webkit-text-shadow: black;
+-moz-text-shadow: black;
+-ms-text-shadow: black;
+-o-text-shadow: black;
+text-shadow: black;
+}
+
+section header > nav:not(.on-right) a, section header > nav:not(.on-right) button {
+color: black;
+text-shadow: black;
 }
