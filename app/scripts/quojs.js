@@ -1,4 +1,4 @@
-$$('#makerOne').tap(function() {
+$$('div').tap(function() {
     // affects "span" children/grandchildren
-    $$('#makerOne').style('color', 'red');
+    $$('div', this).style('color', 'red');
 });
