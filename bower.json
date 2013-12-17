@@ -20,7 +20,7 @@
     },
     "QuoJS": {
         "main": [
-            "quo.debug.js"
+            "quo.js"
         ]
     }
   }
