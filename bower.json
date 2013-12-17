@@ -15,8 +15,13 @@
             "lungo.theme.css"
         ],
         "dependencies": {
-            "quojs": "~2.3"
+            "QuoJS": "~2.3"
         }
+    },
+    "QuoJS": {
+        "main": [
+            "quo.debug.js"
+        ]
     }
   }
 }
