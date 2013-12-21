@@ -1,4 +1,4 @@
-function myFunction(var1,var2)
+function getSquareFeet(height,width,depth)
 {
-some code
+	return height * width * depth;
 }

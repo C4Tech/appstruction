@@ -1,4 +1,12 @@
-$$('div').tap(function() {
+$$('#test').tap(function() {
     // affects "span" children/grandchildren
-    $$(this).style('color', 'red');
+    alert("works");
+});
+
+$$('#concrete input[type=text]').tap(function() {
+    var x=5;
+    var y=5;
+    var z=5;
+    var answer = getSquareFeet(x, y, z);
+    $$('div.showcalculation').text(answer);
 });
