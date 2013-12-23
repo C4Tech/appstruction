@@ -112,16 +112,9 @@
 
         <article id="labor">
             <p>Labor</p>
-            <div class="form">
-
-                <fieldset>
-                    <fieldset>
-                        <input placeholder="Duration" type="text"></input>
-                        <input placeholder="Quantity" type="text"></input>
-                        <input placeholder="Rate" type="text"></input>
-                    </fieldset>
-                </fieldset>
-            </div>
+            <div id="labor_subtotals">
+            <div>
+            <div id="add_another_labor">Add another</div>
             <div id="showcalculationlabor">Calculate</div>
             <a class="button" data-view-article="materials">Next</a>
         </article>
@@ -130,9 +123,40 @@
             <p>Materials</p>
             <div class="form">
                 <fieldset>
-                    <input placeholder="Quantity" type="text"></input>
-                    <input placeholder="Price" type="text"></input>
-                    <input placeholder="Tax Rate" type="text"></input>
+                    <select>
+
+                        <option value="1">
+                            Wire(sheet)
+                        </option>
+
+                        <option value="2">
+                            Keyway (lf)
+                        </option>
+
+                        <option value="3">
+                            Stakes (ea.)
+                        </option>
+
+                        <option value="4">
+                            Cap (lf)
+                        </option>
+
+                        <option value="5">
+                            Dowells  (ea.)
+                        </option>
+
+                        <option value="6">
+                            2x8x20  (lf)
+                        </option>
+
+                        <option value="7">
+                            Misc
+                        </option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <input placeholder="Quantity" id="materials_quantity" type="text"></input>
+                    <input placeholder="Price" id="materials_price" type="text"></input>
                 </fieldset>
             </div>
             <div id="showcalculationmaterials">Calculate</div>

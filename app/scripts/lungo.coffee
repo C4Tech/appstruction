@@ -1,6 +1,6 @@
 # Start Lungo
 Lungo.init
-    name: 'Hello Lungo'
+    name: 'Cole'
     version: '0.1'
 
 navLink = (e) ->
@@ -20,8 +20,8 @@ navLink = (e) ->
 Lungo.dom("button.link").tap navLink
 Lungo.dom("a").tap navLink
 
-Lungo.dom("#submitButton").tap (e) ->
-    name = Lungo.dom("#name").val()
-    Lungo.dom("#hello-name").html "Hello " + name + "!"
-    Lungo.Router.section "hello"
+#Lungo.dom("#submitButton").tap (e) ->
+#    name = Lungo.dom("#name").val()
+#    Lungo.dom("#hello-name").html "Hello " + name + "!"
+#    Lungo.Router.section "hello"
 

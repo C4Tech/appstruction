@@ -16,9 +16,26 @@ $$(document).on('change', '#concreteForm', function() {
     $$('#showcalculationconcrete').text(answer);
 });
 
+$$(document).on('load', '#labor_subtotals', function() {
+    alert("hi there");
+});
+
 $$(document).on('change', '#equipment', function() {
     var equipQuantity =$$('#equipment_quantity_1').val();
     var equipRate =$$('#equipment_rate_1').val();
     var answer = equipQuantity * equipRate;
     $$('#showcalculationequipment').text(answer);
+});
+
+$$(document).on('change', '#materials', function() {
+    var materials_quantity =$$('#materials_quantity').val();
+    console.log(materials_quantity);
+    var materials_price =$$('#materials_price').val();
+    console.log(materials_price);
+    var answer = materials_quantity * materials_price;
+    $$('#showcalculationmaterials').text(answer);
+});
+
+$$('#add_another_labor').tap(function() {
+    alert(getLaborDiv(4));
 });
