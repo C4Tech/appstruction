@@ -1,4 +1,4 @@
-getLaborDiv = (x) -> "<div id='labor_subdiv_" + x + "' class='form'>
+getLaborDiv = (x) -> "<div id='labor_subdiv_" + x + "' class='form subdiv'>
                 <fieldset>
                     <select>
                         <option value='1'>
@@ -22,13 +22,13 @@ getLaborDiv = (x) -> "<div id='labor_subdiv_" + x + "' class='form'>
                     </select>
                 </fieldset>
                 <fieldset>
-                        <input placeholder='Number' id='labor_number_" + x +  "' type='text'></input>
+                        <input placeholder='Number'  id='labor_number_" + x +  "' type='text'></input>
                         <input placeholder='Unit' id='labor_unit_" + x +  "' type='text'></input>
                         <input placeholder='Rate' id='labor_rate_" + x +  "' type='text'></input>
                 </fieldset>        
             </div>"
 
-getMaterialsDiv = (x) -> "<div id='materials_subdiv_" + x + "' class='form'>
+getMaterialsDiv = (x) -> "<div id='materials_subdiv_" + x + "' class='form subdiv'>
                 <fieldset>
                     <select>
 
@@ -64,7 +64,50 @@ getMaterialsDiv = (x) -> "<div id='materials_subdiv_" + x + "' class='form'>
                 <fieldset>
                     <input placeholder='Quantity' id='materials_quantity_" + x + "' type='text'></input>
                     <input placeholder='Price' 
-                    id='materials_quantity_" + x + "' 
+                    id='materials_price_" + x + "' 
                     type='text'></input>
                 </fieldset>
             </div>"
+
+
+getEquipmentDiv = (x) ->  "<div id='equipment_subdiv_" + x + "' class='form subdiv'>
+                <fieldset>
+
+                    <select>
+
+                        <option value='1'>
+                            Dump Truck
+                        </option>
+
+                        <option value='2'>
+                            Excavator
+                        </option>
+
+                        <option value='3'>
+                            Bobcat
+                        </option>
+
+                        <option value='4'>
+                            C pump
+                        </option>
+
+                        <option value='5'>
+                            Piles
+                        </option>
+
+                        <option value='6'>
+                            Trial
+                        </option>
+
+                        <option value='7'>
+                            Util Truck
+                        </option>
+
+                    </select>
+                </fieldset>
+
+                <fieldset>
+                    <input id='equipment_quantity_" + x + "' placeholder='Quantity'  type='text'></input>
+                    <input id='equipment_rate_" + x + "' placeholder='Rate' type='text'></input>
+                </fieldset>
+            </div>"           
