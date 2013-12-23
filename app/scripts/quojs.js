@@ -28,12 +28,12 @@ $$(document).on('change', '#equipment', function() {
 });
 
 $$(document).on('change', '#materials', function() {
-    var answer = getMaterialSubDivCost(1);
+    var answer = getSubTotalMaterials();
     $$('#showcalculationmaterials').text(answer);
 });
 
 $$('#add_another_labor').tap(function() {
-    $$('#labor_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
+    $$('#labor_subtotals').append(getLaborDiv(laborSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
     laborSubDivs = laborSubDivs + 1;
 
 });
@@ -44,6 +44,6 @@ $$('#add_another_equipment').tap(function() {
 });
 
 $$('#add_another_materials').tap(function() {
-    $$('#materials_subtotals').html(html + getMaterialsDiv(materialsSubDivs));
+    $$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
     materialsSubDivs = materialsSubDivs + 1;
 });
