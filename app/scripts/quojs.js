@@ -40,3 +40,8 @@ $$('#add_another_labor').tap(function() {
     var html = $$('#labor_subtotals').html();
     $$('#labor_subtotals').html(html + getLaborDiv(1));
 });
+
+$$('#add_another_materials').tap(function() {
+    var html = $$('#materials_subtotals').html();
+    $$('#materials_subtotals').html(html + getMaterialsDiv(1));
+});
