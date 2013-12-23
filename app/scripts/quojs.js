@@ -3,10 +3,11 @@ $$('#test').tap(function() {
     alert("works");
 });
 
-$$('#concrete input[type=text]').tap(function() {
-    var x=5;
+$$('#concrete_quantity').tap(function() {
+    var quantity=$$('#concrete_quantity').val();
     var y=5;
     var z=5;
-    var answer = getSquareFeet(x, y, z);
-    $$('div.showcalculation').text(answer);
+    var answer = getSquareFeet(quantity, y, z);
+    alert(answer);
+    $$('#showcalculationconcrete').text(answer);
 });
