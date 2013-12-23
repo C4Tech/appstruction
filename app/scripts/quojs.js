@@ -37,5 +37,6 @@ $$(document).on('change', '#materials', function() {
 });
 
 $$('#add_another_labor').tap(function() {
-    alert(getLaborDiv(4));
+    var html = $$('#labor_subtotals').html();
+    $$('#labor_subtotals').html(html + getLaborDiv(1));
 });

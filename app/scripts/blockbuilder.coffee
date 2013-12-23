@@ -1,4 +1,4 @@
-getLaborDiv = (x) -> "<div class='form'>
+getLaborDiv = (x) -> "<div id='labor_subdiv_" + x + "' class='form'>
                 <fieldset>
                     <select>
                         <option value='1'>
@@ -22,8 +22,8 @@ getLaborDiv = (x) -> "<div class='form'>
                     </select>
                 </fieldset>
                 <fieldset>
-                        <input placeholder='Number' id='labor_number' type='text'></input>
-                        <input placeholder='Unit' id='labor_unit' type='text'></input>
-                        <input placeholder='Rate' id='labor_rate' type='text'></input>
+                        <input placeholder='Number' id='labor_number_" + x +  "' type='text'></input>
+                        <input placeholder='Unit' id='labor_unit_" + x +  "' type='text'></input>
+                        <input placeholder='Rate' id='labor_rate_" + x +  "' type='text'></input>
                 </fieldset>        
             </div>"
