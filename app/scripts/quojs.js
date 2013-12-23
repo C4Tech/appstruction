@@ -4,10 +4,13 @@ $$('#test').tap(function() {
 });
 
 $$('#concrete_quantity').tap(function() {
-    var quantity=$$('#concrete_quantity').val();
-    var y=5;
-    var z=5;
-    var answer = getSquareFeet(quantity, y, z);
-    alert(answer);
+    var depth=$$('#concrete_depth').val();
+    console.log(depth);
+    var width=$$('#concrete_width').val();
+    console.log(width);
+    var height=$$('#concrete_length').val();
+    console.log(height);
+    var answer = getSquareFeet(depth, width, height);
+    
     $$('#showcalculationconcrete').text(answer);
 });
