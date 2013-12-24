@@ -1,14 +1,12 @@
 $$(document).on('change', '#concreteForm', function() {
     var depth=$$('#concrete_depth').val();
-    console.log(depth);
     var width=$$('#concrete_width').val();
-    console.log(width);
     var height=$$('#concrete_length').val();
-    console.log(height);
-    var squareFeet = getSquareFeet(depth, width, height);
     var quantity =$$('#concrete_quantity').val();
-    var answer = squareFeet * quantity;
-    $$('#showcalculationconcrete').text(answer);
+    var totalConcrete = depth * width * height * quantity;
+    var concrete_price = $$('#concrete_price').val();
+    var totalAmt = totalConcrete * concrete_price;
+    $$('#showcalculationconcrete').text(totalAmt);
 });
 
 $$(document).on('change', '#equipment', function() {
@@ -16,9 +14,14 @@ $$(document).on('change', '#equipment', function() {
     $$('#showcalculationequipment').text(answer);
 });
 
-$$(document).on('change', '#labor', function() {
-    var answer = getSubTotalLabor();
-    $$('#showcalculationlabor').text(answer);
+$$(document).on('change', '#equipment', function() {
+    var answer = getSubTotalEquipment();
+    $$('#showcalculationequipment').text(answer);
+});
+
+$$(document).on('change', '#makerTwo', function() {
+    var answer = getGrandTotal();
+    $$('#grand_total').text(answer);
 });
 
 $$(document).on('change', '#materials', function() {
@@ -40,4 +43,8 @@ $$('#add_another_equipment').tap(function() {
 $$('#add_another_materials').tap(function() {
     $$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
     materialsSubDivs = materialsSubDivs + 1;
+});
+
+$$('#makerTwo').ready(function() {
+    resetJobMaker();
 });

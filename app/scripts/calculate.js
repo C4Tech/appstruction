@@ -1,17 +1,3 @@
-function getMaterialSubDivCost(subDivNumber)
-{
-	var materials_quantity =$$('#materials_quantity_' + subDivNumber).val();
-    var materials_price =$$('#materials_price_' + subDivNumber).val();
-    return materials_quantity * materials_price;
-}
-
-function getEquipmentSubDivCost(subDivNumber)
-{
-	var equipment_quantity =$$('#equipment_quantity_' + subDivNumber).val();
-    var equipment_rate =$$('#equipment_rate_' + subDivNumber).val();
-    return equipment_quantity * equipment_rate;
-}
-
 function getSubTotalMaterials()
 {
 	runningTotal = 0;
@@ -49,6 +35,27 @@ function getSubTotalLabor()
     return runningTotal;
 }
 
-var equipmentSubDivs=1;
-var laborSubDivs=1;
-var materialsSubDivs=1;
+function getGrandTotal()
+{
+	
+	var equipment = $$('#showcalculationequipment').html();
+	var concrete = $$('#showcalculationconcrete').html();
+	var labor = $$('#showcalculationlabor').html();
+	var materials = $$('#showcalculationmaterials').html();
+	var dirt = $$('#showcalculationdirt').html();
+    return equipment + concrete + labor + materials + dirt;
+
+}
+
+function resetJobMaker(){
+	$$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
+    $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs));
+    $$('#labor_subtotals').append(getLaborDiv(laborSubDivs));
+    equipmentSubDivs = equipmentSubDivs + 1; 
+    laborSubDivs = laborSubDivs + 1;
+    materialsSubDivs = materialsSubDivs + 1; 
+}
+
+var equipmentSubDivs=0;  
+var laborSubDivs=0;
+var materialsSubDivs=0;
