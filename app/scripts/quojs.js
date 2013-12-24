@@ -14,9 +14,9 @@ $$(document).on('change', '#equipment', function() {
     $$('#showcalculationequipment').text(answer);
 });
 
-$$(document).on('change', '#equipment', function() {
-    var answer = getSubTotalEquipment();
-    $$('#showcalculationequipment').text(answer);
+$$(document).on('change', '#labor', function() {
+    var answer = getSubTotalLabor();
+    $$('#showcalculationlabor').text(answer);
 });
 
 $$(document).on('change', '#makerTwo', function() {

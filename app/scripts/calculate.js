@@ -43,7 +43,7 @@ function getGrandTotal()
 	var labor = $$('#showcalculationlabor').html();
 	var materials = $$('#showcalculationmaterials').html();
 	var dirt = $$('#showcalculationdirt').html();
-    return equipment + concrete + labor + materials + dirt;
+    return parseInt(equipment) + parseInt(concrete) + parseInt(labor) + parseInt(materials) + parseInt(dirt);
 
 }
 
@@ -51,11 +51,8 @@ function resetJobMaker(){
 	$$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
     $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs));
     $$('#labor_subtotals').append(getLaborDiv(laborSubDivs));
-    equipmentSubDivs = equipmentSubDivs + 1; 
-    laborSubDivs = laborSubDivs + 1;
-    materialsSubDivs = materialsSubDivs + 1; 
 }
 
-var equipmentSubDivs=0;  
-var laborSubDivs=0;
-var materialsSubDivs=0;
+var equipmentSubDivs=2;  
+var laborSubDivs=2;
+var materialsSubDivs=2;
