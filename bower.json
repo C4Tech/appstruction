@@ -4,7 +4,7 @@
   "description": "Cole construction app",
   "dependencies": {
     "lungo": "~2.2",
-    "quojs": "~2.3",    
+    "quojs": "~2.3"  
   },
   "overrides": {
     "lungo": {
