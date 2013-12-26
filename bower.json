@@ -4,7 +4,8 @@
   "description": "Cole construction app",
   "dependencies": {
     "lungo": "~2.2",
-    "quojs": "~2.3"  
+    "quojs": "~2.3",
+    "backbone":"1.1.0"  
   },
   "overrides": {
     "lungo": {
@@ -21,6 +22,19 @@
     "QuoJS": {
         "main": [
             "quo.js"
+        ]
+    },
+    "backbone": {
+        "main": [
+            "backbone.js"
+        ],
+        "dependencies": {
+            "underscore": "1.5.2"
+        }
+    },
+    "underscore": {
+        "main": [
+            "underscore.js"
         ]
     }
   }
