@@ -42,7 +42,8 @@ function getGrandTotal()
 	var concrete = $$('#showcalculationconcrete').html();
 	var labor = $$('#showcalculationlabor').html();
 	var materials = $$('#showcalculationmaterials').html();
-    return parseInt(equipment) + parseInt(concrete) + parseInt(labor) + parseInt(materials);
+	var dirt = $$('#showcalculationdirt').html();
+    return parseInt(equipment) + parseInt(concrete) + parseInt(labor) + parseInt(materials) + parseInt(dirt);
 
 }
 
