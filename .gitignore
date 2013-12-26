@@ -27,3 +27,4 @@ tmp/
 build/www/
 build/test/
 bower_components/
+buildAndTest.sh

@@ -141,3 +141,12 @@ background-color: black;
 }
 nav[data-control=groupbar] > a.active, nav[data-control=groupbar] > a:active {
 -webkit-box-shadow: none;
+}
+
+.subdiv.form
+{ 
+border-width: 1px;
+border-color: white;
+border-style: solid;
+margin-bottom:1px;
+}
