@@ -24,3 +24,18 @@ var EquipmentSubtotal = Backbone.Model.extend({
 	}
   }
 });
+
+function getEquipmentSubDivObject(equipmentSubDivs)
+{
+  var subDivRate = $$('#equipment_rate_' + equipmentSubDivs).val();
+  var subDivQuantity = $$('#equipment_quantity_' + equipmentSubDivs).val();
+  var one = new EquipmentSubtotal({
+      rate : subDivRate,
+      quantity: subDivQuantity
+  });
+
+  return one;
+
+}
+
+    

@@ -35,12 +35,8 @@ $$('#add_another_labor').tap(function() {
 });
 
 $$('#add_another_equipment').tap(function() {
-    var subDivRate = $$('#equipment_rate_' + equipmentSubDivs).val();
-    var subDivQuantity = $$('#equipment_quantity_' + equipmentSubDivs).val();
-    var one = new EquipmentSubtotal({
-        rate : subDivRate,
-        quantity: subDivQuantity
-    });
+
+    var one = getEquipmentSubDivObject(equipmentSubDivs);
     if (!one.isValid()) {
         alert(one.validationError);
     }
