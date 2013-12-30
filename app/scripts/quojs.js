@@ -32,12 +32,23 @@ $$(document).on('change', '#materials', function() {
 $$('#add_another_labor').tap(function() {
     $$('#labor_subtotals').append(getLaborDiv(laborSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
     laborSubDivs = laborSubDivs + 1;
-
 });
 
 $$('#add_another_equipment').tap(function() {
-    $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
-    equipmentSubDivs = equipmentSubDivs + 1;
+    var subDivRate = $$('#equipment_rate_' + equipmentSubDivs).val();
+    var subDivQuantity = $$('#equipment_quantity_' + equipmentSubDivs).val();
+    var one = new EquipmentSubtotal({
+        rate : subDivRate,
+        quantity: subDivQuantity
+    });
+    if (!one.isValid()) {
+        alert(one.validationError);
+    }
+    else{
+        alert('golden');
+        $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
+        equipmentSubDivs = equipmentSubDivs + 1;
+    }
 });
 
 $$('#add_another_materials').tap(function() {

@@ -5,37 +5,38 @@
   "dependencies": {
     "lungo": "~2.2",
     "quojs": "~2.3",
-    "backbone":"1.1.0"  
+    "backbone": "1.1.0",
+    "jquery": "~2.0.3"
   },
   "overrides": {
     "lungo": {
-        "main": [
-            "lungo.js",
-            "lungo.css",
-            "lungo.icon.css",
-            "lungo.theme.css"
-        ],
-        "dependencies": {
-            "QuoJS": "~2.3"
-        }
+      "main": [
+        "lungo.js",
+        "lungo.css",
+        "lungo.icon.css",
+        "lungo.theme.css"
+      ],
+      "dependencies": {
+        "QuoJS": "~2.3"
+      }
     },
     "QuoJS": {
-        "main": [
-            "quo.js"
-        ]
+      "main": [
+        "quo.js"
+      ]
     },
     "backbone": {
-        "main": [
-            "backbone.js"
-        ],
-        "dependencies": {
-            "underscore": "1.5.2"
-        }
+      "main": [
+        "backbone.js"
+      ],
+      "dependencies": {
+        "underscore": "1.5.2"
+      }
     },
     "underscore": {
-        "main": [
-            "underscore.js"
-        ]
+      "main": [
+        "underscore.js"
+      ]
     }
   }
 }

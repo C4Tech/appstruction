@@ -24,12 +24,3 @@ var EquipmentSubtotal = Backbone.Model.extend({
 	}
   }
 });
-
-var one = new EquipmentSubtotal({
-  title : "Chapter One: The Beginning"
-});
-
-
-one.on("invalid", function(model, error) {
-  	alert(model.get(error));
-});
