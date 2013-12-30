@@ -9,14 +9,22 @@ $$(document).on('change', '#concreteForm', function() {
     $$('#showcalculationconcrete').text(totalAmt);
 });
 
-$$(document).on('change', '#equipment', function() {
+function resetEquipmentSubtotal(){
     var answer = getSubTotalEquipment();
     $$('#showcalculationequipment').text(answer);
+}
+
+function resetLaborSubtotal(){
+    var answer = getSubTotalLabor();
+    $$('#showcalculationlabor').text(answer);
+}
+
+$$(document).on('change', '#equipment', function() {
+    resetEquipmentSubtotal();
 });
 
 $$(document).on('change', '#labor', function() {
-    var answer = getSubTotalLabor();
-    $$('#showcalculationlabor').text(answer);
+    resetLaborSubtotal();
 });
 
 $$(document).on('change', '#makerTwo', function() {
@@ -30,26 +38,41 @@ $$(document).on('change', '#materials', function() {
 });
 
 $$('#add_another_labor').tap(function() {
-    $$('#labor_subtotals').append(getLaborDiv(laborSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
-    laborSubDivs = laborSubDivs + 1;
+    var one = getLaborSubDivObject(laborSubDivs);
+    if (!one.isValid()){
+        alert(one.validationError);
+        resetLaborSubDiv(laborSubDivs);
+        resetLaborSubtotal();
+    }
+    else{
+        laborSubDivs = laborSubDivs + 1;
+        $$('#labor_subtotals').append(getLaborDiv(laborSubDivs)); 
+    }
 });
 
 $$('#add_another_equipment').tap(function() {
-
     var one = getEquipmentSubDivObject(equipmentSubDivs);
     if (!one.isValid()) {
         alert(one.validationError);
+        resetEquipmentSubDiv(equipmentSubDivs);
+        resetEquipmentSubtotal();
     }
     else{
-        alert('golden');
-        $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"
         equipmentSubDivs = equipmentSubDivs + 1;
+        $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"     
     }
 });
 
 $$('#add_another_materials').tap(function() {
-    $$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
-    materialsSubDivs = materialsSubDivs + 1;
+    var one = getMaterialsSubDivObject(materialsSubDivs);
+    if (!one.isValid()) {
+        alert(one.validationError);
+        resetMaterialsSubDiv(materialsSubDivs); //reset the div to null vals
+    }
+    else{
+        materialsSubDivs = materialsSubDivs + 1;
+        $$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
+    }
 });
 
 $$('#makerTwo').ready(function() {
