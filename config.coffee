@@ -16,7 +16,9 @@ exports.config =
         "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
+          "bower_components/underscore/underscore.js",
           "bower_components/quojs/quo.js",
+          "bower_components/jquery/jquery.js",
           "app/scripts/cordova.js",
           "app/scripts/lungo.js"
         ]
