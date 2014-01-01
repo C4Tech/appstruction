@@ -45,6 +45,7 @@ $$('#add_another_labor').tap(function() {
         resetLaborSubtotal();
     }
     else{
+        laborDivs.add(one);
         laborSubDivs = laborSubDivs + 1;
         $$('#labor_subtotals').append(getLaborDiv(laborSubDivs)); 
     }
