@@ -59,6 +59,7 @@ $$('#add_another_equipment').tap(function() {
         resetEquipmentSubtotal();
     }
     else{
+        eqipmentDivs.add(one);
         equipmentSubDivs = equipmentSubDivs + 1;
         $$('#equipment_subtotals').append(getEquipmentDiv(equipmentSubDivs)); //the parameter is used to set id="equipment_rate_equipmentSubDivs", as in id="equipment_rate_3"     
     }
@@ -71,6 +72,7 @@ $$('#add_another_materials').tap(function() {
         resetMaterialsSubDiv(materialsSubDivs); //reset the div to null vals
     }
     else{
+        materialsDivs.add(one);
         materialsSubDivs = materialsSubDivs + 1;
         $$('#materials_subtotals').append(getMaterialsDiv(materialsSubDivs));
     }
