@@ -150,3 +150,21 @@ function resetLaborSubDiv(laborSubDivs){
   var rte = document.getElementById('labor_rate_' + laborSubDivs);
   rte.value = null;
 }   
+
+var LaborDivCollection = Backbone.Collection.extend({
+  model: LaborSubtotal
+});
+
+var laborDivs = new LaborDivCollection();
+
+var EquipmentDivCollection = Backbone.Collection.extend({
+  model: EquipmentSubtotal
+});
+
+var equipmentDivs = new EquipmentDivCollection();
+
+var MaterialsDivCollection = Backbone.Collection.extend({
+  model: MaterialsSubtotal
+});
+
+var materialsDivs = new MaterialsDivCollection();
