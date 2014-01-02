@@ -7,8 +7,7 @@ exports.config =
     public: "build/www"
 
   modules:
-    wrapper: 'amd'
-    definition: 'amd'
+    wrapper: false
 
   files:
     javascripts:
@@ -17,11 +16,10 @@ exports.config =
         "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
-          "bower_components/require/require.js",
           "bower_components/underscore/underscore.js",
           "bower_components/quojs/quo.js",
           "bower_components/jquery/jquery.js",
-          "bower_components/backbone-localstorage/backbone-localstorage.js",
+          "bower_components/backbone/backbone.js",
           "app/scripts/cordova.js",
           "app/scripts/lungo.js"
         ]
@@ -32,6 +30,7 @@ exports.config =
         "css/vendor.css": /^(bower_components|vendor)/
       order:
         before: [
+          "bower_components/cordova/cordova.css",
           "bower_components/lungo/lungo.css"
         ]
 

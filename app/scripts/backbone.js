@@ -1,3 +1,7 @@
+var SomeCollection = Backbone.Collection.extend({
+    localStorage: new Backbone.LocalStorage("SomeCollection")
+});
+
 var EquipmentSubtotal = Backbone.Model.extend({
   validate: function(attrs, options) {
     if (attrs.quantity){
