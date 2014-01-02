@@ -164,7 +164,8 @@ var EquipmentDivCollection = Backbone.Collection.extend({
 var equipmentDivs = new EquipmentDivCollection();
 
 var MaterialsDivCollection = Backbone.Collection.extend({
-  model: MaterialsSubtotal
+   localStorage: new Backbone.LocalStorage("SomeCollection"), // Unique name within your app.
+   model: MaterialsSubtotal
 });
 
 var materialsDivs = new MaterialsDivCollection();

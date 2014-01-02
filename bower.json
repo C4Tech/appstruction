@@ -3,11 +3,12 @@
   "version": "0.1",
   "description": "Cole construction app",
   "dependencies": {
-    "lungo": "~2.2",
+    "lungo": "~2.2.1",
     "quojs": "~2.3",
     "backbone": "~1.1",
     "jquery": "~2.0",
-    "underscore": "~1.5"
+    "underscore": "~1.5",
+    "backbone-localstorage": "~1.1.7"
   },
   "overrides": {
     "lungo": {
@@ -37,6 +38,11 @@
     "underscore": {
       "main": [
         "underscore.js"
+      ]
+    },
+     "backbone-localstorage": {
+      "main": [
+        "backbone-localstorage.js"
       ]
     }
   }

@@ -21,6 +21,7 @@
     "uglify-js-brunch": "~1.7",
     "static-handlebars-brunch": "~0.1",
     "css-brunch": "~1.7",
-    "clean-css-brunch": "~1.7"
+    "clean-css-brunch": "~1.7",
+    "backbone-localstorage": "~0.3.1"
   }
 }
