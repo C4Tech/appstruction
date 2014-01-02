@@ -2,6 +2,10 @@ exports.config =
   plugins:
     sass:
       debug: "comments"
+    coffeelint:
+      pattern: /^app\/.*\.coffee$/
+    jshint:
+      pattern: /^app\/.*\.js$/
 
   paths:
     public: "build/www"
