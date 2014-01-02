@@ -3,6 +3,7 @@ var SomeCollection = Backbone.Collection.extend({
 });
 
 var Job = Backbone.Model.extend({
+  localStorage: new Backbone.LocalStorage("cole-job")
 });
 
 var EquipmentSubtotal = Backbone.Model.extend({
