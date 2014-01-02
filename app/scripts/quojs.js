@@ -84,7 +84,7 @@ $$('#makerTwo').ready(function() {
 
 $$('#savejobbutton').tap(function() {
     var one = getJob();
-    Backbone.sync(create, one);
-    var two = Backbone.sync(read, one);
+    Backbone.sync('create', one);
+    var two = Backbone.sync('read', one);
     alert(two.name);
 });
