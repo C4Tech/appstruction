@@ -8,7 +8,8 @@
     "backbone": "~1.1",
     "jquery": "~2.0",
     "underscore": "~1.5",
-    "backbone-localstorage": "~1.1.7"
+    "backbone-localstorage": "moorinteractive/backbone-localstorage",
+    "requirejs": "~2.1.9"
   },
   "overrides": {
     "lungo": {
@@ -40,7 +41,12 @@
         "underscore.js"
       ]
     },
-     "backbone-localstorage": {
+    "requirejs": {
+      "main": [
+        "require.js"
+      ]
+    },
+    "backbone-localstorage": {
       "main": [
         "backbone-localstorage.js"
       ]
