@@ -3,7 +3,7 @@ var SomeCollection = Backbone.Collection.extend({
 });
 
 var Job = Backbone.Model.extend({
-})
+});
 
 var EquipmentSubtotal = Backbone.Model.extend({
   validate: function(attrs, options) {
