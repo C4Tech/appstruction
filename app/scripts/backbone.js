@@ -132,7 +132,14 @@ function getMaterialsSubDivObject(materialsSubDivs)
       price: subDivPrice
   });
   return one;
+}
 
+function getJob()
+{
+  var one = new Job({
+      name : "test"
+  });
+  return one;
 }
 
 function resetMaterialsSubDiv(materialsSubDivs){

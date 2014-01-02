@@ -81,3 +81,10 @@ $$('#add_another_materials').tap(function() {
 $$('#makerTwo').ready(function() {
     resetJobMaker();
 });
+
+$$('#savejobbutton').tap(function() {
+    var one = getJob();
+    Backbone.sync(create, one);
+    var two = Backbone.sync(read, one);
+    alert(two.name);
+});
