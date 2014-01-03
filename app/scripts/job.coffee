@@ -4,6 +4,8 @@ class JobModel extends Backbone.Model
 class JobCollection extends Backbone.Collection
     localStorage: new Backbone.LocalStorage("cole-job")
 
+allJobs = null
+
 getJob = ->
     new JobModel
         name : "test"
@@ -29,11 +31,6 @@ setJobTotal = ->
     $$('#grand_total').text calculateJob()
     true
 
-jobSaved = (model) ->
-    jobs = new JobCollection
-    allJobs = jobs.fetch()
-    console.log "Fetching jobs", allJobs
-
 $$(document).on 'change', '#makerTwo', ->
     setJobTotal()    
     true
@@ -44,13 +41,9 @@ $$('#makerTwo').ready ->
 
 $$('#savejobbutton').tap ->
     job = getJob()
-    job.save
-        success: (model, response, options) ->
-            console.log model, response, options
-            alert response
-            jobSaved()
-            Lungo.Router.article "savejob", "makerTwo"
-        error: (model, xhr, options) ->
-            console.log model, xhr, options
-            alert "Save failed"
+    job.save().done (res) ->
+        console.log "done", res
+        jobs = new JobCollection
+        allJobs = jobs.fetch().done (res) ->
+            console.log "all", res
     true
