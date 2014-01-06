@@ -1,11 +1,7 @@
 exports.config =
   plugins:
-    sass:
-      debug: "comments"
     coffeelint:
       pattern: /^app\/.*\.coffee$/
-    jshint:
-      pattern: /^app\/.*\.js$/
 
   paths:
     public: "build/www"
@@ -20,23 +16,13 @@ exports.config =
         "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
-          "bower_components/underscore/underscore.js",
-          "bower_components/quojs/quo.js",
-          "bower_components/jquery/jquery.js",
-          "bower_components/backbone/backbone.js",
-          "app/scripts/cordova.js",
-          "app/scripts/lungo.js"
+          "app/scripts/cordova.coffee"
+        ],
+        after: [
+          "app/scripts/lungo.coffee"
         ]
 
     stylesheets:
       joinTo:
         "css/app.css": /^app/
         "css/vendor.css": /^(bower_components|vendor)/
-      order:
-        before: [
-          "bower_components/cordova/cordova.css",
-          "bower_components/lungo/lungo.css"
-        ]
-
-    templates:
-      joinTo: "js/layout.js"

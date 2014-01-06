@@ -32,7 +32,8 @@
         "backbone.js"
       ],
       "dependencies": {
-        "underscore": "~1.5"
+        "underscore": "~1.5",
+        "jquery": "~2.0"
       }
     },
     "underscore": {
@@ -43,7 +44,10 @@
     "backbone-localstorage": {
       "main": [
         "backbone-localstorage.js"
-      ]
+      ],
+      "dependencies": {
+        "backbone": "~1.1"
+      }
     }
   }
 }
