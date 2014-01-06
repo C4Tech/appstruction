@@ -1,13 +1,5 @@
 class ConcreteModel extends AnotherModel
-    validate: (attrs, options) ->
-        pass = false
-        self = this
-        for field in ["quantity", "depth", "width", "length", "price"]
-            do (field) ->
-                pass = self.checkNumber attrs[field], field unless pass
-                null
-        pass = "" unless pass
-        pass
+    validateFields: ["quantity", "depth", "width", "length", "price"]
 
     calculate: ->
         cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price

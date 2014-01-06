@@ -1,13 +1,5 @@
 class EquipmentModel extends AnotherModel
-    validate: (attrs, options) ->
-        pass = false
-        self = this
-        for field in ["quantity", "rate"]
-            do (field) ->
-                pass = self.checkNumber attrs[field], field unless pass
-                null
-        pass = "" unless pass
-        pass
+    validateFields: ["quantity", "rate"]
 
 class EquipmentCollection extends Backbone.Collection
     model: EquipmentModel

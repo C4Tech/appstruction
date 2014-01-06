@@ -1,13 +1,5 @@
 class LaborModel extends AnotherModel
-    validate: (attrs, options) ->
-        pass = false
-        self = this
-        for field in ["number", "unit", "rate"]
-            do (field) ->
-                pass = self.checkNumber attrs[field], field unless pass
-                null
-        pass = "" unless pass
-        pass
+    validateFields: ["number", "unit", "rate"]
 
 class LaborCollection extends Backbone.Collection
     model: LaborModel

@@ -1,13 +1,5 @@
 class MaterialModel extends AnotherModel
-    validate: (attrs, options) ->
-        pass = false
-        self = this
-        for field in ["quantity", "price"]
-            do (field) ->
-                pass = self.checkNumber attrs[field], field unless pass
-                null
-        pass = "" unless pass
-        pass
+    validateFields: ["quantity", "price"]
 
 class MaterialCollection extends Backbone.Collection
     model: MaterialModel
