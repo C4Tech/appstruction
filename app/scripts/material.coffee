@@ -24,8 +24,8 @@ getMaterialsDiv = (x) ->
             </select>
         </fieldset>
         <fieldset>
-            <input placeholder='Quantity' id='materials_quantity_" + x + "' type='text'></input>
-            <input placeholder='Price' id='materials_price_" + x + "' type='text'></input>
+            <input placeholder='Quantity' id='materials_quantity_" + x + "' type='number'></input>
+            <input placeholder='Price' id='materials_price_" + x + "' type='number'></input>
         </fieldset>
     </div>"
 

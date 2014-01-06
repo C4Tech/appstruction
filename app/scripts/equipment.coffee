@@ -24,8 +24,8 @@ getEquipmentDiv = (x) ->
             </select>
         </fieldset>
         <fieldset>
-            <input id='equipment_quantity_" + x + "' placeholder='Quantity'  type='text'></input>
-            <input id='equipment_rate_" + x + "' placeholder='Rate' type='text'></input>
+            <input id='equipment_quantity_" + x + "' placeholder='Quantity'  type='number'></input>
+            <input id='equipment_rate_" + x + "' placeholder='Rate' type='number'></input>
         </fieldset>
     </div>"    
 

@@ -23,9 +23,9 @@ getLaborDiv = (x) ->
             </select>
         </fieldset>
         <fieldset>
-                <input placeholder='Number' id='labor_number_" + x +  "' type='text'></input>
-                <input placeholder='Unit' id='labor_unit_" + x +  "' type='text'></input>
-                <input placeholder='Rate' id='labor_rate_" + x +  "' type='text'></input>
+                <input placeholder='Number' id='labor_number_" + x +  "' type='number'></input>
+                <input placeholder='Unit' id='labor_unit_" + x +  "' type='number'></input>
+                <input placeholder='Rate' id='labor_rate_" + x +  "' type='number'></input>
         </fieldset>        
     </div>"
 
