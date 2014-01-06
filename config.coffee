@@ -16,7 +16,8 @@ exports.config =
         "js/vendor.js": /^(bower_components|vendor)/
       order:
         before: [
-          "app/scripts/cordova.coffee"
+          "app/scripts/cordova.coffee",
+          "app/scripts/backbone.coffee"
         ],
         after: [
           "app/scripts/lungo.coffee"

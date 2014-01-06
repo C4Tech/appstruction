@@ -1,18 +1,13 @@
-class LaborModel extends Backbone.Model
+class LaborModel extends AnotherModel
     validate: (attrs, options) ->
-        "You must enter a number" if !attrs.number?
-        "You must enter a number" if attrs.number==""
-        "Number can't be less than 0" if (attrs.number < 0)
-        "The number must be a number" if (isNaN(units.number))
-        "You must enter a unit" if !attrs.unit?
-        "You must enter a unit" if attrs.unit==""
-        "Units can't be less than 0" if (attrs.unit < 0)
-        "Units must be a number" if (isNaN(units.rate))
-        "You must enter a rate" if !attrs.rate?
-        "Rate can't be less than 0" if (attrs.rate < 0)
-        ""
-        "You must enter a rate" if attrs.rate==""
-        "Rate must be a number" if (isNaN(attrs.rate))
+        pass = false
+        self = this
+        for field in ["number", "unit", "rate"]
+            do (field) ->
+                pass = self.checkNumber attrs[field], field unless pass
+                null
+        pass = "" unless pass
+        pass
 
 class LaborCollection extends Backbone.Collection
     model: LaborModel
@@ -88,6 +83,7 @@ $$("#add_another_labor").tap ->
     lastRow = laborSubDivs
     
     row = getLaborObject lastRow
+    console.log row
     if (!row.isValid())
         alert row.validationError
         resetLaborRow row
