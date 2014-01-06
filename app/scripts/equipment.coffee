@@ -82,7 +82,7 @@ $$("#add_another_equipment").tap ->
         resetEquipmentRow lastRow
         setEquipmentSubtotal()
     else
-        eqipmentDivs.add row
+        equipmentDivs.add row
         lastRow++
         # @todo: make dynamic
         equipmentSubDivs++ 
