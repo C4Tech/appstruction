@@ -1,12 +1,18 @@
 class LaborModel extends Backbone.Model
     validate: (attrs, options) ->
         "You must enter a number" if !attrs.number?
+        "You must enter a number" if attrs.number==""
         "Number can't be less than 0" if (attrs.number < 0)
+        "The number must be a number" if (isNaN(units.number))
         "You must enter a unit" if !attrs.unit?
+        "You must enter a unit" if attrs.unit==""
         "Units can't be less than 0" if (attrs.unit < 0)
+        "Units must be a number" if (isNaN(units.rate))
         "You must enter a rate" if !attrs.rate?
-        "Quantity can't be less than 0" if (attrs.rate < 0)
+        "Rate can't be less than 0" if (attrs.rate < 0)
         ""
+        "You must enter a rate" if attrs.rate==""
+        "Rate must be a number" if (isNaN(attrs.rate))
 
 class LaborCollection extends Backbone.Collection
     model: LaborModel

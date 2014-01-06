@@ -1,10 +1,15 @@
 class MaterialModel extends Backbone.Model
     validate: (attrs, options) ->
         "You must enter a quantity" if !attrs.quantity?
+        "You must enter a quantity" if attrs.quantity==0
+        "You must enter a quantity" if attrs.quantity==""
+        "Quantity must be a number" if isNaN(attrs.quantity)
         "Quantity can't be less than 0" if (attrs.quantity < 0)
         "You must enter a price" if !attrs.price?
         "Price can't be less than 0" if (attrs.price < 0)
         ""
+        "Price must be a number" if isNaN(attrs.price)
+        "You must enter a quantity" if attrs.price==""
 
 class MaterialCollection extends Backbone.Collection
     model: MaterialModel

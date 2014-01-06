@@ -1,10 +1,14 @@
 class EquipmentModel extends Backbone.Model
     validate: (attrs, options) ->
         "You must enter a quantity" if !attrs.quantity?
+        "You must enter a quantity" if attrs.quantity==""
         "Quantity can't be less than 0" if (attrs.quantity < 0)
+        "Quantity must be a number" if (isNaN(attrs.quantity ))
+        "You must enter a rate" if attrs.rate==""
         "You must enter a rate" if !attrs.rate?
         "Rate can't be less than 0" if (attrs.rate < 0)
         ""
+        "Rate must be a number" if (isNaN(attrs.rate))
 
 class EquipmentCollection extends Backbone.Collection
     model: EquipmentModel
