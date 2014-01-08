@@ -1,5 +1,5 @@
-
-alert(typeof(JobModel))
-activeJob = new JobModel()
-
-square = (x) -> x * x
+activeJob = new JobModel(
+	materials: new MaterialCollection(),
+	labor: new LaborCollection(),
+	equipment: new EquipmentCollection()
+)
