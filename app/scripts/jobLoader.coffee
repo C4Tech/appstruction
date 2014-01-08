@@ -1,1 +1,1 @@
-getJobHTML = (x) -> "<ul><li><strong>" + x + "</strong></li></ul>"
+getJobHTML = (name, id) -> "<ul><li id='" + id + "' class='job_load_label'><strong>" + name + "</strong></li></ul>"

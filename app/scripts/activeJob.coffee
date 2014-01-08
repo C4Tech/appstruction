@@ -1,3 +1,6 @@
+$$('.job_load_label').tap -> 
+	alert "I knew it!" 
+
 activeJob = new JobModel(
 	materials: new MaterialCollection(),
 	labor: new LaborCollection(),

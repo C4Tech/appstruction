@@ -3,8 +3,7 @@ window.onload = function() {
     allJobs.fetch();
     var HTML = "";
     allJobs.forEach(function(entry) {
-        HTML = HTML + getJobHTML(entry.attributes.name);
-        console.log(entry.attributes.name);
+        HTML = HTML + getJobHTML(entry.attributes.name, entry.attributes.id);
     });
     $$('#loaddetail').html(HTML);
 };
