@@ -40,8 +40,7 @@ $$('#makerTwo').ready ->
     true
 
 $$('#savejobbutton').tap ->
-    job = getJob()
-    job.save().done (res) ->
+    activeJob.save().done (res) ->
         console.log "done", res
         jobs = new JobCollection
         allJobs = jobs.fetch().done (res) ->

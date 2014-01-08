@@ -78,6 +78,7 @@ $$("#add_another_equipment").tap ->
         setEquipmentSubtotal()
     else
         equipmentDivs.add row
+        activeJob.get('equipment').add(row)
         lastRow++
         # @todo: make dynamic
         equipmentSubDivs++ 
