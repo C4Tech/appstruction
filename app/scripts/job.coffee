@@ -38,11 +38,3 @@ $$(document).on 'change', '#makerTwo', ->
 $$('#makerTwo').ready ->
     resetJob()
     true
-
-$$('#savejobbutton').tap ->
-    activeJob.save().done (res) ->
-        console.log "done", res
-        jobs = new JobCollection
-        allJobs = jobs.fetch().done (res) ->
-            console.log "all", res
-    true

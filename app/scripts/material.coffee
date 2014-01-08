@@ -67,6 +67,11 @@ $$(document).on 'change', '#materials', ->
     true
 
 # @todo: convert to a View method
+$$('#materials_next_button').tap ->
+    # @todo: make dynamic
+    lastRow = materialsSubDivs
+
+# @todo: convert to a View method
 $$('#add_another_materials').tap ->
     # @todo: make dynamic
     lastRow = materialsSubDivs

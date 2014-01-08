@@ -22,7 +22,8 @@ exports.config =
           "app/scripts/equipment.coffee",
           "app/scripts/job.coffee",
           "app/scripts/activeJob.coffee",
-          "app/scripts/cordova.coffee"
+          "app/scripts/cordova.coffee",
+          "app/scripts/saveJob.js"
         ],
         after: [
           "app/scripts/lungo.coffee"
