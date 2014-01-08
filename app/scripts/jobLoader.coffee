@@ -1,0 +1,1 @@
+getJobHTML = (x) -> "<ul><li><strong>" + x + "</strong></li></ul>"

@@ -1,8 +1,10 @@
 window.onload = function() {
     var allJobs = new JobCollection;
     allJobs.fetch();
+    var HTML = "";
     allJobs.forEach(function(entry) {
+        HTML = HTML + getJobHTML(entry.attributes.name);
         console.log(entry.attributes.name);
-        Backbone.sync("delete", entry);
     });
+    $$('#loaddetail').html(HTML);
 };

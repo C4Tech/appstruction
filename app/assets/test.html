@@ -59,30 +59,7 @@
             </div>
 
             <div id="showcalculationconcrete" class="subtotal"></div>
-            <a class="button" data-view-article="labor">Next</a>
-        </article>
-
-        <article id="dirt">
-            <div class="form">
-                <fieldset>
-                    <label>Input</label>
-                    <input placeholder="value" type="text">
-                    <label>Input styled</label>
-                    <input class="text align_right error" placeholder="value on right" type="text">
-                    <label>Select</label>
-                    <label class="select">
-                        <select>
-                            <option value="1">HTML5</option>
-                            <option value="2">CSS3</option>
-                            <option value="3">JavaScript</option>
-                        </select>
-                    </label>
-                </fieldset>
-            </div>
-
-            <div id="showcalculationdirt" class="subtotal"></div>
-            <p>In dirt.</p>
-            <a class="button" data-view-article="labor">Next</a>
+            <a class="button" data-view-article="labor" id="concrete_next_button">Next</a>
         </article>
 
         <article id="labor">
@@ -90,7 +67,7 @@
             <div id="labor_subtotals"></div>
             <div id="add_another_labor">Add another</div>
             <div id="showcalculationlabor" class="subtotal"></div>
-            <a class="button" data-view-article="materials">Next</a>
+            <a class="button" data-view-article="materials" id="labor_next_button">Next</a>
         </article>
 
         <article id="materials">
@@ -98,7 +75,7 @@
             <div id="materials_subtotals"></div>
             <div id="add_another_materials">Add another</div>
             <div id="showcalculationmaterials" class="subtotal"></div>
-            <a class="button" data-view-article="equipment">Next</a>
+            <a id="materials_next_button" class="button" data-view-article="equipment">Next</a>
         </article>
 
         <article id="equipment">
@@ -106,44 +83,24 @@
             <div id="equipment_subtotals"></div>
             <div id="add_another_equipment">Add another</div>
             <div id="showcalculationequipment" class="subtotal"></div>
-            <a class="button" data-view-article="joboverview">Next</a>
+            <a id="equipment_next_button" class="button" data-view-article="joboverview">Next</a>
         </article>
 
         <article id="joboverview">
             <fieldset>
                 <input placeholder="Profit Margin" type="text"></input>
+                 <input placeholder="Job Name" type="text"></input>
             </fieldset>
             <div id="grand_total"></div>
             <a class="button" id="savejobbutton">Save</a>
             <a class="button" data-view-article="mainMenu">Start Over</a>
         </article>
 
-        <article id="savejob">
-            <p>in save job</p>
-        </article>
     </section>
 
     <section id="loader">
         <header data-back="home" data-title="Load an estimate"></header>
-
         <article id="loaddetail">
-            <fieldset>
-                <label>Select a job type</label>
-                <select>
-                    <option value="1">Slab</option>
-                    <option value="2">GB- H</option>
-                    <option value="3">GB - H1A</option>
-                </select>
-            </fieldset>
-
-            <ul>
-                <li>
-                    <strong>Job name</strong>
-                </li>
-                <li>
-                    <strong>Job name</strong>
-                </li>
-            </ul>
         </article>
     </section>
 
