@@ -3,6 +3,7 @@ class JobModel extends Backbone.Model
 
 class JobCollection extends Backbone.Collection
     localStorage: new Backbone.LocalStorage("cole-job")
+    url:'/jobs'
 
 allJobs = null
 
