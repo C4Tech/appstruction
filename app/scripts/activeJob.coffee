@@ -14,6 +14,7 @@ loadActiveJob = (job) ->
 loadLabor = (job) -> 
 	laborSubDivs = 2
 	laborObjects = job.attributes.labor
+	$$('#labor_subtotals').html('')
 	for l in laborObjects
 		laborHTML = getHTMLforLaborObject l, laborSubDivs
 		$$('#labor_subtotals').append(laborHTML)
