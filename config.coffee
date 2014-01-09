@@ -6,9 +6,6 @@ exports.config =
   paths:
     public: "build/www"
 
-  modules:
-    wrapper: false
-
   files:
     javascripts:
       joinTo:
@@ -35,3 +32,6 @@ exports.config =
       joinTo:
         "css/app.css": /^app/
         "css/vendor.css": /^(bower_components|vendor)/
+
+    templates:
+      joinTo: "js/app.js"

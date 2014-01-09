@@ -1,3 +1,5 @@
+AnotherModel = require "scripts/backbone"
+
 class JobModel extends Backbone.Model
     localStorage: new Backbone.LocalStorage("cole-job")
 

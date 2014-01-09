@@ -1,4 +1,4 @@
-class AnotherModel extends Backbone.Model
+module.exports = class AnotherModel extends Backbone.Model
     validateFields: []
 
     checkNumber: (value, label) ->

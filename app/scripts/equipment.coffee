@@ -1,3 +1,5 @@
+AnotherModel = require "scripts/backbone"
+
 class EquipmentModel extends AnotherModel
     validateFields: ["quantity", "rate"]
 

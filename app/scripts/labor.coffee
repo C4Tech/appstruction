@@ -1,117 +1,82 @@
-class LaborModel extends AnotherModel
-    validateFields: ["number", "unit", "rate"]
+LaborModel = require "scripts/labor.model"
+LaborView = require "scripts/labor.view"
 
-class LaborCollection extends Backbone.Collection
-    model: LaborModel
-    localStorage: new Backbone.LocalStorage("cole-labor")
+class Labor
+    view: {}
+    model: {}
+    count: 0
 
-laborDivs = new LaborCollection
-# @todo: make dynamic
-laborSubDivs = 2
+    get: (row = false, validate = false) ->
+        @model = false
+        lastRow = $$(".labor.subdiv").last().id
+        row = lastRow.match /[0-9]+$/ unless row
+        @_load row
 
-# @todo: convert to Handlebars template and Backbone View
-getHTMLforLaborObject = (x, subdivs) -> 
-    "<div id='labor_subdiv_" + subdivs + "' class='form subdiv'>
-        <fieldset>
-            <select>
-                <option value='1'>Finishers</option>
-                <option value='2'>Supervisors</option>
-                <option value='3'>Forms crp</option>
-                <option value='4'>Laborers</option>
-                <option value='5'>Driver</option>
-                <option value='6'>Operator</option>
-            </select>
-        </fieldset>
-        <fieldset>
-                <input placeholder='Number' id='labor_number_" + subdivs +  "' type='number' value='" + x.number+ "'></input>
-                <input placeholder='Unit' id='labor_unit_" + subdivs +  "' type='number' value='" + x.unit+ "'></input>
-                <input placeholder='Rate' id='labor_rate_" + subdivs +  "' type='number' value='" + x.rate+ "'></input>
-        </fieldset>        
-    </div>"
+        if (validate and !@model.isValid())
+            alert @model.validationError
+            @model = false
 
+        @model
 
-# @todo: convert to Handlebars template and Backbone View
-getBlankLaborHTML = (x) -> 
-    "<div id='labor_subdiv_" + x + "' class='form subdiv'>
-        <fieldset>
-            <select>
-                <option value='1'>Finishers</option>
-                <option value='2'>Supervisors</option>
-                <option value='3'>Forms crp</option>
-                <option value='4'>Laborers</option>
-                <option value='5'>Driver</option>
-                <option value='6'>Operator</option>
-            </select>
-        </fieldset>
-        <fieldset>
-                <input placeholder='Number' id='labor_number_" + x +  "' type='number'></input>
-                <input placeholder='Unit' id='labor_unit_" + x +  "' type='number'></input>
-                <input placeholder='Rate' id='labor_rate_" + x +  "' type='number'></input>
-        </fieldset>        
-    </div>"
+    reset: (row = false) ->
+        row = @count unless row
+        $$("#labor_number_#{row}").val null
+        $$("#labor_unit_#{row}").val null
+        $$("#labor_rate_#{row}").val null
+        @_load row
+        @view.model = @model
+        true
 
-getLaborObject = (rowId) ->
-    new LaborModel
-        number: $$("#labor_number_" + rowId).val()
-        unit: $$("#labor_unit_" + rowId).val()
-        rate : $$("#labor_rate_" + rowId).val()
+    calculate = ->
+        $$("#showcalculationlabor").text @calculate()
+        true
 
-# @todo: convert to a View method
-resetLaborRow = (rowId) ->
-    $$("#labor_number_" + rowId).val null
-    $$("#labor_unit_" + rowId).val null
-    $$("#labor_rate_" + rowId).val null
-    true
+    create: ->
+        @_new()
+        @_show()
+        $$("#labor_subtotals").append @view.el
+        true
 
-# @todo: convert to a Model method
-calculateLaborRow = (idx) ->
-    quantity = $$("#labor_number_" + idx).val()
-    unit = $$("#labor_unit_" + idx).val()
-    rate = $$("#labor_rate_" + idx).val()
-    cost = quantity * rate * unit
-    console.log "labor row ##{idx}: #{quantity} (#{unit}) @ #{rate} = #{cost}"
-    cost
+    _new: ->
+        @model = new LaborModel
+            number: null
+            unit: null
+            rate : null
 
-# @todo: convert to a Collection method
-calculateLabor = ->
-    total = 0
-    # @todo: make dynamic
-    total += calculateLaborRow(idx) for idx in [0...laborSubDivs+1]
-    console.log "labor total", total
-    total
+        @count++
+        true
 
-# @todo: convert to a View method
-setLaborSubtotal = ->
-    $$("#showcalculationlabor").text calculateLabor()
-    true
+    _load: (row = false) ->
+        row = @count unless row
+        @model = new LaborModel
+            number: $$("#labor_number_#{row}").val()
+            unit: $$("#labor_unit_#{row}").val()
+            rate : $$("#labor_rate_#{row}").val()
+        @view = new LaborView
+            model: @model
+        true
 
-# @todo: convert to a View method
-$$(document).on "change", "#labor", ->
-    setLaborSubtotal()
-    true
+    _show: (row = false) ->
+        row = @count unless row
+        @view = new LaborView
+            model: @model
+            id: "labor_subdiv_#{row}"
+            className: "labor subdiv form"
+        true
 
-# @todo: convert to a View method
-$$("#add_another_labor").tap ->
-    # @todo: make dynamic
-    lastRow = laborSubDivs
-    laborObject = getLaborObject lastRow
-    if (!laborObject.isValid())
-        alert laborObject.validationError
-        resetLaborRow laborObject
-        setLaborSubtotal()
-    else
-        activeJob.get('labor').add(laborObject)
-        laborDivs.add laborObject
-        addLaborHTMLfromLaborObject laborObject
-    return true
+    _calculateRow: (row = false) ->
+        row = @count unless row
+        quantity = $$("#labor_number_#{row}").val()
+        unit = $$("#labor_unit_#{row}").val()
+        rate = $$("#labor_rate_#{row}").val()
+        cost = quantity * rate * unit
+        console.log "labor row ##{row}: #{quantity} (#{unit}) @ #{rate} = #{cost}"
+        cost
 
-addLaborHTMLfromLaborObject = (laborObject) -> 
-    lastRow = laborSubDivs
-    lastRow++
-    # @todo: make dynamic
-    laborSubDivs++
-    # the parameter is used to set id="labor_rate_{{ rowNumber }}", as in id="labor_rate_3"
-    laborHTMLtoAdd = getLaborDivHTML lastRow
-    $$("#labor_subtotals").append laborHTMLtoAdd
+    _calculateAll = ->
+        total = 0
+        total += @_calculateRow(idx) for idx in [0...@count+1]
+        console.log "labor total", total
+        total
 
-    return true
+module.exports = new Labor

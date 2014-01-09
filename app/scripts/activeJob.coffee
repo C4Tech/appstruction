@@ -1,3 +1,6 @@
+Labor = require "scripts/labor"
+LaborCollection = require "scripts/labor.collection"
+
 class SearchView extends Backbone.View.extend
     initialize: ->
         @render()
@@ -50,3 +53,18 @@ activeJob = new JobModel(
 	name: 'Default',
 	profitMargin: 1.07	
 )
+
+# @todo: convert to a View method
+$$(document).on "change", "#labor", ->
+    LaborCollection.setTotal()
+    true
+
+# @todo: convert to a View method
+$$("#add_another_labor").tap ->
+	laborObject = Labor.get(false, true)
+    Labor.calculate()
+    if laborObject
+    	activeJob.get('labor').add(laborObject)
+    	Labor.create()
+
+    return true

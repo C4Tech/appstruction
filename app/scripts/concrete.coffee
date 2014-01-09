@@ -1,3 +1,5 @@
+AnotherModel = require "scripts/backbone"
+
 class ConcreteModel extends AnotherModel
     validateFields: ["quantity", "depth", "width", "length", "price"]
 

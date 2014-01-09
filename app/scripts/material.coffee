@@ -1,3 +1,5 @@
+AnotherModel = require "scripts/backbone"
+
 class MaterialModel extends AnotherModel
     validateFields: ["quantity", "price"]
 
