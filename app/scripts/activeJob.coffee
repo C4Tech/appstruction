@@ -1,9 +1,19 @@
+class SearchView extends Backbone.View.extend
+    initialize: ->
+        @render()
+    render: ->
+        template = Handlebars.compile $("#search_template").html()
+        @el.html template
+
 $$('.job_load_label').tap -> 
 	accounts = new JobCollection();
 	accounts.fetch()
 	modelss = accounts.models
 	activeJob = getJobByID this.id, modelss
-	loadActiveJob activeJob
+	mySearchView = new SearchView
+	mySearchView.initialize
+	$$('#search_container').html(mySearchView)
+	return true
 
 loadActiveJob = (job) -> 
 	loadMaterials(job)
