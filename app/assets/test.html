@@ -17,24 +17,6 @@
   <input type="button" id="search_button" value="Search" />
 </script>
 
-<div id="search_container"></div>
-
-<script type="text/javascript">
-    SearchView = Backbone.View.extend({
-        initialize: function(){
-            this.render();
-        },
-        render: function(){
-            // Compile the template using underscore
-            var template = _.template( $("#search_template").html(), {} );
-            // Load the compiled HTML into the Backbone "el"
-            this.$el.html( template );
-        }
-    });
-    
-    var search_view = new SearchView({ el: $("#search_container") });
-</script>
-    
     <section id="home">
         <header class="extended coleheader" data-title="Home"></header>
 
@@ -131,6 +113,11 @@
         <header data-back="home" data-title="Load an estimate"></header>
         <article id="loaddetail">
         </article>
+
+        <article id="joboverview">
+            <div id="search_container"></div>
+        </article>
+
     </section>
 
     <script src="js/vendor.js"></script>
