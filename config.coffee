@@ -23,7 +23,8 @@ exports.config =
           "app/scripts/job.coffee",
           "app/scripts/activeJob.coffee",
           "app/scripts/cordova.coffee",
-          "app/scripts/saveJob.js"
+          "app/scripts/saveJob.js",
+          "app/scripts/backboneview.coffee"
         ],
         after: [
           "app/scripts/lungo.coffee"
