@@ -10,7 +10,7 @@ $$('.job_load_label').tap ->
 	accounts.fetch()
 	modelss = accounts.models
 	activeJob = getJobByID this.id, modelss
-	mySearchView = new SearchView
+	mySearchView = new SearchView()
 	mySearchView.initialize
 	$$('#search_container').html(mySearchView)
 	return true
