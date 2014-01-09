@@ -2,11 +2,34 @@ $$('.job_load_label').tap ->
 	accounts = new JobCollection();
 	accounts.fetch()
 	modelss = accounts.models
-	newActiveJob = getJobByID this.id, modelss
+	activeJob = getJobByID this.id, modelss
+	loadActiveJob activeJob
+
+loadActiveJob = (job) -> 
+	loadMaterials(job)
+	loadEquipment(job)
+	loadLabor(job)
+	loadConcrete(job)
+
+loadLabor = (job) -> 
+	laborSubDivs = 2
+	laborObjects = job.attributes.labor
+	for l in laborObjects
+		laborHTML = getHTMLforLaborObject l, laborSubDivs
+		$$('#labor_subtotals').append(laborHTML)
+
+loadEquipment = (job) -> 
+	console.log(job)
+
+loadMaterials = (job) -> 
+	console.log(job)
+
+loadConcrete = (job) -> 
+	console.log(job)
 
 getJobByID = (id, modells) -> 
 	for model in modells
-		return model 
+		return model if model.id=id
 	return "can't find model"
 
 activeJob = new JobModel(

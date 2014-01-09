@@ -15,7 +15,7 @@ getJob = ->
 resetJob = ->
     $$('#materials_subtotals').append getMaterialsDiv materialsSubDivs
     $$('#equipment_subtotals').append getEquipmentDiv equipmentSubDivs
-    $$('#labor_subtotals').append getLaborDiv laborSubDivs
+    $$('#labor_subtotals').append getBlankLaborHTML laborSubDivs
     true
 
 calculateJob = ->

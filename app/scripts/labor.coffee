@@ -10,7 +10,28 @@ laborDivs = new LaborCollection
 laborSubDivs = 2
 
 # @todo: convert to Handlebars template and Backbone View
-getLaborDiv = (x) -> 
+getHTMLforLaborObject = (x, subdivs) -> 
+    "<div id='labor_subdiv_" + subdivs + "' class='form subdiv'>
+        <fieldset>
+            <select>
+                <option value='1'>Finishers</option>
+                <option value='2'>Supervisors</option>
+                <option value='3'>Forms crp</option>
+                <option value='4'>Laborers</option>
+                <option value='5'>Driver</option>
+                <option value='6'>Operator</option>
+            </select>
+        </fieldset>
+        <fieldset>
+                <input placeholder='Number' id='labor_number_" + subdivs +  "' type='number' value='" + x.number+ "'></input>
+                <input placeholder='Unit' id='labor_unit_" + subdivs +  "' type='number' value='" + x.unit+ "'></input>
+                <input placeholder='Rate' id='labor_rate_" + subdivs +  "' type='number' value='" + x.rate+ "'></input>
+        </fieldset>        
+    </div>"
+
+
+# @todo: convert to Handlebars template and Backbone View
+getBlankLaborHTML = (x) -> 
     "<div id='labor_subdiv_" + x + "' class='form subdiv'>
         <fieldset>
             <select>
@@ -73,20 +94,24 @@ $$(document).on "change", "#labor", ->
 $$("#add_another_labor").tap ->
     # @todo: make dynamic
     lastRow = laborSubDivs
-    
-    row = getLaborObject lastRow
-    console.log row
-    if (!row.isValid())
-        alert row.validationError
-        resetLaborRow row
+    laborObject = getLaborObject lastRow
+    if (!laborObject.isValid())
+        alert laborObject.validationError
+        resetLaborRow laborObject
         setLaborSubtotal()
     else
-        activeJob.get('labor').add(row)
-        laborDivs.add row
-        lastRow++
-        # @todo: make dynamic
-        laborSubDivs++
-        # the parameter is used to set id="labor_rate_{{ rowNumber }}", as in id="labor_rate_3"
-        $$("#labor_subtotals").append getLaborDiv lastRow
+        activeJob.get('labor').add(laborObject)
+        laborDivs.add laborObject
+        addLaborHTMLfromLaborObject laborObject
+    return true
 
-    true
+addLaborHTMLfromLaborObject = (laborObject) -> 
+    lastRow = laborSubDivs
+    lastRow++
+    # @todo: make dynamic
+    laborSubDivs++
+    # the parameter is used to set id="labor_rate_{{ rowNumber }}", as in id="labor_rate_3"
+    laborHTMLtoAdd = getLaborDivHTML lastRow
+    $$("#labor_subtotals").append laborHTMLtoAdd
+
+    return true
