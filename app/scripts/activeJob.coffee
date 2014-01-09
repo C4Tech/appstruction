@@ -1,7 +1,13 @@
 $$('.job_load_label').tap -> 
 	accounts = new JobCollection();
-	myJob = accounts.fetch({ data: $.param({ id: '7a107f87-be69-5efa-107c-c045e75940cf'}) });
-	console.log(myJob)
+	accounts.fetch()
+	modelss = accounts.models
+	newActiveJob = getJobByID this.id, modelss
+
+getJobByID = (id, modells) -> 
+	for model in modells
+		return model 
+	return "can't find model"
 
 activeJob = new JobModel(
 	materials: new MaterialCollection(),
