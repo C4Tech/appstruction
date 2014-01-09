@@ -7,4 +7,4 @@ window.onload = (x) ->
         HTML = HTML + getJobHTML j.attributes.name, j.attributes.id 
     $$('#loaddetail').html(HTML);
 
-getJobHTML = (name, id) -> "<ul><li id='" + id + "' class='job_load_label'><strong>" + name + "</strong></li></ul>"
+getJobHTML = (name, id) -> "<ul><a><li id='" + id + "' class='job_load_label'><strong>" + name + "</strong></li></a></ul>"
