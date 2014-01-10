@@ -1,5 +1,6 @@
-module.exports = class AnotherModel extends Backbone.Model
+module.exports = class BaseModel extends Backbone.Model
     validateFields: []
+    cost: 0
 
     checkNumber: (value, label) ->
         result = false

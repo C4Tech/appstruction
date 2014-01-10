@@ -1,0 +1,15 @@
+<fieldset>
+    <select id="equipment-type-{{cid}}" name="type" class="equipment field type">
+        <option value="1">Dump Truck</option>
+        <option value="2">Excavator</option>
+        <option value="3">Bobcat</option>
+        <option value="4">C pump</option>
+        <option value="5">Piles</option>
+        <option value="6">Trial</option>
+        <option value="7">Util Truck</option>
+    </select>
+</fieldset>
+<fieldset>
+    <input type="number" placeholder="Quantity" id="equipment-quantity-{{cid}}" name="quantity" value="{{row.quantity}}" class="equipment field quantity"></input>
+    <input type="number" placeholder="Rate" id="equipment-rate-{{cid}}" name="rate" value="{{row.rate}}" class="equipment field rate"></input>
+</fieldset>
