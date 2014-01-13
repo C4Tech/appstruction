@@ -12,11 +12,10 @@ module.exports = class BaseModel extends Backbone.Model
         result
 
     validate: (attrs, opts) ->
-        pass = false
-        self = this
+        pass = true
         for field in @validateFields
-            do (field) ->
-                pass = self.checkNumber attrs[field], field unless pass
+            do (field) =>
+                pass = @checkNumber attrs[field], field if pass
                 null
         pass = "" unless pass
         pass

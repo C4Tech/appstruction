@@ -1,6 +1,6 @@
 Model = require "scripts/models/base"
 
-ConcreteModel = require "scripts/models/concrete"
+ConcreteCollection = require "scripts/collections/concrete"
 JobCollection = require "scripts/collections/job"
 LaborCollection = require "scripts/collections/labor"
 MaterialCollection = require "scripts/collections/material"
@@ -8,34 +8,31 @@ EquipmentCollection = require "scripts/collections/equipment"
 
 module.exports = class JobModel extends Model
     defaults:
-        "name": null
+        "name": "Default"
         "margin": 1.07
         "dirt": null
-        "concrete": null
-        "labor": null
-        "materials": null
-        "equipment": null
+        "concrete": new ConcreteCollection
+        "labor": new LaborCollection
+        "materials": new MaterialCollection
+        "equipment": new EquipmentCollection
 
     validateFields: [
         "name"
         "margin"
     ]
-    
-    initialize: ->
-        @parse {}
-
 
     parse: (data) ->
-        concrete = data.concrete if data.concrete? else {}
-        data.concrete = new ConcreteModel concrete
-        
-        labor = data.labor if data.labor? else {}
+        concrete = labor = materials = equipment = {}
+        concrete = data.concrete if data.concrete?
+        data.concrete = new ConcreteCollection concrete
+
+        labor = data.labor if data.labor?
         data.labor = new LaborCollection labor
 
-        materials = data.materials if data.materials? else {}
+        materials = data.materials if data.materials?
         data.materials = new MaterialCollection materials
 
-        equipment = data.equipment if data.equipment? else {}
+        equipment = data.equipment if data.equipment?
         data.equipment = new EquipmentCollection equipment
 
         data

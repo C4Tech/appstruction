@@ -26,30 +26,3 @@ function getActiveJob() {
     });
     return activeJob;
 }
-
-function getActiveMaterialsCollection() {
-    var output = new MaterialCollection();
-    for (var i = 2; i < materialsSubDivs; i++) {
-        var materialsObj = getMaterialObject(i);
-        output.add(materialsObj);
-    }
-    return output;
-}
-
-function getActiveEquipmentCollection() {
-    var output = new EquipmentCollection();
-    for (var i = 2; i < equipmentSubDivs; i++) {
-        var equipmentObject = getEquipmentObject(i);
-        output.add(equipmentObject);
-    }
-    return output;
-}
-
-function getActiveLaborCollection() {
-    var output = new LaborCollection();
-    for (var i = 2; i < laborSubDivs; i++) {
-        var laborObject = getLaborObject(i);
-        output.add(laborObject);
-    }
-    return output;
-}
