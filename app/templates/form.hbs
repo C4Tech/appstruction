@@ -1,1 +1,12 @@
-<a class="button next" href="#{{url}}">Next</a>
+<p>{{title}}</p>
+
+<div class="{{type}} {{type}}-items"></div>
+<div class="{{type}} cost"></div>
+
+{{#if multiple}}
+    <button class="{{type}} add" data-type="{{type}}">Add another</button>
+{{/if}}
+
+{{#if next}}
+    <a class="button next" href="#{{next}}">Next</a>
+{{/if}}

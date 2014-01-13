@@ -1,9 +1,9 @@
 {
-  "name": "package-name",
-  "author": "Your Name",
-  "version": "0.0.1",
+  "name": "cole-construction",
+  "author": "C4 Tech and Design",
+  "version": "0.2.0",
   "homepage": "",
-  "description": "Package description",
+  "description": "A Cordova-based app for calculating the total cost of a concrete pouring job.",
   "repository": {
     "type": "git",
     "url": ""
@@ -13,7 +13,9 @@
   },
   "scripts": {
     "start": "brunch watch --server",
-    "test": "brunch test"
+    "test": "brunch test",
+    "postinstall": "bower install",
+    "postupdate": "bower prune; bower update"
   },
   "dependencies": {
     "coffee-script-brunch": "~1.7",

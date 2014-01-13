@@ -3,82 +3,70 @@ body
         box-sizing border-box
         margin 0
         padding 0
-        background-color black
-        color white
 
-    > section
-        &.show 
-            display: block
-
-        > article,
-        > [data-control="pull"]
-            a
-                color white
-
-        > header
-            background-color black
-
-        > footer,
-        nav[data-control=groupbar]
-            background-color black
+a
+    color white
 
 
-    > aside,
-    > section
-        > header,
-        > footer
-            > .title.centered
-                background-color black
-                position absolute
-                left 0em
-                right 0em
-                text-align center
-                display inline-block
-
-    > section
-        > header
-            background-color black
-            box-shadow none
-
-            .title
-                text-shadow none
-                width 100%
-
-form, .form
-    input[type="text"],
-    input[type="password"],
-    form input[type="date"],
-    input[type="datetime"],
-    input[type="email"],
-    input[type="number"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="url"],
-    select,
-    textarea,
-    label.select
-        background-color black
-        color white
-
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+select,
+textarea,
+label.select
     fieldset
-        background black
         border-bottom none
 
-    &.subdiv
+    &.field
         margin-bottom 1px
         border-width 1px
         border-color white
         border-style solid
 
+header
+    min-height 2.5em
+    box-shadow none
 
-article
-    .button
-        background-color black
-
-nav[data-control=groupbar]
-    > a
+    a.back
+        display block
         color white
+        text-decoration none
+
+        &:visited
+            color white
+
+    .title
+        text-shadow none
+        width 100%
+
+// Override jQuery Mobile CSS
+.ui-overlay-a,
+.ui-page-theme-a
+    background black
+    color white
+    text-shadow none
+
+    button,
+    .button
+        display inline-block
+        margin 1em
+        padding 1em
+        border 1px solid white
+        border-radius 1em
+        color white
+        background blue
+        text-decoration none
+
+        &:visited
+            color white
+
         transition-property color, box-shadow
         transition-duration 400ms
         transition-timing-function ease
@@ -87,22 +75,16 @@ nav[data-control=groupbar]
         &.active
             box-shadow none
 
-section
-    > footer
-    > nav
-    > a
-        color white
-        transition-property color, box-shadow
-        transition-duration 400ms
-        transition-timing-function ease
 
-    header
-        > nav:not(.on-right)
-            a,
-            button
-                color black
-                text-shadow none
+.centered
+    position absolute
+    left 0em
+    right 0em
+    text-align center
+    display inline-block
 
-.coleheader
-    color black
-    text-shadow none
+.clearfix:after
+    content ""
+    display table
+    clear both
+

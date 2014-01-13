@@ -1,0 +1,15 @@
+<fieldset>
+    <select id="materials-type-{{cid}}" name="type" class="materials field type">
+        <option value="1">Wire(sheet)</option>
+        <option value="2">Keyway (lf)</option>
+        <option value="3">Stakes (ea.)</option>
+        <option value="4">Cap (lf)</option>
+        <option value="5">Dowells  (ea.)</option>
+        <option value="6">2x8x20  (lf)</option>
+        <option value="7">Misc</option>
+    </select>
+</fieldset>
+<fieldset>
+    <input type="number" placeholder="Quantity" id="materials-quantity-{{cid}}" name="quantity" value="{{row.quantity}}" class="materials field quantity"></input>
+    <input type="number" placeholder="Price" id="materials-price-{{cid}}" name="price" value="{{row.price}}" class="materials field price"></input>
+</fieldset>

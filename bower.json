@@ -3,30 +3,21 @@
   "version": "0.1",
   "description": "Cole construction app",
   "dependencies": {
-    "lungo": "~2.2",
-    "quojs": "~2.3",
-    "backbone": "~1.1",
     "jquery": "~2.0",
+    "jquery-mobile-bower": "~1.4.0",
     "underscore": "~1.5",
-    "backbone.localstorage": "~1.1",
-    "jquery-mobile": "~1.4.0"
+    "backbone": "~1.1",
+    "backbone.localstorage": "~1.1"
   },
   "overrides": {
-    "lungo": {
+    "jquery-mobile-bower": {
       "main": [
-        "lungo.js",
-        "lungo.css",
-        "lungo.icon.css",
-        "lungo.theme.css"
+        "js/jquery.mobile-1.4.0.js",
+        "css/jquery.mobile-1.4.0.css"
       ],
       "dependencies": {
-        "QuoJS": "~2.3"
+        "jquery": "~2.0"
       }
-    },
-    "QuoJS": {
-      "main": [
-        "quo.js"
-      ]
     },
     "backbone": {
       "main": [
@@ -50,5 +41,8 @@
         "backbone": "~1.1"
       }
     }
+  },
+  "resolutions": {
+    "jquery": "~2.0"
   }
 }
