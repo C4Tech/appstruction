@@ -8,9 +8,10 @@ module.exports = class LaborModel extends Model
         "rate": null
 
     validateFields: [
-        "number"
-        "unit"
-        "rate"
+        "number": "number"
+        "unit": "number"
+        "rate": "number"
+        "type": "select"
     ]
 
     calculate: ->

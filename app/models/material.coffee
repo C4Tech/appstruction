@@ -7,8 +7,9 @@ module.exports = class MaterialModel extends Model
         "type": null
 
     validateFields: [
-        "quantity"
-        "price"
+        "quantity": "number"
+        "price": "number"
+        "type": "select"
     ]
 
     calculate: ->

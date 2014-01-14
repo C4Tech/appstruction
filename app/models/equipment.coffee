@@ -7,8 +7,9 @@ module.exports = class EquipmentModel extends Model
         "rate": null
 
     validateFields: [
-        "quantity"
-        "rate"
+        "quantity": "number"
+        "rate": "number"
+        "type": "select"
     ]
 
     calculate: ->

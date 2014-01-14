@@ -11,14 +11,16 @@ module.exports = class JobModel extends Model
         "name": "Default"
         "margin": 1.07
         "dirt": null
+        "type": null
         "concrete": new ConcreteCollection
         "labor": new LaborCollection
         "materials": new MaterialCollection
         "equipment": new EquipmentCollection
 
     validateFields: [
-        "name"
-        "margin"
+        "margin": "number"
+        "name": "text"
+        "type": "select"
     ]
 
     parse: (data) ->

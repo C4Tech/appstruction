@@ -10,11 +10,11 @@ module.exports = class ConcreteModel extends Model
         "tax": null
 
     validateFields: [
-        "quantity"
-        "depth"
-        "width"
-        "length"
-        "price"
+        "quantity": "number"
+        "depth": "number"
+        "width": "number"
+        "length": "number"
+        "price": "number"
     ]
 
     calculate: ->

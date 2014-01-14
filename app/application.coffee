@@ -150,6 +150,12 @@ module.exports = class Application extends Backbone.Router
         # Handle application events
         $(document).on "change", "input, select", @_updateCost
 
+        $(document).on "change", "select.type", (event) ->
+            target = $ event.currentTarget
+            app._current.set "type", target.val()
+            console.log "View changed target to #{target.val()}"
+            true
+
         # Select saved job list item
         $(document).on "tap", "a.job-list", (evt) ->
             id = $(this).data "id"
