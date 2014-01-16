@@ -9,7 +9,7 @@ module.exports = class PageView extends Backbone.View
     back: null
     form: null
     article: null
-    _subView: null
+    _content: null
 
     initialize: (opts) ->
         @template = require "templates/page"
@@ -20,7 +20,7 @@ module.exports = class PageView extends Backbone.View
         @back = opts.back if opts.back?
         @links = opts.links if opts.links?
         @article = opts.article if opts.article?
-        @form = opts.form if opts.form?
+        @_content = opts.content if opts.content?
         @render()
         true
 
@@ -41,10 +41,8 @@ module.exports = class PageView extends Backbone.View
             article: @article
         console.log "Rendering page view"
 
-        if @form
+        if @_content?
             console.log "Appending form view"
-            @_subView = new FormView @form
-            @$el.append @_subView.$el
+            @$el.append @_content.$el
 
-        $("body").append @$el
-        true
+        @

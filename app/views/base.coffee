@@ -19,10 +19,3 @@ module.exports = class BaseView extends Backbone.View
         console.log "Rendering #{@type} into #{@container}"
         $(@container).append @$el
         @
-
-    # Event callback to add a new view on model creation
-    addOne: (item) ->
-        if not @_child
-            console.log "Adding view"
-            @_child = new @self
-        @_child

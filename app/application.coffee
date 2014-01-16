@@ -9,10 +9,6 @@ MaterialModel = require "models/material"
 PageView = require "views/page"
 FormView = require "views/form"
 TypeView = require "views/type"
-ConcreteView = require "views/concrete"
-LaborView = require "views/labor"
-EquipmentView = require "views/equipment"
-MaterialView = require "views/material"
 JobView = require "views/job"
 
 
@@ -22,21 +18,6 @@ module.exports = class Application extends Backbone.Router
 
     # Current job view
     _current: null
-
-    # Initial view seeds
-    _views:
-        type: new TypeView
-            model: {}
-        concrete: new ConcreteView
-            model: {}
-        labor: new LaborView
-            model: {}
-        materials: new MaterialView
-            model: {}
-        equipment: new EquipmentView
-            model: {}
-        job: new JobView
-            model: {}
 
     _pages: {}
 
@@ -84,6 +65,7 @@ module.exports = class Application extends Backbone.Router
             article:
                 id: "start"
                 content: ""
+        $("body").append @$el
         $.mobile.changePage page.$el, {changeHash: false}
         true
 
@@ -91,19 +73,30 @@ module.exports = class Application extends Backbone.Router
         console.log "Loading #{component} component page"
 
         # Create the page only once
-        if not @_pages[component]?
+        if not @_pages[type]?
+            # Form component
+            view = null
+            collection = switch type
+                when "concrete", "labor", "materials", "equipment" then @_current.get(type)
+                else null
+
+            if collection
+                view = new CollectionFormView
+                    type: type
+                    title: type
+                    collection: collection
+                    next: @_steps[type]
+
             # Create the page
-            @_pages[component] = new PageView
-                id: component
+            @_pages[type] = new PageView
+                id: type
                 title: "Job Builder"
                 back:
                     url: "home"
                     title: "Home"
-                form:
-                    type: component
-                    next: @_steps[component]
-                    container: "##{component}"
+                content: view
 
+            $("body").append @$el
             # Add the first component row
             @_addComponent component
 
@@ -119,6 +112,7 @@ module.exports = class Application extends Backbone.Router
                 url: "home"
                 title: "Home"
 
+        $("body").append @$el
         jobOpen = require "templates/job-open"
         $(".page").append jobOpen()
         $.mobile.changePage page.$el, {changeHash: false}
@@ -225,7 +219,6 @@ module.exports = class Application extends Backbone.Router
             when type is "job" then @_current
             else {}
 
-        @_views[type].addOne model
         if model.attributes? and type isnt "job"
             @_current.get(type).push model
         true
