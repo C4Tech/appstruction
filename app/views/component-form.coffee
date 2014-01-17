@@ -8,11 +8,13 @@ module.exports = class ComponentFormView extends ComponentView
         super opts
 
         # Set template
-        @templateFile = "templates/#{@type}.form"
-        @template = require @templateFile
+        @template = require "templates/component.form"
 
         # Add attributes
         @className = "#{@type} #{@type}-form #{@type}-form-item"
+
+        # Re-create the element name
+        @setName()
 
         # Bind the auto-update of the model when the view is altered
         _.bindAll @, "refresh"

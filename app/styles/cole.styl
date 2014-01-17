@@ -1,4 +1,13 @@
+// Custom mixins
+center()
+    margin-left auto
+    margin-right auto
+
 body
+    background black
+    color white
+    text-shadow none
+
     *
         box-sizing border-box
         margin 0
@@ -8,16 +17,7 @@ a
     color white
 
 
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
+input,
 select,
 textarea,
 label.select
@@ -46,42 +46,31 @@ header
         text-shadow none
         width 100%
 
-// Override jQuery Mobile CSS
-.ui-overlay-a,
-.ui-page-theme-a
-    background black
+button,
+.button
+    display inline-block
+    margin 1em
+    padding 1em
+    border 1px solid white
+    border-radius 1em
     color white
-    text-shadow none
+    background blue
+    text-decoration none
 
-    button,
-    .button
-        display inline-block
-        margin 1em
-        padding 1em
-        border 1px solid white
-        border-radius 1em
+    &:visited
         color white
-        background blue
-        text-decoration none
 
-        &:visited
-            color white
+    transition-property color, box-shadow
+    transition-duration 400ms
+    transition-timing-function ease
 
-        transition-property color, box-shadow
-        transition-duration 400ms
-        transition-timing-function ease
-
-        &:active,
-        &.active
-            box-shadow none
-
+    &:active,
+    &.active
+        box-shadow none
 
 .centered
-    position absolute
-    left 0em
-    right 0em
+    center()
     text-align center
-    display inline-block
 
 .clearfix:after
     content ""

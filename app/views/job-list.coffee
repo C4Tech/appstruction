@@ -1,7 +1,17 @@
-View = require "views/base"
+ComponentView = require "views/component"
 
-module.exports = class JobView extends View
-    name: "job"
-    tagName: "li"
-    className: "job-list"
-    templateFile: "job.list.row"
+module.exports = class JobListView extends ComponentView
+    initialize: (opts) ->
+        super opts
+
+        # Set template
+        @template = require "templates/job.list"
+        
+        # Add attributes
+        @className = "#{@type} #{@type}-list #{@type}-list-item"
+
+        # Re-create the element name
+        @setName()
+
+        # Return nothing
+        null

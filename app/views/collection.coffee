@@ -1,24 +1,24 @@
+BaseView = require "views/base"
 ComponentView = require "views/component"
 
-module.exports = class CollectionView extends Backbone.View
-    # The model/collection type to use
-    type: "collection"
-
-    # The class to use for auto-creating child views
-    child: ComponentView
-
-    # Our children views
-    _children: []
-
-    # Have we rendered yet?
-    _rendered = false
-
+module.exports = class CollectionView extends BaseView
     # Our constructor
     initialize: (opts) ->
         # Set some variables
-        @type = opts.type if opts.type?
+        @type = if opts.type? then opts.type else "collection"
         @className = "#{@type}-collection"
+
         @child = opts.child if opts.child?
+        @child = if @child? then @child else ComponentView
+
+        # Our children views
+        @_children = []
+
+        # Have we rendered yet?
+        @_rendered = false
+
+        # Re-create the element name
+        @setName()
 
         # Instantiate views for each model already in collection
         @collection.each @add
@@ -41,10 +41,7 @@ module.exports = class CollectionView extends Backbone.View
 
         # Append all of the rendered children
         _(@_children).each (child) =>
-            @$el.append child.render().$el
-
-        # Activate jQuery mobile stuff
-        @$el.enhanceWithin()
+            @$(".items").append child.render().$el
 
         # Return this
         @
@@ -59,26 +56,26 @@ module.exports = class CollectionView extends Backbone.View
         @_children.push child
 
         # Append rendered child for output
-        @$el.append child.render().$el if @_rendered
-
-        # Activate jQuery mobile stuff
-        @$el.enhanceWithin()
+        @$(".items").append child.render().$el if @_rendered
 
         # Return nothing
         null
 
     # Event callback to remove a view when a model is removed from the collection
-    remove: (model) =>
+    remove: (model) ->
         # Find the view to remove by model
         orphan = _(@_children).select (child) ->
             child.model is model
         orphan = orpan.unshift()
 
+        # Stop child from listening to events
+        orphan.stopListening()
+
         # Remove child from own collection
         @_children = _(@_children).without orphan
 
         # Remove child from browser
-        @$(orphan.el).remove() if @_rendered
+        orphan.$el.remove() if @_rendered
 
         # Return nothing
         null

@@ -1,5 +1,3 @@
-FormView = require "views/form"
-
 module.exports = class PageView extends Backbone.View
     tagName: "section"
     className: "page"
@@ -8,41 +6,45 @@ module.exports = class PageView extends Backbone.View
     links: []
     back: null
     form: null
-    article: null
-    _content: null
+    text: null
+    subView: null
 
     initialize: (opts) ->
-        @template = require "templates/page"
+        @section = require "templates/page"
         @header = require "templates/header"
         @nav = require "templates/nav"
 
         @title = opts.title if opts.title?
         @back = opts.back if opts.back?
         @links = opts.links if opts.links?
-        @article = opts.article if opts.article?
-        @_content = opts.content if opts.content?
-        @render()
+        @text = opts.text if opts.text?
+        @subView = opts.subView if opts.subView?
         true
 
     # Render the template
     render: ->
-        header = @header
-            title: @title
-            back: @back
-        console.log "Rendering page header"
-        @$el.html header
+        @$el.empty()
 
-        nav = @nav
-            links: @links
-        console.log "Rendering page nav"
-        @$el.append nav
+        if @title? or @back?
+            header = @header
+                title: @title
+                back: @back
+            console.log "Rendering page header"
+            @$el.append header
 
-        @$el.append @template
-            article: @article
-        console.log "Rendering page view"
+        if @links.length > 0
+            nav = @nav
+                links: @links
+            console.log "Rendering page nav"
+            @$el.append nav
 
-        if @_content?
+        if @text?
+            @$el.append @section
+                text: @text
+            console.log "Rendering page view"
+
+        if @subView?
             console.log "Appending form view"
-            @$el.append @_content.$el
+            @$el.append @subView.render().$el
 
         @

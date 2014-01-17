@@ -1,0 +1,14 @@
+{{#if types}}
+<fieldset>
+    <select id="{{type}}_type_{{cid}}" name="type" class="field {{type}} type">
+        {{#each types}}
+            <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select>
+</fieldset>
+{{/if}}
+<fieldset>
+    {{#each fields}}
+        <input type="{{./type}}" placeholder="{{./text}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}}"></input>
+    {{/each}}
+</fieldset>

@@ -12,10 +12,17 @@ module.exports = class BaseView extends Backbone.View
         @container = ".#{@type}-items" unless @container?
         @templateFile = "templates/create/#{@type}" unless @templateFile?
         @template = require @templateFile
-        @render()
+        null
 
     render: ->
         @$el.html @template
         console.log "Rendering #{@type} into #{@container}"
         $(@container).append @$el
         @
+
+    # Re-create the element name
+    setName: ->
+        @$el.remove()
+        delete @el
+        @_ensureElement()
+        null

@@ -1,16 +1,12 @@
 JobModel = require "models/job"
-JobCollection = require "collections/job"
-
-ConcreteModel = require "models/concrete"
-LaborModel = require "models/labor"
-EquipmentModel = require "models/equipment"
-MaterialModel = require "models/material"
+Collection = require "models/collection"
 
 PageView = require "views/page"
-FormView = require "views/form"
-TypeView = require "views/type"
+CollectionFormView = require "views/collection-form"
+CollectionListView = require "views/collection-list"
+JobElementFormView = require "views/job-element-form"
+JobListView = require "views/job-list"
 JobView = require "views/job"
-
 
 module.exports = class Application extends Backbone.Router
     # Collection of jobs
@@ -22,23 +18,31 @@ module.exports = class Application extends Backbone.Router
     _pages: {}
 
     _steps:
-        type: "create/concrete"
-        concrete: "create/labor"
-        labor: "create/materials"
-        materials: "create/equipment"
-        equipment: "create/job"
+        type: "add.concrete"
+        concrete: "add.labor"
+        labor: "add.materials"
+        materials: "add.equipment"
+        equipment: "add.save"
 
     routes:
         "": "home"
         "home": "home"
         "open": "open"
-        "create(/:component)": "create"
+        "browse": "browse"
+        "read.:id": "read"
+        "add(.:type)": "add"
+        # "edit(.:type)": "edit"
+        # "delete.:id": "delete"
 
     initialize: (opts) ->
         console.log "Initializing Cole"
 
         # Load the saved jobs
-        @_jobs = new JobCollection
+        @_jobs = new Collection null,
+            model: JobModel
+            type: "job"
+            url: "jobs"
+
         @_jobs.fetch()
 
         # Populate the form with a blank job
@@ -52,40 +56,94 @@ module.exports = class Application extends Backbone.Router
 
     home: ->
         console.log "Loading home page"
-        page = new PageView
-            id: "home"
-            title: "Cole"
-            links: [
-                    url: "create"
-                    text: "Create new estimate"
-                ,
-                    url:"open"
-                    text: "Load estimate"
-            ]
-            article:
-                id: "start"
-                content: ""
-        $("body").append @$el
-        $.mobile.changePage page.$el, {changeHash: false}
-        true
-
-    create: (component = "type") ->
-        console.log "Loading #{component} component page"
 
         # Create the page only once
-        if not @_pages[type]?
+        unless @_pages["home"]?
+            @_pages["home"] = new PageView
+                id: "home"
+                title: "Cole"
+                links: [
+                        url: "add"
+                        text: "Create new estimate"
+                    ,
+                        url: "browse"
+                        text: "Load estimate"
+                ]
+                text:
+                    id: "start"
+                    content: ""
+            
+            # Load the page
+            @_setPage @_pages["home"]
+
+        @_showPage @_pages["home"]
+
+    browse: ->
+        console.log "Loading browse page"
+
+        # Create the page only once
+        unless @_pages["browse"]
+            @_pages["browse"] = new PageView
+                id: "browse"
+                title: "Load an Estimate"
+                back:
+                    url: "home"
+                    title: "Home"
+                subView: new CollectionListView
+                    title: "Saved Estimates"
+                    type: "job"
+                    collection: @_jobs
+                    child: JobListView
+
+            # Load the page
+            @_setPage @_pages["browse"]
+
+        @_showPage @_pages["browse"]
+
+    read: (id) ->
+        console.log "Loading job listing page"
+
+        unless @_pages["read-#{id}"]?
+            @_readJob id
+            @_pages["read-#{id}"] = new PageView
+                title: "Job overview"
+                back:
+                    url: "home"
+                    title: "Home"
+                subView: new JobView
+                    model: @_current
+
+            @_setPage @_pages["read-#{id}"]
+
+        @_showPage @_pages["read-#{id}"]
+
+    add: (type = "type") ->
+        console.log "Loading #{type} component page"
+
+        # Create the page only once
+        unless @_pages[type]?
             # Form component
             view = null
             collection = switch type
                 when "concrete", "labor", "materials", "equipment" then @_current.get(type)
                 else null
 
-            if collection
+            if collection?
+                console.log "Creating #{type} collection form view"
                 view = new CollectionFormView
                     type: type
                     title: type
                     collection: collection
                     next: @_steps[type]
+            else
+                console.log "Creating job element form view"
+                view = switch type
+                    when "type", "save" then new JobElementFormView
+                        type: type
+                        title: type
+                        model: @_current
+                        next: @_steps[type]
+                    else null
 
             # Create the page
             @_pages[type] = new PageView
@@ -94,46 +152,29 @@ module.exports = class Application extends Backbone.Router
                 back:
                     url: "home"
                     title: "Home"
-                content: view
+                subView: view
 
-            $("body").append @$el
             # Add the first component row
-            @_addComponent component
+            @_addComponent type
 
-        # Tell jQuery Mobile to change the damn page
-        $.mobile.changePage @_pages[component].$el, {changeHash: false}
+            # Load the page
+            @_setPage @_pages[type]
+
+        @_showPage @_pages[type]
+
+    # Tell jQuery Mobile to change the damn page
+    _setPage: (page) ->
+        $("body").append page.render().$el
         true
 
-    open: ->
-        console.log "Loading job listing page"
-        page = new PageView
-            title: "Load an estimate"
-            back:
-                url: "home"
-                title: "Home"
-
-        $("body").append @$el
-        jobOpen = require "templates/job-open"
-        $(".page").append jobOpen()
-        $.mobile.changePage page.$el, {changeHash: false}
-
-        # @todo: Add list
+    _showPage: (page) ->
+        $("section").hide()
+        page.$el.show()
         true
 
     # Bind jQuery events
     _bindEvents: ->
         console.log "Binding events"
-
-        # Kill jQuery mobile navigation
-        $(document).on "mobileinit", ->
-            $.mobile.ajaxEnabled = false
-            $.mobile.linkBindingEnabled = false
-            $.mobile.hashListeningEnabled = false
-            $.mobile.pushStateEnabled = false
-            $.mobile.ignoreContentEnabled = true
-
-            $('div[data-role="page"]').on 'pagehide', (event, ui) ->
-                $(event.currentTarget).remove()
 
         # Bind URL clicks
         $(document).on "tap", "a:not([data-bypass])", (evt) ->
@@ -144,31 +185,14 @@ module.exports = class Application extends Backbone.Router
         # Handle application events
         $(document).on "change", "input, select", @_updateCost
 
-        $(document).on "change", "select.type", (event) ->
-            target = $ event.currentTarget
-            app._current.set "type", target.val()
-            console.log "View changed target to #{target.val()}"
-            true
-
-        # Select saved job list item
-        $(document).on "tap", "a.job-list", (evt) ->
-            id = $(this).data "id"
-            console.log "Job chosen has id of #{id}"
-            app._readJob id
-            true
-
         # Add job component buttons
-        $(document).on "tap", "button.add", (evt) ->
-            evt.preventDefault()
-            type = $(this).data "type"
-            console.log "Validating #{type}"
-            app._validateComponent type
+        $(document).hammer().on "tap", "button.add", @_validateComponent
 
         # Save job button
-        $(document).on "tap", ".job.save", @_saveJob
+        $(document).hammer().on "tap", ".job.save", @_saveJob
 
-        # Save job button
-        $(document).on "tap", ".job.reset", @_deleteJob
+        # Reset job button
+        $(document).hammer().on "tap", ".job.reset", @_deleteJob
 
         true
 
@@ -199,32 +223,31 @@ module.exports = class Application extends Backbone.Router
         true
 
     # Add the job to the saved collection
-    _saveJob: =>
+    _saveJob: (evt) =>
         console.log "Saving job"
         if @_current.isValid()
+            @_current.save()
             @_jobs.add @_current
-            @_jobs.sync()
+            console.log JSON.stringify @_current.toJSON()
             true
         else
             alert @_current.validationError
             false
 
-    _addComponent: (type) ->
+    _addComponent: (type) =>
         # Model
-        model = switch
-            when type is "concrete" then new ConcreteModel
-            when type is "labor" then new LaborModel
-            when type is "materials" then new MaterialModel
-            when type is "equipment" then new EquipmentModel
-            when type is "job" then @_current
-            else {}
+        switch type
+            when "concrete", "labor", "materials", "equipment" then @_current.get(type).add {}
 
-        if model.attributes? and type isnt "job"
-            @_current.get(type).push model
         true
 
     # Validate a component before adding a new one to the job
-    _validateComponent: (type) =>
+    _validateComponent: (evt) =>
+        evt.preventDefault()
+        type = $(evt.currentTarget).data "type"
+        console.log "Validating #{type}"
+            # app._validateComponent type
+            # (type) =>
         last = @_current.get(type).last()
 
         if last.isValid()

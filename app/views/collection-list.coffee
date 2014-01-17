@@ -1,21 +1,18 @@
 CollectionView = require "views/collection"
-ComponentFormView = require "views/component-form"
+ComponentListView = require "views/component-list"
 
-module.exports = class CollectionFormView extends CollectionView
+module.exports = class CollectionListView extends CollectionView
     tagName: "article"
 
     # Our constructor
     initialize: (opts) ->
         # The class to use for auto-creating child views
-        @child = ComponentFormView
+        @child = ComponentListView
 
         super opts
 
-        @id = "job-form-#{@type}"
-        @className = "#{@type}-form-collection"
-        @multiple = switch @type
-            when "type", "job", "concrete" then false
-            else true
+        @id = "job-list-#{@type}"
+        @className = "#{@type}-list-collection"
         @next = opts.next if opts.next?
         @title = opts.title if opts.title?
 
@@ -23,14 +20,14 @@ module.exports = class CollectionFormView extends CollectionView
         @setName()
 
         # Set template
-        @template = require "templates/collection.form"
+        @template = require "templates/collection.list"
 
         # Return nothing
         null
 
     # Render the collection
     render: =>
-        console.log "Rendering #{@type} collection"
+        console.log "Rendering #{@type} list collection"
         @_rendered = true
 
         # Remove anything already there
@@ -41,7 +38,7 @@ module.exports = class CollectionFormView extends CollectionView
             type: @type
             next: @next
             title: @title
-            multiple: @multiple
+            cost: @collection.cost if @collection.cost?
 
         # Append all of the rendered children
         _(@_children).each (child) =>

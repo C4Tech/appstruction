@@ -9,16 +9,39 @@ module.exports = class ConcreteModel extends Model
         "price": null
         "tax": null
 
-    validateFields: [
-        "quantity": "number"
-        "depth": "number"
-        "width": "number"
-        "length": "number"
-        "price": "number"
+    fields: [
+            text: "Quantity"
+            name: "quantity"
+            type: "number"
+            show: true
+        ,
+            text: "Depth"
+            name: "depth"
+            type: "number"
+            show: true
+        ,
+            text: "Width"
+            name: "width"
+            type: "number"
+            show: true
+        ,
+            text: "Length"
+            name: "length"
+            type: "number"
+            show: true
+        ,
+            text: "Price"
+            name: "price"
+            type: "number"
+            show: true
+        ,
+            text: "Tax rate"
+            name: "tax"
+            type: "number"
+            show: true
     ]
 
     calculate: ->
-        if @hasChanged()
-            @cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price
-            console.log "concrete: #{@attributes.depth}d x #{@attributes.width}w x #{@attributes.length}h x #{@attributes.quantity} @ $#{@attributes.price} = #{@cost}"
+        @cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price
+        console.log "concrete: #{@attributes.depth}d x #{@attributes.width}w x #{@attributes.length}h x #{@attributes.quantity} @ $#{@attributes.price} = #{@cost}"
         @cost

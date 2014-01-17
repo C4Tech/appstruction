@@ -1,11 +1,14 @@
+<h3>{{title}}</h3>
+
 <fieldset>
-    <label id="test">Select a job type</label>
-    <select name="job-type" class="type field">
-        <option value="1">Slab</option>
-        <option value="2">GB- H</option>
-        <option value="3">GB - H1A</option>
-        <option value="4">GB - V</option>
-        <option value="5">Piles</option>
-        <option value="6">Truck Well</option>
+    <label>Select a job type</label>
+    <select id="job_type_{{cid}}" name="type" class="field job type">
+        {{#each types}}
+            <option value="{{id}}">{{name}}</option>
+        {{/each}}
     </select>
 </fieldset>
+
+{{#if next}}
+    <a class="button next" href="#{{next}}">Next</a>
+{{/if}}

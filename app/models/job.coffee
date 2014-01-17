@@ -1,44 +1,77 @@
-Model = require "models/base"
+BaseModel = require "models/base"
+LaborModel = require "models/labor"
+ConcreteModel = require "models/concrete"
+MaterialModel = require "models/material"
+EquipmentModel = require "models/equipment"
+Collection = require "models/collection"
 
-ConcreteCollection = require "collections/concrete"
-JobCollection = require "collections/job"
-LaborCollection = require "collections/labor"
-MaterialCollection = require "collections/material"
-EquipmentCollection = require "collections/equipment"
+module.exports = class JobModel extends BaseModel
+    localStorage: new Backbone.LocalStorage "cole-job"
+    url: "jobs"
 
-module.exports = class JobModel extends Model
-    defaults:
-        "name": "Default"
-        "margin": 1.07
-        "dirt": null
-        "type": null
-        "concrete": new ConcreteCollection
-        "labor": new LaborCollection
-        "materials": new MaterialCollection
-        "equipment": new EquipmentCollection
-
-    validateFields: [
-        "margin": "number"
-        "name": "text"
-        "type": "select"
+    types: [
+            id: "1"
+            name: "Slab"
+        ,
+            id: "2"
+            name: "GB- H"
+        ,
+            id:"3"
+            name: "GB - H1A"
+        ,
+            id:"4"
+            name: "GB - V"
+        ,
+            id:"5"
+            name: "Piles"
+        ,
+            id:"6"
+            name: "Truck Well"
     ]
 
+    fields: [
+            text: "Profit Margin"
+            name: "margin"
+            type: "number"
+            show: true
+        ,
+            text: "Job Name"
+            name: "name"
+            type: "text"
+            show: true
+        ,
+            text: "Type"
+            name: "type"
+            type: "select"
+            show: false
+    ]
+
+    defaults: ->
+        data =
+            name: "Default"
+            margin: 1.07
+            type: 1
+            dirt: null
+
+        @parse data
+
     parse: (data) ->
-        concrete = labor = materials = equipment = {}
-        concrete = data.concrete if data.concrete?
-        data.concrete = new ConcreteCollection concrete
-
-        labor = data.labor if data.labor?
-        data.labor = new LaborCollection labor
-
-        materials = data.materials if data.materials?
-        data.materials = new MaterialCollection materials
-
-        equipment = data.equipment if data.equipment?
-        data.equipment = new EquipmentCollection equipment
-
+        collections = ["concrete", "labor", "materials", "equipment"]
+        for collection in collections
+            saved = if data[collection]? then data[collection] else false
+            data[collection] = @_inflateCollection collection, saved
         data
 
+    _inflateCollection: (type, data) ->
+        model = switch type
+            when "concrete" then ConcreteModel
+            when "labor" then LaborModel
+            when "materials" then MaterialModel
+            when "equipment" then EquipmentModel
+        new Collection data, {
+                model: model
+                type: type
+            }
 
     calculate: ->
         @cost = @attributes.concrete.calculate() + @attributes.labor.calculate() + @attributes.materials.calculate() + @attributes.equipment.calculate()

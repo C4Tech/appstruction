@@ -5,11 +5,13 @@ module.exports = class ComponentListView extends ComponentView
         super opts
 
         # Set template
-        @templateFile = "templates/#{@type}.list"
-        @template = require @templateFile
+        @template = require "templates/component.list"
         
         # Add attributes
         @className = "#{@type} #{@type}-list #{@type}-list-item"
+
+        # Re-create the element name
+        @setName()
 
         # Return nothing
         null
