@@ -8,7 +8,8 @@
     "backbone": "~1.1",
     "backbone.localstorage": "~1.1",
     "hammerjs": "~1.0.6",
-    "jquery-hammerjs": "*"
+    "jquery-hammerjs": "*",
+    "font-awesome": "~4.0.3"
   },
   "overrides": {
     "backbone": {
@@ -32,6 +33,11 @@
       "dependencies": {
         "backbone": "~1.1"
       }
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
     }
   }
 }

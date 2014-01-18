@@ -5,6 +5,7 @@ module.exports = class ComponentView extends BaseView
     initialize: (opts) ->
         # Set some basic options
         @type = opts.type if opts.type?
+        @showAll = false unless @showAll?
         @templateFile = "templates/component.list"
 
         # Add attributes
@@ -26,7 +27,7 @@ module.exports = class ComponentView extends BaseView
             cid: @model.cid
             cost: @model.cost if @model.cost?
             types: if @model.types? then @model.types else null
-            fields: @model.getFields()
+            fields: @model.getFields(@showAll)
 
         # Return this
         @

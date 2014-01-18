@@ -2,8 +2,6 @@ CollectionView = require "views/collection"
 ComponentListView = require "views/component-list"
 
 module.exports = class CollectionListView extends CollectionView
-    tagName: "article"
-
     # Our constructor
     initialize: (opts) ->
         # The class to use for auto-creating child views
@@ -36,7 +34,6 @@ module.exports = class CollectionListView extends CollectionView
         # Rebuild the frame
         @$el.html @template
             type: @type
-            next: @next
             title: @title
             cost: @collection.cost if @collection.cost?
 

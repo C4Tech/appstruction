@@ -2,11 +2,13 @@ ComponentView = require "views/component"
 
 module.exports = class ComponentListView extends ComponentView
     initialize: (opts) ->
+        @showAll = true
+
         super opts
 
         # Set template
         @template = require "templates/component.list"
-        
+
         # Add attributes
         @className = "#{@type} #{@type}-list #{@type}-list-item"
 

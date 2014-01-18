@@ -39,5 +39,17 @@ module.exports = class BaseModel extends Backbone.Model
 
     getFields: (showAll = false) ->
         fields = if showAll then @fields else _.where @fields, show: true
-        field.value = @attributes[field.name] for field in fields
+        field.value = @getValue field for field in fields
         fields
+
+    getValue: (field) =>
+        value = @attributes[field.name]
+
+        console.log "Field is #{field.name} with value of #{value}"
+        if field.name is "type" and @types?
+            value =  @_setValue type, value for type in @types
+        value
+
+    _setValue: (type, value) ->
+        value = if parseInt(type.id) is parseInt(value) then type.name else value
+        value

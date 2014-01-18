@@ -30,20 +30,20 @@ module.exports = class JobModel extends BaseModel
     ]
 
     fields: [
-            text: "Profit Margin"
-            name: "margin"
-            type: "number"
-            show: true
-        ,
             text: "Job Name"
             name: "name"
             type: "text"
-            show: true
+            show: false
         ,
             text: "Type"
             name: "type"
             type: "select"
-            show: false
+            show: true
+        ,
+            text: "Profit Margin"
+            name: "margin"
+            type: "number"
+            show: true
     ]
 
     defaults: ->
