@@ -1,6 +1,8 @@
 ComponentView = require "views/component"
 
 module.exports = class JobListView extends ComponentView
+    tagName: "li"
+
     initialize: (opts) ->
         super opts
 
@@ -8,7 +10,7 @@ module.exports = class JobListView extends ComponentView
         @template = require "templates/job.list"
 
         # Add attributes
-        @className = "#{@type} #{@type}-list #{@type}-list-item col-xs-12 list-group"
+        @className = "#{@type} #{@type}-list #{@type}-list-item list-group-item"
 
         # Re-create the element name
         @setName()

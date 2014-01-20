@@ -160,10 +160,7 @@ module.exports = class Application extends Backbone.Router
         console.log "Binding events"
 
         # Bind URL clicks
-        $(document).on "tap", "button.btn-primary, button.btn-link, button.job", (evt) ->
-            evt.preventDefault()
-            path = $(evt.currentTarget).data "path"
-            Backbone.history.navigate path, true
+        $(document).on "tap", "button.navbar-btn, button.btn-primary, button.btn-link, button.job", @_navigate
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
@@ -178,6 +175,15 @@ module.exports = class Application extends Backbone.Router
         $(document).on "change", "input, select", @_updateCost
 
         true
+
+    # Handle navigation
+    _navigate: (evt) ->
+        evt.preventDefault()
+        path = $(evt.currentTarget).data "path"
+        Backbone.history.navigate path, true
+        $("nav button").removeClass "active"
+        pathNav = path.split ".", 1
+        $("nav button.#{pathNav}").addClass "active"
 
     # Create new job
     _createJob: =>
