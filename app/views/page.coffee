@@ -1,22 +1,16 @@
 module.exports = class PageView extends Backbone.View
     tagName: "section"
-    className: "page"
+    className: "page container"
 
     title: "Cole"
-    links: []
-    back: null
-    form: null
     text: null
     subView: null
 
     initialize: (opts) ->
         @section = require "templates/page"
         @header = require "templates/header"
-        @nav = require "templates/nav"
 
         @title = opts.title if opts.title?
-        @back = opts.back if opts.back?
-        @links = opts.links if opts.links?
         @text = opts.text if opts.text?
         @subView = opts.subView if opts.subView?
         true
@@ -25,18 +19,11 @@ module.exports = class PageView extends Backbone.View
     render: ->
         @$el.empty()
 
-        if @title? or @back?
+        if @title?
             header = @header
                 title: @title
-                back: @back
             console.log "Rendering page header"
             @$el.append header
-
-        if @links.length > 0
-            nav = @nav
-                links: @links
-            console.log "Rendering page nav"
-            @$el.append nav
 
         if @text?
             @$el.append @section

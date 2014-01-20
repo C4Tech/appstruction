@@ -48,8 +48,8 @@ module.exports = class JobModel extends BaseModel
 
     defaults: ->
         data =
-            name: "Default"
-            margin: 1.07
+            name: null
+            margin: null
             type: 1
             dirt: null
 

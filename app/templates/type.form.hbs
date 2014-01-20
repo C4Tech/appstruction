@@ -1,8 +1,8 @@
-<h3>{{title}}</h3>
+<h4>{{title}}</h4>
 
-<fieldset>
-    <label>Select a job type</label>
-    <select id="job_type_{{cid}}" name="type" class="field job type">
+<fieldset class="form-group">
+    <label for="job_type_{{cid}}">Select a job type</label>
+    <select id="job_type_{{cid}}" name="type" class="field job type form-control">
         {{#each types}}
             <option value="{{id}}">{{name}}</option>
         {{/each}}
@@ -10,5 +10,5 @@
 </fieldset>
 
 {{#if next}}
-    <a class="button next" href="#{{next}}">Next</a>
+    <button class="btn btn-primary next" data-path="{{next}}">Next</a>
 {{/if}}

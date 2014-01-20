@@ -15,7 +15,7 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Add attributes
         @id = "job-form-#{@type}"
-        @className = "#{@type} #{@type}-form"
+        @className = "#{@type} #{@type}-form col-xs-12 form-horizontal"
         @next = opts.next if opts.next?
         @title = opts.title if opts.title?
 

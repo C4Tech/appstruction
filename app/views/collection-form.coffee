@@ -12,7 +12,7 @@ module.exports = class CollectionFormView extends CollectionView
         super opts
 
         @id = "job-form-#{@type}"
-        @className = "#{@type}-form-collection"
+        @className = "#{@type}-form-collection col-xs-12"
         @multiple = switch @type
             when "type", "job", "concrete" then false
             else true

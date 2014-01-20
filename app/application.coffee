@@ -62,17 +62,10 @@ module.exports = class Application extends Backbone.Router
             @_pages["home"] = new PageView
                 id: "home"
                 title: "Cole"
-                links: [
-                        url: "add"
-                        text: "Create new estimate"
-                    ,
-                        url: "browse"
-                        text: "Load estimate"
-                ]
                 text:
                     id: "start"
                     content: ""
-            
+
             # Load the page
             @_setPage @_pages["home"]
 
@@ -86,9 +79,6 @@ module.exports = class Application extends Backbone.Router
             @_pages["browse"] = new PageView
                 id: "browse"
                 title: "Load an Estimate"
-                back:
-                    url: "home"
-                    title: "Home"
                 subView: new CollectionListView
                     title: "Saved Estimates"
                     type: "job"
@@ -107,9 +97,6 @@ module.exports = class Application extends Backbone.Router
             @_readJob id
             @_pages["read-#{id}"] = new PageView
                 title: "Job overview"
-                back:
-                    url: "home"
-                    title: "Home"
                 subView: new JobView
                     model: @_current
 
@@ -149,9 +136,6 @@ module.exports = class Application extends Backbone.Router
             @_pages[type] = new PageView
                 id: type
                 title: "Job Builder"
-                back:
-                    url: "home"
-                    title: "Home"
                 subView: view
 
             # Add the first component row
@@ -177,22 +161,22 @@ module.exports = class Application extends Backbone.Router
         console.log "Binding events"
 
         # Bind URL clicks
-        $(document).on "tap", "a:not([data-bypass])", (evt) ->
+        $(document).on "tap", "button.btn-primary, button.btn-link, button.job", (evt) ->
             evt.preventDefault()
-            path = $(this).attr "href"
+            path = $(evt.currentTarget).data "path"
             Backbone.history.navigate path, true
-  
-        # Handle application events
-        $(document).on "change", "input, select", @_updateCost
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
 
         # Save job button
-        $(document).hammer().on "tap", ".job.save", @_saveJob
+        $(document).hammer().on "tap", "button.job.save", @_saveJob
 
         # Reset job button
-        $(document).hammer().on "tap", ".job.reset", @_deleteJob
+        $(document).hammer().on "tap", "button.job.reset", @_deleteJob
+
+        # Handle application events
+        $(document).on "change", "input, select", @_updateCost
 
         true
 

@@ -1,79 +1,20 @@
-// Custom mixins
-center()
-    margin-left auto
-    margin-right auto
-
 body
     background black
+
+nav.navbar-default
+    background black
+    border none
+    margin-bottom 0
+
+h3
+    margin-top 0
+
+a.navbar-btn
     color white
-    text-shadow none
 
-    *
-        box-sizing border-box
-        margin 0
-        padding 0
+input.field
+    margin-bottom 1em
 
-a
-    color white
-
-
-input,
-select,
-textarea,
-label.select
-    fieldset
-        border-bottom none
-
-    &.field
-        margin-bottom 1px
-        border-width 1px
-        border-color white
-        border-style solid
-
-header
-    min-height 2.5em
-    box-shadow none
-
-    a.back
-        display block
-        color white
-        text-decoration none
-
-        &:visited
-            color white
-
-    .title
-        text-shadow none
-        width 100%
-
-button,
-.button
-    display inline-block
-    margin 1em
-    padding 1em
-    border 1px solid white
-    border-radius 1em
-    color white
-    background blue
-    text-decoration none
-
-    &:visited
-        color white
-
-    transition-property color, box-shadow
-    transition-duration 400ms
-    transition-timing-function ease
-
-    &:active,
-    &.active
-        box-shadow none
-
-.centered
-    center()
-    text-align center
-
-.clearfix:after
-    content ""
-    display table
-    clear both
+.job.text-success
+    margin-bottom 1em
 

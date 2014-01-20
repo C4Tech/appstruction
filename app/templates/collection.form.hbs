@@ -1,12 +1,14 @@
 <h3>{{title}}</h3>
 
 <div class="{{type}} items"></div>
-<div class="{{type}} cost"></div>
+<div class="text-info pull-right">
+    Cost: $<span class="{{type}} cost">0</span>
+</div>
 
 {{#if multiple}}
-    <button class="{{type}} add" data-type="{{type}}">Add another</button>
+    <button class="{{type}} add btn btn-default" data-type="{{type}}">Add another</button>
 {{/if}}
 
 {{#if next}}
-    <a class="{{type}} button next" href="#{{next}}">Next</a>
+    <button class="{{type}} btn btn-primary next" data-path="{{next}}">Next</button>
 {{/if}}
