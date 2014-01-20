@@ -22,6 +22,7 @@ module.exports = class JobView extends BaseView
         for collection in collections
             data = if @model.attributes[collection]? then @model.attributes[collection] else false
             @_children.push new CollectionListView
+                className: "job-list-collection panel panel-default"
                 collection: data
                 title: collection
                 type: collection

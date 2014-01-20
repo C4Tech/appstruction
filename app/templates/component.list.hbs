@@ -1,3 +1,6 @@
 {{#each fields}}
     <div class="field {{../type}} {{./name}}">{{./text}}: {{./value}}</div>
 {{/each}}
+<div class="{{type}} text-info">
+    Cost: $<span class="{{type}} cost">{{cost}}</span>
+</div>

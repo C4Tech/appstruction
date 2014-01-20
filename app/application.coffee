@@ -80,7 +80,6 @@ module.exports = class Application extends Backbone.Router
                 id: "browse"
                 title: "Load an Estimate"
                 subView: new CollectionListView
-                    title: "Saved Estimates"
                     type: "job"
                     collection: @_jobs
                     child: JobListView
@@ -96,7 +95,7 @@ module.exports = class Application extends Backbone.Router
         unless @_pages["read-#{id}"]?
             @_readJob id
             @_pages["read-#{id}"] = new PageView
-                title: "Job overview"
+                title: @_current.attributes.name
                 subView: new JobView
                     model: @_current
 

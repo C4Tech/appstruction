@@ -19,13 +19,13 @@ module.exports = class ComponentView extends BaseView
 
     # Render the model
     render: ->
-        @model.calculate() if @model.calculate?
+
 
         # Set the HTML
         @$el.html @template
             row: @model.toJSON()
             cid: @model.cid
-            cost: @model.cost if @model.cost?
+            cost: @model.calculate() if @model.calculate?
             types: if @model.types? then @model.types else null
             fields: @model.getFields(@showAll)
 

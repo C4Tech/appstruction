@@ -9,8 +9,8 @@ module.exports = class CollectionListView extends CollectionView
 
         super opts
 
-        @id = "job-list-#{@type}"
-        @className = "#{@type}-list-collection"
+        @id = "job-list-#{@type}" unless @id
+        @className = "#{@type}-list-collection" unless @className
         @next = opts.next if opts.next?
         @title = opts.title if opts.title?
 
@@ -35,7 +35,7 @@ module.exports = class CollectionListView extends CollectionView
         @$el.html @template
             type: @type
             title: @title
-            cost: @collection.cost if @collection.cost?
+            cost: @collection.calculate() if @collection.calculate?
 
         # Append all of the rendered children
         _(@_children).each (child) =>

@@ -1,3 +1,6 @@
-<div class="job name">{{row.name}}</div>
-<div class="job cost">{{cost}}</div>
-<a class="job button list" href="#read.{{cid}}">Open</a>
+<a class="job list-group-item" href="#read.{{cid}}">
+    <h4 class="job list-group-item-heading">{{row.name}}</h4>
+    <div class="job list-group-item-text text-info">
+        Cost: $<span class="job cost">{{cost}}</span>
+    </div>
+</a>

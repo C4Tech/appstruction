@@ -1,6 +1,11 @@
 {{#if title}}
-    <h3>{{title}}</h3>
+    <div class="peanl-heading">
+        <h4 class="panel-title">{{title}}</h4>
+    </div>
 {{/if}}
-
-<div class="{{type}} items"></div>
-<div class="{{type}} cost"></div>
+<div class="panel-body">
+    <div class="{{type}} text-success">
+        Cost: $<span class="{{type}} cost">{{cost}}</span>
+    </div>
+    <ul class="{{type}} items list-group"></ul>
+</div>

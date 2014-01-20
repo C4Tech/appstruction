@@ -6,7 +6,7 @@ module.exports = class CollectionView extends BaseView
     initialize: (opts) ->
         # Set some variables
         @type = if opts.type? then opts.type else "collection"
-        @className = "#{@type}-collection"
+        @className = "#{@type}-collection" unless @className?
 
         @child = opts.child if opts.child?
         @child = if @child? then @child else ComponentView
@@ -45,7 +45,7 @@ module.exports = class CollectionView extends BaseView
 
         # Return this
         @
-        
+
     # Event callback to add a view when a model is added to the collection
     add: (model) =>
         child = new @child
