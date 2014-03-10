@@ -3,14 +3,14 @@
   "version": "0.1",
   "description": "Cole construction app",
   "dependencies": {
-    "jquery": "~2.0",
-    "underscore": "~1.5",
+    "jquery": "~2.1",
+    "underscore": "~1.6",
     "backbone": "~1.1",
     "backbone.localstorage": "~1.1",
-    "hammerjs": "~1.0.6",
-    "jquery-hammerjs": "*",
-    "font-awesome": "~4.0.3",
-    "bootstrap": "~3.0.3"
+    "hammerjs": "~1.0",
+    "jquery-hammerjs": "~1.0",
+    "font-awesome": "~4.0",
+    "bootstrap": "~3.1"
   },
   "overrides": {
     "backbone": {
@@ -18,8 +18,8 @@
         "backbone.js"
       ],
       "dependencies": {
-        "underscore": "~1.5",
-        "jquery": "~2.0"
+        "underscore": "~1.6",
+        "jquery": "~2.1"
       }
     },
     "underscore": {
