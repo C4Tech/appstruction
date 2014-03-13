@@ -10,7 +10,8 @@
     "hammerjs": "~1.0",
     "jquery-hammerjs": "~1.0",
     "font-awesome": "~4.0",
-    "bootstrap": "~3.1"
+    "bootstrap": "~3.1",
+    "jQuery-Mask-Plugin": "~1.5.4"
   },
   "overrides": {
     "backbone": {
