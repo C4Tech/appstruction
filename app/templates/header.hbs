@@ -1,16 +1,23 @@
 <nav class="col-xs-12 navbar navbar-default" role="navigation">
-    <ul class="nav nav-pills">
-        <li>
-            <button data-path="home" class="home btn btn-default navbar-btn" role="button"><i class="fa fa-home"></i> Home</button>
-        </li>
-        <li>
-            <button data-path="add" class="add btn btn-default navbar-btn" role="button"><i class="fa fa-plus-square-o"></i> New</button>
-        </li>
-        <li>
-            <button data-path="browse" class="browse btn btn-default navbar-btn" role="button"><i class="fa fa-folder-open-o"></i> Load</button>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-xs-4">
+            <button data-path="prev" class="prev btn btn-default navbar-btn" role="button">
+                <i class="fa fa-arrow-left"></i><br />Back
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button data-path="home" class="home btn btn-default navbar-btn center-block" role="button">
+                <i class="fa fa-home"></i><br />Home
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button data-path="next" class="next btn btn-default navbar-btn pull-right" role="button">
+                <i class="fa fa-arrow-right"></i><br />Next
+            </button>
+        </div>
+    </div>
 </nav>
-<div class="page-header">
+
+<div id="header-title">
   <h1>{{title}}</h1>
 </div>
