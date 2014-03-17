@@ -160,7 +160,7 @@ module.exports = class Application extends Backbone.Router
         console.log "Binding events"
 
         # Bind URL clicks
-        $(document).on "tap", "button.navbar-btn, button.btn-primary, button.btn-link, button.job", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_navigate
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent

@@ -2,23 +2,33 @@
 
 <div class="{{type}} items"></div>
 
+{{#if multiple}}
+    <hr />
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="{{type}} add btn btn-default form-control" data-type="{{type}}">
+                <i class="fa fa-plus-circle"></i>
+                Add another
+            </button>
+        </div>
+    </div>
+{{/if}}
+
+<hr />
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-xs-12">
         <div class="text-info lead">
             {{ type }} $<span class="{{type}} cost">0</span>
             <br />
             Subtotal $<span class="cost">0</span>
         </div>
     </div>
-    <br />
+</div>
 
-    <div class="pull-right">
-        {{#if multiple}}
-            <button class="{{type}} add btn btn-default" data-type="{{type}}">Add another</button>
-        {{/if}}
-
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-6">
         {{#if next}}
-            <button class="{{type}} btn btn-lg next" data-path="{{next}}">Next</button>
+            <button class="{{type}} btn btn-large form-control next ccma-navigate" data-path="{{next}}">Next</button>
         {{/if}}
     </div>
 </div>
