@@ -18,20 +18,22 @@ module.exports = class Application extends Backbone.Router
     _pages: {}
 
     _steps:
+        home:
+            prev: "home"
         type:
-          next: "add.concrete"
+            next: "add.concrete"
         concrete:
-          prev: "add.type"
-          next: "add.labor"
+            prev: "add.type"
+            next: "add.labor"
         labor:
-          prev: "add.concrete"
-          next: "add.materials"
+            prev: "add.concrete"
+            next: "add.materials"
         materials:
-          prev: "add.labor"
-          next: "add.equipment"
+            prev: "add.labor"
+            next: "add.equipment"
         equipment:
-          prev: "add.materials"
-          next: "add.save"
+            prev: "add.materials"
+            next: "add.save"
 
     routes:
         "": "home"
@@ -92,6 +94,7 @@ module.exports = class Application extends Backbone.Router
                     type: "job"
                     collection: @_jobs
                     child: JobListView
+                    step: @_steps['home']
 
             # Load the page
             @_setPage @_pages["browse"]
