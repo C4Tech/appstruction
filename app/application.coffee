@@ -18,11 +18,20 @@ module.exports = class Application extends Backbone.Router
     _pages: {}
 
     _steps:
-        type: "add.concrete"
-        concrete: "add.labor"
-        labor: "add.materials"
-        materials: "add.equipment"
-        equipment: "add.save"
+        type:
+          next: "add.concrete"
+        concrete:
+          prev: "add.type"
+          next: "add.labor"
+        labor:
+          prev: "add.concrete"
+          next: "add.materials"
+        materials:
+          prev: "add.labor"
+          next: "add.equipment"
+        equipment:
+          prev: "add.materials"
+          next: "add.save"
 
     routes:
         "": "home"
@@ -120,7 +129,7 @@ module.exports = class Application extends Backbone.Router
                     type: type
                     title: type
                     collection: collection
-                    next: @_steps[type]
+                    step: @_steps[type]
             else
                 console.log "Creating job element form view"
                 view = switch type
@@ -128,7 +137,7 @@ module.exports = class Application extends Backbone.Router
                         type: type
                         title: type
                         model: @_current
-                        next: @_steps[type]
+                        step: @_steps[type]
                     else null
 
             # Create the page

@@ -1,17 +1,19 @@
 <nav class="col-xs-12 navbar navbar-default" role="navigation">
     <div class="row">
         <div class="col-xs-4">
-            <button data-path="prev" class="prev btn btn-default navbar-btn" role="button">
+            <button {{#unless step.prev}}disabled="disabled" {{/unless}}data-path="{{#if step.prev}}{{step.prev}}{{/if}}" class="prev btn btn-default navbar-btn" role="button">
                 <i class="fa fa-arrow-left"></i><br />Back
             </button>
         </div>
+
         <div class="col-xs-4">
             <button data-path="home" class="home btn btn-default navbar-btn center-block" role="button">
                 <i class="fa fa-home"></i><br />Home
             </button>
         </div>
+
         <div class="col-xs-4">
-            <button data-path="next" class="next btn btn-default navbar-btn pull-right" role="button">
+            <button {{#unless step.next}}disabled="disabled" {{/unless}}data-path="{{#if step.next}}{{step.next}}{{/if}}" class="next btn btn-default navbar-btn pull-right" role="button">
                 <i class="fa fa-arrow-right"></i><br />Next
             </button>
         </div>
@@ -19,5 +21,5 @@
 </nav>
 
 <div id="header-title">
-  <h1>{{title}}</h1>
+    <h1>{{title}}</h1>
 </div>
