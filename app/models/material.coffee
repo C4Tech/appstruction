@@ -5,6 +5,7 @@ module.exports = class MaterialModel extends Model
         "quantity": null
         "price": null
         "type": 1
+        "tax": null
 
     types: [
             id: "1"
@@ -44,6 +45,11 @@ module.exports = class MaterialModel extends Model
             name: "type"
             type: "select"
             show: false
+        ,
+            text: "Tax rate"
+            name: "tax"
+            type: "number"
+            show: true
     ]
 
     calculate: ->
