@@ -1,14 +1,16 @@
 <fieldset class="form-group col-xs-12">
     <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="margin" class="job field form-control" value="{{row.margin}}" />
-     <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
+    <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" />
 </fieldset>
 
-<div class="job text-success">
-    Total Cost:
-    <span class="job cost">{{cost}}</span>
-</div>
-
+<span class="lead">Job details</span>
 <div id="job-accordion" class="job items panel-group"></div>
 
-<button class="btn btn-success btn-block job save" data-path="home">Save</button>
-<button class="btn btn-danger btn-block job reset" data-path="create">Start Over</button>
+<div class="row">
+    <div class="col-xs-6">
+        <button class="btn btn-danger job reset form-control" data-path="create">Start Over</button>
+    </div>
+    <div class="col-xs-6">
+        <button class="btn btn-success job save form-control" data-path="home">Save</button>
+    </div>
+</div>
