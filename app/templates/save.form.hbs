@@ -3,10 +3,12 @@
      <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
 </fieldset>
 
-<div class="job text-success pull-right">
+<div class="job text-success">
     Total Cost:
     <span class="job cost">{{cost}}</span>
 </div>
+
+<div id="job-accordion" class="job items panel-group"></div>
 
 <button class="btn btn-success btn-block job save" data-path="home">Save</button>
 <button class="btn btn-danger btn-block job reset" data-path="create">Start Over</button>
