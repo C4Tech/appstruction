@@ -1,10 +1,10 @@
 Model = require "models/base"
 
 module.exports = class LaborModel extends Model
-    defaults: 
-        "type": 1
-        "number": null
-        "unit": null
+    defaults:
+        "duration": null
+        "type": null
+        "quantity": null
         "rate": null
 
     types: [
@@ -29,27 +29,27 @@ module.exports = class LaborModel extends Model
 
     fields: [
             type: "number"
-            text: "Number"
-            name: "number"
-            show: true
-        ,
-            type: "number"
-            text: "Unit"
-            name: "unit"
-            show: true
-        ,
-            type: "number"
-            text: "Rate"
-            name: "rate"
+            text: "Project duration"
+            name: "duration"
             show: true
         ,
             type: "select"
             text: "Type"
             name: "type"
             show: false
+        ,
+            type: "number"
+            text: "Quantity"
+            name: "quantity"
+            show: true
+        ,
+            type: "number"
+            text: "Rate"
+            name: "rate"
+            show: true
     ]
 
     calculate: ->
-        @cost = @attributes.number * @attributes.rate * @attributes.unit
-        console.log "labor row ##{@cid}: #{@attributes.number} x #{@attributes.unit}u @ $#{@attributes.rate} = #{@cost}"
+        @cost = @attributes.duration * @attributes.quantity * @attributes.rate
+        console.log "labor row ##{@cid}: #{@attributes.duration} x #{@attributes.quantity}u @ $#{@attributes.rate} = #{@cost}"
         @cost
