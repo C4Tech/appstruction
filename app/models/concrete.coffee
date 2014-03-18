@@ -4,40 +4,63 @@ module.exports = class ConcreteModel extends Model
     defaults:
         "quantity": null
         "depth": null
+        "depth_units": null
         "width": null
         "length": null
         "price": null
         "tax": null
 
+    types: [
+            id: "1"
+            name: "Inches"
+        ,
+            id: "2"
+            name: "Feet"
+        ,
+            id:"3"
+            name: "Yards"
+        ,
+            id:"4"
+            name: "Centimeters"
+        ,
+            id:"5"
+            name: "Meters"
+    ]
+
     fields: [
+            type: "number"
             text: "Quantity"
             name: "quantity"
-            type: "number"
             show: true
         ,
+            type: "number"
             text: "Depth"
             name: "depth"
-            type: "number"
             show: true
         ,
+            type: "select"
+            text: "Units"
+            name: "depth_units"
+            show: true
+        ,
+            type: "number"
             text: "Width"
             name: "width"
-            type: "number"
             show: true
         ,
+            type: "number"
             text: "Length"
             name: "length"
-            type: "number"
             show: true
         ,
+            type: "number"
             text: "Price"
             name: "price"
-            type: "number"
             show: true
         ,
+            type: "number"
             text: "Tax rate"
             name: "tax"
-            type: "number"
             show: true
     ]
 
