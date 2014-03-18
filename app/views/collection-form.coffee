@@ -16,7 +16,7 @@ module.exports = class CollectionFormView extends CollectionView
         @multiple = switch @type
             when "type", "job", "concrete" then false
             else true
-        @next = opts.next if opts.next?
+        @step = opts.step if opts.step?
         @title = opts.title if opts.title?
 
         # Re-create the element name
@@ -39,7 +39,7 @@ module.exports = class CollectionFormView extends CollectionView
         # Rebuild the frame
         @$el.html @template
             type: @type
-            next: @next
+            step: @step
             title: @title
             multiple: @multiple
 

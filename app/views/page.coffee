@@ -22,6 +22,7 @@ module.exports = class PageView extends Backbone.View
         if @title?
             header = @header
                 title: @title
+                step: @subView?.step ? null
             console.log "Rendering page header"
             @$el.append header
 

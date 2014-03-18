@@ -16,7 +16,7 @@ module.exports = class JobElementFormView extends ComponentView
         # Add attributes
         @id = "job-form-#{@type}"
         @className = "#{@type} #{@type}-form col-xs-12 form-horizontal"
-        @next = opts.next if opts.next?
+        @step = opts.step if opts.step?
         @title = opts.title if opts.title?
 
         # Re-create the element name
@@ -40,7 +40,7 @@ module.exports = class JobElementFormView extends ComponentView
             row: @model.toJSON()
             cid: @model.cid
             type: @type
-            next: @next
+            step: @step
             title: @title
             cost: @model.cost
             types: @model.types
