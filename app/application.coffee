@@ -20,10 +20,10 @@ module.exports = class Application extends Backbone.Router
     _steps:
         home:
             prev: "home"
-        type:
+        create:
             next: "add.concrete"
         concrete:
-            prev: "add.type"
+            prev: "add.create"
             next: "add.labor"
         labor:
             prev: "add.concrete"
@@ -115,7 +115,7 @@ module.exports = class Application extends Backbone.Router
 
         @_showPage @_pages["read-#{id}"]
 
-    add: (type = "type") ->
+    add: (type = "create") ->
         console.log "Loading #{type} component page"
 
         # Create the page only once
@@ -136,7 +136,7 @@ module.exports = class Application extends Backbone.Router
             else
                 console.log "Creating job element form view"
                 view = switch type
-                    when "type", "save" then new JobElementFormView
+                    when "create", "save" then new JobElementFormView
                         type: type
                         title: type
                         model: @_current
@@ -245,7 +245,7 @@ module.exports = class Application extends Backbone.Router
     # Validate a component before adding a new one to the job
     _validateComponent: (evt) =>
         evt.preventDefault()
-        type = $(evt.currentTarget).data "type"
+        type = $(evt.currentTarget).data "create"
         console.log "Validating #{type}"
             # app._validateComponent type
             # (type) =>
