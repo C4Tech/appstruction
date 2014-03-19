@@ -41,6 +41,9 @@ module.exports = class ConcreteModel extends Model
             show: true
     ]
 
+    initialize: ->
+        @help = "Concrete help text"
+
     calculate: ->
         @cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price
         console.log "concrete: #{@attributes.depth}d x #{@attributes.width}w x #{@attributes.length}h x #{@attributes.quantity} @ $#{@attributes.price} = #{@cost}"
