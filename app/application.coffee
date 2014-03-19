@@ -6,7 +6,6 @@ CollectionFormView = require "views/collection-form"
 CollectionListView = require "views/collection-list"
 JobElementFormView = require "views/job-element-form"
 JobListView = require "views/job-list"
-JobView = require "views/job"
 
 module.exports = class Application extends Backbone.Router
     # Collection of jobs
@@ -103,59 +102,12 @@ module.exports = class Application extends Backbone.Router
 
     read: (id) ->
         console.log "Loading job listing page"
-
-        unless @_pages["read-#{id}"]?
-            @_readJob id
-            @_pages["read-#{id}"] = new PageView
-                title: @_current.attributes.name
-                subView: new JobView
-                    model: @_current
-
-            @_setPage @_pages["read-#{id}"]
-
-        @_showPage @_pages["read-#{id}"]
+        @_readJob id
+        @_viewJob()
 
     add: (type = "type") ->
         console.log "Loading #{type} component page"
-
-        # Create the page only once
-        unless @_pages[type]?
-            # Form component
-            view = null
-            collection = switch type
-                when "concrete", "labor", "materials", "equipment" then @_current.get(type)
-                else null
-
-            if collection?
-                console.log "Creating #{type} collection form view"
-                view = new CollectionFormView
-                    type: type
-                    title: type
-                    collection: collection
-                    step: @_steps[type]
-            else
-                console.log "Creating job element form view"
-                view = switch type
-                    when "type", "save" then new JobElementFormView
-                        type: type
-                        title: type
-                        model: @_current
-                        step: @_steps[type]
-                    else null
-
-            # Create the page
-            @_pages[type] = new PageView
-                id: type
-                title: "Job Builder"
-                subView: view
-
-            # Add the first component row
-            @_addComponent type
-
-            # Load the page
-            @_setPage @_pages[type]
-
-        @_showPage @_pages[type]
+        @_viewJob(type)
 
     # Tell jQuery Mobile to change the damn page
     _setPage: (page) ->
@@ -208,6 +160,48 @@ module.exports = class Application extends Backbone.Router
         console.log "Reading job #{cid}"
         @_current = @_jobs.get cid
         @_current
+
+    # View the current job
+    _viewJob: (type = "type") =>
+        console.log "Viewing job"
+        # Create the page only once
+        unless @_pages[type]?
+            # Form component
+            view = null
+            collection = switch type
+                when "concrete", "labor", "materials", "equipment" then @_current.get(type)
+                else null
+
+            if collection?
+                console.log "Creating #{type} collection form view"
+                view = new CollectionFormView
+                    type: type
+                    title: type
+                    collection: collection
+                    step: @_steps[type]
+            else
+                console.log "Creating job element form view"
+                view = switch type
+                    when "type", "save" then new JobElementFormView
+                        type: type
+                        title: type
+                        model: @_current
+                        step: @_steps[type]
+                    else null
+
+            # Create the page
+            @_pages[type] = new PageView
+                id: type
+                title: "Job Builder"
+                subView: view
+
+            # Add the first component row
+            @_addComponent type
+
+            # Load the page
+            @_setPage @_pages[type]
+
+        @_showPage @_pages[type]
 
     # Recalculate the loaded job
     _updateCost: =>
