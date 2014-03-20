@@ -10,17 +10,17 @@ module.exports = class JobElementFormView extends ComponentView
     initialize: (opts) ->
         super opts
 
-        # Set template
-        @routeType = opts.routeType if opts.routeType?
-        @templateFile = "templates/#{@routeType}.form"
-        @template = require @templateFile
-
         # Add attributes
+        @routeType = opts.routeType if opts.routeType?
         @id = "job-form-#{@routeType}"
         @className = "#{@routeType} #{@routeType}-form col-xs-12 form-horizontal"
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
         @jobRoutes = opts.jobRoutes if opts.jobRoutes?
+
+        # Set template
+        @templateFile = "templates/#{@routeType}.form"
+        @template = require @templateFile
 
         if @routeType == 'save'
             # Our children views

@@ -199,16 +199,16 @@ module.exports = class Application extends Backbone.Router
             if collection?
                 console.log "Creating #{routeType} collection form view"
                 view = new CollectionFormView
-                    routeType: routeType
                     title: routeType
+                    routeType: routeType
                     collection: collection
                     step: @_steps[routeType]
             else
                 console.log "Creating job element form view"
                 if routeType in ['create', 'save']
                     view = new JobElementFormView
-                        routeType: routeType
                         title: routeType
+                        routeType: routeType
                         model: @_current
                         jobRoutes: @_jobRoutes
                         step: @_steps[routeType]
@@ -263,7 +263,7 @@ module.exports = class Application extends Backbone.Router
     # Validate a component before adding a new one to the job
     _validateComponent: (evt) =>
         evt.preventDefault()
-        routeType = $(evt.currentTarget).data "create"
+        routeType = $(evt.currentTarget).data 'type'
         console.log "Validating #{routeType}"
 
         last = @_current.get(routeType).last()

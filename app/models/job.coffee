@@ -62,15 +62,15 @@ module.exports = class JobModel extends BaseModel
             data[collection] = @_inflateCollection collection, saved
         data
 
-    _inflateCollection: (type, data) ->
-        model = switch type
+    _inflateCollection: (modelType, data) ->
+        model = switch modelType
             when "concrete" then ConcreteModel
             when "labor" then LaborModel
             when "materials" then MaterialModel
             when "equipment" then EquipmentModel
         new Collection data, {
                 model: model
-                type: type
+                modelType: modelType
             }
 
     calculate: ->
