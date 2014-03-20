@@ -28,19 +28,19 @@ module.exports = class LaborModel extends Model
     ]
 
     fields: [
-            type: "number"
-            text: "Project duration"
-            name: "duration"
-            show: true
-        ,
             type: "select"
             text: "Type"
             name: "type"
             show: false
         ,
             type: "number"
-            text: "Quantity"
-            name: "quantity"
+            text: "Number of laborers"
+            name: "laborers_count"
+            show: true
+        ,
+            type: "number"
+            text: "Time per laborer"
+            name: "labor_time"
             show: true
         ,
             type: "number"
@@ -53,6 +53,6 @@ module.exports = class LaborModel extends Model
         @help = "Labor help text"
 
     calculate: ->
-        @cost = @attributes.duration * @attributes.quantity * @attributes.rate
-        console.log "labor row ##{@cid}: #{@attributes.duration} x #{@attributes.quantity}u @ $#{@attributes.rate} = #{@cost}"
+        @cost = @attributes.laborers_count * @attributes.labor_time * @attributes.rate
+        console.log "labor row ##{@cid}: #{@attributes.laborers_count} x #{@attributes.labor_time}u @ $#{@attributes.rate} = #{@cost}"
         @cost
