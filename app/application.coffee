@@ -76,6 +76,9 @@ module.exports = class Application extends Backbone.Router
     home: ->
         console.log "Loading home page"
 
+        # Create new (empty) job
+        @_createJob()
+
         # Create the page only once
         unless @_pages["home"]?
             @_pages["home"] = new PageView
@@ -126,10 +129,8 @@ module.exports = class Application extends Backbone.Router
 
         @_showPage @_pages[routeType]
 
-
     add: (routeType = "create") ->
         console.log "Loading #{routeType} component page"
-        @_createJob()
         @_viewJob(routeType)
 
     # Tell jQuery Mobile to change the damn page
