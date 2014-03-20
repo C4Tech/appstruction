@@ -103,17 +103,19 @@ module.exports = class Application extends Backbone.Router
 
     read: (id) ->
         console.log "Loading job listing page"
+        readRoute = "read-#{id}"
 
-        unless @_pages["read-#{id}"]?
+        unless @_pages[readRoute]?
             @_readJob id
-            @_pages["read-#{id}"] = new PageView
-                title: @_current.attributes.name
+            @_pages[readRoute] = new PageView
+                title: "Cole"
                 subView: new JobView
                     model: @_current
 
-            @_setPage @_pages["read-#{id}"]
+            @_setPage @_pages[readRoute]
 
-        @_showPage @_pages["read-#{id}"]
+        @_showPage @_pages[readRoute]
+        @_updateJobName readRoute
 
     add: (type = "create") ->
         console.log "Loading #{type} component page"
@@ -173,6 +175,7 @@ module.exports = class Application extends Backbone.Router
 
         # Bind URL clicks
         $(document).on "tap", "button.navbar-btn, button.btn-primary, button.btn-link, button.job", @_navigate
+        $(document).on "tap", "button.navbar-btn, button.btn-primary, button.btn-link, button.job", @_updateJobName
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
@@ -214,6 +217,28 @@ module.exports = class Application extends Backbone.Router
         console.log "Recalculating job cost"
         cost = @_current.calculate() if @_current?
         $('.job.cost').text cost
+        @_current
+
+    # Refresh the displayed job name
+    _updateJobName: (currentRoute = null) =>
+        console.log "Refreshing job name"
+        currentRoute = Backbone.history.fragment if currentRoute?
+        return if currentRoute?
+
+        allowedRoutes = [
+            "add.concrete"
+            "add.labor"
+            "add.materials"
+            "add.equipment"
+            "add.save"
+        ]
+
+        headerJobName = $('.header-job-name')
+        if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
+            headerJobName.find('h1').text @_current.attributes.name
+            headerJobName.show()
+        else
+            headerJobName.hide()
         @_current
 
     # Delete the current job (and create a new empty one)
