@@ -11,6 +11,7 @@ module.exports = class JobView extends BaseView
         @id = @model.cid
         @className = "#{@type}-overview"
         @jobRoutes = opts.jobRoutes if opts.jobRoutes?
+        @routeType = opts.routeType if opts.routeType?
 
         # Re-create the element name
         @setName()
@@ -25,7 +26,8 @@ module.exports = class JobView extends BaseView
                 className: "job-list-collection"
                 collection: data
                 title: collection
-                type: collection
+                modelType: collection
+                routeType: @routeType
 
         # Return nothing
         null

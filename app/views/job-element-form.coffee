@@ -33,7 +33,8 @@ module.exports = class JobElementFormView extends ComponentView
                     className: "job-list-collection"
                     collection: data
                     title: collection
-                    routeType: collection
+                    modelType: collection
+                    routeType: @routeType
 
         # Re-create the element name
         @setName()

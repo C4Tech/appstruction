@@ -99,7 +99,8 @@ module.exports = class Application extends Backbone.Router
                 id: "browse"
                 title: "Load an Estimate"
                 subView: new CollectionListView
-                    modelType: "job"
+                    modelType: 'job'
+                    routeType: 'browse'
                     collection: @_jobs
                     child: JobListView
                     step: @_steps['home']
@@ -119,6 +120,7 @@ module.exports = class Application extends Backbone.Router
                 subView: new JobView
                     model: @_current
                     jobRoutes: @_jobRoutes
+                    routeType: 'read'
 
             @_setPage @_pages[routeType]
 

@@ -9,6 +9,9 @@ module.exports = class CollectionListView extends CollectionView
 
         super opts
 
+        @routeType = opts.routeType if opts.routeType?
+        @modelType = opts.modelType if opts.modelType?
+
         @id = "job-list-#{@modelType}" unless @id
         @className = "#{@modelType}-list-collection" unless @className
         @next = opts.next if opts.next?
@@ -35,6 +38,7 @@ module.exports = class CollectionListView extends CollectionView
         # Rebuild the frame
         @$el.html @template
             modelType: @modelType
+            routeType: @routeType
             title: @title
             cost: @collection.calculate() if @collection.calculate?
 
