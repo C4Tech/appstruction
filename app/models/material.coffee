@@ -52,6 +52,9 @@ module.exports = class MaterialModel extends Model
             show: true
     ]
 
+    initialize: ->
+        @help = "Materials help text"
+
     calculate: ->
         @cost = @attributes.quantity * @attributes.price
         console.log "material row ##{@cid}: #{@attributes.quantity}@#{@attributes.price} = #{@cost}"
