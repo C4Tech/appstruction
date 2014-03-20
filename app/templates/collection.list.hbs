@@ -1,11 +1,27 @@
-{{#if title}}
-    <div class="peanl-heading">
-        <h4 class="panel-title">{{title}}</h4>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a data-toggle="collapse" data-parent="#job-accordion" href="#{{type}}-{{title}}">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h4 class="panel-title">
+                        {{title}}
+                    </h4>
+                </div>
+                {{#if title}}
+                    <div class="col-xs-2 pull-right">
+                        <i class="fa fa-arrow-down"></i>
+                    </div>
+                {{/if}}
+            </div>
+        </a>
     </div>
-{{/if}}
-<div class="panel-body">
-    <div class="{{type}} text-warning">
-        Cost: $<span class="{{type}} cost">{{cost}}</span>
+
+    <div id="{{type}}-{{title}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
+        <div class="panel-body">
+            <div class="{{type}} text-warning">
+                Cost: $<span class="{{type}} cost">{{cost}}</span>
+            </div>
+            <ul class="{{type}} items list-group"></ul>
+        </div>
     </div>
-    <ul class="{{type}} items list-group"></ul>
 </div>
