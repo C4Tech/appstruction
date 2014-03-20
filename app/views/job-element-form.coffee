@@ -1,4 +1,5 @@
 ComponentView = require "views/component"
+CollectionListView = require "views/collection-list"
 
 module.exports = class JobElementFormView extends ComponentView
     tagName: "article"
@@ -18,6 +19,20 @@ module.exports = class JobElementFormView extends ComponentView
         @className = "#{@type} #{@type}-form col-xs-12 form-horizontal"
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
+
+        if @type == 'save'
+            # Our children views
+            @_children = []
+
+            # Instantiate views for each collection in model
+            collections = ["concrete", "labor", "materials", "equipment"]
+            for collection in collections
+                data = if @model.attributes[collection]? then @model.attributes[collection] else false
+                @_children.push new CollectionListView
+                    className: "job-list-collection"
+                    collection: data
+                    title: collection
+                    type: collection
 
         # Re-create the element name
         @setName()
@@ -47,7 +62,7 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Append all of the rendered children
         _(@_children).each (child) =>
-            @$el.append child.render().$el
+            @$(".job.items").append child.render().$el
 
         # Return this
         @
