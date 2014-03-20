@@ -19,8 +19,6 @@ module.exports = class ComponentView extends BaseView
 
     # Render the model
     render: ->
-
-
         # Set the HTML
         @$el.html @template
             row: @model.toJSON()

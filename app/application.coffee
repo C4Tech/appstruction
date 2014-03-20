@@ -122,6 +122,8 @@ module.exports = class Application extends Backbone.Router
     add: (type = "create") ->
         console.log "Loading #{type} component page"
 
+        @_createJob()
+
         # Create the page only once
         unless @_pages[type]?
             # Form component

@@ -46,7 +46,7 @@ module.exports = class CollectionFormView extends CollectionView
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".items").append child.render().$el
+            @$('#component-help').text child.model.help
 
         # Return this
         @
-
