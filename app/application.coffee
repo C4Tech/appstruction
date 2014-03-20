@@ -33,6 +33,8 @@ module.exports = class Application extends Backbone.Router
         equipment:
             prev: "add.materials"
             next: "add.save"
+        save:
+            prev: "add.equipment"
 
     routes:
         "": "home"
