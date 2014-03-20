@@ -46,10 +46,10 @@ module.exports = class CollectionFormView extends CollectionView
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".items").append child.render().$el
+            @$('#component-help').text child.model.help
 
         if @type is 'concrete'
           @$('#-tax-c13').mask '##0.00%', {reverse: true}
 
         # Return this
         @
-
