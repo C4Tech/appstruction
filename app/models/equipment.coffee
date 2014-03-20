@@ -46,6 +46,9 @@ module.exports = class EquipmentModel extends Model
             show: false
     ]
 
+    initialize: ->
+        @help = "Equipment help text"
+
     calculate: ->
         @cost = @attributes.quantity * @attributes.rate
         console.log "equipment row ##{@cid}: #{@attributes.quantity}@$#{@attributes.rate} = #{@cost}"

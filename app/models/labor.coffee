@@ -49,6 +49,9 @@ module.exports = class LaborModel extends Model
             show: true
     ]
 
+    initialize: ->
+        @help = "Labor help text"
+
     calculate: ->
         @cost = @attributes.duration * @attributes.quantity * @attributes.rate
         console.log "labor row ##{@cid}: #{@attributes.duration} x #{@attributes.quantity}u @ $#{@attributes.rate} = #{@cost}"
