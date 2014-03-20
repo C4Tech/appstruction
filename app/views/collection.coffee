@@ -66,7 +66,7 @@ module.exports = class CollectionView extends BaseView
         # Find the view to remove by model
         orphan = _(@_children).select (child) ->
             child.model is model
-        orphan = orpan.unshift()
+        orphan = orphan.unshift()
 
         # Stop child from listening to events
         orphan.stopListening()
