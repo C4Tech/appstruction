@@ -109,6 +109,7 @@ module.exports = class Application extends Backbone.Router
 
     add: (type = "type") ->
         console.log "Loading #{type} component page"
+        @_createJob()
         @_viewJob(type)
 
     # Tell jQuery Mobile to change the damn page
