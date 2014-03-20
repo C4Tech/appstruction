@@ -8,6 +8,7 @@ Collection = require "models/collection"
 module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
+    jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
     types: [
             id: "1"
@@ -56,8 +57,7 @@ module.exports = class JobModel extends BaseModel
         @parse data
 
     parse: (data) ->
-        collections = ["concrete", "labor", "materials", "equipment"]
-        for collection in collections
+        for collection in @jobRoutes
             saved = if data[collection]? then data[collection] else false
             data[collection] = @_inflateCollection collection, saved
         data

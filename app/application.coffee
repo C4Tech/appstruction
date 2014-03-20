@@ -6,6 +6,7 @@ CollectionFormView = require "views/collection-form"
 CollectionListView = require "views/collection-list"
 JobElementFormView = require "views/job-element-form"
 JobListView = require "views/job-list"
+JobView = require "views/job"
 
 module.exports = class Application extends Backbone.Router
     # Collection of jobs
@@ -16,13 +17,15 @@ module.exports = class Application extends Backbone.Router
 
     _pages: {}
 
+    _jobRoutes: null
+
     _steps:
         home:
             prev: "home"
-        type:
+        create:
             next: "add.concrete"
         concrete:
-            prev: "add.type"
+            prev: "add.create"
             next: "add.labor"
         labor:
             prev: "add.concrete"
@@ -42,17 +45,21 @@ module.exports = class Application extends Backbone.Router
         "open": "open"
         "browse": "browse"
         "read.:id": "read"
-        "add(.:type)": "add"
-        # "edit(.:type)": "edit"
+        "add(.:routeType)": "add"
+        # "edit(.:routeType)": "edit"
         # "delete.:id": "delete"
 
     initialize: (opts) ->
         console.log "Initializing Cole"
 
+        temp = new JobModel
+        @_jobRoutes = temp.jobRoutes
+
         # Load the saved jobs
         @_jobs = new Collection null,
             model: JobModel
-            type: "job"
+            modelType: "job"
+            jobRoutes: @_jobRoutes
             url: "jobs"
 
         @_jobs.fetch()
@@ -92,7 +99,7 @@ module.exports = class Application extends Backbone.Router
                 id: "browse"
                 title: "Load an Estimate"
                 subView: new CollectionListView
-                    type: "job"
+                    modelType: "job"
                     collection: @_jobs
                     child: JobListView
                     step: @_steps['home']
@@ -104,13 +111,24 @@ module.exports = class Application extends Backbone.Router
 
     read: (id) ->
         console.log "Loading job listing page"
-        @_readJob id
-        @_viewJob()
+        routeType = "read-#{id}"
+        unless @_pages[routeType]?
+            @_readJob id
+            @_pages[routeType] = new PageView
+                title: @_current.attributes.name
+                subView: new JobView
+                    model: @_current
+                    jobRoutes: @_jobRoutes
 
-    add: (type = "type") ->
-        console.log "Loading #{type} component page"
+            @_setPage @_pages[routeType]
+
+        @_showPage @_pages[routeType]
+
+
+    add: (routeType = "create") ->
+        console.log "Loading #{routeType} component page"
         @_createJob()
-        @_viewJob(type)
+        @_viewJob(routeType)
 
     # Tell jQuery Mobile to change the damn page
     _setPage: (page) ->
@@ -165,46 +183,47 @@ module.exports = class Application extends Backbone.Router
         @_current
 
     # View the current job
-    _viewJob: (type = "type") =>
+    _viewJob: (routeType = "create") =>
         console.log "Viewing job"
         # Create the page only once
-        unless @_pages[type]?
+        unless @_pages[routeType]?
             # Form component
             view = null
-            collection = switch type
-                when "concrete", "labor", "materials", "equipment" then @_current.get(type)
-                else null
+            collection = null
+
+            if routeType in @_jobRoutes
+                collection = @_current.get(routeType)
 
             if collection?
-                console.log "Creating #{type} collection form view"
+                console.log "Creating #{routeType} collection form view"
                 view = new CollectionFormView
-                    type: type
-                    title: type
+                    routeType: routeType
+                    title: routeType
                     collection: collection
-                    step: @_steps[type]
+                    step: @_steps[routeType]
             else
                 console.log "Creating job element form view"
-                view = switch type
-                    when "type", "save" then new JobElementFormView
-                        type: type
-                        title: type
+                if routeType in ['create', 'save']
+                    view = new JobElementFormView
+                        routeType: routeType
+                        title: routeType
                         model: @_current
-                        step: @_steps[type]
-                    else null
+                        jobRoutes: @_jobRoutes
+                        step: @_steps[routeType]
 
             # Create the page
-            @_pages[type] = new PageView
-                id: type
+            @_pages[routeType] = new PageView
+                id: routeType
                 title: "Job Builder"
                 subView: view
 
             # Add the first component row
-            @_addComponent type
+            @_addComponent routeType
 
             # Load the page
-            @_setPage @_pages[type]
+            @_setPage @_pages[routeType]
 
-        @_showPage @_pages[type]
+        @_showPage @_pages[routeType]
 
     # Recalculate the loaded job
     _updateCost: =>
@@ -232,26 +251,24 @@ module.exports = class Application extends Backbone.Router
             alert @_current.validationError
             false
 
-    _addComponent: (type) =>
+    _addComponent: (routeType) =>
         # Model
-        switch type
-            when "concrete", "labor", "materials", "equipment" then @_current.get(type).add {}
+        if routeType in @_jobRoutes
+            @_current.get(routeType).add {}
 
         true
 
     # Validate a component before adding a new one to the job
     _validateComponent: (evt) =>
         evt.preventDefault()
-        type = $(evt.currentTarget).data "type"
-        console.log "Validating #{type}"
-            # app._validateComponent type
-            # (type) =>
-        last = @_current.get(type).last()
+        routeType = $(evt.currentTarget).data "create"
+        console.log "Validating #{routeType}"
 
+        last = @_current.get(routeType).last()
         if last.isValid()
             # Add to the job's collection for saving and calculating
-            console.log "Adding #{type} to active job"
-            @_addComponent type
+            console.log "Adding #{routeType} to active job"
+            @_addComponent routeType
         else
             alert last.validationError
 

@@ -1,0 +1,12 @@
+<h2>{{row.title}}</h2>
+
+{{#each row}}
+    <div class="field {{../type}} {{./name}} text-info"><strong>{{./text}}</strong>: {{./value}}</div>
+{{/each}}
+
+<div class="{{type}} text-success">
+    <strong>Cost: $<span class="{{type}} cost">{{cost}}</span></strong>
+</div>
+
+<div class="job items panel-group"></div>
+

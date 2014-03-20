@@ -1,6 +1,6 @@
 module.exports = class BaseModel extends Backbone.Model
     defaults:
-        "help": null
+        help: null
 
     fields: []
     cost: 0
