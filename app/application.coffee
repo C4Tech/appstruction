@@ -227,8 +227,14 @@ module.exports = class Application extends Backbone.Router
     # Refresh the displayed job name
     _updateJobName: (currentRoute = null) =>
         console.log "Refreshing job name"
-        currentRoute = Backbone.history.fragment if currentRoute?
-        return if currentRoute?
+
+        # When called from an event, the event object is passed as parameter.
+        # In that scenario we want currentRoute to be null at this point.
+        if typeof currentRoute != 'string'
+            currentRoute = null
+
+        currentRoute = currentRoute || Backbone.history.fragment
+        return if not currentRoute?
 
         allowedRoutes = [
             "add.concrete"
