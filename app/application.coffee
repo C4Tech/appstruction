@@ -20,10 +20,10 @@ module.exports = class Application extends Backbone.Router
     _steps:
         home:
             prev: "home"
-        type:
+        create:
             next: "add.concrete"
         concrete:
-            prev: "add.type"
+            prev: "add.create"
             next: "add.labor"
         labor:
             prev: "add.concrete"
@@ -108,19 +108,21 @@ module.exports = class Application extends Backbone.Router
 
     read: (id) ->
         console.log "Loading job listing page"
+        readRoute = "read-#{id}"
 
-        unless @_pages["read-#{id}"]?
+        unless @_pages[readRoute]?
             @_readJob id
-            @_pages["read-#{id}"] = new PageView
-                title: @_current.attributes.name
+            @_pages[readRoute] = new PageView
+                title: "Cole"
                 subView: new JobView
                     model: @_current
 
-            @_setPage @_pages["read-#{id}"]
+            @_setPage @_pages[readRoute]
 
-        @_showPage @_pages["read-#{id}"]
+        @_showPage @_pages[readRoute]
+        @_updateJobName readRoute
 
-    add: (type = "type") ->
+    add: (type = "create") ->
         console.log "Loading #{type} component page"
 
         # Create the page only once
@@ -141,7 +143,7 @@ module.exports = class Application extends Backbone.Router
             else
                 console.log "Creating job element form view"
                 view = switch type
-                    when "type", "save" then new JobElementFormView
+                    when "create", "save" then new JobElementFormView
                         type: type
                         title: type
                         model: @_current
@@ -178,6 +180,7 @@ module.exports = class Application extends Backbone.Router
 
         # Bind URL clicks
         $(document).on "tap", "button.ccma-navigate", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_updateJobName
         $(document).on "tap", "button.ccma-navigate", @_updateCost
 
         # Add job component buttons
@@ -222,6 +225,34 @@ module.exports = class Application extends Backbone.Router
         $('.subtotal').text cost
         @_current
 
+    # Refresh the displayed job name
+    _updateJobName: (currentRoute = null) =>
+        console.log "Refreshing job name"
+
+        # When called from an event, the event object is passed as parameter.
+        # In that scenario we want currentRoute to be null at this point.
+        if typeof currentRoute != 'string'
+            currentRoute = null
+
+        currentRoute = currentRoute || Backbone.history.fragment
+        return if not currentRoute?
+
+        allowedRoutes = [
+            "add.concrete"
+            "add.labor"
+            "add.materials"
+            "add.equipment"
+            "add.save"
+        ]
+
+        headerJobName = $('.header-job-name')
+        if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
+            headerJobName.find('h1').text @_current.attributes.name
+            headerJobName.show()
+        else
+            headerJobName.hide()
+        @_current
+
     # Delete the current job (and create a new empty one)
     _deleteJob: =>
         console.log "Deleting job"
@@ -251,7 +282,7 @@ module.exports = class Application extends Backbone.Router
     # Validate a component before adding a new one to the job
     _validateComponent: (evt) =>
         evt.preventDefault()
-        type = $(evt.currentTarget).data "type"
+        type = $(evt.currentTarget).data "create"
         console.log "Validating #{type}"
             # app._validateComponent type
             # (type) =>
