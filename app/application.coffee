@@ -70,6 +70,9 @@ module.exports = class Application extends Backbone.Router
     home: ->
         console.log "Loading home page"
 
+        # Create new (empty) job
+        @_createJob()
+
         # Create the page only once
         unless @_pages["home"]?
             @_pages["home"] = new PageView
@@ -119,8 +122,6 @@ module.exports = class Application extends Backbone.Router
 
     add: (type = "type") ->
         console.log "Loading #{type} component page"
-
-        @_createJob()
 
         # Create the page only once
         unless @_pages[type]?
@@ -176,7 +177,8 @@ module.exports = class Application extends Backbone.Router
         console.log "Binding events"
 
         # Bind URL clicks
-        $(document).on "tap", "button.navbar-btn, button.btn-primary, button.btn-link, button.job", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_updateCost
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
@@ -188,7 +190,7 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", "button.job.reset", @_deleteJob
 
         # Handle application events
-        $(document).on "change", "input, select", @_updateCost
+        $(document).on "change", ".field", @_updateCost
 
         true
 
@@ -217,7 +219,7 @@ module.exports = class Application extends Backbone.Router
     _updateCost: =>
         console.log "Recalculating job cost"
         cost = @_current.calculate() if @_current?
-        $('.job.cost').text cost
+        $('.subtotal').text cost
         @_current
 
     # Delete the current job (and create a new empty one)
