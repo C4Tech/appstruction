@@ -2,21 +2,21 @@
     <div class="row">
         {{#if step.prev}}
             <div class="col-xs-4">
-                <button data-path="{{step.prev}}" class="prev btn btn-default navbar-btn" role="button">
+                <button data-path="{{step.prev}}" class="{{type}} prev btn btn-default ccma-navigate navbar-btn" role="button">
                     <i class="fa fa-arrow-left"></i><br />Back
                 </button>
             </div>
         {{/if}}
 
         <div class="col-xs-4{{#unless step.prev}} col-xs-offset-4{{/unless}}">
-            <button data-path="home" class="home btn btn-default navbar-btn center-block" role="button">
+            <button data-path="home" class="home btn btn-default ccma-navigate navbar-btn center-block" role="button">
                 <i class="fa fa-home"></i><br />Home
             </button>
         </div>
 
         {{#if step.next}}
             <div class="col-xs-4">
-                <button data-path="{{step.next}}" class="next btn btn-default navbar-btn pull-right" role="button">
+                <button data-path="{{step.next}}" class="{{type}} next btn btn-default ccma-navigate navbar-btn pull-right" role="button">
                     <i class="fa fa-arrow-right"></i><br />Next
                 </button>
             </div>
