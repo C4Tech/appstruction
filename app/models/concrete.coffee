@@ -11,36 +11,36 @@ module.exports = class ConcreteModel extends Model
         "tax": null
 
     measurement_options: [
-            id: "1"
-            text: "Inches"
+            id: 'in'
+            text: 'Inches'
         ,
-            id: "2"
-            text: "Feet"
+            id: 'ft'
+            text: 'Feet'
         ,
-            id:"3"
-            text: "Yards"
+            id:'yd'
+            text: 'Yards'
         ,
-            id:"4"
-            text: "Centimeters"
+            id:'cm'
+            text: 'Centimeters'
         ,
-            id:"5"
-            text: "Meters"
+            id:'m'
+            text: 'Meters'
     ]
 
     price_options: [
-            id: '1'
+            id: 'in'
             text: 'Per Cubic Inch'
         ,
-            id: '2'
+            id: 'ft'
             text: 'Per Cubic Foot'
         ,
-            id: '3'
+            id: 'yd'
             text: 'Per Cubic Yard'
         ,
-            id: '4'
+            id: 'cm'
             text: 'Per Cubic Centimeter'
         ,
-            id: '5'
+            id: 'm'
             text: 'Per Cubic Meter'
     ]
 
