@@ -9,6 +9,6 @@
 {{/if}}
 <fieldset class="form-group">
     {{#each fields}}
-        <input type="{{./type}}" placeholder="{{./text}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
+        <input type="{{./type}}" placeholder="{{./text}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control" {{#if mask}}data-mask="{{./mask}}"{{/if}}></input>
     {{/each}}
 </fieldset>

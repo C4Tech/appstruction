@@ -49,7 +49,7 @@ module.exports = class CollectionFormView extends CollectionView
             @$('#component-help').text child.model.help
 
         if @type is 'concrete'
-          @$('#-tax-c13').mask '##0.00%', {reverse: true}
+            @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
 
         # Return this
         @
