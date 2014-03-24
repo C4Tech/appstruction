@@ -126,7 +126,6 @@ module.exports = class Application extends Backbone.Router
                     routeType: 'read'
 
             @_setPage @_pages[routeType]
-
         @_showPage @_pages[routeType]
 
     add: (routeType = "create") ->
@@ -149,6 +148,7 @@ module.exports = class Application extends Backbone.Router
 
         # Bind URL clicks
         $(document).on "tap", "button.ccma-navigate", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_updateJobName
         $(document).on "tap", "button.ccma-navigate", @_updateCost
 
         # Add job component buttons
@@ -234,6 +234,34 @@ module.exports = class Application extends Backbone.Router
         console.log "Recalculating job cost"
         cost = @_current.calculate() if @_current?
         $('.subtotal').text cost
+        @_current
+
+    # Refresh the displayed job name
+    _updateJobName: (currentRoute = null) =>
+        console.log "Refreshing job name"
+
+        # When called from an event, the event object is passed as parameter.
+        # In that scenario we want currentRoute to be null at this point.
+        if typeof currentRoute != 'string'
+            currentRoute = null
+
+        currentRoute = currentRoute || Backbone.history.fragment
+        return if not currentRoute?
+
+        allowedRoutes = [
+            "add.concrete"
+            "add.labor"
+            "add.materials"
+            "add.equipment"
+            "add.save"
+        ]
+
+        headerJobName = $('.header-job-name')
+        if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
+            headerJobName.find('h1').text @_current.attributes.name
+            headerJobName.show()
+        else
+            headerJobName.hide()
         @_current
 
     # Delete the current job (and create a new empty one)
