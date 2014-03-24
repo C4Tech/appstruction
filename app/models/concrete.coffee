@@ -10,21 +10,21 @@ module.exports = class ConcreteModel extends Model
         "price": null
         "tax": null
 
-    types: [
+    measurement_options: [
             id: "1"
-            name: "Inches"
+            text: "Inches"
         ,
             id: "2"
-            name: "Feet"
+            text: "Feet"
         ,
             id:"3"
-            name: "Yards"
+            text: "Yards"
         ,
             id:"4"
-            name: "Centimeters"
+            text: "Centimeters"
         ,
             id:"5"
-            name: "Meters"
+            text: "Meters"
     ]
 
     fields: [
@@ -32,6 +32,30 @@ module.exports = class ConcreteModel extends Model
             text: "Quantity"
             name: "quantity"
             show: true
+        ,
+            type: "number"
+            text: "Length"
+            name: "length"
+            show: true
+        ,
+            type: "select"
+            text: "Units"
+            name: "length_units"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'measurements'
+        ,
+            type: "number"
+            text: "Width"
+            name: "width"
+            show: true
+        ,
+            type: "select"
+            text: "Units"
+            name: "width_units"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'measurements'
         ,
             type: "number"
             text: "Depth"
@@ -42,16 +66,8 @@ module.exports = class ConcreteModel extends Model
             text: "Units"
             name: "depth_units"
             show: true
-        ,
-            type: "number"
-            text: "Width"
-            name: "width"
-            show: true
-        ,
-            type: "number"
-            text: "Length"
-            name: "length"
-            show: true
+            fieldTypeSelect: true
+            optionsType: 'measurements'
         ,
             type: "number"
             text: "Price"
@@ -66,6 +82,10 @@ module.exports = class ConcreteModel extends Model
 
     initialize: ->
         @help = "Concrete help text"
+
+        self = @
+        _(@fields).each (child) =>
+            child.options = self.measurement_options if child.optionsType == 'measurements'
 
     calculate: ->
         @cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price
