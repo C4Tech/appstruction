@@ -2,13 +2,9 @@
 
 <fieldset class="form-group col-xs-12">
     <label for="job_type_{{cid}}">Select a job type</label>
-    <select id="job_type_{{cid}}" name="type" class="field job type form-control">
-        {{#each types}}
-            <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select>
+    <input type="hidden" placeholder="" id="job_type_{{cid}}" name="type" class="field job form-control"></input>
 </fieldset>
 
 {{#if step}}
-    <button class="btn btn-primary next" data-path="{{step.next}}">Next</a>
+    <button class="btn btn-primary next" data-path="{{step.next}}">Next</button>
 {{/if}}

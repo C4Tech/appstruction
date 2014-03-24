@@ -11,22 +11,22 @@ module.exports = class JobModel extends BaseModel
 
     types: [
             id: "1"
-            name: "Slab"
+            text: "Slab"
         ,
             id: "2"
-            name: "GB- H"
+            text: "GB- H"
         ,
             id:"3"
-            name: "GB - H1A"
+            text: "GB - H1A"
         ,
             id:"4"
-            name: "GB - V"
+            text: "GB - V"
         ,
             id:"5"
-            name: "Piles"
+            text: "Piles"
         ,
             id:"6"
-            name: "Truck Well"
+            text: "Truck Well"
     ]
 
     fields: [
