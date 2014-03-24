@@ -60,6 +60,8 @@ module.exports = class JobElementFormView extends ComponentView
             cost: @model.cost
             types: @model.types
 
+        @$('select.job').select2()
+
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".job.items").append child.render().$el
