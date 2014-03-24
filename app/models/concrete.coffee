@@ -27,6 +27,23 @@ module.exports = class ConcreteModel extends Model
             text: "Meters"
     ]
 
+    price_options: [
+            id: '1'
+            text: 'Per Cubic Inch'
+        ,
+            id: '2'
+            text: 'Per Cubic Foot'
+        ,
+            id: '3'
+            text: 'Per Cubic Yard'
+        ,
+            id: '4'
+            text: 'Per Cubic Centimeter'
+        ,
+            id: '5'
+            text: 'Per Cubic Meter'
+    ]
+
     fields: [
             type: "number"
             text: "Quantity"
@@ -43,7 +60,7 @@ module.exports = class ConcreteModel extends Model
             name: "length_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurements'
+            optionsType: 'measurement_units'
         ,
             type: "number"
             text: "Width"
@@ -55,7 +72,7 @@ module.exports = class ConcreteModel extends Model
             name: "width_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurements'
+            optionsType: 'measurement_units'
         ,
             type: "number"
             text: "Depth"
@@ -67,12 +84,19 @@ module.exports = class ConcreteModel extends Model
             name: "depth_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurements'
+            optionsType: 'measurement_units'
         ,
             type: "number"
             text: "Price"
             name: "price"
             show: true
+        ,
+            type: "select"
+            text: "Units"
+            name: "price_units"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'price_units'
         ,
             type: "number"
             text: "Tax rate"
@@ -85,7 +109,8 @@ module.exports = class ConcreteModel extends Model
 
         self = @
         _(@fields).each (child) =>
-            child.options = self.measurement_options if child.optionsType == 'measurements'
+            child.options = self.measurement_options if child.optionsType == 'measurement_units'
+            child.options = self.price_options if child.optionsType == 'price_units'
 
     calculate: ->
         @cost = @attributes.depth * @attributes.width * @attributes.length * @attributes.quantity * @attributes.price
