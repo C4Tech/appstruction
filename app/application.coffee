@@ -218,7 +218,7 @@ module.exports = class Application extends Backbone.Router
     _updateCost: =>
         console.log "Recalculating job cost"
         cost = @_current.calculate() if @_current?
-        $('.job.cost').text cost
+        $('.job.cost').text cost.toFixed(2)
         @_current
 
     # Delete the current job (and create a new empty one)

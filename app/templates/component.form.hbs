@@ -1,14 +1,15 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if fieldTypeSelect}}
-            <select id="{{./type}}_type_{{../cid}}" name="type" class="field {{./type}} type form-control">
+            <select id="{{./type}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./type}} type form-control" data-placeholder="{{./placeholder}}">
+                <option></option>
                 {{#each options}}
                     <option value="{{id}}">{{text}}</option>
                 {{/each}}
             </select>
             <br />
         {{else}}
-            <input type="{{./type}}" placeholder="{{./text}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
+            <input type="{{./type}}" placeholder="{{./placeholder}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
         {{/if}}
     {{/each}}
 </fieldset>
