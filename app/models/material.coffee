@@ -30,17 +30,17 @@ module.exports = class MaterialModel extends Model
     ]
 
     fields: [
-            text: "Quantity"
+            text: "How many"
             name: "quantity"
             type: "number"
             show: true
         ,
-            text: "Price"
+            text: "What price"
             name: "price"
             type: "number"
             show: true
         ,
-            text: "Type"
+            text: "What type"
             name: "type"
             type: "select"
             show: false

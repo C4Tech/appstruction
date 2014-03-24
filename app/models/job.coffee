@@ -35,7 +35,7 @@ module.exports = class JobModel extends BaseModel
             type: "text"
             show: false
         ,
-            text: "Type"
+            text: "What type of job"
             name: "type"
             type: "select"
             show: true

@@ -10,32 +10,32 @@ module.exports = class ConcreteModel extends Model
         "tax": null
 
     fields: [
-            text: "Quantity"
+            text: "How many"
             name: "quantity"
             type: "number"
             show: true
         ,
-            text: "Depth"
+            text: "How deep"
             name: "depth"
             type: "number"
             show: true
         ,
-            text: "Width"
+            text: "How wide"
             name: "width"
             type: "number"
             show: true
         ,
-            text: "Length"
+            text: "How long"
             name: "length"
             type: "number"
             show: true
         ,
-            text: "Price"
+            text: "What price"
             name: "price"
             type: "number"
             show: true
         ,
-            text: "Tax rate"
+            text: "What tax rate"
             name: "tax"
             type: "number"
             show: true
