@@ -49,11 +49,13 @@ module.exports = class JobModel extends BaseModel
             show: true
         ,
             name: "job_name"
+            placeholder: "Job Name"
             type: "text"
             label: 'Job Name'
             show: true
         ,
             name: "job_type"
+            placeholder: "Type"
             type: "select"
             label: 'Select a job type'
             fieldTypeSelect: true
@@ -61,6 +63,7 @@ module.exports = class JobModel extends BaseModel
             show: true
         ,
             name: "profit_margin"
+            placeholder: "Profit Margin"
             type: "number"
             label: 'Profit Margin'
             show: false

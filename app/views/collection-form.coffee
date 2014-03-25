@@ -48,5 +48,9 @@ module.exports = class CollectionFormView extends CollectionView
             @$(".items").append child.render().$el
             @$('#component-help').text child.model.help
 
+        @$('select').select2
+            allowClear: true
+            minimumResultsForSearch: 6
+
         # Return this
         @

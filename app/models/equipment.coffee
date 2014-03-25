@@ -31,17 +31,17 @@ module.exports = class EquipmentModel extends Model
 
     fields: [
             type: "number"
-            text: "Quantity"
+            placeholder: "Quantity"
             name: "quantity"
             show: true
         ,
             type: "number"
-            text: "Rate"
+            placeholder: "Rate"
             name: "rate"
             show: true
         ,
             type: "select"
-            text: "Type"
+            placeholder: "Type"
             name: "type"
             show: false
     ]
