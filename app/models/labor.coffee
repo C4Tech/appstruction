@@ -29,22 +29,22 @@ module.exports = class LaborModel extends Model
 
     fields: [
             type: "number"
-            text: "Number"
+            placeholder: "Number"
             name: "number"
             show: true
         ,
             type: "number"
-            text: "Unit"
+            placeholder: "Unit"
             name: "unit"
             show: true
         ,
             type: "number"
-            text: "Rate"
+            placeholder: "Rate"
             name: "rate"
             show: true
         ,
             type: "select"
-            text: "Type"
+            placeholder: "Type"
             name: "type"
             show: false
     ]
