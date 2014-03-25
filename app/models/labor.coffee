@@ -3,35 +3,37 @@ Model = require "models/base"
 module.exports = class LaborModel extends Model
     defaults:
         "duration": null
-        "type": null
+        "labor_type": null
         "quantity": null
         "rate": null
 
-    types: [
+    labor_type_options: [
             id: "1"
-            name: "Finishers"
+            text: "Finishers"
         ,
             id: "2"
-            name: "Supervisors"
+            text: "Supervisors"
         ,
             id:"3"
-            name: "Forms crp"
+            text: "Forms crp"
         ,
             id:"4"
-            name: "Laborers"
+            text: "Laborers"
         ,
             id:"5"
-            name: "Driver"
+            text: "Driver"
         ,
             id:"6"
-            name: "Operator"
+            text: "Operator"
     ]
 
     fields: [
             type: "select"
-            placeholder: "Type"
-            name: "type"
-            show: false
+            placeholder: "Labor class"
+            name: "labor_type"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'labor_type'
         ,
             type: "number"
             placeholder: "Number of laborers"
@@ -56,6 +58,10 @@ module.exports = class LaborModel extends Model
 
     initialize: ->
         @help = "Labor help text"
+
+        self = @
+        _(@fields).each (field) =>
+            field.options = self.labor_type_options if field.optionsType == 'labor_type'
 
     calculate: ->
         @cost = @attributes.laborers_count * @attributes.labor_time * @attributes.rate
