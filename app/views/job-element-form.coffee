@@ -52,6 +52,7 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Rebuild the frame
         @$el.html @template
+            fields: @model.fields
             row: @model.toJSON()
             cid: @model.cid
             type: @type

@@ -1,16 +1,27 @@
-<h4>{{title}}</h4>
-
-<fieldset class="form-group col-xs-12">
-    <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
-    <br />
-    <label for="job_type_{{cid}}">Select a job type</label>
-    <select id="job_type_{{cid}}" name="type" class="field job type form-control">
-        {{#each types}}
-            <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select>
+<fieldset class="form-group">
+    {{#each fields}}
+        {{#if show}}
+            <label for="{{./type}}_{{./name}}_{{../cid}}" class="lead ccma-lead">{{./label}}</label>
+            {{#if fieldTypeSelect}}
+                <select id="{{./type}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./type}} type form-control">
+                    <option></option>
+                    {{#each options}}
+                        <option value="{{id}}">{{text}}</option>
+                    {{/each}}
+                </select>
+                <br />
+            {{else}}
+                <input type="{{./type}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
+                <br />
+            {{/if}}
+        {{/if}}
+    {{/each}}
 </fieldset>
 
-{{#if step}}
-    <button class="btn btn-primary next ccma-navigate" data-path="{{step.next}}">Next</a>
+{{#if step.next}}
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-6">
+            <button class="{{type}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
+        </div>
+    </div>
 {{/if}}

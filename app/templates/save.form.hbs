@@ -1,9 +1,14 @@
-<fieldset class="form-group col-xs-12">
+<fieldset class="form-group">
     <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="margin" class="job field form-control" value="{{row.margin}}" />
     <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" />
 </fieldset>
 
-<span class="lead">Job details</span>
+<div class="row">
+    <div class="col-xs-12 lead ccma-lead">
+        Job details
+    </div>
+</div>
+
 <div id="job-accordion" class="job items panel-group"></div>
 
 <div class="row">

@@ -9,49 +9,74 @@ module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
 
-    types: [
+    job_type_options: [
             id: "1"
-            name: "Slab"
+            text: "Slab"
         ,
             id: "2"
-            name: "GB- H"
+            text: "GB- H"
         ,
             id:"3"
-            name: "GB - H1A"
+            text: "GB - H1A"
         ,
             id:"4"
-            name: "GB - V"
+            text: "GB - V"
         ,
             id:"5"
-            name: "Piles"
+            text: "Piles"
         ,
             id:"6"
-            name: "Truck Well"
+            text: "Truck Well"
+    ]
+
+    group_name_options: [
+            id: "1"
+            text: "G1"
+        ,
+            id: "2"
+            text: "G2"
+        ,
+            id:"3"
+            text: "G3"
     ]
 
     fields: [
-            text: "Job Name"
-            name: "name"
+            name: 'group_name'
+            type: 'select'
+            label: 'Group Name'
+            fieldTypeSelect: true
+            optionsType: 'group_name'
+            show: true
+        ,
+            name: "job_name"
             type: "text"
-            show: false
+            label: 'Job Name'
+            show: true
         ,
-            text: "Type"
-            name: "type"
+            name: "job_type"
             type: "select"
+            label: 'Select a job type'
+            fieldTypeSelect: true
+            optionsType: 'job_type'
             show: true
         ,
-            text: "Profit Margin"
-            name: "margin"
+            name: "profit_margin"
             type: "number"
-            show: true
+            label: 'Profit Margin'
+            show: false
     ]
+
+    initialize: ->
+        self = @
+        _(@fields).each (field) =>
+            field.options = self.job_type_options if field.optionsType == 'job_type'
+            field.options = self.group_name_options if field.optionsType == 'group_name'
 
     defaults: ->
         data =
             name: null
             margin: null
             type: 1
-            dirt: null
 
         @parse data
 
