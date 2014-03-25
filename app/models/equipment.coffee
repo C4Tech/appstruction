@@ -1,50 +1,29 @@
 Model = require "models/base"
+ConvertModel = require "models/convert"
 
 module.exports = class EquipmentModel extends Model
-    defaults:
-        "type": null
+    defaults: _.extend Model.prototype.defaults,
+        "time": null
+        "time_units": null
+        "equipment_type": null
         "quantity": null
         "rate": null
         "rate_units": null
 
-    equipment_type_options: [
-            id: "1"
-            text: "Dump Truck"
-        ,
-            id: "2"
-            text: "Excavator"
-        ,
-            id:"3"
-            text: "Bobcat"
-        ,
-            id:"4"
-            text: "C pump"
-        ,
-            id:"5"
-            text: "Piles"
-        ,
-            id:"6"
-            text: "Trial"
-        ,
-            id:"7"
-            text: "Util Truck"
-    ]
-
-    time_per_options: [
-            id: "hour"
-            text: "Hourly"
-        ,
-            id: "day"
-            text: "Daily"
-        ,
-            id: "week"
-            text: "Weekly"
-        ,
-            id: "month"
-            text: "Monthly"
-    ]
-
     fields: [
+            type: "number"
+            placeholder: "Time"
+            name: "time"
+            show: true
+        ,
+            type: "select"
+            placeholder: "Unit"
+            name: "time_units"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'time_units'
+            append: '<hr />'
+        ,
             type: "select"
             placeholder: "Equipment Type"
             name: "equipment_type"
@@ -73,12 +52,20 @@ module.exports = class EquipmentModel extends Model
     initialize: ->
         @help = "Equipment help text"
 
-        self = @
+        choices = @attributes.choices.attributes
         _(@fields).each (field) =>
-            field.options = self.equipment_type_options if field.optionsType == 'equipment_type'
-            field.options = self.time_per_options if field.optionsType == 'time_per_units'
+            field.options = choices.equipment_type_options if field.optionsType == 'equipment_type'
+            field.options = choices.time_options if field.optionsType == 'time_units'
+            field.options = choices.time_per_options if field.optionsType == 'time_per_units'
 
     calculate: ->
-        @cost = @attributes.quantity * @attributes.rate
-        console.log "equipment row ##{@cid}: #{@attributes.quantity}@$#{@attributes.rate} = #{@cost}"
+        convert = new ConvertModel
+
+        time = convert.to_hours @attributes.time, @attributes.time_units
+        rate = convert.to_per_hour @attributes.rate, @attributes.rate_units
+
+        quantity = @attributes.quantity || 0
+
+        @cost = time * rate * quantity
+        console.log "equipment row ##{@cid}: #{time} (#{@attributes.time_units}) x #{quantity} (quantity) @ $#{rate} (#{@attributes.time_units}) = #{@cost}"
         @cost

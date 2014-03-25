@@ -1,7 +1,7 @@
 Model = require "models/base"
 
 module.exports = class ConcreteModel extends Model
-    defaults:
+    defaults: _.extend Model.prototype.defaults,
         "quantity": null
         "depth": null
         "depth_units": null
@@ -12,40 +12,6 @@ module.exports = class ConcreteModel extends Model
         "price": null
         "price_units": null
         "tax": null
-
-    measurement_options: [
-            id: 'in'
-            text: 'Inches'
-        ,
-            id: 'ft'
-            text: 'Feet'
-        ,
-            id:'yd'
-            text: 'Yards'
-        ,
-            id:'cm'
-            text: 'Centimeters'
-        ,
-            id:'m'
-            text: 'Meters'
-    ]
-
-    price_options: [
-            id: 'in'
-            text: 'Per Cubic Inch'
-        ,
-            id: 'ft'
-            text: 'Per Cubic Foot'
-        ,
-            id: 'yd'
-            text: 'Per Cubic Yard'
-        ,
-            id: 'cm'
-            text: 'Per Cubic Centimeter'
-        ,
-            id: 'm'
-            text: 'Per Cubic Meter'
-    ]
 
     fields: [
             type: "number"
@@ -110,10 +76,10 @@ module.exports = class ConcreteModel extends Model
     initialize: ->
         @help = "Concrete help text"
 
-        self = @
+        choices = @attributes.choices.attributes
         _(@fields).each (field) =>
-            field.options = self.measurement_options if field.optionsType == 'measurement_units'
-            field.options = self.price_options if field.optionsType == 'price_units'
+            field.options = choices.measurement_options if field.optionsType == 'measurement_units'
+            field.options = choices.price_options if field.optionsType == 'price_units'
 
     calculate: ->
         price_units = @attributes.price_units || 'ft'
