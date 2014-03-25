@@ -222,7 +222,7 @@ module.exports = class Application extends Backbone.Router
     _updateCost: =>
         console.log "Recalculating job cost"
         cost = @_current.calculate() if @_current?
-        $('.subtotal').text cost
+        $('.subtotal').text cost.toFixed(2)
         @_current
 
     # Refresh the displayed job name
