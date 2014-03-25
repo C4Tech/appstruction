@@ -277,21 +277,25 @@ module.exports = class Application extends Backbone.Router
         switch type
             when "concrete", "labor", "materials", "equipment" then @_current.get(type).add {}
 
+        $('select').select2
+            allowClear: true
+            minimumResultsForSearch: 6
+
         true
 
     # Validate a component before adding a new one to the job
     _validateComponent: (evt) =>
         evt.preventDefault()
-        type = $(evt.currentTarget).data "create"
-        console.log "Validating #{type}"
+        modelType = $(evt.currentTarget).data "type"
+        console.log "Validating #{modelType}"
             # app._validateComponent type
             # (type) =>
-        last = @_current.get(type).last()
+        last = @_current.get(modelType).last()
 
         if last.isValid()
             # Add to the job's collection for saving and calculating
-            console.log "Adding #{type} to active job"
-            @_addComponent type
+            console.log "Adding #{modelType} to active job"
+            @_addComponent modelType
         else
             alert last.validationError
 
