@@ -111,9 +111,9 @@ module.exports = class ConcreteModel extends Model
         @help = "Concrete help text"
 
         self = @
-        _(@fields).each (child) =>
-            child.options = self.measurement_options if child.optionsType == 'measurement_units'
-            child.options = self.price_options if child.optionsType == 'price_units'
+        _(@fields).each (field) =>
+            field.options = self.measurement_options if field.optionsType == 'measurement_units'
+            field.options = self.price_options if field.optionsType == 'price_units'
 
     calculate: ->
         price_units = @attributes.price_units || 'ft'
