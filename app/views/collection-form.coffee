@@ -51,5 +51,9 @@ module.exports = class CollectionFormView extends CollectionView
         if @type is 'concrete'
             @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
 
+        @$('select').select2
+            allowClear: true
+            minimumResultsForSearch: 6
+
         # Return this
         @
