@@ -24,12 +24,12 @@ module.exports = class LaborModel extends Model
             optionsType: 'time_units'
             append: '<hr />'
         ,
-            fieldType: "select"
+            fieldType: "hidden"
             placeholder: "Labor class"
             name: "labor_type"
             show: true
-            fieldTypeSelect: true
             optionsType: 'labor_type'
+            append: '<br /><br />'
         ,
             fieldType: "number"
             placeholder: "Number of laborers"
@@ -52,7 +52,9 @@ module.exports = class LaborModel extends Model
     initialize: ->
         @help = "Labor help text"
 
-        choices = @attributes.choices
+        return if not @attributes.choices.attributes
+
+        choices = @attributes.choices.attributes
         _(@fields).each (field) =>
             field.options = choices.labor_type_options if field.optionsType == 'labor_type'
             field.options = choices.time_options if field.optionsType == 'time_units'

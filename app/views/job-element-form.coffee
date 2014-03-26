@@ -63,7 +63,7 @@ module.exports = class JobElementFormView extends ComponentView
             types: @model.types
 
         self = @
-        @$('input.job').select2
+        @$('input[name=job-type]').select2
             data: @model.types
             createSearchChoice: (term) ->
                 id: String(self.model.types.length + 1)

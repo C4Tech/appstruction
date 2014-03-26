@@ -1,10 +1,10 @@
 <h4>{{title}}</h4>
 
 <fieldset class="form-group col-xs-12">
-    <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
+    <input type="text" placeholder="Job Name" id="job-name" name="job-name" class="job field form-control" value="{{row.name}}" />
     <br />
     <label for="job_type_{{cid}}">Select a job type</label>
-    <input type="hidden" placeholder="" id="job_type_{{cid}}" name="type" class="field job form-control"></input>
+    <input type="hidden" placeholder="" id="job_type_{{cid}}" name="job-type" class="field job form-control"></input>
 </fieldset>
 
 {{#if step}}

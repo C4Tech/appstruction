@@ -87,7 +87,9 @@ module.exports = class ConcreteModel extends Model
     initialize: ->
         @help = "Concrete help text"
 
-        choices = @attributes.choices
+        return if not @attributes.choices.attributes
+
+        choices = @attributes.choices.attributes
         _(@fields).each (field) =>
             field.options = choices.measurement_options if field.optionsType == 'measurement_units'
             field.options = choices.price_options if field.optionsType == 'price_units'
