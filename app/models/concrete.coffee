@@ -71,6 +71,7 @@ module.exports = class ConcreteModel extends Model
             placeholder: "Tax rate"
             name: "tax"
             show: true
+            mask: 'percentage'
     ]
 
     initialize: ->
@@ -82,6 +83,9 @@ module.exports = class ConcreteModel extends Model
             field.options = choices.price_options if field.optionsType == 'price_units'
 
     calculate: ->
+        tax = @attributes.tax || '0%'
+        tax_value = (tax.slice 0, tax.length-1) / 100
+
         price_units = @attributes.price_units || 'ft'
         price_value = @attributes.price || 0
 
@@ -101,5 +105,7 @@ module.exports = class ConcreteModel extends Model
 
         @cost = depth.mul(length).mul(width).scalar
         @cost = @cost * quantity * price_value
-        console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} = #{@cost}"
+        @cost = @cost + (@cost * tax_value)
+
+        console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} + #{tax} tax = #{@cost}"
         @cost
