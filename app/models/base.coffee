@@ -1,6 +1,9 @@
+ChoicesModel = require "models/choices"
+
 module.exports = class BaseModel extends Backbone.Model
     defaults:
         "help": null
+        "choices": new ChoicesModel
 
     fields: []
     cost: 0
