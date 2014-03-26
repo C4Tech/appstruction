@@ -52,7 +52,7 @@ module.exports = class LaborModel extends Model
     initialize: ->
         @help = "Labor help text"
 
-        choices = @attributes.choices.attributes
+        choices = @attributes.choices
         _(@fields).each (field) =>
             field.options = choices.labor_type_options if field.optionsType == 'labor_type'
             field.options = choices.time_options if field.optionsType == 'time_units'

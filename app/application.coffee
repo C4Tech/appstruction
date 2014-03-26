@@ -46,7 +46,7 @@ module.exports = class Application extends Backbone.Router
         "browse": "browse"
         "read.:id": "read"
         "add(.:routeType)": "add"
-        # "edit(.:routeType)": "edit"
+        "edit(.:routeType)": "edit"
         # "delete.:id": "delete"
 
     initialize: (opts) ->
@@ -132,6 +132,10 @@ module.exports = class Application extends Backbone.Router
         console.log "Loading #{routeType} component page"
         @_viewJob(routeType)
 
+    edit: (routeType = 'create') ->
+        console.log "Editing #{routeType} component page"
+        @_viewJob(routeType, 'edit')
+
     # Tell jQuery Mobile to change the damn page
     _setPage: (page) ->
         $("body").append page.render().$el
@@ -187,7 +191,7 @@ module.exports = class Application extends Backbone.Router
         @_current
 
     # View the current job
-    _viewJob: (routeType = "create") =>
+    _viewJob: (routeType = "create", viewType = "add") =>
         console.log "Viewing job"
         # Create the page only once
         unless @_pages[routeType]?
@@ -222,7 +226,8 @@ module.exports = class Application extends Backbone.Router
                 subView: view
 
             # Add the first component row
-            @_addComponent routeType
+            if viewType == 'add'
+                @_addComponent routeType
 
             # Load the page
             @_setPage @_pages[routeType]
