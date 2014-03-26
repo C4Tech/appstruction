@@ -49,8 +49,7 @@ module.exports = class CollectionFormView extends CollectionView
             @$(".items").append child.render().$el
             @$('#component-help').text child.model.help
 
-        if @type is 'concrete'
-            @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
+        @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
 
         @$('select').select2
             allowClear: true
