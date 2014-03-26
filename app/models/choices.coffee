@@ -23,6 +23,29 @@ module.exports = class ChoicesModel extends Backbone.Model
             text: "Util Truck"
         ]
 
+        material_type_options: [
+            id: "1"
+            text: "Wire (sheet)"
+        ,
+            id: "2"
+            text: "Keyway (lf)"
+        ,
+            id:"3"
+            text: "Stakes (ea.)"
+        ,
+            id:"4"
+            text: "Cap (lf)"
+        ,
+            id:"5"
+            text: "Dowells  (ea.)"
+        ,
+            id:"6"
+            text: "2x8x20  (lf)"
+        ,
+            id:"7"
+            text: "Misc"
+        ]
+
         measurement_options: [
             id: 'in'
             text: 'Inches'

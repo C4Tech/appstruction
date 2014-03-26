@@ -1,59 +1,44 @@
 Model = require "models/base"
 
 module.exports = class MaterialModel extends Model
-    defaults:
+    defaults: _.extend Model.prototype.defaults,
         "quantity": null
         "price": null
-        "type": 1
+        "material_type": 1
         "tax": null
 
-    types: [
-            id: "1"
-            name: "Wire (sheet)"
-        ,
-            id: "2"
-            name: "Keyway (lf)"
-        ,
-            id:"3"
-            name: "Stakes (ea.)"
-        ,
-            id:"4"
-            name: "Cap (lf)"
-        ,
-            id:"5"
-            name: "Dowells  (ea.)"
-        ,
-            id:"6"
-            name: "2x8x20  (lf)"
-        ,
-            id:"7"
-            name: "Misc"
-    ]
-
     fields: [
-            placeholder: "Quantity"
-            name: "quantity"
-            type: "number"
-            show: true
-        ,
-            placeholder: "Price"
-            name: "price"
-            type: "number"
-            show: true
-        ,
-            placeholder: "Type"
-            name: "type"
             type: "select"
-            show: false
+            name: "material_type"
+            placeholder: "Material Type"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'material_types'
         ,
-            text: "Tax rate"
-            name: "tax"
             type: "number"
+            name: "quantity"
+            placeholder: "Quantity"
+            show: true
+        ,
+            type: "number"
+            name: "price"
+            placeholder: "Price"
+            show: true
+        ,
+            type: "number"
+            name: "tax"
+            placeholder: "Tax rate"
             show: true
     ]
 
     initialize: ->
         @help = "Materials help text"
+
+        return if not @attributes.choices.attributes
+
+        choices = @attributes.choices.attributes
+        _(@fields).each (field) =>
+            field.options = choices.material_type_options if field.optionsType == 'material_types'
 
     calculate: ->
         @cost = @attributes.quantity * @attributes.price

@@ -52,6 +52,8 @@ module.exports = class EquipmentModel extends Model
     initialize: ->
         @help = "Equipment help text"
 
+        return if not @attributes.choices.attributes
+
         choices = @attributes.choices.attributes
         _(@fields).each (field) =>
             field.options = choices.equipment_type_options if field.optionsType == 'equipment_type'
