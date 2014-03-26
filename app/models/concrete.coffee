@@ -1,7 +1,7 @@
 Model = require "models/base"
 
 module.exports = class ConcreteModel extends Model
-    defaults:
+    defaults: _.extend Model.prototype.defaults,
         "quantity": null
         "depth": null
         "depth_units": null
@@ -12,40 +12,6 @@ module.exports = class ConcreteModel extends Model
         "price": null
         "price_units": null
         "tax": null
-
-    measurement_options: [
-            id: 'in'
-            text: 'Inches'
-        ,
-            id: 'ft'
-            text: 'Feet'
-        ,
-            id:'yd'
-            text: 'Yards'
-        ,
-            id:'cm'
-            text: 'Centimeters'
-        ,
-            id:'m'
-            text: 'Meters'
-    ]
-
-    price_options: [
-            id: 'in'
-            text: 'Per Cubic Inch'
-        ,
-            id: 'ft'
-            text: 'Per Cubic Foot'
-        ,
-            id: 'yd'
-            text: 'Per Cubic Yard'
-        ,
-            id: 'cm'
-            text: 'Per Cubic Centimeter'
-        ,
-            id: 'm'
-            text: 'Per Cubic Meter'
-    ]
 
     fields: [
             type: "number"
@@ -105,17 +71,21 @@ module.exports = class ConcreteModel extends Model
             placeholder: "Tax rate"
             name: "tax"
             show: true
+            mask: 'percentage'
     ]
 
     initialize: ->
         @help = "Concrete help text"
 
-        self = @
-        _(@fields).each (child) =>
-            child.options = self.measurement_options if child.optionsType == 'measurement_units'
-            child.options = self.price_options if child.optionsType == 'price_units'
+        choices = @attributes.choices.attributes
+        _(@fields).each (field) =>
+            field.options = choices.measurement_options if field.optionsType == 'measurement_units'
+            field.options = choices.price_options if field.optionsType == 'price_units'
 
     calculate: ->
+        tax = @attributes.tax || '0%'
+        tax_value = (tax.slice 0, tax.length-1) / 100
+
         price_units = @attributes.price_units || 'ft'
         price_value = @attributes.price || 0
 
@@ -135,5 +105,7 @@ module.exports = class ConcreteModel extends Model
 
         @cost = depth.mul(length).mul(width).scalar
         @cost = @cost * quantity * price_value
-        console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} = #{@cost}"
+        @cost = @cost + (@cost * tax_value)
+
+        console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} + #{tax} tax = #{@cost}"
         @cost
