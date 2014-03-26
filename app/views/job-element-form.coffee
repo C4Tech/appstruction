@@ -10,29 +10,31 @@ module.exports = class JobElementFormView extends ComponentView
     initialize: (opts) ->
         super opts
 
-        # Set template
-        @templateFile = "templates/#{@type}.form"
-        @template = require @templateFile
-
         # Add attributes
-        @id = "job-form-#{@type}"
-        @className = "#{@type} #{@type}-form col-xs-12 form-horizontal"
+        @routeType = opts.routeType if opts.routeType?
+        @id = "job-form-#{@routeType}"
+        @className = "#{@routeType} #{@routeType}-form col-xs-12 form-horizontal"
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
+        @jobRoutes = opts.jobRoutes if opts.jobRoutes?
 
-        if @type == 'save'
+        # Set template
+        @templateFile = "templates/#{@routeType}.form"
+        @template = require @templateFile
+
+        if @routeType == 'save'
             # Our children views
             @_children = []
 
             # Instantiate views for each collection in model
-            collections = ["concrete", "labor", "materials", "equipment"]
-            for collection in collections
+            for collection in @jobRoutes
                 data = if @model.attributes[collection]? then @model.attributes[collection] else false
                 @_children.push new CollectionListView
                     className: "job-list-collection"
                     collection: data
                     title: collection
-                    type: collection
+                    modelType: collection
+                    routeType: @routeType
 
         # Re-create the element name
         @setName()
@@ -45,7 +47,7 @@ module.exports = class JobElementFormView extends ComponentView
 
     # Render the collection
     render: =>
-        console.log "Rendering #{@type} element"
+        console.log "Rendering #{@routeType} element"
 
         # Remove anything already there
         @$el.empty()
@@ -55,7 +57,7 @@ module.exports = class JobElementFormView extends ComponentView
             fields: @model.fields
             row: @model.toJSON()
             cid: @model.cid
-            type: @type
+            routeType: @routeType
             step: @step
             title: @title
             cost: @model.cost

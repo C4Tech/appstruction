@@ -5,11 +5,12 @@ module.exports = class CollectionView extends BaseView
     # Our constructor
     initialize: (opts) ->
         # Set some variables
-        @type = if opts.type? then opts.type else "collection"
-        @className = "#{@type}-collection" unless @className?
+        @routeType = opts.routeType if opts.routeType?
+        @modelType = if opts.modelType? then opts.modelType else "collection"
+        @className = "#{@modelType}-collection" unless @className?
 
         @child = opts.child if opts.child?
-        @child = if @child? then @child else ComponentView
+        @child = ComponentView if not @child?
 
         # Our children views
         @_children = []
@@ -33,7 +34,7 @@ module.exports = class CollectionView extends BaseView
 
     # Render the collection
     render: ->
-        console.log "Rendering #{@type} collection"
+        console.log "Rendering #{@modelType} collection"
         @_rendered = true
 
         # Remove anything already there
@@ -50,7 +51,8 @@ module.exports = class CollectionView extends BaseView
     add: (model) =>
         child = new @child
             model: model
-            type: @type
+            modelType: @modelType
+            routeType: @routeType
 
         # Add child to stack
         @_children.push child

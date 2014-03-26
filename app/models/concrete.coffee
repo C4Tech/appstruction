@@ -14,70 +14,80 @@ module.exports = class ConcreteModel extends Model
         "tax": null
 
     fields: [
-            type: "number"
+            fieldType: "number"
             placeholder: "Quantity"
             name: "quantity"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Length"
             name: "length"
             show: true
+            displayBegin: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "length_units"
             show: true
             fieldTypeSelect: true
             optionsType: 'measurement_units'
+            displayEnd: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Width"
             name: "width"
             show: true
+            displayBegin: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "width_units"
             show: true
             fieldTypeSelect: true
             optionsType: 'measurement_units'
+            displayEnd: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Depth"
             name: "depth"
             show: true
+            displayBegin: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "depth_units"
             show: true
             fieldTypeSelect: true
             optionsType: 'measurement_units'
+            displayEnd: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Price"
             name: "price"
             show: true
+            displayBegin: true
+            displayPrepend: '$'
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "price_units"
             show: true
             fieldTypeSelect: true
             optionsType: 'price_units'
+            displayEnd: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Tax rate"
             name: "tax"
             show: true
+            displayAppend: '%'
             mask: 'percentage'
     ]
 
     initialize: ->
         @help = "Concrete help text"
 
-        choices = @attributes.choices.attributes
+        choices = @attributes.choices
         _(@fields).each (field) =>
             field.options = choices.measurement_options if field.optionsType == 'measurement_units'
             field.options = choices.price_options if field.optionsType == 'price_units'

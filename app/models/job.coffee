@@ -8,6 +8,7 @@ Collection = require "models/collection"
 module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
+    jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
     job_type_options: [
             id: "1"
@@ -42,7 +43,7 @@ module.exports = class JobModel extends BaseModel
 
     fields: [
             name: 'group_name'
-            type: 'select'
+            fieldType: 'select'
             label: 'Group Name'
             fieldTypeSelect: true
             optionsType: 'group_name'
@@ -50,13 +51,13 @@ module.exports = class JobModel extends BaseModel
         ,
             name: "job_name"
             placeholder: "Job Name"
-            type: "text"
+            fieldType: "text"
             label: 'Job Name'
             show: true
         ,
             name: "job_type"
             placeholder: "Type"
-            type: "select"
+            fieldType: "select"
             label: 'Select a job type'
             fieldTypeSelect: true
             optionsType: 'job_type'
@@ -64,8 +65,7 @@ module.exports = class JobModel extends BaseModel
         ,
             name: "profit_margin"
             placeholder: "Profit Margin"
-            type: "number"
-            label: 'Profit Margin'
+            fieldType: "number"
             show: false
     ]
 
@@ -79,26 +79,25 @@ module.exports = class JobModel extends BaseModel
         data =
             name: null
             margin: null
-            type: 1
+            job_type: null
 
         @parse data
 
     parse: (data) ->
-        collections = ["concrete", "labor", "materials", "equipment"]
-        for collection in collections
+        for collection in @jobRoutes
             saved = if data[collection]? then data[collection] else false
             data[collection] = @_inflateCollection collection, saved
         data
 
-    _inflateCollection: (type, data) ->
-        model = switch type
+    _inflateCollection: (modelType, data) ->
+        model = switch modelType
             when "concrete" then ConcreteModel
             when "labor" then LaborModel
             when "materials" then MaterialModel
             when "equipment" then EquipmentModel
         new Collection data, {
                 model: model
-                type: type
+                modelType: modelType
             }
 
     calculate: ->

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a data-toggle="collapse" data-parent="#job-accordion" href="#{{type}}-{{title}}">
+        <a data-toggle="collapse" data-parent="#job-accordion" href="#{{routeType}}-{{modelType}}">
             <div class="row">
                 <div class="col-xs-10">
                     <h4 class="panel-title">
@@ -16,12 +16,22 @@
         </a>
     </div>
 
-    <div id="{{type}}-{{title}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
+    <div id="{{routeType}}-{{modelType}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
         <div class="panel-body">
-            <div class="{{type}} text-warning">
-                Cost: $<span class="{{type}} cost">{{cost}}</span>
+            <div class="row">
+                <div class="col-xs-6 {{modelType}} text-warning">
+                    Cost: $<span class="{{modelType}} cost">{{cost}}</span>
+                </div>
+                {{#if title}}
+                    <div class="col-xs-6">
+                        <button class="btn btn-primary pull-right btn-overview-edit ccma-navigate" data-path="edit.{{modelType}}">
+                            <i class="fa fa-edit"></i> Edit
+                        </button>
+                    </div>
+                {{/if}}
             </div>
-            <ul class="{{type}} items list-group"></ul>
+
+            <ul class="{{modelType}} items list-group"></ul>
         </div>
     </div>
 </div>
