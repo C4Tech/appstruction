@@ -1,5 +1,13 @@
 {{#each fields}}
-    <div class="field {{../type}} {{./name}}">{{./text}}: {{./value}}</div>
+    {{#unless ./displayEnd}}
+        <div class="field {{../type}} {{./name}}">{{./placeholder}}:
+    {{/unless}}
+
+    {{#if ./displayPrepend}}{{displayPrepend}}{{/if}}{{./value}}{{#if ./displayAppend}}{{displayAppend}}{{/if}}
+
+    {{#unless ./displayBegin}}
+        </div>
+    {{/unless}}
 {{/each}}
 <div class="{{type}} text-info">
     Cost: $<span class="{{type}} cost">{{cost}}</span>

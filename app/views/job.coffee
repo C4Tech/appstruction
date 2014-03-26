@@ -8,8 +8,10 @@ module.exports = class JobView extends BaseView
         @_children = []
 
         # Set some variables
+        @routeType = opts.routeType if opts.routeType?
         @id = @model.cid
-        @className = "#{@type}-overview"
+        @className = "#{@routeType}-overview"
+        @jobRoutes = opts.jobRoutes if opts.jobRoutes?
 
         # Re-create the element name
         @setName()
@@ -18,14 +20,15 @@ module.exports = class JobView extends BaseView
         @template = require "templates/job"
 
         # Instantiate views for each collection in model
-        collections = ["concrete", "labor", "materials", "equipment"]
-        for collection in collections
+        for collection in @jobRoutes
             data = if @model.attributes[collection]? then @model.attributes[collection] else false
+
             @_children.push new CollectionListView
                 className: "job-list-collection"
                 collection: data
                 title: collection
-                type: collection
+                modelType: collection
+                routeType: @routeType
 
         # Return nothing
         null

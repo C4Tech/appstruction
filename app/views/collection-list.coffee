@@ -9,9 +9,11 @@ module.exports = class CollectionListView extends CollectionView
 
         super opts
 
-        @id = "job-list-#{@type}" unless @id
-        @className = "#{@type}-list-collection" unless @className
-        @next = opts.next if opts.next?
+        @routeType = opts.routeType if opts.routeType?
+        @modelType = opts.modelType if opts.modelType?
+
+        @id = "job-list-#{@modelType}" unless @id
+        @className = "#{@modelType}-list-collection" unless @className
         @title = opts.title if opts.title?
         @step = opts.step if opts.step?
 
@@ -26,7 +28,7 @@ module.exports = class CollectionListView extends CollectionView
 
     # Render the collection
     render: =>
-        console.log "Rendering #{@type} list collection"
+        console.log "Rendering #{@modelType} list collection"
         @_rendered = true
 
         # Remove anything already there
@@ -34,7 +36,8 @@ module.exports = class CollectionListView extends CollectionView
 
         # Rebuild the frame
         @$el.html @template
-            type: @type
+            modelType: @modelType
+            routeType: @routeType
             title: @title
             cost: @collection.calculate() if @collection.calculate?
 

@@ -36,7 +36,7 @@ module.exports = class EquipmentModel extends Model
             name: "quantity"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "What rate"
             name: "rate"
             show: true
@@ -52,7 +52,7 @@ module.exports = class EquipmentModel extends Model
     initialize: ->
         @help = "Equipment help text"
 
-        choices = @attributes.choices.attributes
+        choices = @attributes.choices
         _(@fields).each (field) =>
             field.options = choices.equipment_type_options if field.optionsType == 'equipment_type'
             field.options = choices.time_options if field.optionsType == 'time_units'

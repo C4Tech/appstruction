@@ -1,6 +1,5 @@
 module.exports = class BaseView extends Backbone.View
-    type: "component"
-
+    routeType: null
     self: null
     container: null
     templateFile: null
@@ -9,14 +8,12 @@ module.exports = class BaseView extends Backbone.View
 
     initialize: ->
         @self = @constructor unless @self?
-        @container = ".#{@type}-items" unless @container?
-        @templateFile = "templates/create/#{@type}" unless @templateFile?
-        @template = require @templateFile
+        @container = ".#{@routeType}-items" unless @container?
         null
 
     render: ->
         @$el.html @template
-        console.log "Rendering #{@type} into #{@container}"
+        console.log "Rendering #{@routeType} into #{@container}"
         $(@container).append @$el
         @
 
