@@ -1,9 +1,7 @@
-ChoicesModel = require "models/choices"
 
 module.exports = class BaseModel extends Backbone.Model
     defaults:
         "help": null
-        "choices": new ChoicesModel
 
     fields: []
     cost: 0
@@ -52,8 +50,8 @@ module.exports = class BaseModel extends Backbone.Model
         value = @attributes[field.name]
 
         console.log "Field is #{field.name} with value of #{value}"
-        if field.name is "type" and @types?
-            value =  @_setValue item, value for item in @types
+        if field.options?
+            value =  @_setValue item, value for item in field.options
         value
 
     _setValue: (item, value) ->

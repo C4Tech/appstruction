@@ -1,8 +1,9 @@
 Model = require "models/base"
+ChoicesModel = require "models/choices"
 ConvertModel = require "models/convert"
 
 module.exports = class EquipmentModel extends Model
-    defaults: _.extend Model.prototype.defaults,
+    defaults:
         "time": null
         "time_units": null
         "equipment_type": null
@@ -52,9 +53,7 @@ module.exports = class EquipmentModel extends Model
     initialize: ->
         @help = "Equipment help text"
 
-        return if not @attributes.choices.attributes
-
-        choices = @attributes.choices.attributes
+        choices = new ChoicesModel().attributes
         _(@fields).each (field) =>
             field.options = choices.equipment_type_options if field.optionsType == 'equipment_type'
             field.options = choices.time_options if field.optionsType == 'time_units'

@@ -1,7 +1,8 @@
 Model = require "models/base"
+ChoicesModel = require "models/choices"
 
 module.exports = class ConcreteModel extends Model
-    defaults: _.extend Model.prototype.defaults,
+    defaults:
         "quantity": null
         "depth": null
         "depth_units": null
@@ -87,9 +88,7 @@ module.exports = class ConcreteModel extends Model
     initialize: ->
         @help = "Concrete help text"
 
-        return if not @attributes.choices.attributes
-
-        choices = @attributes.choices.attributes
+        choices = new ChoicesModel().attributes
         _(@fields).each (field) =>
             field.options = choices.measurement_options if field.optionsType == 'measurement_units'
             field.options = choices.price_options if field.optionsType == 'price_units'

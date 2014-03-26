@@ -1,7 +1,8 @@
 Model = require "models/base"
+ChoicesModel = require "models/choices"
 
 module.exports = class LaborModel extends Model
-    defaults: _.extend Model.prototype.defaults,
+    defaults:
         "labor_time": null
         "labor_time_units": null
         "labor_type": null
@@ -52,9 +53,7 @@ module.exports = class LaborModel extends Model
     initialize: ->
         @help = "Labor help text"
 
-        return if not @attributes.choices.attributes
-
-        choices = @attributes.choices.attributes
+        choices = new ChoicesModel().attributes
         _(@fields).each (field) =>
             field.options = choices.labor_type_options if field.optionsType == 'labor_type'
             field.options = choices.time_options if field.optionsType == 'time_units'
