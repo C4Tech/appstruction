@@ -4,28 +4,28 @@ module.exports = class MaterialModel extends Model
     defaults: _.extend Model.prototype.defaults,
         "quantity": null
         "price": null
-        "material_type": 1
+        "material_type": null
         "tax": null
 
     fields: [
-            type: "select"
+            fieldType: "select"
             name: "material_type"
             placeholder: "Material Type"
             show: true
             fieldTypeSelect: true
             optionsType: 'material_types'
         ,
-            type: "number"
+            fieldType: "number"
             name: "quantity"
             placeholder: "Quantity"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             name: "price"
             placeholder: "Price"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             name: "tax"
             placeholder: "Tax rate"
             show: true

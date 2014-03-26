@@ -8,6 +8,7 @@ Collection = require "models/collection"
 module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
+    jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
     types: [
             id: "1"
@@ -32,17 +33,17 @@ module.exports = class JobModel extends BaseModel
     fields: [
             placeholder: "Job Name"
             name: "name"
-            type: "text"
+            fieldType: "text"
             show: false
         ,
-            placeholder: "Type"
-            name: "type"
-            type: "select"
+            placeholder: "Job Type"
+            name: "job_type"
+            fieldType: "select"
             show: true
         ,
             placeholder: "Profit Margin"
             name: "margin"
-            type: "number"
+            fieldType: "number"
             show: true
     ]
 
@@ -50,27 +51,26 @@ module.exports = class JobModel extends BaseModel
         data =
             name: null
             margin: null
-            type: 1
+            job_type: 1
             dirt: null
 
         @parse data
 
     parse: (data) ->
-        collections = ["concrete", "labor", "materials", "equipment"]
-        for collection in collections
+        for collection in @jobRoutes
             saved = if data[collection]? then data[collection] else false
             data[collection] = @_inflateCollection collection, saved
         data
 
-    _inflateCollection: (type, data) ->
-        model = switch type
+    _inflateCollection: (modelType, data) ->
+        model = switch modelType
             when "concrete" then ConcreteModel
             when "labor" then LaborModel
             when "materials" then MaterialModel
             when "equipment" then EquipmentModel
         new Collection data, {
                 model: model
-                type: type
+                modelType: modelType
             }
 
     calculate: ->

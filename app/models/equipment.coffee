@@ -36,7 +36,7 @@ module.exports = class EquipmentModel extends Model
             name: "quantity"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Rate"
             name: "rate"
             show: true

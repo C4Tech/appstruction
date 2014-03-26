@@ -1,7 +1,7 @@
 Model = require "models/base"
 
 module.exports = class LaborModel extends Model
-    defaults:
+    defaults: _.extend Model.prototype.defaults,
         "labor_time": null
         "labor_time_units": null
         "labor_type": null
@@ -9,61 +9,14 @@ module.exports = class LaborModel extends Model
         "rate": null
         "rate_units": null
 
-    time_options: [
-            id: "hour"
-            text: "Hours"
-        ,
-            id: "day"
-            text: "Days"
-        ,
-            id: "week"
-            text: "Weeks"
-        ,
-            id: "month"
-            text: "Months"
-    ]
-
-    time_per_options: [
-            id: "hour"
-            text: "Hourly"
-        ,
-            id: "day"
-            text: "Daily"
-        ,
-            id: "week"
-            text: "Weekly"
-        ,
-            id: "month"
-            text: "Monthly"
-    ]
-
-    labor_type_options: [
-            id: "1"
-            text: "Finishers"
-        ,
-            id: "2"
-            text: "Supervisors"
-        ,
-            id:"3"
-            text: "Forms crp"
-        ,
-            id:"4"
-            text: "Laborers"
-        ,
-            id:"5"
-            text: "Driver"
-        ,
-            id:"6"
-            text: "Operator"
-    ]
 
     fields: [
-            type: "number"
+            fieldType: "number"
             placeholder: "Time per laborer"
             name: "labor_time"
             show: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "labor_time_units"
             show: true
@@ -71,24 +24,24 @@ module.exports = class LaborModel extends Model
             optionsType: 'time_units'
             append: '<hr />'
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Labor class"
             name: "labor_type"
             show: true
             fieldTypeSelect: true
             optionsType: 'labor_type'
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Number of laborers"
             name: "laborers_count"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Rate"
             name: "rate"
             show: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "rate_units"
             show: true
@@ -99,11 +52,11 @@ module.exports = class LaborModel extends Model
     initialize: ->
         @help = "Labor help text"
 
-        self = @
+        choices = @attributes.choices
         _(@fields).each (field) =>
-            field.options = self.labor_type_options if field.optionsType == 'labor_type'
-            field.options = self.time_options if field.optionsType == 'time_units'
-            field.options = self.time_per_options if field.optionsType == 'time_per_units'
+            field.options = choices.labor_type_options if field.optionsType == 'labor_type'
+            field.options = choices.time_options if field.optionsType == 'time_units'
+            field.options = choices.time_per_options if field.optionsType == 'time_per_units'
 
     calculate: ->
         labor_time_value = @attributes.labor_time ? 0
