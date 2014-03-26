@@ -12,7 +12,7 @@ module.exports = class EquipmentModel extends Model
 
     fields: [
             type: "number"
-            placeholder: "Time"
+            placeholder: "Time used"
             name: "time"
             show: true
         ,
@@ -25,7 +25,7 @@ module.exports = class EquipmentModel extends Model
             append: '<hr />'
         ,
             type: "select"
-            placeholder: "Equipment Type"
+            placeholder: "Equipment type"
             name: "equipment_type"
             show: true
             fieldTypeSelect: true
