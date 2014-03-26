@@ -23,6 +23,26 @@ module.exports = class ChoicesModel extends Backbone.Model
             text: "Util Truck"
         ]
 
+        labor_type_options: [
+            id: "1"
+            text: "Finishers"
+        ,
+            id: "2"
+            text: "Supervisors"
+        ,
+            id:"3"
+            text: "Forms crp"
+        ,
+            id:"4"
+            text: "Laborers"
+        ,
+            id:"5"
+            text: "Driver"
+        ,
+            id:"6"
+            text: "Operator"
+        ]
+
         measurement_options: [
             id: 'in'
             text: 'Inches'

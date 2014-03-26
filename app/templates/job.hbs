@@ -1,11 +1,12 @@
 <h2>{{row.title}}</h2>
 
 {{#each row}}
-    <div class="field {{../type}} {{./name}} text-info"><strong>{{./placeholder}}</strong>: {{./value}}</div>
+    <div class="field {{../routeType}} {{./name}} text-info"><strong>{{./placeholder}}</strong>: {{./value}}</div>
 {{/each}}
 
-<div class="{{type}} text-success">
-    <strong>Cost: $<span class="{{type}} cost">{{cost}}</span></strong>
+<div class="{{routeType}} text-success">
+    <strong>Cost: $<span class="{{routeType}} cost">{{cost}}</span></strong>
 </div>
 
-<div id="job-accordion" class="job items panel-group"></div>
+<div class="job items panel-group"></div>
+

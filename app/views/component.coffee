@@ -4,12 +4,12 @@ module.exports = class ComponentView extends BaseView
     # Our constructor
     initialize: (opts) ->
         # Set some basic options
-        @type = opts.type if opts.type?
+        @routeType = opts.routeType if opts.routeType?
         @showAll = false unless @showAll?
         @templateFile = "templates/component.list"
 
         # Add attributes
-        @className = @type
+        @className = @routeType
 
         # Re-create the element name
         @setName()
