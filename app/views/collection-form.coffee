@@ -11,10 +11,11 @@ module.exports = class CollectionFormView extends CollectionView
 
         super opts
 
-        @id = "job-form-#{@type}"
-        @className = "#{@type}-form-collection col-xs-12"
-        @multiple = switch @type
-            when "type", "job", "concrete" then false
+        @routeType = opts.routeType if opts.routeType?
+        @id = "job-form-#{@routeType}"
+        @className = "#{@routeType}-form-collection col-xs-12"
+        @multiple = switch @routeType
+            when "create", "job", "concrete" then false
             else true
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
@@ -30,7 +31,7 @@ module.exports = class CollectionFormView extends CollectionView
 
     # Render the collection
     render: =>
-        console.log "Rendering #{@type} collection"
+        console.log "Rendering #{@routeType} collection"
         @_rendered = true
 
         # Remove anything already there
@@ -38,7 +39,7 @@ module.exports = class CollectionFormView extends CollectionView
 
         # Rebuild the frame
         @$el.html @template
-            type: @type
+            routeType: @routeType
             step: @step
             title: @title
             multiple: @multiple
@@ -48,8 +49,7 @@ module.exports = class CollectionFormView extends CollectionView
             @$(".items").append child.render().$el
             @$('#component-help').text child.model.help
 
-        if @type is 'concrete'
-            @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
+        @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
 
         @$('select').select2
             allowClear: true

@@ -36,8 +36,8 @@ module.exports = class BaseModel extends Backbone.Model
         for field in @fields
             do (field) =>
                 unless fail
-                    fail = switch field.type
-                        when "number", "text", "select" then @check[field.type] attrs[field.name], field.name
+                    fail = switch field.fieldType
+                        when "number", "text", "select" then @check[field.fieldType] attrs[field.name], field.name
                         else false
                 null
         fail = "" unless fail
@@ -53,9 +53,9 @@ module.exports = class BaseModel extends Backbone.Model
 
         console.log "Field is #{field.name} with value of #{value}"
         if field.name is "type" and @types?
-            value =  @_setValue type, value for type in @types
+            value =  @_setValue item, value for item in @types
         value
 
-    _setValue: (type, value) ->
-        value = if parseInt(type.id) is parseInt(value) then type.name else value
+    _setValue: (item, value) ->
+        value = if parseInt(item.id) is parseInt(value) then item.name else value
         value
