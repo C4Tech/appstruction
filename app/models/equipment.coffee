@@ -66,7 +66,7 @@ module.exports = class EquipmentModel extends Model
         time = convert.to_hours @attributes.time, @attributes.time_units
         rate = convert.to_per_hour @attributes.rate, @attributes.rate_units
 
-        quantity = @attributes.quantity || 0
+        quantity = @attributes.quantity ? 0
 
         @cost = time * rate * quantity
         console.log "equipment row ##{@cid}: #{time} (#{@attributes.time_units}) x #{quantity} (quantity) @ $#{rate} (#{@attributes.time_units}) = #{@cost}"
