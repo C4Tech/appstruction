@@ -1,7 +1,7 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if fieldTypeSelect}}
-            <select id="{{./type}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./type}} type form-control" data-placeholder="{{./placeholder}}">
+            <select id="{{./fieldType}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{./placeholder}}">
                 <option></option>
                 {{#each options}}
                     <option value="{{id}}">{{text}}</option>
@@ -9,7 +9,7 @@
             </select>
             <br />
         {{else}}
-            <input type="{{./type}}" placeholder="{{./placeholder}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
+            <input type="{{./fieldType}}" placeholder="{{./placeholder}}" id="{{../routeType}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../routeType}} {{./name}} form-control"></input>
         {{/if}}
     {{/each}}
 </fieldset>

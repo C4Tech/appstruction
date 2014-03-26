@@ -4,7 +4,7 @@ module.exports = class MaterialModel extends Model
     defaults:
         "quantity": null
         "price": null
-        "type": 1
+        "material_type": 1
 
     types: [
             id: "1"
@@ -32,17 +32,17 @@ module.exports = class MaterialModel extends Model
     fields: [
             placeholder: "Quantity"
             name: "quantity"
-            type: "number"
+            fieldType: "number"
             show: true
         ,
             placeholder: "Price"
             name: "price"
-            type: "number"
+            fieldType: "number"
             show: true
         ,
-            placeholder: "Type"
-            name: "type"
-            type: "select"
+            placeholder: "Material Type"
+            name: "material_type"
+            fieldType: "select"
             show: false
     ]
 

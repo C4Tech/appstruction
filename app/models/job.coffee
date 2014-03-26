@@ -33,17 +33,17 @@ module.exports = class JobModel extends BaseModel
     fields: [
             placeholder: "Job Name"
             name: "name"
-            type: "text"
+            fieldType: "text"
             show: false
         ,
-            placeholder: "Type"
-            name: "type"
-            type: "select"
+            placeholder: "Job Type"
+            name: "job_type"
+            fieldType: "select"
             show: true
         ,
             placeholder: "Profit Margin"
             name: "margin"
-            type: "number"
+            fieldType: "number"
             show: true
     ]
 
@@ -51,7 +51,7 @@ module.exports = class JobModel extends BaseModel
         data =
             name: null
             margin: null
-            type: 1
+            job_type: 1
             dirt: null
 
         @parse data

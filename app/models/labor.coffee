@@ -2,7 +2,7 @@ Model = require "models/base"
 
 module.exports = class LaborModel extends Model
     defaults: 
-        "type": 1
+        "labor_type": 1
         "number": null
         "unit": null
         "rate": null
@@ -28,24 +28,24 @@ module.exports = class LaborModel extends Model
     ]
 
     fields: [
-            type: "number"
+            fieldType: "number"
             placeholder: "Number"
             name: "number"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Unit"
             name: "unit"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Rate"
             name: "rate"
             show: true
         ,
-            type: "select"
-            placeholder: "Type"
-            name: "type"
+            fieldType: "select"
+            placeholder: "Labor Type"
+            name: "labor_type"
             show: false
     ]
 

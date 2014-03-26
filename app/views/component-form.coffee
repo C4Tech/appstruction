@@ -11,7 +11,7 @@ module.exports = class ComponentFormView extends ComponentView
         @template = require "templates/component.form"
 
         # Add attributes
-        @className = "#{@type} #{@type}-form #{@type}-form-item"
+        @className = "#{@routeType} #{@routeType}-form #{@routeType}-form-item"
 
         # Re-create the element name
         @setName()
@@ -31,6 +31,6 @@ module.exports = class ComponentFormView extends ComponentView
         @model.set target.attr('name'), target.val()
 
         console.log "View changed", target.attr('name'), target.val()
-        $(".#{@type}.cost").text @model.collection.calculate()
+        $(".#{@routeType}.cost").text @model.collection.calculate()
 
         null

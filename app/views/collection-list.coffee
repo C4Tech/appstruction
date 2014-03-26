@@ -14,7 +14,6 @@ module.exports = class CollectionListView extends CollectionView
 
         @id = "job-list-#{@modelType}" unless @id
         @className = "#{@modelType}-list-collection" unless @className
-        @next = opts.next if opts.next?
         @title = opts.title if opts.title?
         @step = opts.step if opts.step?
 

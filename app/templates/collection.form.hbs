@@ -2,13 +2,13 @@
 
 <div id="component-help" class="well"></div>
 
-<div class="{{type}} items"></div>
+<div class="{{routeType}} items"></div>
 
 {{#if multiple}}
     <hr />
     <div class="row">
         <div class="col-xs-12">
-            <button class="{{type}} add btn btn-default form-control" data-type="{{type}}">
+            <button class="{{routeType}} add btn btn-default form-control" data-type="{{routeType}}">
                 <i class="fa fa-plus-circle"></i>
                 Add another
             </button>
@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="text-info lead">
-            {{ type }} $<span class="{{type}} cost">0</span>
+            {{ routeType }} $<span class="{{routeType}} cost">0</span>
             <br />
             Subtotal $<span class="subtotal">0</span>
         </div>
@@ -30,7 +30,7 @@
 <div class="row">
     <div class="col-xs-6 col-xs-offset-6">
         {{#if step}}
-            <button class="{{type}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
+            <button class="{{routeType}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
         {{/if}}
     </div>
 </div>

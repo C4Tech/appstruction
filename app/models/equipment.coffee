@@ -2,7 +2,7 @@ Model = require "models/base"
 
 module.exports = class EquipmentModel extends Model
     defaults:
-        "type": 1
+        "equipment_type": 1
         "quantity": null
         "rate": null
 
@@ -30,19 +30,19 @@ module.exports = class EquipmentModel extends Model
     ]
 
     fields: [
-            type: "number"
+            fieldType: "number"
             placeholder: "Quantity"
             name: "quantity"
             show: true
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "Rate"
             name: "rate"
             show: true
         ,
-            type: "select"
-            placeholder: "Type"
-            name: "type"
+            fieldType: "select"
+            placeholder: "Equipment Type"
+            name: "equipment_type"
             show: false
     ]
 
