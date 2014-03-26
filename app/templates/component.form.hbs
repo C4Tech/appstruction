@@ -1,15 +1,22 @@
 <fieldset class="form-group">
     {{#each fields}}
-        {{#if fieldTypeSelect}}
-            <select id="{{./fieldType}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{./placeholder}}">
-                <option></option>
-                {{#each options}}
-                    <option value="{{id}}">{{text}}</option>
-                {{/each}}
-            </select>
-            <br />
-        {{else}}
-            <input type="{{./fieldType}}" placeholder="{{./placeholder}}" id="{{../routeType}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../routeType}} {{./name}} form-control"></input>
+        {{#if show}}
+            {{#if fieldTypeSelect}}
+                <select id="{{./fieldType}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{./placeholder}}">
+                    <option></option>
+                    {{#each options}}
+                        <option value="{{id}}">{{text}}</option>
+                    {{/each}}
+                </select>
+                {{#unless append}}
+                    <br />
+                {{/unless}}
+            {{else}}
+                <input type="{{./fieldType}}" placeholder="{{./placeholder}}" id="{{../routeType}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../routeType}} {{./name}} form-control" {{#if mask}}data-mask="{{./mask}}"{{/if}}></input>
+            {{/if}}
+            {{#if append}}
+                {{{append}}}
+            {{/if}}
         {{/if}}
     {{/each}}
 </fieldset>

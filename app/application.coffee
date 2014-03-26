@@ -288,6 +288,10 @@ module.exports = class Application extends Backbone.Router
         if routeType in @_jobRoutes
             @_current.get(routeType).add {}
 
+        $('select').select2
+            allowClear: true
+            minimumResultsForSearch: 6
+
         true
 
     # Validate a component before adding a new one to the job
