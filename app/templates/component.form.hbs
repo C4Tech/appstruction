@@ -13,7 +13,6 @@
                 {{/unless}}
             {{else}}
                 <input type="{{./type}}" placeholder="{{./placeholder}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control" {{#if mask}}data-mask="{{./mask}}"{{/if}}></input>
-                <input type="{{./type}}" placeholder="{{./placeholder}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
             {{/if}}
             {{#if append}}
                 {{{append}}}
