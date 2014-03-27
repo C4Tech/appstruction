@@ -1,5 +1,5 @@
 JobModel = require "models/job"
-Collection = require "models/collection"
+JobCollection = require "models/job-collection"
 
 PageView = require "views/page"
 CollectionFormView = require "views/collection-form"
@@ -56,7 +56,7 @@ module.exports = class Application extends Backbone.Router
         @_jobRoutes = temp.jobRoutes
 
         # Load the saved jobs
-        @_jobs = new Collection null,
+        @_jobs = new JobCollection null,
             model: JobModel
             modelType: "job"
             jobRoutes: @_jobRoutes
