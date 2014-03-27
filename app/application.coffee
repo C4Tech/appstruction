@@ -1,3 +1,4 @@
+ChoicesModel = require "models/choices"
 JobModel = require "models/job"
 JobCollection = require "models/job-collection"
 
@@ -47,6 +48,7 @@ module.exports = class Application extends Backbone.Router
         "read.:id": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
+        "choices": "choices"
         # "delete.:id": "delete"
 
     initialize: (opts) ->
@@ -92,6 +94,17 @@ module.exports = class Application extends Backbone.Router
             @_setPage @_pages["home"]
 
         @_showPage @_pages["home"]
+
+    choices: ->
+        console.log "Choices page"
+        choices = new ChoicesModel()
+        price_options = choices.get 'price_options'
+        price_options.push
+            id: 'xx'
+            text: 'Testing'
+        choices.set 'price_options', price_options
+        choices.save
+        console.log choices
 
     browse: ->
         console.log "Loading browse page"

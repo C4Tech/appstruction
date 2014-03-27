@@ -1,5 +1,8 @@
 module.exports = class ChoicesModel extends Backbone.Model
-    defaults: ->
+    localStorage: new Backbone.LocalStorage "cole-choices"
+    url: "choices"
+
+    defaults:
         equipment_type_options: [
             id: "1"
             text: "Dump Truck"
