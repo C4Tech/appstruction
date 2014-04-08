@@ -17,13 +17,18 @@ module.exports = class MaterialModel extends Model
         ,
             fieldType: "number"
             name: "quantity"
-            placeholder: "Quantity"
+            placeholder: "How many"
             show: true
         ,
             fieldType: "number"
             name: "price"
-            placeholder: "Price"
+            placeholder: "What price"
             show: true
+        ,
+            fieldType: "select"
+            name: "material_type"
+            placeholder: "What Type"
+            show: false
         ,
             fieldType: "number"
             name: "tax"

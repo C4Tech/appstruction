@@ -15,13 +15,13 @@ module.exports = class ConcreteModel extends Model
 
     fields: [
             fieldType: "number"
-            placeholder: "Quantity"
             name: "quantity"
+            placeholder: "How many"
             show: true
         ,
             fieldType: "number"
-            placeholder: "Length"
             name: "length"
+            placeholder: "How long"
             show: true
             displayBegin: true
         ,
@@ -34,7 +34,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Width"
+            placeholder: "How wide"
             name: "width"
             show: true
             displayBegin: true
@@ -48,7 +48,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Depth"
+            placeholder: "How deep"
             name: "depth"
             show: true
             displayBegin: true
@@ -62,7 +62,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Price"
+            placeholder: "What price"
             name: "price"
             show: true
             displayBegin: true
@@ -77,7 +77,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Tax rate"
+            placeholder: "What tax rate"
             name: "tax"
             show: true
             displayAppend: '%'

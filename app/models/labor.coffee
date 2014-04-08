@@ -37,7 +37,7 @@ module.exports = class LaborModel extends Model
             show: true
         ,
             fieldType: "number"
-            placeholder: "Rate"
+            placeholder: "Pay Rate"
             name: "rate"
             show: true
         ,
