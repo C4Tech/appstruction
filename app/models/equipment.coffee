@@ -12,7 +12,7 @@ module.exports = class EquipmentModel extends BaseModel
 
     fields: [
             fieldType: "number"
-            placeholder: "Time"
+            placeholder: "Time used"
             name: "time"
             show: true
         ,
@@ -32,12 +32,12 @@ module.exports = class EquipmentModel extends BaseModel
             append: '<br /><br />'
         ,
             fieldType: "number"
-            placeholder: "Quantity"
+            placeholder: "How many"
             name: "quantity"
             show: true
         ,
             fieldType: "number"
-            placeholder: "Rate"
+            placeholder: "What rate"
             name: "rate"
             show: true
         ,
@@ -59,7 +59,7 @@ module.exports = class EquipmentModel extends BaseModel
         time = convert.to_hours @attributes.time, @attributes.time_units
         rate = convert.to_per_hour @attributes.rate, @attributes.rate_units
 
-        quantity = @attributes.quantity || 0
+        quantity = @attributes.quantity ? 0
 
         @cost = time * rate * quantity
         console.log "equipment row ##{@cid}: #{time} (#{@attributes.time_units}) x #{quantity} (quantity) @ $#{rate} (#{@attributes.time_units}) = #{@cost}"

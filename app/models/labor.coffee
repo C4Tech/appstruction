@@ -37,7 +37,7 @@ module.exports = class LaborModel extends BaseModel
             show: true
         ,
             fieldType: "number"
-            placeholder: "Rate"
+            placeholder: "Pay Rate"
             name: "rate"
             show: true
         ,
@@ -54,8 +54,8 @@ module.exports = class LaborModel extends BaseModel
         super
 
     calculate: ->
-        labor_time_value = @attributes.labor_time || 0
-        labor_time_units = @attributes.labor_time_units || 'hour'
+        labor_time_value = @attributes.labor_time ? 0
+        labor_time_units = @attributes.labor_time_units ? 'hour'
 
         # Assuming
         # - 8 hour day
@@ -74,8 +74,8 @@ module.exports = class LaborModel extends BaseModel
 
         labor_time = labor_time_value * labor_time_conversion
 
-        rate_value = @attributes.rate || 0
-        rate_units = @attributes.rate_units || 'hour'
+        rate_value = @attributes.rate ? 0
+        rate_units = @attributes.rate_units ? 'hour'
 
         # Convert to per hour
         rate = rate_value
@@ -90,7 +90,7 @@ module.exports = class LaborModel extends BaseModel
 
         rate = rate_value / rate_conversion
 
-        laborers_count = @attributes.laborers_count || 0
+        laborers_count = @attributes.laborers_count ? 0
 
         @cost = labor_time * rate * laborers_count
 
