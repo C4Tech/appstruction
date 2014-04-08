@@ -1,7 +1,6 @@
-Model = require "models/base"
-ChoicesModel = require "models/choices"
+BaseModel = require "models/base"
 
-module.exports = class LaborModel extends Model
+module.exports = class LaborModel extends BaseModel
     defaults:
         "labor_time": null
         "labor_time_units": null
@@ -22,14 +21,14 @@ module.exports = class LaborModel extends Model
             name: "labor_time_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'time_units'
+            optionsType: 'time_options'
             append: '<hr />'
         ,
             fieldType: "hidden"
             placeholder: "Labor class"
             name: "labor_type"
             show: true
-            optionsType: 'labor_type'
+            optionsType: 'labor_type_options'
             append: '<br /><br />'
         ,
             fieldType: "number"
@@ -47,17 +46,12 @@ module.exports = class LaborModel extends Model
             name: "rate_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'time_per_units'
+            optionsType: 'time_per_options'
     ]
 
     initialize: ->
         @help = "Labor help text"
-
-        choices = new ChoicesModel().attributes
-        _(@fields).each (field) =>
-            field.options = choices.labor_type_options if field.optionsType == 'labor_type'
-            field.options = choices.time_options if field.optionsType == 'time_units'
-            field.options = choices.time_per_options if field.optionsType == 'time_per_units'
+        super
 
     calculate: ->
         labor_time_value = @attributes.labor_time || 0

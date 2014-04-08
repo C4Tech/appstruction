@@ -1,3 +1,4 @@
+ChoicesSingleton = require "models/choices"
 
 module.exports = class BaseModel extends Backbone.Model
     defaults:
@@ -29,6 +30,10 @@ module.exports = class BaseModel extends Backbone.Model
             result = "You must select a #{label}" if value < 1 # negative number
             result
 
+    initialize: ->
+        _(@fields).each (field) =>
+            field.options = ChoicesSingleton.get field.optionsType
+
     validate: (attrs, opts) ->
         fail = false
         for field in @fields
@@ -40,6 +45,10 @@ module.exports = class BaseModel extends Backbone.Model
                 null
         fail = "" unless fail
         fail
+
+    getField: (name) ->
+        found = _.where @fields, {name: name}
+        return found[0]
 
     getFields: (showAll = false) ->
         fields = if showAll then @fields else _.where @fields, show: true

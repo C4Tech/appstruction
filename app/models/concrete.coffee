@@ -1,7 +1,6 @@
-Model = require "models/base"
-ChoicesModel = require "models/choices"
+BaseModel = require "models/base"
 
-module.exports = class ConcreteModel extends Model
+module.exports = class ConcreteModel extends BaseModel
     defaults:
         "quantity": null
         "depth": null
@@ -31,7 +30,7 @@ module.exports = class ConcreteModel extends Model
             name: "length_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurement_units'
+            optionsType: 'measurement_options'
             displayEnd: true
         ,
             fieldType: "number"
@@ -45,7 +44,7 @@ module.exports = class ConcreteModel extends Model
             name: "width_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurement_units'
+            optionsType: 'measurement_options'
             displayEnd: true
         ,
             fieldType: "number"
@@ -59,7 +58,7 @@ module.exports = class ConcreteModel extends Model
             name: "depth_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'measurement_units'
+            optionsType: 'measurement_options'
             displayEnd: true
         ,
             fieldType: "number"
@@ -74,7 +73,7 @@ module.exports = class ConcreteModel extends Model
             name: "price_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'price_units'
+            optionsType: 'price_options'
             displayEnd: true
         ,
             fieldType: "number"
@@ -87,11 +86,7 @@ module.exports = class ConcreteModel extends Model
 
     initialize: ->
         @help = "Concrete help text"
-
-        choices = new ChoicesModel().attributes
-        _(@fields).each (field) =>
-            field.options = choices.measurement_options if field.optionsType == 'measurement_units'
-            field.options = choices.price_options if field.optionsType == 'price_units'
+        super
 
     calculate: ->
         tax = @attributes.tax || '0%'

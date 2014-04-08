@@ -1,6 +1,6 @@
-Model = require "models/base"
+BaseModel = require "models/base"
 
-module.exports = class MaterialModel extends Model
+module.exports = class MaterialModel extends BaseModel
     defaults:
         "quantity": null
         "price": null

@@ -1,4 +1,4 @@
-module.exports = class ChoicesModel extends Backbone.Model
+class ChoicesModel extends Backbone.Model
     localStorage: new Backbone.LocalStorage "cole-choices"
     url: "choices"
 
@@ -107,3 +107,8 @@ module.exports = class ChoicesModel extends Backbone.Model
             id: "month"
             text: "Monthly"
         ]
+
+choices = new ChoicesModel
+    id: '1a9d41a2-4575-433b-c1ad-8860672460ee'
+choices.fetch()
+module.exports = choices
