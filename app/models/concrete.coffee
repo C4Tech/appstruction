@@ -15,13 +15,13 @@ module.exports = class ConcreteModel extends Model
 
     fields: [
             fieldType: "number"
-            placeholder: "Quantity"
             name: "quantity"
+            placeholder: "How many"
             show: true
         ,
             fieldType: "number"
-            placeholder: "Length"
             name: "length"
+            placeholder: "How long"
             show: true
             displayBegin: true
         ,
@@ -34,7 +34,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Width"
+            placeholder: "How wide"
             name: "width"
             show: true
             displayBegin: true
@@ -48,7 +48,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Depth"
+            placeholder: "How deep"
             name: "depth"
             show: true
             displayBegin: true
@@ -62,7 +62,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Price"
+            placeholder: "What price"
             name: "price"
             show: true
             displayBegin: true
@@ -77,7 +77,7 @@ module.exports = class ConcreteModel extends Model
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "Tax rate"
+            placeholder: "What tax rate"
             name: "tax"
             show: true
             displayAppend: '%'
@@ -87,31 +87,33 @@ module.exports = class ConcreteModel extends Model
     initialize: ->
         @help = "Concrete help text"
 
-        choices = @attributes.choices
+        return if not @attributes.choices.attributes
+
+        choices = @attributes.choices.attributes
         _(@fields).each (field) =>
             field.options = choices.measurement_options if field.optionsType == 'measurement_units'
             field.options = choices.price_options if field.optionsType == 'price_units'
 
     calculate: ->
-        tax = @attributes.tax || '0%'
+        tax = @attributes.tax ? '0%'
         tax_value = (tax.slice 0, tax.length-1) / 100
 
-        price_units = @attributes.price_units || 'ft'
-        price_value = @attributes.price || 0
+        price_units = @attributes.price_units ? 'ft'
+        price_value = @attributes.price ? 0
 
-        depth_units = @attributes.depth_units || 'ft'
-        depth_value = @attributes.depth || 0
+        depth_units = @attributes.depth_units ? 'ft'
+        depth_value = @attributes.depth ? 0
         depth = Qty(depth_value + ' ' + depth_units).to(price_units)
 
-        length_units = @attributes.length_units || 'ft'
-        length_value = @attributes.length || 0
+        length_units = @attributes.length_units ? 'ft'
+        length_value = @attributes.length ? 0
         length = Qty(length_value + ' ' + length_units).to(price_units)
 
-        width_units = @attributes.width_units || 'ft'
-        width_value = @attributes.width || 0
+        width_units = @attributes.width_units ? 'ft'
+        width_value = @attributes.width ? 0
         width = Qty(width_value + ' ' + width_units).to(price_units)
 
-        quantity = @attributes.quantity || 0
+        quantity = @attributes.quantity ? 0
 
         @cost = depth.mul(length).mul(width).scalar
         @cost = @cost * quantity * price_value
