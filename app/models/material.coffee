@@ -1,55 +1,55 @@
 Model = require "models/base"
 
 module.exports = class MaterialModel extends Model
-    defaults:
+    defaults: _.extend Model.prototype.defaults,
         "quantity": null
         "price": null
-        "material_type": 1
-
-    types: [
-            id: "1"
-            name: "Wire (sheet)"
-        ,
-            id: "2"
-            name: "Keyway (lf)"
-        ,
-            id:"3"
-            name: "Stakes (ea.)"
-        ,
-            id:"4"
-            name: "Cap (lf)"
-        ,
-            id:"5"
-            name: "Dowells  (ea.)"
-        ,
-            id:"6"
-            name: "2x8x20  (lf)"
-        ,
-            id:"7"
-            name: "Misc"
-    ]
+        "material_type": null
+        "tax": null
 
     fields: [
-            placeholder: "Quantity"
-            name: "quantity"
-            fieldType: "number"
-            show: true
-        ,
-            placeholder: "Price"
-            name: "price"
-            fieldType: "number"
-            show: true
-        ,
-            placeholder: "Material Type"
-            name: "material_type"
             fieldType: "select"
-            show: false
+            name: "material_type"
+            placeholder: "Material Type"
+            show: true
+            fieldTypeSelect: true
+            optionsType: 'material_types'
+        ,
+            fieldType: "number"
+            name: "quantity"
+            placeholder: "Quantity"
+            show: true
+        ,
+            fieldType: "number"
+            name: "price"
+            placeholder: "Price"
+            show: true
+        ,
+            fieldType: "number"
+            name: "tax"
+            placeholder: "Tax rate"
+            show: true
+            mask: 'percentage'
     ]
 
     initialize: ->
         @help = "Materials help text"
 
+        return if not @attributes.choices.attributes
+
+        choices = @attributes.choices.attributes
+        _(@fields).each (field) =>
+            field.options = choices.material_type_options if field.optionsType == 'material_types'
+
     calculate: ->
-        @cost = @attributes.quantity * @attributes.price
-        console.log "material row ##{@cid}: #{@attributes.quantity}@#{@attributes.price} = #{@cost}"
+        tax = @attributes.tax ? '0%'
+        tax_value = (tax.slice 0, tax.length-1) / 100
+
+        quantity = @attributes.quantity ? 0
+        price = @attributes.price ? 0
+
+        @cost = quantity * price
+        @cost = @cost + (@cost * tax_value)
+
+        console.log "material row ##{@cid}: #{quantity}@#{price} + #{tax} tax = #{@cost}"
         @cost
