@@ -317,5 +317,4 @@ module.exports = class Application extends Backbone.Router
 
         last
 
-
 module.exports = app = new Application
