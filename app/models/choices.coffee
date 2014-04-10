@@ -132,6 +132,6 @@ class ChoicesModel extends Backbone.Model
         ]
 
 choices = new ChoicesModel
-    id: '1a9d41a2-4575-433b-c1ad-8860672460ee'
+    id: 1
 choices.fetch()
 module.exports = choices
