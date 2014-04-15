@@ -1,8 +1,8 @@
-Model = require "models/base"
+BaseModel = require "models/base"
 ConvertModel = require "models/convert"
 
-module.exports = class EquipmentModel extends Model
-    defaults: _.extend Model.prototype.defaults,
+module.exports = class EquipmentModel extends BaseModel
+    defaults:
         "time": null
         "time_units": null
         "equipment_type": null
@@ -11,27 +11,27 @@ module.exports = class EquipmentModel extends Model
         "rate_units": null
 
     fields: [
-            type: "number"
+            fieldType: "number"
             placeholder: "Time used"
             name: "time"
             show: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "time_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'time_units'
+            optionsType: 'time_options'
             append: '<hr />'
         ,
-            type: "select"
-            placeholder: "Equipment type"
+            fieldType: "hidden"
+            placeholder: "Equipment Type"
             name: "equipment_type"
             show: true
-            fieldTypeSelect: true
-            optionsType: 'equipment_type'
+            optionsType: 'equipment_type_options'
+            append: '<br /><br />'
         ,
-            type: "number"
+            fieldType: "number"
             placeholder: "How many"
             name: "quantity"
             show: true
@@ -41,24 +41,17 @@ module.exports = class EquipmentModel extends Model
             name: "rate"
             show: true
         ,
-            type: "select"
+            fieldType: "select"
             placeholder: "Unit"
             name: "rate_units"
             show: true
             fieldTypeSelect: true
-            optionsType: 'time_per_units'
+            optionsType: 'time_per_options'
     ]
 
     initialize: ->
         @help = "Equipment help text"
-
-        return if not @attributes.choices.attributes
-
-        choices = @attributes.choices.attributes
-        _(@fields).each (field) =>
-            field.options = choices.equipment_type_options if field.optionsType == 'equipment_type'
-            field.options = choices.time_options if field.optionsType == 'time_units'
-            field.options = choices.time_per_options if field.optionsType == 'time_per_units'
+        super
 
     calculate: ->
         convert = new ConvertModel

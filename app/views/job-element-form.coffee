@@ -62,6 +62,13 @@ module.exports = class JobElementFormView extends ComponentView
             cost: @model.cost
             types: @model.types
 
+        self = @
+        @$('input[name=job-type]').select2
+            data: @model.types
+            createSearchChoice: (term) ->
+                id: String(self.model.types.length + 1)
+                text: term
+
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".job.items").append child.render().$el

@@ -3,7 +3,7 @@ LaborModel = require "models/labor"
 ConcreteModel = require "models/concrete"
 MaterialModel = require "models/material"
 EquipmentModel = require "models/equipment"
-Collection = require "models/collection"
+JobCollection = require "models/job-collection"
 
 module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
@@ -12,22 +12,22 @@ module.exports = class JobModel extends BaseModel
 
     types: [
             id: "1"
-            name: "Slab"
+            text: "Slab"
         ,
             id: "2"
-            name: "GB- H"
+            text: "GB- H"
         ,
             id:"3"
-            name: "GB - H1A"
+            text: "GB - H1A"
         ,
             id:"4"
-            name: "GB - V"
+            text: "GB - V"
         ,
             id:"5"
-            name: "Piles"
+            text: "Piles"
         ,
             id:"6"
-            name: "Truck Well"
+            text: "Truck Well"
     ]
 
     fields: [
@@ -68,7 +68,7 @@ module.exports = class JobModel extends BaseModel
             when "labor" then LaborModel
             when "materials" then MaterialModel
             when "equipment" then EquipmentModel
-        new Collection data, {
+        new JobCollection data, {
                 model: model
                 modelType: modelType
             }

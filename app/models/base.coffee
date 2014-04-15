@@ -1,9 +1,8 @@
-ChoicesModel = require "models/choices"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class BaseModel extends Backbone.Model
     defaults:
         "help": null
-        "choices": new ChoicesModel
 
     fields: []
     cost: 0
@@ -31,6 +30,10 @@ module.exports = class BaseModel extends Backbone.Model
             result = "You must select a #{label}" if value < 1 # negative number
             result
 
+    initialize: ->
+        _(@fields).each (field) =>
+            field.options = ChoicesSingleton.get field.optionsType
+
     validate: (attrs, opts) ->
         fail = false
         for field in @fields
@@ -43,6 +46,10 @@ module.exports = class BaseModel extends Backbone.Model
         fail = "" unless fail
         fail
 
+    getField: (name) ->
+        found = _.where @fields, {name: name}
+        return found[0] ? null
+
     getFields: (showAll = false) ->
         fields = if showAll then @fields else _.where @fields, show: true
         field.value = @getValue field for field in fields
@@ -52,8 +59,8 @@ module.exports = class BaseModel extends Backbone.Model
         value = @attributes[field.name]
 
         console.log "Field is #{field.name} with value of #{value}"
-        if field.name is "type" and @types?
-            value =  @_setValue item, value for item in @types
+        if field.options?
+            value =  @_setValue item, value for item in field.options
         value
 
     _setValue: (item, value) ->

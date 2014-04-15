@@ -4,11 +4,7 @@
     <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
     <br />
     <label for="job_type_{{cid}}">Select a job type</label>
-    <select id="job_type_{{cid}}" name="type" class="field job type form-control">
-        {{#each types}}
-            <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select>
+    <input type="hidden" placeholder="" id="job_type_{{cid}}" name="job-type" class="field job form-control"></input>
 </fieldset>
 
 {{#if step}}
