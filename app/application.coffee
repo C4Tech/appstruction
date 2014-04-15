@@ -260,6 +260,10 @@ module.exports = class Application extends Backbone.Router
             "add.materials"
             "add.equipment"
             "add.save"
+            "edit.concrete"
+            "edit.labor"
+            "edit.materials"
+            "edit.equipment"
         ]
 
         headerJobName = $('.header-job-name')

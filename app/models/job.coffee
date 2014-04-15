@@ -45,6 +45,7 @@ module.exports = class JobModel extends BaseModel
             name: "margin"
             fieldType: "number"
             show: true
+            required: false
     ]
 
     defaults: ->

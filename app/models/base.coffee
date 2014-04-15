@@ -8,26 +8,33 @@ module.exports = class BaseModel extends Backbone.Model
     cost: 0
 
     check:
-        number: (value, label) ->
+        number: (value, label, required) ->
             result = false
-            result = "You must enter a #{label}" unless value? # null or undefined
-            result = "You must enter a #{label}" if value is "" # null or undefined
-            result = "#{label} must be a number" if isNaN value # Not a number or empty
-            result = "#{label} must be a number" if isNaN parseInt value # Not a number or empty
-            result = "#{label} must be at least 1" if value < 1 # negative number
+            if required
+                result = "You must enter a #{label}" unless value? # null or undefined
+                result = "You must enter a #{label}" if value is "" # null or undefined
+
+            if value?
+                result = "#{label} must be a number" if isNaN value # Not a number or empty
+                result = "#{label} must be a number" if isNaN parseInt value # Not a number or empty
+                result = "#{label} must be at least 1" if value < 1 # negative number
             result
 
-        text: (value, label) ->
+        text: (value, label, required) ->
             result = false
-            result = "You must enter a #{label}" unless value? # null or undefined
-            result = "You must enter a #{label}" if value is "" # null or undefined
+            if required
+                result = "You must enter a #{label}" unless value? # null or undefined
+                result = "You must enter a #{label}" if value is "" # null or undefined
             result
 
-        select: (value, label) ->
+        select: (value, label, required) ->
             result = false
-            result = "You must select a #{label}" unless value? # null or undefined
-            result = "You must select a #{label}" if value is "" # null or undefined
-            result = "You must select a #{label}" if value < 1 # negative number
+            if required
+                result = "You must select a #{label}" unless value? # null or undefined
+                result = "You must select a #{label}" if value is "" # null or undefined
+
+            if value?
+                result = "You must select a #{label}" if value < 1 # negative number
             result
 
     initialize: ->
@@ -37,10 +44,11 @@ module.exports = class BaseModel extends Backbone.Model
     validate: (attrs, opts) ->
         fail = false
         for field in @fields
+            required = field.required ? true
             do (field) =>
                 unless fail
                     fail = switch field.fieldType
-                        when "number", "text", "select" then @check[field.fieldType] attrs[field.name], field.name
+                        when "number", "text", "select" then @check[field.fieldType] attrs[field.name], field.name, required
                         else false
                 null
         fail = "" unless fail
