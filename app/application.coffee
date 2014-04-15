@@ -98,7 +98,7 @@ module.exports = class Application extends Backbone.Router
         console.log "Loading browse page"
 
         # Create the page only once
-        unless @_pages["browse"]
+        unless @_pages["browse"]?
             @_pages["browse"] = new PageView
                 id: "browse"
                 title: "Load an Estimate"
