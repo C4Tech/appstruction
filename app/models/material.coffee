@@ -1,7 +1,7 @@
-Model = require "models/base"
+BaseModel = require "models/base"
 
-module.exports = class MaterialModel extends Model
-    defaults: _.extend Model.prototype.defaults,
+module.exports = class MaterialModel extends BaseModel
+    defaults:
         "quantity": null
         "price": null
         "material_type": null
@@ -13,7 +13,7 @@ module.exports = class MaterialModel extends Model
             placeholder: "Material Type"
             show: true
             fieldTypeSelect: true
-            optionsType: 'material_types'
+            optionsType: 'material_type_options'
         ,
             fieldType: "number"
             name: "quantity"
@@ -39,12 +39,7 @@ module.exports = class MaterialModel extends Model
 
     initialize: ->
         @help = "Materials help text"
-
-        return if not @attributes.choices.attributes
-
-        choices = @attributes.choices.attributes
-        _(@fields).each (field) =>
-            field.options = choices.material_type_options if field.optionsType == 'material_types'
+        super
 
     calculate: ->
         tax = @attributes.tax ? '0%'

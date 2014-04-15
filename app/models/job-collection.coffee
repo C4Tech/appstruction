@@ -1,4 +1,4 @@
-module.exports = class Collection extends Backbone.Collection
+module.exports = class JobCollection extends Backbone.Collection
     initialize: (models, opts) ->
         @cost = 0
         @modelType = opts.modelType

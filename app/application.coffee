@@ -1,5 +1,6 @@
+ChoicesSingleton = require "models/choices"
 JobModel = require "models/job"
-Collection = require "models/collection"
+JobCollection = require "models/job-collection"
 
 PageView = require "views/page"
 CollectionFormView = require "views/collection-form"
@@ -56,7 +57,7 @@ module.exports = class Application extends Backbone.Router
         @_jobRoutes = temp.jobRoutes
 
         # Load the saved jobs
-        @_jobs = new Collection null,
+        @_jobs = new JobCollection null,
             model: JobModel
             modelType: "job"
             jobRoutes: @_jobRoutes
@@ -280,6 +281,7 @@ module.exports = class Application extends Backbone.Router
     _saveJob: (evt) =>
         console.log "Saving job"
         if @_current.isValid()
+            ChoicesSingleton.save()
             @_current.save()
             @_jobs.add @_current
             console.log JSON.stringify @_current.toJSON()
@@ -314,6 +316,5 @@ module.exports = class Application extends Backbone.Router
             alert last.validationError
 
         last
-
 
 module.exports = app = new Application
