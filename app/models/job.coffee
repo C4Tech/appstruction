@@ -10,70 +10,34 @@ module.exports = class JobModel extends BaseModel
     url: "jobs"
     jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
-    job_type_options: [
-            id: "1"
-            text: "Slab"
-        ,
-            id: "2"
-            text: "GB- H"
-        ,
-            id:"3"
-            text: "GB - H1A"
-        ,
-            id:"4"
-            text: "GB - V"
-        ,
-            id:"5"
-            text: "Piles"
-        ,
-            id:"6"
-            text: "Truck Well"
-    ]
-
-    group_name_options: [
-            id: "1"
-            text: "G1"
-        ,
-            id: "2"
-            text: "G2"
-        ,
-            id:"3"
-            text: "G3"
-    ]
-
     fields: [
-            name: 'group_name'
             fieldType: 'select'
+            name: 'group_name'
             label: 'Group Name'
             fieldTypeSelect: true
-            optionsType: 'group_name'
+            optionsType: 'group_name_options'
             show: true
         ,
+            fieldType: "text"
             name: "job_name"
             placeholder: "Job Name"
-            fieldType: "text"
-            label: 'Job Name'
             show: true
         ,
+            fieldType: "hidden"
             name: "job_type"
             placeholder: "What type of job"
-            fieldType: "select"
-            label: 'Select a job type'
-            fieldTypeSelect: true
-            optionsType: 'job_type'
+            optionsType: 'job_type_options'
             show: true
+            append: '<br />'
         ,
-            name: "profit_margin"
-            placeholder: "Profit Margin"
             fieldType: "number"
+            name: "margin"
+            placeholder: "Profit Margin"
             show: false
+            required: false
     ]
-
     initialize: ->
-        self = @
-        _(@fields).each (field) =>
-            field.options = self.job_type_options if field.optionsType == 'job_type'
-            field.options = self.group_name_options if field.optionsType == 'group_name'
+        super
 
     defaults: ->
         data =

@@ -1,18 +1,22 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if show}}
-            <label for="{{./type}}_{{./name}}_{{../cid}}" class="lead ccma-lead">{{./label}}</label>
+            <label for="{{../../routeType}}-{{name}}-{{../../cid}}" class="lead ccma-lead">{{label}}</label>
             {{#if fieldTypeSelect}}
-                <select id="{{./type}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./type}} type form-control">
+                <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{placeholder}}">
                     <option></option>
                     {{#each options}}
                         <option value="{{id}}">{{text}}</option>
                     {{/each}}
                 </select>
-                <br />
+                {{#unless append}}
+                    <br />
+                {{/unless}}
             {{else}}
-                <input type="{{./type}}" id="{{../type}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../type}} {{./name}} form-control"></input>
-                <br />
+                <input type="{{fieldType}}" id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}" class="field {{../../../routeType}} {{name}} form-control" {{#if mask}}data-mask="{{mask}}"{{/if}}></input>
+            {{/if}}
+            {{#if append}}
+                {{{append}}}
             {{/if}}
         {{/if}}
     {{/each}}
@@ -21,7 +25,7 @@
 {{#if step.next}}
     <div class="row">
         <div class="col-xs-6 col-xs-offset-6">
-            <button class="{{type}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
+            <button class="{{type}} btn btn-primary next ccma-navigate form-control" data-path="{{step.next}}" role="button">Next</button>
         </div>
     </div>
 {{/if}}

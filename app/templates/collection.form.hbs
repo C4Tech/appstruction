@@ -27,10 +27,13 @@
     </div>
 </div>
 
-{{#if step.next}}
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-6">
+<div class="row">
+    <div class="col-xs-6">
+        <button class="btn btn-primary job save ccma-navigate form-control" data-path="home" role="button">Save & Exit</button>
+    </div>
+    {{#if step.next}}
+        <div class="col-xs-6">
             <button class="{{routeType}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
         </div>
-    </div>
-{{/if}}
+    {{/if}}
+</div>
