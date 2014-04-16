@@ -60,14 +60,19 @@ module.exports = class JobElementFormView extends ComponentView
             step: @step
             title: @title
             cost: @model.cost
-            types: @model.types
+            fields: @model.getFields(@showAll)
 
-        self = @
-        @$('input[name=job-type]').select2
-            data: @model.types
-            createSearchChoice: (term) ->
-                id: String(self.model.types.length + 1)
-                text: term
+        # Apply select2 widget for fields accepting user-created options
+        field_options = null
+        for field in @model.fields
+            if field.fieldType == 'hidden' and field.show and field.options?
+                field_options = field.options
+                @$('input[name=' + field.name + ']').select2
+                    width: 'resolve'
+                    data: field_options
+                    createSearchChoice: (term) ->
+                        id: String(field_options.length + 1)
+                        text: term
 
         # Append all of the rendered children
         _(@_children).each (child) =>

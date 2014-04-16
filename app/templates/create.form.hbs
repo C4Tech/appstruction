@@ -1,10 +1,25 @@
 <h4>{{title}}</h4>
 
-<fieldset class="form-group col-xs-12">
-    <input type="text" placeholder="Job Name" id="job-name" name="name" class="job field form-control" value="{{row.name}}" />
-    <br />
-    <label for="job_type_{{cid}}">Select a job type</label>
-    <input type="hidden" placeholder="" id="job_type_{{cid}}" name="job-type" class="field job form-control"></input>
+    {{#each fields}}
+        {{#if show}}
+            {{#if fieldTypeSelect}}
+                <select id="{{./fieldType}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{./placeholder}}">
+                    <option></option>
+                    {{#each options}}
+                        <option value="{{id}}">{{text}}</option>
+                    {{/each}}
+                </select>
+                {{#unless append}}
+                    <br />
+                {{/unless}}
+            {{else}}
+                <input type="{{./fieldType}}" placeholder="{{./placeholder}}" id="{{../routeType}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../routeType}} {{./name}} form-control" {{#if mask}}data-mask="{{./mask}}"{{/if}}></input>
+            {{/if}}
+            {{#if append}}
+                {{{append}}}
+            {{/if}}
+        {{/if}}
+    {{/each}}
 </fieldset>
 
 {{#if step}}
