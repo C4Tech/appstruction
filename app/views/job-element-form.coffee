@@ -1,5 +1,6 @@
 ComponentView = require "views/component"
 CollectionListView = require "views/collection-list"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class JobElementFormView extends ComponentView
     tagName: "article"
@@ -87,7 +88,23 @@ module.exports = class JobElementFormView extends ComponentView
         target = $ event.currentTarget
 
         # Update the model
-        @model.set target.attr('name'), target.val()
+        name = target.attr('name')
+        @model.set name, target.val()
+        field = @model.getField name
+
+        if field? and field.optionsType?
+            selected_option = target.children ':selected'
+            choices_options = ChoicesSingleton.get field.optionsType
+
+            option_found = _.some(choices_options, (item) ->
+                item.id == selected_option.val() and item.text == selected_option.text()
+            )
+
+            if not option_found
+                select2_selected_option = target.select2 'data'
+                choices_options.push
+                    id: select2_selected_option.id
+                    text: select2_selected_option.text
 
         console.log "View changed", target.attr('name'), target.val()
 

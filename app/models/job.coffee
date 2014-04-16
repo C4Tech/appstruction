@@ -38,7 +38,6 @@ module.exports = class JobModel extends BaseModel
             name: null
             margin: null
             job_type: null
-            dirt: null
 
         @parse data
 
