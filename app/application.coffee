@@ -151,6 +151,9 @@ module.exports = class Application extends Backbone.Router
     _bindEvents: ->
         console.log "Binding events"
 
+        # Save job button
+        $(document).hammer().on "tap", "button.job.save", @_saveJob
+
         # Bind URL clicks
         $(document).on "tap", "button.ccma-navigate", @_navigate
         $(document).on "tap", "button.ccma-navigate", @_updateJobName
@@ -158,9 +161,6 @@ module.exports = class Application extends Backbone.Router
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
-
-        # Save job button
-        $(document).hammer().on "tap", "button.job.save", @_saveJob
 
         # Reset job button
         $(document).hammer().on "tap", "button.job.reset", @_deleteJob
@@ -194,6 +194,7 @@ module.exports = class Application extends Backbone.Router
     # View the current job
     _viewJob: (routeType = "create", viewType = "add") =>
         console.log "Viewing job"
+
         # Create the page only once
         unless @_pages[routeType]?
             # Form component
@@ -284,6 +285,7 @@ module.exports = class Application extends Backbone.Router
     # Add the job to the saved collection
     _saveJob: (evt) =>
         console.log "Saving job"
+
         if @_current.isValid()
             ChoicesSingleton.save()
             @_current.save()
