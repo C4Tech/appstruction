@@ -21,7 +21,7 @@ module.exports = class JobModel extends BaseModel
             placeholder: "What type of job"
             optionsType: 'job_type_options'
             show: true
-            append: '<br /><br />'
+            append: '<br />'
         ,
             fieldType: "number"
             name: "margin"

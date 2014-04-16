@@ -1,9 +1,8 @@
-<h4>{{title}}</h4>
-
+<fieldset class="form-group">
     {{#each fields}}
         {{#if show}}
             {{#if fieldTypeSelect}}
-                <select id="{{./fieldType}}_{{./name}}_{{../cid}}" name="{{./name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{./placeholder}}">
+                <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{placeholder}}">
                     <option></option>
                     {{#each options}}
                         <option value="{{id}}">{{text}}</option>
@@ -13,7 +12,7 @@
                     <br />
                 {{/unless}}
             {{else}}
-                <input type="{{./fieldType}}" placeholder="{{./placeholder}}" id="{{../routeType}}-{{./name}}-{{../cid}}" name="{{./name}}" value="{{./value}}" class="field {{../routeType}} {{./name}} form-control" {{#if mask}}data-mask="{{./mask}}"{{/if}}></input>
+                <input type="{{fieldType}}" id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}" class="field {{../../../routeType}} {{name}} form-control" {{#if mask}}data-mask="{{mask}}"{{/if}}></input>
             {{/if}}
             {{#if append}}
                 {{{append}}}
@@ -23,5 +22,9 @@
 </fieldset>
 
 {{#if step}}
-    <button class="btn btn-primary next ccma-navigate" data-path="{{step.next}}">Next</a>
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-primary next ccma-navigate form-control" data-path="{{step.next}}" role="button">Next</button>
+        </div>
+    </div>
 {{/if}}
