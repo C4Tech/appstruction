@@ -10,49 +10,34 @@ module.exports = class JobModel extends BaseModel
     url: "jobs"
     jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
-    types: [
-            id: "1"
-            text: "Slab"
+    fields: [
+            fieldType: "text"
+            name: "name"
+            placeholder: "Job Name"
+            show: true
         ,
-            id: "2"
-            text: "GB- H"
+            fieldType: "hidden"
+            name: "job_type"
+            placeholder: "What type of job"
+            optionsType: 'job_type_options'
+            show: true
+            append: '<br />'
         ,
-            id:"3"
-            text: "GB - H1A"
-        ,
-            id:"4"
-            text: "GB - V"
-        ,
-            id:"5"
-            text: "Piles"
-        ,
-            id:"6"
-            text: "Truck Well"
+            fieldType: "number"
+            name: "margin"
+            placeholder: "Profit Margin"
+            show: false
+            required: false
     ]
 
-    fields: [
-            placeholder: "Job Name"
-            name: "name"
-            fieldType: "text"
-            show: false
-        ,
-            placeholder: "What type of job"
-            name: "job_type"
-            fieldType: "select"
-            show: true
-        ,
-            placeholder: "Profit Margin"
-            name: "margin"
-            fieldType: "number"
-            show: true
-    ]
+    initialize: ->
+        super
 
     defaults: ->
         data =
             name: null
             margin: null
-            job_type: 1
-            dirt: null
+            job_type: null
 
         @parse data
 
