@@ -16,7 +16,7 @@ module.exports = class Application extends Backbone.Router
     # Current job view
     _current: null
 
-    _pages: {}
+    _pages: null
 
     _jobRoutes: null
 
@@ -79,6 +79,9 @@ module.exports = class Application extends Backbone.Router
 
         # Create new (empty) job
         @_createJob()
+
+        # Initialize pages object
+        @_pages = {}
 
         # Create the page only once
         unless @_pages["home"]?
