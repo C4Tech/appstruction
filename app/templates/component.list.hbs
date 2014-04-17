@@ -1,11 +1,11 @@
 {{#each fields}}
     {{#unless ./displayEnd}}
-        <div class="field {{../type}} {{./name}}">{{./placeholder}}:
+        <div class="field {{../type}} {{name}}">{{placeholder}}:
     {{/unless}}
 
-    {{#if ./displayPrepend}}{{displayPrepend}}{{/if}}{{./value}}{{#if ./displayAppend}}{{displayAppend}}{{/if}}
+    {{#if displayPrepend}}{{displayPrepend}}{{/if}}{{value}}{{#if displayAppend}}{{displayAppend}}{{/if}}
 
-    {{#unless ./displayBegin}}
+    {{#unless displayBegin}}
         </div>
     {{/unless}}
 {{/each}}
