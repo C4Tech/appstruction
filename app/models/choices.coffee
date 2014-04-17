@@ -157,11 +157,11 @@ class ChoicesModel extends Backbone.Model
 
     add_job_group: (job) ->
         group_option = _.filter @attributes.group_name_options, (item) ->
-            item.id == job.attributes.group_name
+            item.id == job.attributes.group_id
         group_option = group_option[0]
 
         filtered_job_groups = _.filter @attributes.job_groups, (item) ->
-            item.group.id == job.attributes.group_name
+            item.group.id == job.attributes.group_id
 
         job_found = false
 

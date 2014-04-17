@@ -12,7 +12,7 @@ module.exports = class JobModel extends BaseModel
 
     fields: [
             fieldType: 'hidden'
-            name: 'group_name'
+            name: 'group_id'
             label: 'Group Name'
             optionsType: 'group_name_options'
             show: true
