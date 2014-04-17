@@ -16,10 +16,15 @@ module.exports = class BrowseView extends BaseView
         null
 
     render: ->
-        job_groups = ChoicesSingleton.get 'job_groups'
-
         @$el.html @template
-            job_groups: job_groups
+            job_groups: ChoicesSingleton.get 'job_groups'
+
+        # Apply select2 widget, enable filter by optgroups as well as options
+        @$('select').select2
+            minimumResultsForSearch: 6
+            matcher: (term, optText, els) ->
+                allText = optText + els[0].parentNode.getAttribute('label') or ''
+                ('' + allText).toUpperCase().indexOf(('' + term).toUpperCase()) >= 0
 
         # Return this
         @

@@ -97,9 +97,8 @@ module.exports = class JobElementFormView extends ComponentView
             selected_option = target.select2('data')
             choices_options = ChoicesSingleton.get field.optionsType
 
-            option_found = _.some(choices_options, (item) ->
+            option_found = _.some choices_options, (item) ->
                 item.id == selected_option.id and item.text == selected_option.text
-            )
 
             if not option_found
                 select2_selected_option = target.select2 'data'
