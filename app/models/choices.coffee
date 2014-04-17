@@ -26,16 +26,7 @@ class ChoicesModel extends Backbone.Model
                 text: "Util Truck"
         ]
 
-        group_name_options: [
-            id: "1"
-            text: "G1"
-        ,
-            id: "2"
-            text: "G2"
-        ,
-            id:"3"
-            text: "G3"
-        ]
+        group_name_options: []
 
         job_type_options: [
             id: "1"
