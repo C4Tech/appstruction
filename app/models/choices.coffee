@@ -28,6 +28,8 @@ class ChoicesModel extends Backbone.Model
 
         group_name_options: []
 
+        job_groups: []
+
         job_type_options: [
             id: "1"
             text: "Slab"
@@ -152,6 +154,40 @@ class ChoicesModel extends Backbone.Model
                 id: "month"
                 text: "Monthly"
         ]
+
+    add_job_group: (job) ->
+        group_option = _.filter @attributes.group_name_options, (item) ->
+            item.id == job.attributes.group_name
+        group_option = group_option[0]
+
+        filtered_job_groups = _.filter @attributes.job_groups, (item) ->
+            item.group.id == job.attriutes.group_name
+
+        job_found = false
+
+        if filtered_job_groups.length > 0
+            selected_group = filtered_job_groups[0]
+            job_found = _.some selected_group.jobs, (item_job) ->
+                item_job.cid == job.cid
+        else
+            selected_group =
+                group:
+                    id: group_option.id
+                    name: group_option.text
+
+        unless job_found
+            unless selected_group.jobs?
+                selected_group.jobs = []
+
+            selected_group.jobs.push
+                cid: job.cid
+                name: job.attributes.job_name
+
+        unless filtered_job_groups.length > 0
+            @attributes.job_groups.push selected_group
+
+        # Return nothing
+        null
 
 choices = new ChoicesModel
     id: 1

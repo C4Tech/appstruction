@@ -8,6 +8,7 @@ CollectionListView = require "views/collection-list"
 JobElementFormView = require "views/job-element-form"
 JobListView = require "views/job-list"
 JobView = require "views/job"
+BrowseView = require 'views/browse'
 
 module.exports = class Application extends Backbone.Router
     # Collection of jobs
@@ -105,12 +106,8 @@ module.exports = class Application extends Backbone.Router
             @_pages["browse"] = new PageView
                 id: "browse"
                 title: "Load an Estimate"
-                subView: new CollectionListView
-                    modelType: 'job'
+                subView: new BrowseView
                     routeType: 'browse'
-                    collection: @_jobs
-                    child: JobListView
-                    step: @_steps['home']
 
             # Load the page
             @_setPage @_pages["browse"]
@@ -290,6 +287,7 @@ module.exports = class Application extends Backbone.Router
         console.log "Saving job"
 
         if @_current.isValid()
+            ChoicesSingleton.add_job_group @_current
             ChoicesSingleton.save()
             @_current.save()
             @_jobs.add @_current
