@@ -35,7 +35,7 @@ module.exports = class ComponentView extends BaseView
                     width: 'resolve'
                     data: field_options
                     createSearchChoice: (term) ->
-                        id: String(field_options.length + 1)
+                        id: term
                         text: term
 
         # Return this
