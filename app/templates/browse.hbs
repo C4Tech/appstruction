@@ -3,7 +3,7 @@
     <select id="browse-jobs" name="browse-jobs" class="field type form-control">
         <option></option>
         {{#each job_groups}}
-            <optgroup label="{{group.name}}">
+            <optgroup label="Group: {{group.name}}">
                 {{#each jobs}}
                     <option value="{{cid}}">{{name}}</option>
                 {{/each}}
