@@ -4,25 +4,25 @@ class ChoicesModel extends Backbone.Model
 
     defaults:
         equipment_type_options: [
-                id: "Dump Truck"
+                id: "1"
                 text: "Dump Truck"
             ,
-                id: "Excavator"
+                id: "2"
                 text: "Excavator"
             ,
-                id: "Bobcat"
+                id: "3"
                 text: "Bobcat"
             ,
-                id: "C pump"
+                id: "4"
                 text: "C pump"
             ,
-                id: "Piles"
+                id: "5"
                 text: "Piles"
             ,
-                id: "Trial"
+                id: "6"
                 text: "Trial"
             ,
-                id: "Util Truck"
+                id: "7"
                 text: "Util Truck"
         ]
 
@@ -31,65 +31,65 @@ class ChoicesModel extends Backbone.Model
         job_groups: []
 
         job_type_options: [
-                id: "Slab"
+                id: "1"
                 text: "Slab"
             ,
-                id: "GB- H"
+                id: "2"
                 text: "GB- H"
             ,
-                id: "GB - H1A"
+                id: "3"
                 text: "GB - H1A"
             ,
-                id: "GB - V"
+                id: "4"
                 text: "GB - V"
             ,
-                id: "Piles"
+                id: "5"
                 text: "Piles"
             ,
-                id: "Truck Well"
+                id: "6"
                 text: "Truck Well"
         ]
 
         labor_type_options: [
-                id: "Finishers"
+                id: "1"
                 text: "Finishers"
             ,
-                id: "Supervisors"
+                id: "2"
                 text: "Supervisors"
             ,
-                id: "Forms crp"
+                id: "3"
                 text: "Forms crp"
             ,
-                id: "Laborers"
+                id: "4"
                 text: "Laborers"
             ,
-                id: "Driver"
+                id: "5"
                 text: "Driver"
             ,
-                id: "Operator"
+                id: "6"
                 text: "Operator"
         ]
 
         material_type_options: [
-                id: "Wire (sheet)"
+                id: "1"
                 text: "Wire (sheet)"
             ,
-                id: "Keyway (lf)"
+                id: "2"
                 text: "Keyway (lf)"
             ,
-                id: "Stakes (ea.)"
+                id: "3"
                 text: "Stakes (ea.)"
             ,
-                id: "Cap (lf)"
+                id: "4"
                 text: "Cap (lf)"
             ,
-                id: "Dowells  (ea.)"
+                id: "5"
                 text: "Dowells  (ea.)"
             ,
-                id: "2x8x20  (lf)"
+                id: "6"
                 text: "2x8x20  (lf)"
             ,
-                id: "Misc"
+                id: "7"
                 text: "Misc"
         ]
 
