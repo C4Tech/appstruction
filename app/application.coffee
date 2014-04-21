@@ -9,6 +9,7 @@ JobElementFormView = require "views/job-element-form"
 JobListView = require "views/job-list"
 JobView = require "views/job"
 BrowseView = require 'views/browse'
+DeleteBrowseView = require 'views/delete-browse'
 
 module.exports = class Application extends Backbone.Router
     # Collection of jobs
@@ -46,6 +47,7 @@ module.exports = class Application extends Backbone.Router
         "home": "home"
         "open": "open"
         "browse": "browse"
+        "delete-browse": "delete_browse"
         "read.:id": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
@@ -113,6 +115,22 @@ module.exports = class Application extends Backbone.Router
             @_setPage @_pages["browse"]
 
         @_showPage @_pages["browse"]
+
+    delete_browse: ->
+        console.log "Loading delete-browse page"
+
+        # Create the page only once
+        unless @_pages["delete-browse"]?
+            @_pages["delete-browse"] = new PageView
+                id: "delete-browse"
+                title: "Delete an Estimate"
+                subView: new DeleteBrowseView
+                    routeType: 'delete-browse'
+
+            # Load the page
+            @_setPage @_pages["delete-browse"]
+
+        @_showPage @_pages["delete-browse"]
 
     read: (id) ->
         console.log "Loading job listing page"
