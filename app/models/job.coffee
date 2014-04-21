@@ -41,8 +41,8 @@ module.exports = class JobModel extends BaseModel
 
     defaults: ->
         data =
-            name: null
-            margin: null
+            job_name: null
+            profit_margin: null
             job_type: null
 
         @parse data
