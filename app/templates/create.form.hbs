@@ -1,6 +1,7 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if show}}
+            <label for="{{../../routeType}}-{{name}}-{{../../cid}}" class="lead ccma-lead">{{label}}</label>
             {{#if fieldTypeSelect}}
                 <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{placeholder}}">
                     <option></option>
@@ -21,10 +22,10 @@
     {{/each}}
 </fieldset>
 
-{{#if step}}
+{{#if step.next}}
     <div class="row">
-        <div class="col-xs-6">
-            <button class="btn btn-primary next ccma-navigate form-control" data-path="{{step.next}}" role="button">Next</button>
+        <div class="col-xs-6 col-xs-offset-6">
+            <button class="{{type}} btn btn-default next ccma-navigate form-control" data-path="{{step.next}}" role="button">Next</button>
         </div>
     </div>
 {{/if}}

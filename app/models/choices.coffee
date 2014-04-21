@@ -10,40 +10,44 @@ class ChoicesModel extends Backbone.Model
                 id: "2"
                 text: "Excavator"
             ,
-                id:"3"
+                id: "3"
                 text: "Bobcat"
             ,
-                id:"4"
+                id: "4"
                 text: "C pump"
             ,
-                id:"5"
+                id: "5"
                 text: "Piles"
             ,
-                id:"6"
+                id: "6"
                 text: "Trial"
             ,
-                id:"7"
+                id: "7"
                 text: "Util Truck"
         ]
 
+        group_name_options: []
+
+        job_groups: []
+
         job_type_options: [
-            id: "1"
-            text: "Slab"
-        ,
-            id: "2"
-            text: "GB- H"
-        ,
-            id:"3"
-            text: "GB - H1A"
-        ,
-            id:"4"
-            text: "GB - V"
-        ,
-            id:"5"
-            text: "Piles"
-        ,
-            id:"6"
-            text: "Truck Well"
+                id: "1"
+                text: "Slab"
+            ,
+                id: "2"
+                text: "GB- H"
+            ,
+                id: "3"
+                text: "GB - H1A"
+            ,
+                id: "4"
+                text: "GB - V"
+            ,
+                id: "5"
+                text: "Piles"
+            ,
+                id: "6"
+                text: "Truck Well"
         ]
 
         labor_type_options: [
@@ -53,16 +57,16 @@ class ChoicesModel extends Backbone.Model
                 id: "2"
                 text: "Supervisors"
             ,
-                id:"3"
+                id: "3"
                 text: "Forms crp"
             ,
-                id:"4"
+                id: "4"
                 text: "Laborers"
             ,
-                id:"5"
+                id: "5"
                 text: "Driver"
             ,
-                id:"6"
+                id: "6"
                 text: "Operator"
         ]
 
@@ -73,19 +77,19 @@ class ChoicesModel extends Backbone.Model
                 id: "2"
                 text: "Keyway (lf)"
             ,
-                id:"3"
+                id: "3"
                 text: "Stakes (ea.)"
             ,
-                id:"4"
+                id: "4"
                 text: "Cap (lf)"
             ,
-                id:"5"
+                id: "5"
                 text: "Dowells  (ea.)"
             ,
-                id:"6"
+                id: "6"
                 text: "2x8x20  (lf)"
             ,
-                id:"7"
+                id: "7"
                 text: "Misc"
         ]
 
@@ -150,6 +154,36 @@ class ChoicesModel extends Backbone.Model
                 id: "month"
                 text: "Monthly"
         ]
+
+    add_job_group: (job) ->
+        group_option = item for item in @attributes.group_name_options when item.id == job.attributes.group_id
+        filtered_job_groups = item for item in @attributes.job_groups when item.group.id == job.attributes.group_id
+
+        job_found = false
+
+        if filtered_job_groups?
+            selected_group = filtered_job_groups
+            job_found = _.some selected_group.jobs, (item_job) ->
+                item_job.cid == job.cid
+        else
+            selected_group =
+                group:
+                    id: group_option.id
+                    name: group_option.text
+
+        unless job_found
+            unless selected_group.jobs?
+                selected_group.jobs = []
+
+            selected_group.jobs.push
+                cid: job.cid
+                name: job.attributes.job_name
+
+        unless filtered_job_groups?
+            @attributes.job_groups.push selected_group
+
+        # Return nothing
+        null
 
 choices = new ChoicesModel
     id: 1

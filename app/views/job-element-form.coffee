@@ -46,6 +46,14 @@ module.exports = class JobElementFormView extends ComponentView
         # Return nothing
         null
 
+    addSelectOption: (field) ->
+        @$('input[name=' + field.name + ']').select2
+            width: 'resolve'
+            data: field.options
+            createSearchChoice: (term) ->
+                id: String(field.options.length + 1)
+                text: term
+
     # Render the collection
     render: =>
         console.log "Rendering #{@routeType} element"
@@ -55,6 +63,7 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Rebuild the frame
         @$el.html @template
+            fields: @model.fields
             row: @model.toJSON()
             cid: @model.cid
             routeType: @routeType
@@ -64,16 +73,8 @@ module.exports = class JobElementFormView extends ComponentView
             fields: @model.getFields(@showAll)
 
         # Apply select2 widget for fields accepting user-created options
-        field_options = null
         for field in @model.fields
-            if field.fieldType == 'hidden' and field.show and field.options?
-                field_options = field.options
-                @$('input[name=' + field.name + ']').select2
-                    width: 'resolve'
-                    data: field_options
-                    createSearchChoice: (term) ->
-                        id: String(field_options.length + 1)
-                        text: term
+            @addSelectOption field if field.fieldType == 'hidden' and field.show and field.options?
 
         # Append all of the rendered children
         _(@_children).each (child) =>
@@ -96,9 +97,8 @@ module.exports = class JobElementFormView extends ComponentView
             selected_option = target.select2('data')
             choices_options = ChoicesSingleton.get field.optionsType
 
-            option_found = _.some(choices_options, (item) ->
+            option_found = _.some choices_options, (item) ->
                 item.id == selected_option.id and item.text == selected_option.text
-            )
 
             if not option_found
                 select2_selected_option = target.select2 'data'

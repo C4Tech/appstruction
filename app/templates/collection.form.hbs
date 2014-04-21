@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="text-info lead">
-            {{ routeType }} $<span class="{{routeType}} cost">0</span>
+            {{routeType}} $<span class="{{routeType}} cost">0</span>
             <br />
             Subtotal $<span class="subtotal">0</span>
         </div>
@@ -31,9 +31,9 @@
     <div class="col-xs-6">
         <button class="btn btn-primary job save ccma-navigate form-control" data-path="home" role="button">Save & Exit</button>
     </div>
-    <div class="col-xs-6">
-        {{#if step}}
+    {{#if step.next}}
+        <div class="col-xs-6">
             <button class="{{routeType}} btn btn-large form-control next ccma-navigate" data-path="{{step.next}}">Next</button>
-        {{/if}}
-    </div>
+        </div>
+    {{/if}}
 </div>

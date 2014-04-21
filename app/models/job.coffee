@@ -11,25 +11,31 @@ module.exports = class JobModel extends BaseModel
     jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
 
     fields: [
+            fieldType: 'hidden'
+            name: 'group_id'
+            label: 'Group Name'
+            optionsType: 'group_name_options'
+            show: true
+            append: '<br />'
+        ,
             fieldType: "text"
-            name: "name"
-            placeholder: "Job Name"
+            name: 'job_name'
+            label: 'Job Name'
             show: true
         ,
             fieldType: "hidden"
             name: "job_type"
-            placeholder: "What type of job"
+            label: "What type of job"
             optionsType: 'job_type_options'
             show: true
             append: '<br />'
         ,
             fieldType: "number"
-            name: "margin"
-            placeholder: "Profit Margin"
+            name: "profit_margin"
+            label: "Profit Margin"
             show: false
             required: false
     ]
-
     initialize: ->
         super
 
