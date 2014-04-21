@@ -51,7 +51,7 @@ module.exports = class Application extends Backbone.Router
         "read.:id": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
-        # "delete.:id": "delete"
+        "deleteJob.:id": "deleteJob"
 
     initialize: (opts) ->
         console.log "Initializing Cole"
@@ -155,6 +155,12 @@ module.exports = class Application extends Backbone.Router
         console.log "Editing #{routeType} component page"
         @_viewJob(routeType, 'edit')
 
+    # delete a saved job
+    deleteJob: (id) ->
+        console.log "Deleting job"
+        @read(id)
+        @_resetJob()
+
     # Tell jQuery Mobile to change the damn page
     _setPage: (page) ->
         $("body").append page.render().$el
@@ -181,7 +187,7 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", "button.add", @_validateComponent
 
         # Reset job button
-        $(document).hammer().on "tap", "button.job.reset", @_deleteJob
+        $(document).hammer().on "tap", "button.job.reset", @_resetJob
 
         # Handle application events
         $(document).on "change", ".field", @_updateCost
@@ -294,8 +300,8 @@ module.exports = class Application extends Backbone.Router
         @_current
 
     # Delete the current job (and create a new empty one)
-    _deleteJob: =>
-        console.log "Deleting job"
+    _resetJob: =>
+        console.log "Reseting job"
         @_current.destroy()
         @_createJob()
         true
