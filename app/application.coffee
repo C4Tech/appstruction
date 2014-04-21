@@ -120,7 +120,7 @@ module.exports = class Application extends Backbone.Router
         unless @_pages[routeType]?
             @_readJob id
             @_pages[routeType] = new PageView
-                title: @_current.attributes.name
+                title: @_current.attributes.job_name
                 subView: new JobView
                     model: @_current
                     jobRoutes: @_jobRoutes
@@ -269,7 +269,7 @@ module.exports = class Application extends Backbone.Router
 
         headerJobName = $('.header-job-name')
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
-            headerJobName.find('h1').text @_current.attributes.name
+            headerJobName.find('h1').text @_current.attributes.job_name
             headerJobName.show()
         else
             headerJobName.hide()
