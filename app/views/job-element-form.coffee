@@ -51,8 +51,13 @@ module.exports = class JobElementFormView extends ComponentView
             width: 'resolve'
             data: field.options
             createSearchChoice: (term) ->
-                id: String(field.options.length + 1)
-                text: term
+                option_found = _.some field.options, (item) ->
+                    item.text == term
+                if option_found
+                    return null
+                else
+                    id: String(field.options.length + 1)
+                    text: term
 
     # Render the collection
     render: =>

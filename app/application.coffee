@@ -48,10 +48,10 @@ module.exports = class Application extends Backbone.Router
         "open": "open"
         "browse": "browse"
         "delete-browse": "delete_browse"
-        "read.:id": "read"
+        "read.:cid": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
-        "deleteJob.:id": "deleteJob"
+        "deleteJob.:cid": "deleteJob"
 
     initialize: (opts) ->
         console.log "Initializing Cole"
@@ -132,11 +132,11 @@ module.exports = class Application extends Backbone.Router
 
         @_showPage @_pages["delete-browse"]
 
-    read: (id) ->
+    read: (cid) ->
         console.log "Loading job listing page"
-        routeType = "read-#{id}"
+        routeType = "read-#{cid}"
         unless @_pages[routeType]?
-            @_readJob id
+            @_readJob cid
             @_pages[routeType] = new PageView
                 title: @_current.attributes.job_name
                 subView: new JobView
@@ -156,9 +156,11 @@ module.exports = class Application extends Backbone.Router
         @_viewJob(routeType, 'edit')
 
     # delete a saved job
-    deleteJob: (id) ->
+    deleteJob: (cid) ->
         console.log "Deleting job"
-        @read(id)
+        @_readJob cid
+        ChoicesSingleton.removeJobGroup @_current
+        ChoicesSingleton.save()
         @_resetJob()
 
     # Tell jQuery Mobile to change the damn page
@@ -179,7 +181,7 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", "button.job.save", @_saveJob
 
         # Bind URL clicks
-        $(document).on "tap", "button.ccma-navigate", @_navigate
+        $(document).on "tap", "button.ccma-navigate", @_navigateEvent
         $(document).on "tap", "button.ccma-navigate", @_updateJobName
         $(document).on "tap", "button.ccma-navigate", @_updateCost
 
@@ -195,9 +197,15 @@ module.exports = class Application extends Backbone.Router
         true
 
     # Handle navigation
-    _navigate: (evt) ->
+    _navigateEvent: (evt) ->
         evt.preventDefault()
         path = $(evt.currentTarget).data "path"
+        Backbone.history.navigate path, true
+        $("nav button").removeClass "active"
+        pathNav = path.split ".", 1
+        $("nav button.#{pathNav}").addClass "active"
+
+    _navigate: (path) =>
         Backbone.history.navigate path, true
         $("nav button").removeClass "active"
         pathNav = path.split ".", 1
@@ -299,11 +307,11 @@ module.exports = class Application extends Backbone.Router
             headerJobName.hide()
         @_current
 
-    # Delete the current job (and create a new empty one)
+    # Delete the current job
     _resetJob: =>
         console.log "Reseting job"
         @_current.destroy()
-        @_createJob()
+        @_navigate 'home'
         true
 
     # Add the job to the saved collection
@@ -311,7 +319,7 @@ module.exports = class Application extends Backbone.Router
         console.log "Saving job"
 
         if @_current.isValid()
-            ChoicesSingleton.add_job_group @_current
+            ChoicesSingleton.addJobGroup @_current
             ChoicesSingleton.save()
             @_current.save()
             @_jobs.add @_current

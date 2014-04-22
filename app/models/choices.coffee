@@ -155,7 +155,7 @@ class ChoicesModel extends Backbone.Model
                 text: "Monthly"
         ]
 
-    add_job_group: (job) ->
+    addJobGroup: (job) ->
         group_option = item for item in @attributes.group_name_options when item.id == job.attributes.group_id
         filtered_job_groups = item for item in @attributes.job_groups when item.group.id == job.attributes.group_id
 
@@ -181,6 +181,28 @@ class ChoicesModel extends Backbone.Model
 
         unless filtered_job_groups?
             @attributes.job_groups.push selected_group
+
+        # Return nothing
+        null
+
+    removeJobGroup: (job) ->
+        new_job_groups = []
+
+        for item in @attributes.job_groups
+            filtered_jobs = item.jobs.filter (job_item) ->
+                return job_item.cid != job.cid
+
+            if filtered_jobs.length == 0
+                @attributes.group_name_options = _(@attributes.group_name_options).reject (group_item) ->
+                    group_item.id == job.attributes.group_id
+            else
+                new_item =
+                    group: item.group
+                    jobs: filtered_jobs
+
+                new_job_groups.push new_item
+
+        @attributes.job_groups = new_job_groups
 
         # Return nothing
         null
