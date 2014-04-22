@@ -18,3 +18,22 @@
         <button id="delete-job-button" class="btn btn-default next ccma-navigate form-control" data-path="" role="button">Delete Estimate</button>
     </div>
 </div>
+
+<hr />
+
+<fieldset class="form-group">
+    <label for="delete-group" class="lead ccma-lead">Browse Groups</label>
+    <select id="delete-group" name="delete-group" class="field type form-control">
+        <option></option>
+        {{#each job_groups}}
+            <option value="{{group.id}}">{{group.name}}</option>
+        {{/each}}
+    </select>
+</fieldset>
+<br />
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-6">
+        <button id="delete-group-button" class="btn btn-default next ccma-navigate form-control" data-path="" role="button">Delete Group</button>
+    </div>
+</div>
+
