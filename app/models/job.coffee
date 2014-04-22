@@ -9,6 +9,7 @@ module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
     jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
+    cid: null
 
     fields: [
             fieldType: 'hidden'
@@ -36,7 +37,9 @@ module.exports = class JobModel extends BaseModel
             show: false
             required: false
     ]
+
     initialize: ->
+        @attributes.cid = @cid
         super
 
     defaults: ->
