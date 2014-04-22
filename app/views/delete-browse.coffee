@@ -20,6 +20,7 @@ module.exports = class DeleteBrowseView extends BaseView
             job_groups: ChoicesSingleton.get 'job_groups'
 
         # Apply select2 widget, enable filter by optgroups as well as options
+        # https://github.com/ivaynberg/select2/issues/193
         @$('#delete-job').select2
             minimumResultsForSearch: 6
             matcher: (term, optText, els) ->
@@ -28,8 +29,12 @@ module.exports = class DeleteBrowseView extends BaseView
 
         self = @
         @$('#delete-job').click ->
-            value = 'deleteJob.' + self.$(@).val()
-            self.$('#delete-job-button').data 'path', value
+            value = 'delete-job.' + self.$(@).val()
+            self.$('#delete-job-button').data('path', value)
+
+        @$('#delete-group').click ->
+            value = 'delete-group.' + self.$(@).val()
+            self.$('#delete-group-button').data('path', value)
 
         # Return this
         @

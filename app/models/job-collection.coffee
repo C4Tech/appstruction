@@ -11,3 +11,6 @@ module.exports = class JobCollection extends Backbone.Collection
         @cost += row.calculate() for row in @models
         console.log "#{@modelType} total", @cost
         @cost
+
+    byGroupId: (group_id) ->
+        return @where(group_id: group_id)

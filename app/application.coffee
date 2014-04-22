@@ -47,11 +47,12 @@ module.exports = class Application extends Backbone.Router
         "home": "home"
         "open": "open"
         "browse": "browse"
-        "delete-browse": "delete_browse"
+        "delete-browse": "deleteBrowse"
         "read.:cid": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
-        "deleteJob.:cid": "deleteJob"
+        "delete-job.:cid": "deleteJob"
+        "delete-group.:group_id": "deleteGroup"
 
     initialize: (opts) ->
         console.log "Initializing Cole"
@@ -116,7 +117,7 @@ module.exports = class Application extends Backbone.Router
 
         @_showPage @_pages["browse"]
 
-    delete_browse: ->
+    deleteBrowse: ->
         console.log "Loading delete-browse page"
 
         # Create the page only once
@@ -156,11 +157,20 @@ module.exports = class Application extends Backbone.Router
         @_viewJob(routeType, 'edit')
 
     # delete a saved job
-    deleteJob: (cid) ->
-        console.log "Deleting job"
+    deleteJob: (cid, reset=true) ->
+        console.log 'Deleting job'
         @_readJob cid
         ChoicesSingleton.removeJobGroup @_current
         ChoicesSingleton.save()
+        if reset
+            @_resetJob()
+
+    # delete a saved group and all of its jobs
+    deleteGroup: (group_id) ->
+        console.log 'Deleting group'
+        group_models = @_jobs.byGroupId(group_id)
+        cids = _.pluck(group_models, 'cid')
+        @deleteJob(cid, false) for cid in cids
         @_resetJob()
 
     # Tell jQuery Mobile to change the damn page

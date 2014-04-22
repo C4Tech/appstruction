@@ -20,6 +20,7 @@ module.exports = class BrowseView extends BaseView
             job_groups: ChoicesSingleton.get 'job_groups'
 
         # Apply select2 widget, enable filter by optgroups as well as options
+        # https://github.com/ivaynberg/select2/issues/193
         @$('#browse-jobs').select2
             minimumResultsForSearch: 6
             matcher: (term, optText, els) ->
@@ -29,7 +30,7 @@ module.exports = class BrowseView extends BaseView
         self = @
         @$('#browse-jobs').click ->
             value = 'read.' + self.$(@).val()
-            self.$('#browse-button').data 'path', value
+            self.$('#browse-button').data('path', value)
 
         # Return this
         @
