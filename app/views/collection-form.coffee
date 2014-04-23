@@ -13,7 +13,7 @@ module.exports = class CollectionFormView extends CollectionView
 
         @routeType = opts.routeType if opts.routeType?
         @id = "job-form-#{@routeType}"
-        @className = "#{@routeType}-form-collection col-xs-12"
+        @className = "container #{@routeType}-form-collection"
         @multiple = switch @routeType
             when "create", "job", "concrete" then false
             else true

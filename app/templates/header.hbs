@@ -1,31 +1,35 @@
-<nav class="col-xs-12 navbar navbar-default" role="navigation">
-    <div class="row">
-        {{#if step.prev}}
-            <div class="col-xs-4">
-                <button data-path="{{step.prev}}" class="prev btn btn-default ccma-navigate navbar-btn" role="button">
-                    <i class="fa fa-arrow-left"></i><br />Back
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="row">
+            {{#if step.prev}}
+                <div class="col-xs-4">
+                    <button data-path="{{step.prev}}" class="prev btn btn-default ccma-navigate navbar-btn" role="button">
+                        <i class="fa fa-arrow-left"></i><br />Back
+                    </button>
+                </div>
+            {{/if}}
+
+            <div class="col-xs-4{{#unless step.prev}} col-xs-offset-4{{/unless}}">
+                <button data-path="home" class="home btn btn-default ccma-navigate navbar-btn center-block" role="button">
+                    <i class="fa fa-home"></i><br />Home
                 </button>
             </div>
-        {{/if}}
 
-        <div class="col-xs-4{{#unless step.prev}} col-xs-offset-4{{/unless}}">
-            <button data-path="home" class="home btn btn-default ccma-navigate navbar-btn center-block" role="button">
-                <i class="fa fa-home"></i><br />Home
-            </button>
+            {{#if step.next}}
+                <div class="col-xs-4">
+                    <button data-path="{{step.next}}" class="next btn btn-default ccma-navigate navbar-btn pull-right" role="button">
+                        <i class="fa fa-arrow-right"></i><br />Next
+                    </button>
+                </div>
+            {{/if}}
         </div>
-
-        {{#if step.next}}
-            <div class="col-xs-4">
-                <button data-path="{{step.next}}" class="next btn btn-default ccma-navigate navbar-btn pull-right" role="button">
-                    <i class="fa fa-arrow-right"></i><br />Next
-                </button>
-            </div>
-        {{/if}}
     </div>
 </nav>
 
 <div class="header-job-name"><h1></h1></div>
 
 <div id="header-title">
-    <h1>{{title}}</h1>
+    <div class="container">
+        <h1>{{title}}</h1>
+    </div>
 </div>

@@ -14,7 +14,7 @@ module.exports = class JobElementFormView extends ComponentView
         # Add attributes
         @routeType = opts.routeType if opts.routeType?
         @id = "job-form-#{@routeType}"
-        @className = "#{@routeType} #{@routeType}-form col-xs-12 form-horizontal"
+        @className = "container #{@routeType} #{@routeType}-form"
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
         @jobRoutes = opts.jobRoutes if opts.jobRoutes?
