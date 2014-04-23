@@ -16,14 +16,15 @@ module.exports = class ConcreteModel extends BaseModel
     fields: [
             fieldType: "number"
             name: "quantity"
-            placeholder: "How many"
+            label: 'How many'
             show: true
         ,
             fieldType: "number"
             name: "length"
-            placeholder: "How long"
+            label: "How long"
             show: true
             displayBegin: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -34,10 +35,11 @@ module.exports = class ConcreteModel extends BaseModel
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "How wide"
+            label: "How wide"
             name: "width"
             show: true
             displayBegin: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -48,10 +50,11 @@ module.exports = class ConcreteModel extends BaseModel
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "How deep"
+            label: "How deep"
             name: "depth"
             show: true
             displayBegin: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -62,11 +65,12 @@ module.exports = class ConcreteModel extends BaseModel
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "What price"
+            label: "What price"
             name: "price"
             show: true
             displayBegin: true
             displayPrepend: '$'
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -77,7 +81,7 @@ module.exports = class ConcreteModel extends BaseModel
             displayEnd: true
         ,
             fieldType: "number"
-            placeholder: "What tax rate"
+            label: "What tax rate"
             name: "tax"
             show: true
             displayAppend: '%'

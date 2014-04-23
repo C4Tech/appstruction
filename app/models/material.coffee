@@ -10,29 +10,29 @@ module.exports = class MaterialModel extends BaseModel
     fields: [
             fieldType: "select"
             name: "material_type"
-            placeholder: "Material Type"
+            label: "Material Type"
             show: true
             fieldTypeSelect: true
             optionsType: 'material_type_options'
         ,
             fieldType: "number"
             name: "quantity"
-            placeholder: "How many"
+            label: "How many"
             show: true
         ,
             fieldType: "number"
             name: "price"
-            placeholder: "What price"
+            label: "What price"
             show: true
         ,
             fieldType: "select"
             name: "material_type"
-            placeholder: "What Type"
+            label: "What Type"
             show: false
         ,
             fieldType: "number"
             name: "tax"
-            placeholder: "Tax rate"
+            label: "Tax rate"
             show: true
             mask: 'percentage'
     ]

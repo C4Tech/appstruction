@@ -12,9 +12,10 @@ module.exports = class EquipmentModel extends BaseModel
 
     fields: [
             fieldType: "number"
-            placeholder: "Time used"
+            label: "Time used"
             name: "time"
             show: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -25,21 +26,22 @@ module.exports = class EquipmentModel extends BaseModel
             append: '<hr />'
         ,
             fieldType: "hidden"
-            placeholder: "Equipment Type"
+            label: "Equipment Type"
             name: "equipment_type"
             show: true
             optionsType: 'equipment_type_options'
             append: '<br /><br />'
         ,
             fieldType: "number"
-            placeholder: "How many"
+            label: "How many"
             name: "quantity"
             show: true
         ,
             fieldType: "number"
-            placeholder: "What rate"
+            label: "What rate"
             name: "rate"
             show: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
