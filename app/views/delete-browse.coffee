@@ -29,12 +29,38 @@ module.exports = class DeleteBrowseView extends BaseView
 
         self = @
         @$('#delete-job').click ->
-            value = 'delete-job.' + self.$(@).val()
-            self.$('#delete-job-button').data('path', value)
+            data = self.$(@).select2('data')
+            value = 'delete-job.' + data.id
+            self.$('#delete-job-button').data('path', value).data('name', data.text)
 
         @$('#delete-group').click ->
-            value = 'delete-group.' + self.$(@).val()
+            value = 'delete-group.' + $(@).val()
             self.$('#delete-group-button').data('path', value)
+
+        @$('#delete-job-button').click (e) ->
+            e.preventDefault()
+            name = self.$(@).data('name')
+
+            unless !!name
+                bootbox.alert "No job estimate selected"
+                return
+
+            path = self.$(@).data('path')
+            bootbox.confirm "Delete the job estimate '#{name}'?", (result) ->
+                if result
+                    Backbone.history.navigate(path, true)
+
+        @$('#delete-group-button').click (e) ->
+            e.preventDefault()
+            name = self.$(@).data('name')
+
+            unless !!name
+                bootbox.alert "No group selected"
+
+            path = self.$(@).data('path')
+            bootbox.confirm "Delete the group and all of it's jobs?", (result) ->
+                if result
+                    Backbone.history.navigate(path, true)
 
         # Return this
         @
