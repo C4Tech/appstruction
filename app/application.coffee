@@ -157,13 +157,12 @@ module.exports = class Application extends Backbone.Router
         @_viewJob(routeType, 'edit')
 
     # delete a saved job
-    deleteJob: (cid, reset=true) ->
+    deleteJob: (cid, navigate_home=true) ->
         console.log 'Deleting job'
         @_readJob cid
         ChoicesSingleton.removeJobGroup @_current
         ChoicesSingleton.save()
-        if reset
-            @_resetJob()
+        @_resetJob(navigate_home)
 
     # delete a saved group and all of its jobs
     deleteGroup: (group_id) ->
@@ -171,7 +170,7 @@ module.exports = class Application extends Backbone.Router
         group_models = @_jobs.byGroupId(group_id)
         cids = _.pluck(group_models, 'cid')
         @deleteJob(cid, false) for cid in cids
-        @_resetJob()
+        @_navigate 'home'
 
     # Tell jQuery Mobile to change the damn page
     _setPage: (page) ->

@@ -27,6 +27,9 @@ module.exports = class DeleteBrowseView extends BaseView
                 allText = optText + els[0].parentNode.getAttribute('label') or ''
                 ('' + allText).toUpperCase().indexOf(('' + term).toUpperCase()) >= 0
 
+        @$('#delete-group').select2
+            minimumResultsForSearch: 6
+
         self = @
         @$('#delete-job').click ->
             data = self.$(@).select2('data')
@@ -34,8 +37,9 @@ module.exports = class DeleteBrowseView extends BaseView
             self.$('#delete-job-button').data('path', value).data('name', data.text)
 
         @$('#delete-group').click ->
-            value = 'delete-group.' + $(@).val()
-            self.$('#delete-group-button').data('path', value)
+            data = self.$(@).select2('data')
+            value = 'delete-group.' + data.id
+            self.$('#delete-group-button').data('path', value).data('name', data.text)
 
         @$('#delete-job-button').click (e) ->
             e.preventDefault()
@@ -56,9 +60,10 @@ module.exports = class DeleteBrowseView extends BaseView
 
             unless !!name
                 bootbox.alert "No group selected"
+                return
 
             path = self.$(@).data('path')
-            bootbox.confirm "Delete the group and all of it's jobs?", (result) ->
+            bootbox.confirm "Delete the group '#{name}' and all of it's jobs?", (result) ->
                 if result
                     Backbone.history.navigate(path, true)
 
