@@ -1,7 +1,7 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if show}}
-            <label for="{{../../routeType}}-{{name}}-{{../../cid}}" class="lead ccma-lead">{{label}}</label>
+            <label for="{{../../routeType}}-{{name}}-{{../../cid}}" class="lead">{{label}}</label>
             {{#if fieldTypeSelect}}
                 <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" class="field {{fieldType}} type form-control{{#if hasSiblingField}} has-sibling-field{{/if}}" data-placeholder="{{placeholder}}">
                     <option></option>
