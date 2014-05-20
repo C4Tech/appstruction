@@ -17,6 +17,19 @@ module.exports = class ComponentView extends BaseView
         # Return nothing
         null
 
+    addSelectOption: (field) ->
+        @$('input[name=' + field.name + ']').select2
+            width: 'resolve'
+            data: field.options
+            createSearchChoice: (term) ->
+                option_found = _.some field.options, (item) ->
+                    item.text == term
+                if option_found
+                    return null
+                else
+                    id: String(field.options.length + 1)
+                    text: term
+
     # Render the model
     render: ->
         # Set the HTML
@@ -27,16 +40,8 @@ module.exports = class ComponentView extends BaseView
             fields: @model.getFields(@showAll)
 
         # Apply select2 widget for fields accepting user-created options
-        field_options = null
         for field in @model.fields
-            if field.fieldType == 'hidden' and field.show and field.options?
-                field_options = field.options
-                @$('input[name=' + field.name + ']').select2
-                    width: 'resolve'
-                    data: field_options
-                    createSearchChoice: (term) ->
-                        id: term
-                        text: term
+            @addSelectOption field if field.fieldType == 'hidden' and field.show and field.options?
 
         # Return this
         @
