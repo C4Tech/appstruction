@@ -1,0 +1,40 @@
+<fieldset class="form-group">
+    <label for="delete-job" class="lead ccma-lead">Browse Jobs</label>
+    <select id="delete-job" name="delete-job" class="field type form-control">
+        <option></option>
+        {{#each job_groups}}
+            <optgroup label="Group: {{group.name}}">
+                {{#each jobs}}
+                    <option value="{{cid}}">{{name}}</option>
+                {{/each}}
+            </optgroup>
+        {{/each}}
+    </select>
+</fieldset>
+
+<br />
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-6">
+        <button id="delete-job-button" class="btn btn-default next form-control" data-path="" data-name="" role="button">Delete Estimate</button>
+    </div>
+</div>
+
+<hr />
+
+<fieldset class="form-group">
+    <label for="delete-group" class="lead ccma-lead">Browse Groups</label>
+    <select id="delete-group" name="delete-group" class="field type form-control">
+        <option></option>
+        {{#each job_groups}}
+            <option value="{{group.id}}">{{group.name}}</option>
+        {{/each}}
+    </select>
+    <div>Deleting a group also deletes all related jobs</div>
+</fieldset>
+<br />
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-6">
+        <button id="delete-group-button" class="btn btn-default next form-control" data-path="" data-name="" role="button">Delete Group</button>
+    </div>
+</div>
+
