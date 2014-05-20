@@ -7,7 +7,7 @@ module.exports = class DeleteBrowseView extends BaseView
         @template = require 'templates/delete-browse'
 
         # Add attributes
-        @className = @routeType
+        @className = "#{@routeType} container"
 
         # Re-create the element name
         @setName()
