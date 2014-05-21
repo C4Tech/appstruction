@@ -1,5 +1,3 @@
-<h3 id="collection-title">{{title}}</h3>
-
 <div id="component-help" class="well"></div>
 
 <div class="{{routeType}} items"></div>
@@ -17,15 +15,19 @@
 {{/if}}
 
 <hr />
-<div class="row">
-    <div class="col-xs-12">
-        <div class="text-info lead">
-            {{routeType}} $<span class="{{routeType}} cost">0</span>
-            <br />
-            Subtotal $<span class="subtotal">0</span>
+
+<div class="container">
+    <div class="row cost-summary">
+        <div class="col-xs-12">
+            <div class="lead">
+                <span class="capitalize">{{routeType}}</span> $<span class="{{routeType}} cost">0</span>
+                <br />
+                Subtotal $<span class="subtotal">0</span>
+            </div>
         </div>
     </div>
 </div>
+<br />
 
 <div class="row">
     <div class="col-xs-6">
