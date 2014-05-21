@@ -39,6 +39,7 @@ module.exports = class BaseModel extends Backbone.Model
 
     initialize: ->
         _(@fields).each (field) =>
+            field.displayLabel = field.label ? field.placeholder
             field.options = ChoicesSingleton.get field.optionsType
 
     validate: (attrs, opts) ->
