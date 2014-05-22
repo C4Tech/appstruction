@@ -2,7 +2,11 @@
     {{#each fields}}
         {{#if show}}
             {{#if fieldTypeSelect}}
-                <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" class="field {{./fieldType}} type form-control" data-placeholder="{{placeholder}}">
+                <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}"
+                        name="{{name}}"
+                        class="field {{fieldType}} type form-control"
+                        data-placeholder="{{placeholder}}"
+                >
                     <option></option>
                     {{#each options}}
                         <option value="{{id}}">{{text}}</option>
@@ -18,7 +22,13 @@
                         <span class="input-group-addon">{{inputGroupValue}}</span>
                     {{/if}}
                 {{/if}}
-                <input type="{{fieldType}}" id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}" class="field {{../../../routeType}} {{name}} form-control" />
+                <input type="{{fieldType}}"
+                       id="{{../../../routeType}}-{{name}}-{{../../../cid}}"
+                       name="{{name}}"
+                       placeholder="{{placeholder}}"
+                       value="{{value}}"
+                       class="field {{../../../routeType}} {{name}} form-control"
+                />
                 {{#if inputGroup}}
                     {{#if inputGroupAppend}}
                         <span class="input-group-addon">{{inputGroupValue}}</span>
