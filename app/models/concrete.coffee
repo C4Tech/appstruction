@@ -81,7 +81,9 @@ module.exports = class ConcreteModel extends BaseModel
             name: "tax"
             show: true
             displayAppend: '%'
-            mask: 'percentage'
+            inputGroup: true
+            inputGroupAppend: true
+            inputGroupValue: '%'
     ]
 
     initialize: ->

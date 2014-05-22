@@ -12,7 +12,19 @@
                     <br />
                 {{/unless}}
             {{else}}
-                <input type="{{fieldType}}" id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}" class="field {{../../../routeType}} {{name}} form-control" {{#if mask}}data-mask="{{mask}}"{{/if}}></input>
+                {{#if inputGroup}}
+                    <div class="input-group">
+                    {{#if inputGroupPrepend}}
+                        <span class="input-group-addon">{{inputGroupValue}}</span>
+                    {{/if}}
+                {{/if}}
+                <input type="{{fieldType}}" id="{{../../../routeType}}-{{name}}-{{../../../cid}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}" class="field {{../../../routeType}} {{name}} form-control" />
+                {{#if inputGroup}}
+                    {{#if inputGroupAppend}}
+                        <span class="input-group-addon">{{inputGroupValue}}</span>
+                    {{/if}}
+                    </div>
+                {{/if}}
             {{/if}}
             {{#if append}}
                 {{{append}}}
