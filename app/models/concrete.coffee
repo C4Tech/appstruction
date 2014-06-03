@@ -95,8 +95,8 @@ module.exports = class ConcreteModel extends BaseModel
         super
 
     calculate: ->
-        tax = @attributes.tax ? '0%'
-        tax_value = (tax.slice 0, tax.length-1) / 100
+        tax = @attributes.tax ? 0
+        tax_value = tax / 100
 
         price_units = @attributes.price_units ? 'ft'
         price_value = @attributes.price ? 0

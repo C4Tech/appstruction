@@ -32,8 +32,12 @@ module.exports = class MaterialModel extends BaseModel
         ,
             fieldType: "number"
             name: "tax"
-            label: "Tax rate"
+            label: "What tax rate"
             show: true
+            displayAppend: '%'
+            inputGroup: true
+            inputGroupAppend: true
+            inputGroupValue: '%'
     ]
 
     initialize: ->
@@ -41,8 +45,8 @@ module.exports = class MaterialModel extends BaseModel
         super
 
     calculate: ->
-        tax = @attributes.tax ? '0%'
-        tax_value = (tax.slice 0, tax.length-1) / 100
+        tax = @attributes.tax ? 0
+        tax_value = tax / 100
 
         quantity = @attributes.quantity ? 0
         price = @attributes.price ? 0
