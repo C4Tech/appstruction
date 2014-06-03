@@ -1,9 +1,9 @@
-<div class="panel panel-default">
+<div class="panel panel-overview">
     <div class="panel-heading">
-        <a data-toggle="collapse" data-parent="#job-accordion" href="#{{routeType}}-{{modelType}}">
+        <a class="panel-heading-link" data-toggle="collapse" data-parent="#job-accordion" href="#{{routeType}}-{{modelType}}">
             <div class="row">
                 <div class="col-xs-10">
-                    <h4 class="panel-title">
+                    <h4 class="panel-title capitalize">
                         {{title}}
                     </h4>
                 </div>
@@ -19,7 +19,7 @@
     <div id="{{routeType}}-{{modelType}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-6 {{modelType}} text-warning">
+                <div class="col-xs-6 {{modelType}} text-overview lead">
                     Cost: $<span class="{{modelType}} cost">{{cost}}</span>
                 </div>
                 {{#if title}}

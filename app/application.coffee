@@ -308,10 +308,14 @@ module.exports = class Application extends Backbone.Router
             "edit.equipment"
         ]
 
-        headerJobName = $('.header-job-name')
+        headerJobName = $('div.header-job-name')
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
-            headerJobName.find('h1').text @_current.attributes.job_name
+            headerJobName.find('h3').text @_current.attributes.job_name
             headerJobName.show()
+            routeType = currentRoute.split('.')
+            routeType = routeType[routeType.length - 1]
+            if routeType in @_jobRoutes
+                $('div.header-title').find('h3').text routeType
         else
             headerJobName.hide()
         @_current

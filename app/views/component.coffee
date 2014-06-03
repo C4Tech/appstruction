@@ -35,6 +35,7 @@ module.exports = class ComponentView extends BaseView
         # Set the HTML
         @$el.html @template
             row: @model.toJSON()
+            routeType: @routeType
             cid: @model.cid
             cost: @model.calculate() if @model.calculate?
             fields: @model.getFields(@showAll)

@@ -1,10 +1,11 @@
 <fieldset class="form-group">
     {{#each fields}}
         {{#if show}}
+            <label for="{{../../routeType}}-{{name}}-{{../../cid}}" class="lead">{{label}}</label>
             {{#if fieldTypeSelect}}
                 <select id="{{../../../routeType}}-{{name}}-{{../../../cid}}"
                         name="{{name}}"
-                        class="field {{fieldType}} type form-control"
+                        class="field {{fieldType}} type form-control{{#if hasSiblingField}} has-sibling-field{{/if}}"
                         data-placeholder="{{placeholder}}"
                 >
                     <option></option>
@@ -27,7 +28,7 @@
                        name="{{name}}"
                        placeholder="{{placeholder}}"
                        value="{{value}}"
-                       class="field {{../../../routeType}} {{name}} form-control"
+                       class="field {{../../../routeType}} {{name}} form-control{{#if hasSiblingField}} has-sibling-field{{/if}}" />
                 />
                 {{#if inputGroup}}
                     {{#if inputGroupAppend}}

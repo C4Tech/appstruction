@@ -17,7 +17,7 @@ exports.config =
         "css/vendor.css": /^(bower_components|vendor)/
       order:
         after: [
-          "app/styles/cole.styl"
+          "app/styles/cole.less"
         ]
 
     templates:

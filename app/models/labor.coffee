@@ -12,9 +12,10 @@ module.exports = class LaborModel extends BaseModel
 
     fields: [
             fieldType: "number"
-            placeholder: "Time per laborer"
+            label: "Time per laborer"
             name: "labor_time"
             show: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"
@@ -25,21 +26,22 @@ module.exports = class LaborModel extends BaseModel
             append: '<hr />'
         ,
             fieldType: "hidden"
-            placeholder: "Labor class"
+            label: "Labor class"
             name: "labor_type"
             show: true
             optionsType: 'labor_type_options'
             append: '<br /><br />'
         ,
             fieldType: "number"
-            placeholder: "Number of laborers"
+            label: "Number of laborers"
             name: "laborers_count"
             show: true
         ,
             fieldType: "number"
-            placeholder: "Pay Rate"
+            label: "Pay Rate"
             name: "rate"
             show: true
+            hasSiblingField: true
         ,
             fieldType: "select"
             placeholder: "Unit"

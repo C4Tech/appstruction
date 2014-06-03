@@ -7,7 +7,7 @@ module.exports = class BrowseView extends BaseView
         @template = require 'templates/browse'
 
         # Add attributes
-        @className = @routeType
+        @className = "#{@routeType} container"
 
         # Re-create the element name
         @setName()
