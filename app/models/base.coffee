@@ -17,7 +17,7 @@ module.exports = class BaseModel extends Backbone.Model
             if value?
                 result = "#{label} must be a number" if isNaN value # Not a number or empty
                 result = "#{label} must be a number" if isNaN parseInt value # Not a number or empty
-                result = "#{label} must be at least 1" if value < 1 # negative number
+                result = "#{label} must be at least 0" if value < 0 # negative number
             result
 
         text: (value, label, required) ->
@@ -34,7 +34,7 @@ module.exports = class BaseModel extends Backbone.Model
                 result = "You must select a #{label}" if value is "" # null or undefined
 
             if value?
-                result = "You must select a #{label}" if value < 1 # negative number
+                result = "You must select a #{label}" if value < 0 # negative number
             result
 
     initialize: ->
