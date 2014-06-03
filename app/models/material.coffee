@@ -34,7 +34,6 @@ module.exports = class MaterialModel extends BaseModel
             name: "tax"
             label: "Tax rate"
             show: true
-            mask: 'percentage'
     ]
 
     initialize: ->
