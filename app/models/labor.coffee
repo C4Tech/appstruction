@@ -11,6 +11,13 @@ module.exports = class LaborModel extends BaseModel
 
 
     fields: [
+            fieldType: "hidden"
+            label: "Labor class"
+            name: "labor_type"
+            show: true
+            optionsType: 'labor_type_options'
+            append: '<hr />'
+        ,
             fieldType: "number"
             label: "Time per laborer"
             name: "labor_time"
@@ -23,14 +30,6 @@ module.exports = class LaborModel extends BaseModel
             show: true
             fieldTypeSelect: true
             optionsType: 'time_options'
-            append: '<hr />'
-        ,
-            fieldType: "hidden"
-            label: "Labor class"
-            name: "labor_type"
-            show: true
-            optionsType: 'labor_type_options'
-            append: '<br /><br />'
         ,
             fieldType: "number"
             label: "Number of laborers"
