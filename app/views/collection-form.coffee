@@ -49,8 +49,6 @@ module.exports = class CollectionFormView extends CollectionView
             @$(".items").append child.render().$el
             @$('#component-help').text child.model.help
 
-        @$('input[data-mask=percentage]').mask '##0.00%', {reverse: true}
-
         # Apply select2 widget
         @$('select').select2
             allowClear: true
