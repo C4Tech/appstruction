@@ -74,9 +74,9 @@ module.exports = class BaseModel extends Backbone.Model
 
         console.log "Field is #{field.name} with value of #{value}"
         if field.options?
-            value =  @_setValue item, value for item in field.options
+            value = @_setValue item, value for item in field.options
         value
 
     _setValue: (item, value) ->
-        value = if parseInt(item.id) is parseInt(value) then item.name else value
+        value = if parseInt(item.id) is parseInt(value) then item.text else value
         value
