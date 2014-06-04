@@ -10,6 +10,10 @@ module.exports = class BaseModel extends Backbone.Model
     check:
         number: (value, label, required) ->
             result = false
+
+            # add double quotes around label
+            label = "\"#{label}\""
+
             if required
                 result = "You must enter a #{label}" unless value? # null or undefined
                 result = "You must enter a #{label}" if value is "" # null or undefined
@@ -46,10 +50,11 @@ module.exports = class BaseModel extends Backbone.Model
         fail = false
         for field in @fields
             required = field.required ? true
+            label = field.label ? field.placeholder
             do (field) =>
                 unless fail
                     fail = switch field.fieldType
-                        when "number", "text", "select" then @check[field.fieldType] attrs[field.name], field.name, required
+                        when "number", "text", "select" then @check[field.fieldType] attrs[field.name], label, required
                         else false
                 null
         fail = "" unless fail
