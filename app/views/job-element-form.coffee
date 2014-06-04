@@ -74,7 +74,7 @@ module.exports = class JobElementFormView extends ComponentView
             routeType: @routeType
             step: @step
             title: @title
-            cost: @model.cost
+            cost: @model.cost.toFixed(2)
             fields: @model.getFields(@showAll)
 
         # Apply select2 widget for fields accepting user-created options
@@ -95,8 +95,7 @@ module.exports = class JobElementFormView extends ComponentView
 
             profit_margin /= 100
             subtotal_value = subtotal_original + (subtotal_original * profit_margin)
-            $subtotal.val(subtotal_value)
-
+            $subtotal.val(subtotal_value.toFixed(2))
 
         # Append all of the rendered children
         _(@_children).each (child) =>

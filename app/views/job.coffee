@@ -41,7 +41,7 @@ module.exports = class JobView extends BaseView
         # Reset the contents
         @$el.html @template
             row: @model.getFields()
-            cost: @model.cost
+            cost: @model.cost.toFixed(2)
 
         # Append all of the rendered children
         _(@_children).each (child) =>

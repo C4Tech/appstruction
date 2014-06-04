@@ -47,6 +47,6 @@ module.exports = class ComponentFormView extends ComponentView
                     text: select2_selected_option.text
 
         console.log "View changed", target.attr('name'), target.val()
-        $(".#{@routeType}.cost").text @model.collection.calculate()
+        $(".#{@routeType}.cost").text @model.collection.calculate().toFixed(2)
 
         null

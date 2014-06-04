@@ -39,7 +39,7 @@ module.exports = class CollectionListView extends CollectionView
             modelType: @modelType
             routeType: @routeType
             title: @title
-            cost: @collection.calculate() if @collection.calculate?
+            cost: @collection.calculate().toFixed(2) if @collection.calculate?
 
         # Append all of the rendered children
         _(@_children).each (child) =>
