@@ -27,6 +27,6 @@
     "less-brunch": "~1.7",
     "css-brunch": "~1.7",
     "clean-css-brunch": "~1.7",
-    "autoprefixer-brunch": "lydell/autoprefixer-brunch#optimizer"
+    "autoprefixer-brunch": "~1.8"
   }
 }
