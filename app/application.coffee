@@ -347,10 +347,12 @@ module.exports = class Application extends Backbone.Router
         if routeType in @_jobRoutes
             @_current.get(routeType).add {}
 
+        # apply select2 to new dropdown fields
         $('select').select2
             allowClear: true
             minimumResultsForSearch: 6
 
+        # apply keyup to new number fields
         $("input[type=number]").keyup ->
             val = $(@).val()
 
