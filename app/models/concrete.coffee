@@ -1,4 +1,5 @@
 BaseModel = require "models/base"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class ConcreteModel extends BaseModel
     defaults:
@@ -12,6 +13,8 @@ module.exports = class ConcreteModel extends BaseModel
         "price": null
         "price_units": null
         "tax": null
+
+    volume: 0
 
     fields: [
             fieldType: "number"
@@ -115,9 +118,41 @@ module.exports = class ConcreteModel extends BaseModel
 
         quantity = @attributes.quantity ? 0
 
-        @cost = depth.mul(length).mul(width).scalar
-        @cost = @cost * quantity * price_value
+        @volume = depth.mul(length).mul(width).scalar
+        @volume = @volume * quantity
+        @cost = @volume * price_value
         @cost = @cost + (@cost * tax_value)
 
         console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} + #{tax} tax = #{@cost}"
         @cost
+
+    overview: ->
+        no_concrete = ['No concrete']
+        display = ChoicesSingleton.get 'price_options_display'
+        key = @attributes.price_units ? 'ft'
+
+        price_value = parseFloat(@attributes.price) ? 0
+
+        noun_type = 'singular'
+        if isNaN(@volume) or parseInt(@volume) == 0
+            return no_concrete
+        else if isNaN(price_value) or parseInt(price_value) == 0
+            return no_concrete
+
+        if @volume > 1
+            noun_type = 'plural'
+        price_units = display[noun_type][key]
+
+        volume_rounded = Math.round(@volume * 100) / 100
+        volume_item = "#{volume_rounded} #{price_units} of concrete"
+
+        price_units = display.singular[key]
+        price_item = "$#{price_value.toFixed(2)} per #{price_units}"
+
+        total_item = "Total price: $#{@cost.toFixed(2)}"
+
+        return [
+            volume_item,
+            price_item,
+            total_item
+        ]

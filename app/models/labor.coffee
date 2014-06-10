@@ -1,4 +1,5 @@
 BaseModel = require "models/base"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class LaborModel extends BaseModel
     defaults:
@@ -8,7 +9,6 @@ module.exports = class LaborModel extends BaseModel
         "laborers_count": null
         "rate": null
         "rate_units": null
-
 
     fields: [
             fieldType: "hidden"
@@ -55,6 +55,7 @@ module.exports = class LaborModel extends BaseModel
         super
 
     calculate: ->
+        labor_type = @attributes.labor_type ? ''
         labor_time_value = @attributes.labor_time ? 0
         labor_time_units = @attributes.labor_time_units ? 'hour'
 
@@ -95,5 +96,48 @@ module.exports = class LaborModel extends BaseModel
 
         @cost = labor_time * rate * laborers_count
 
-        console.log "labor row ##{@cid}: #{labor_time} (#{labor_time_units}) x #{laborers_count} (laborers_count)  @ $#{rate} #{labor_time_units} = #{@cost}"
+        console.log "labor row (#{labor_type}) ##{@cid}: #{labor_time} (#{labor_time_units}) x #{laborers_count} (laborers_count)  @ $#{rate} #{labor_time_units} = #{@cost}"
         @cost
+
+    overview: ->
+        no_labor = ['No labor']
+        labor_type_display = ChoicesSingleton.get 'labor_type_options_display'
+        time_options_display = ChoicesSingleton.get 'time_options_display'
+
+        labor_type_key = @attributes.labor_type ? '1'
+        labor_time_key = @attributes.labor_time_units ? 'hour'
+        rate_key = @attributes.rate_units ? 'hour'
+
+        laborers_count = parseFloat(@attributes.laborers_count) ? 0
+        labor_time = parseFloat(@attributes.labor_time) ? 0
+        rate = parseFloat(@attributes.rate) ? 0
+
+        if isNaN(laborers_count) or parseInt(laborers_count) == 0
+            return no_labor
+        else if isNaN(labor_time) or parseInt(labor_time) == 0
+            return no_labor
+        else if isNaN(rate) or parseInt(rate) == 0
+            return no_labor
+
+        # round values to no more than 2 decimals
+        laborers_count = Math.round(laborers_count * 100) / 100
+        labor_time = Math.round(labor_time * 100) / 100
+        rate = Math.round(rate * 100) / 100
+
+        noun_type = 'singular'
+        if laborers_count > 1
+            noun_type = 'plural'
+        labor_type = labor_type_display[noun_type][labor_type_key]
+
+        noun_type = 'singular'
+        if labor_time > 1
+            noun_type = 'plural'
+        labor_time_unit = time_options_display[noun_type][labor_time_key]
+
+        rate_unit = time_options_display['singular'][rate_key]
+
+        laborer_item = "#{laborers_count} #{labor_type} for #{labor_time} #{labor_time_unit} @ $#{rate}/#{rate_unit}"
+
+        return [
+            laborer_item,
+        ]

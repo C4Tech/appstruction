@@ -68,7 +68,6 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Rebuild the frame
         @$el.html @template
-            fields: @model.fields
             row: @model.toJSON()
             cid: @model.cid
             routeType: @routeType
@@ -94,6 +93,7 @@ module.exports = class JobElementFormView extends ComponentView
                 return
 
             profit_margin /= 100
+            subtotal_original = parseFloat(subtotal_original)
             subtotal_value = subtotal_original + (subtotal_original * profit_margin)
             $subtotal.val(subtotal_value.toFixed(2))
 
