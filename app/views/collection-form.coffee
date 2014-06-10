@@ -44,10 +44,21 @@ module.exports = class CollectionFormView extends CollectionView
             title: @title
             multiple: @multiple
 
+        self = @
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".items").append child.render().$el
             @$('#component-help').text child.model.help
+            @$("input[type=number]").keyup ->
+                val = self.$(@).val()
+
+                # check if val starts with a period, if so append a "0" to the beginning
+                if val.lastIndexOf('.', 0) == 0
+                    template = '.0000000000'
+                    if val == template.substring(0, val.length)
+                        return
+                    new_val = '0' + val
+                    self.$(@).val(new_val)
 
         # Apply select2 widget
         @$('select').select2
