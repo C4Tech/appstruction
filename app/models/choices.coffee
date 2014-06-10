@@ -68,6 +68,13 @@ class ChoicesModel extends Backbone.Model
                 text: "Truck Well"
         ]
 
+        job_routes: [
+            'concrete',
+            'labor',
+            'materials',
+            'equipment'
+        ]
+
         labor_type_options: [
                 id: "1"
                 text: "Finishers"

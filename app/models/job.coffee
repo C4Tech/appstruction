@@ -4,11 +4,11 @@ ConcreteModel = require "models/concrete"
 MaterialModel = require "models/material"
 EquipmentModel = require "models/equipment"
 JobCollection = require "models/job-collection"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class JobModel extends BaseModel
     localStorage: new Backbone.LocalStorage "cole-job"
     url: "jobs"
-    jobRoutes: ['concrete', 'labor', 'materials', 'equipment']
     cid: null
 
     fields: [
@@ -52,7 +52,7 @@ module.exports = class JobModel extends BaseModel
         @parse data
 
     parse: (data) ->
-        for collection in @jobRoutes
+        for collection in ChoicesSingleton.get('job_routes')
             saved = if data[collection]? then data[collection] else false
             data[collection] = @_inflateCollection collection, saved
         data

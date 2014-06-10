@@ -20,8 +20,6 @@ module.exports = class Application extends Backbone.Router
 
     _pages: null
 
-    _jobRoutes: null
-
     _steps:
         home:
             prev: "home"
@@ -57,14 +55,10 @@ module.exports = class Application extends Backbone.Router
     initialize: (opts) ->
         console.log "Initializing Cole"
 
-        temp = new JobModel
-        @_jobRoutes = temp.jobRoutes
-
         # Load the saved jobs
         @_jobs = new JobCollection null,
             model: JobModel
             modelType: "job"
-            jobRoutes: @_jobRoutes
             url: "jobs"
 
         @_jobs.fetch()
@@ -142,7 +136,6 @@ module.exports = class Application extends Backbone.Router
                 title: @_current.attributes.job_name
                 subView: new JobView
                     model: @_current
-                    jobRoutes: @_jobRoutes
                     routeType: 'read'
 
             @_setPage @_pages[routeType]
@@ -242,7 +235,7 @@ module.exports = class Application extends Backbone.Router
             view = null
             collection = null
 
-            if routeType in @_jobRoutes
+            if routeType in ChoicesSingleton.get('job_routes')
                 collection = @_current.get(routeType)
 
             if collection?
@@ -259,7 +252,6 @@ module.exports = class Application extends Backbone.Router
                         title: routeType
                         routeType: routeType
                         model: @_current
-                        jobRoutes: @_jobRoutes
                         step: @_steps[routeType]
 
             # Create the page
@@ -314,7 +306,7 @@ module.exports = class Application extends Backbone.Router
             headerJobName.show()
             routeType = currentRoute.split('.')
             routeType = routeType[routeType.length - 1]
-            if routeType in @_jobRoutes
+            if routeType in ChoicesSingleton.get('job_routes')
                 $('div.header-title').find('h3').text routeType
         else
             headerJobName.hide()
@@ -344,7 +336,7 @@ module.exports = class Application extends Backbone.Router
 
     _addComponent: (routeType) =>
         # Model
-        if routeType in @_jobRoutes
+        if routeType in ChoicesSingleton.get('job_routes')
             @_current.get(routeType).add {}
 
         # apply select2 to new dropdown fields

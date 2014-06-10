@@ -1,5 +1,6 @@
 BaseView = require "views/base"
 CollectionListView = require "views/collection-list"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class JobView extends BaseView
     # Our constructor
@@ -11,7 +12,6 @@ module.exports = class JobView extends BaseView
         @routeType = opts.routeType if opts.routeType?
         @id = @model.cid
         @className = "#{@routeType}-overview"
-        @jobRoutes = opts.jobRoutes if opts.jobRoutes?
 
         # Re-create the element name
         @setName()
@@ -20,7 +20,7 @@ module.exports = class JobView extends BaseView
         @template = require "templates/job"
 
         # Instantiate views for each collection in model
-        for collection in @jobRoutes
+        for collection in ChoicesSingleton.get('job_routes')
             data = if @model.attributes[collection]? then @model.attributes[collection] else false
 
             @_children.push new CollectionListView

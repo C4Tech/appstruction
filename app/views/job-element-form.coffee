@@ -17,7 +17,6 @@ module.exports = class JobElementFormView extends ComponentView
         @className = "container #{@routeType} #{@routeType}-form"
         @step = opts.step if opts.step?
         @title = opts.title if opts.title?
-        @jobRoutes = opts.jobRoutes if opts.jobRoutes?
 
         # Set template
         @templateFile = "templates/#{@routeType}.form"
@@ -28,7 +27,7 @@ module.exports = class JobElementFormView extends ComponentView
             @_children = []
 
             # Instantiate views for each collection in model
-            for collection in @jobRoutes
+            for collection in ChoicesSingleton.get('job_routes')
                 data = if @model.attributes[collection]? then @model.attributes[collection] else false
                 @_children.push new CollectionListView
                     className: "job-list-collection"
