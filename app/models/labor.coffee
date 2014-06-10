@@ -112,11 +112,11 @@ module.exports = class LaborModel extends BaseModel
         labor_time = parseFloat(@attributes.labor_time) ? 0
         rate = parseFloat(@attributes.rate) ? 0
 
-        if isNaN(laborers_count) or parseInt(laborers_count) == 0
+        if isNaN(laborers_count) or laborers_count == 0
             return no_labor
-        else if isNaN(labor_time) or parseInt(labor_time) == 0
+        else if isNaN(labor_time) or labor_time == 0
             return no_labor
-        else if isNaN(rate) or parseInt(rate) == 0
+        else if isNaN(rate) or rate == 0
             return no_labor
 
         # round values to no more than 2 decimals

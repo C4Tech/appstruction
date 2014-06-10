@@ -73,11 +73,11 @@ module.exports = class EquipmentModel extends BaseModel
         equipment_time = parseFloat(@attributes.equipment_time) ? 0
         rate = parseFloat(@attributes.rate) ? 0
 
-        if isNaN(quantity) or parseInt(quantity) == 0
+        if isNaN(quantity) or quantity == 0
             return no_equipment
-        else if isNaN(equipment_time) or parseInt(equipment_time) == 0
+        else if isNaN(equipment_time) or equipment_time == 0
             return no_equipment
-        else if isNaN(rate) or parseInt(rate) == 0
+        else if isNaN(rate) or rate == 0
             return no_equipment
 
         # round values to no more than 2 decimals

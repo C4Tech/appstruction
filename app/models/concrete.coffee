@@ -134,9 +134,9 @@ module.exports = class ConcreteModel extends BaseModel
         price_value = parseFloat(@attributes.price) ? 0
 
         noun_type = 'singular'
-        if isNaN(@volume) or parseInt(@volume) == 0
+        if isNaN(@volume) or @volume == 0
             return no_concrete
-        else if isNaN(price_value) or parseInt(price_value) == 0
+        else if isNaN(price_value) or price_value == 0
             return no_concrete
 
         if @volume > 1

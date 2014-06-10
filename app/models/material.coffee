@@ -69,7 +69,9 @@ module.exports = class MaterialModel extends BaseModel
         quantity = parseFloat(@attributes.quantity) ? 0
         price = parseFloat(@attributes.price) ? 0
 
-        if isNaN(quantity) or parseInt(quantity) == 0
+        if isNaN(quantity) or quantity == 0
+            return no_material
+        if isNaN(price) or price == 0
             return no_material
 
         # round values to no more than 2 decimals
@@ -81,8 +83,6 @@ module.exports = class MaterialModel extends BaseModel
             noun_type = 'plural'
         material_type = material_type_display[noun_type][material_type_key]
 
-        if parseInt(price) == 0
-            return no_material
         price_type = material_type_display['singular'][material_type_key]
 
         material_item = "#{quantity} #{material_type} @ $#{price}/#{price_type}"

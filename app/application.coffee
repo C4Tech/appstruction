@@ -351,6 +351,17 @@ module.exports = class Application extends Backbone.Router
             allowClear: true
             minimumResultsForSearch: 6
 
+        $("input[type=number]").keyup ->
+            val = $(@).val()
+
+            # check if val starts with a period, if so append a "0" to the beginning
+            if val.lastIndexOf('.', 0) == 0
+                template = '.0000000000'
+                if val == template.substring(0, val.length)
+                    return
+                new_val = '0' + val
+                $(@).val(new_val)
+
         true
 
     # Validate a component before adding a new one to the job
