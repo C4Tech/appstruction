@@ -19,3 +19,11 @@ module.exports = class ComponentListView extends ComponentView
 
         # Return nothing
         null
+
+    render: ->
+        # Set the HTML
+        @$el.html @template
+            overview_items: @model.overview()
+
+        # Return this
+        @

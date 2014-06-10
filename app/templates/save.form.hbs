@@ -1,6 +1,9 @@
 <fieldset class="form-group">
-    <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="profit_margin" class="job field form-control" value="{{row.margin}}" />
-    <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" />
+    <div class="input-group">
+        <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="profit_margin" class="job field form-control" value="{{row.margin}}" />
+        <span class="input-group-addon">%</span>
+    </div>
+    <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" data-original="{{cost}}" />
 </fieldset>
 
 <div class="row">

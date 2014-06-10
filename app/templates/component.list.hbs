@@ -1,13 +1,6 @@
 <div class="display">
-    {{#each fields}}
-        {{#unless displayEnd}}
-            <div class="field {{../type}} {{name}}">{{displayLabel}}:
-        {{/unless}}
-
-        {{#if displayPrepend}}{{displayPrepend}}{{/if}}{{value}}{{#if displayAppend}}{{displayAppend}}{{/if}}
-
-        {{#unless displayBegin}}
-            </div>
-        {{/unless}}
+    {{#each overview_items}}
+        <div>{{this}}</div>
     {{/each}}
+    <span>{{overview}}</span>
 </div>

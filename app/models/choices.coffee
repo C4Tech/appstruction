@@ -26,6 +26,24 @@ class ChoicesModel extends Backbone.Model
                 text: "Util Truck"
         ]
 
+        equipment_type_options_display:
+            singular:
+                '1': 'dump truck'
+                '2': 'excavator'
+                '3': 'bobcat'
+                '4': 'c pump'
+                '5': 'pile'
+                '6': 'trial'
+                '7': 'util truck'
+            plural:
+                '1': 'dump trucks'
+                '2': 'excavators'
+                '3': 'bobcats'
+                '4': 'c pumps'
+                '5': 'piles'
+                '6': 'trials'
+                '7': 'util trucks'
+
         group_name_options: []
 
         job_groups: []
@@ -70,6 +88,22 @@ class ChoicesModel extends Backbone.Model
                 text: "Operator"
         ]
 
+        labor_type_options_display:
+            singular:
+                '1': 'finisher',
+                '2': 'supervisor',
+                '3': 'forms crp',
+                '4': 'laborer',
+                '5': 'driver',
+                '6': 'operator',
+            plural:
+                '1': 'finishers',
+                '2': 'supervisors',
+                '3': 'forms crp',
+                '4': 'laborers',
+                '5': 'drivers',
+                '6': 'operators',
+
         material_type_options: [
                 id: "1"
                 text: "Wire (sheet)"
@@ -92,6 +126,24 @@ class ChoicesModel extends Backbone.Model
                 id: "7"
                 text: "Misc"
         ]
+
+        material_type_options_display:
+            singular:
+                '1': 'wire'
+                '2': 'keyway'
+                '3': 'stake'
+                '4': 'cap'
+                '5': 'dowell'
+                '6': 'lf of 2x8x20'
+                '7': 'misc'
+            plural:
+                '1': 'wire'
+                '2': 'keyways'
+                '3': 'stakes'
+                '4': 'caps'
+                '5': 'dowells'
+                '6': 'lf of 2x8x20'
+                '7': 'misc'
 
         measurement_options: [
                 id: 'in'
@@ -127,6 +179,20 @@ class ChoicesModel extends Backbone.Model
                 text: 'Per Cubic Meter'
         ]
 
+        price_options_display:
+            singular:
+                in: 'cubic inch'
+                ft: 'cubic foot'
+                yd: 'cubic yard'
+                cm: 'cubic centimeter'
+                m: 'cubic meter'
+            plural:
+                in: 'cubic inches'
+                ft: 'cubic feet'
+                yd: 'cubic yards'
+                cm: 'cubic centimeters'
+                m: 'cubic meters'
+
         time_options: [
                 id: "hour"
                 text: "Hours"
@@ -140,6 +206,18 @@ class ChoicesModel extends Backbone.Model
                 id: "month"
                 text: "Months"
         ]
+
+        time_options_display:
+            singular:
+                'hour': 'hour'
+                'day': 'day'
+                'week': 'week'
+                'month': 'month'
+            plural:
+                'hour': 'hours'
+                'day': 'days'
+                'week': 'weeks'
+                'month': 'months'
 
         time_per_options: [
                 id: "hour"

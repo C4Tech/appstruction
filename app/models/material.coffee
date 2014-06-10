@@ -1,4 +1,5 @@
 BaseModel = require "models/base"
+ChoicesSingleton = require "models/choices"
 
 module.exports = class MaterialModel extends BaseModel
     defaults:
@@ -45,6 +46,8 @@ module.exports = class MaterialModel extends BaseModel
         super
 
     calculate: ->
+        material_type = @attributes.material_type ? ''
+
         tax = @attributes.tax ? 0
         tax_value = tax / 100
 
@@ -54,5 +57,36 @@ module.exports = class MaterialModel extends BaseModel
         @cost = quantity * price
         @cost = @cost + (@cost * tax_value)
 
-        console.log "material row ##{@cid}: #{quantity}@#{price} + #{tax} tax = #{@cost}"
+        console.log "material row (#{material_type}) ##{@cid}: #{quantity}@#{price} + #{tax} tax = #{@cost}"
         @cost
+
+    overview: ->
+        no_material = ['No material']
+        material_type_display = ChoicesSingleton.get 'material_type_options_display'
+
+        material_type_key = @attributes.material_type ? 'wire'
+
+        quantity = parseFloat(@attributes.quantity) ? 0
+        price = parseFloat(@attributes.price) ? 0
+
+        if isNaN(quantity) or parseInt(quantity) == 0
+            return no_material
+
+        # round values to no more than 2 decimals
+        quantity = Math.round(quantity * 100) / 100
+        price = Math.round(price * 100) / 100
+
+        noun_type = 'singular'
+        if quantity > 1
+            noun_type = 'plural'
+        material_type = material_type_display[noun_type][material_type_key]
+
+        if parseInt(price) == 0
+            return no_material
+        price_type = material_type_display['singular'][material_type_key]
+
+        material_item = "#{quantity} #{material_type} @ $#{price}/#{price_type}"
+
+        return [
+            material_item,
+        ]

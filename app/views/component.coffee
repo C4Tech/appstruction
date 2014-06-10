@@ -37,7 +37,7 @@ module.exports = class ComponentView extends BaseView
             row: @model.toJSON()
             routeType: @routeType
             cid: @model.cid
-            cost: @model.calculate() if @model.calculate?
+            cost: @model.calculate().toFixed(2) if @model.calculate?
             fields: @model.getFields(@showAll)
 
         # Apply select2 widget for fields accepting user-created options

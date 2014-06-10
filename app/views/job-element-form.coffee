@@ -68,18 +68,34 @@ module.exports = class JobElementFormView extends ComponentView
 
         # Rebuild the frame
         @$el.html @template
-            fields: @model.fields
             row: @model.toJSON()
             cid: @model.cid
             routeType: @routeType
             step: @step
             title: @title
-            cost: @model.cost
+            cost: @model.cost.toFixed(2)
             fields: @model.getFields(@showAll)
 
         # Apply select2 widget for fields accepting user-created options
         for field in @model.fields
             @addSelectOption field if field.fieldType == 'hidden' and field.show and field.options?
+
+        # Apply profit margin to subtotal as it is typed in
+        self = @
+        @$('#job-profit-margin').keyup ->
+            profit_margin = self.$(@).val()
+            $subtotal = self.$('#job-subtotal')
+            subtotal_original = $subtotal.data('original')
+
+            # check if profit_margin is a valid number
+            if isNaN(parseFloat(profit_margin)) or !isFinite(profit_margin)
+                $subtotal.val(subtotal_original)
+                return
+
+            profit_margin /= 100
+            subtotal_original = parseFloat(subtotal_original)
+            subtotal_value = subtotal_original + (subtotal_original * profit_margin)
+            $subtotal.val(subtotal_value.toFixed(2))
 
         # Append all of the rendered children
         _(@_children).each (child) =>
