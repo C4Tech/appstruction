@@ -2,12 +2,9 @@
   "name": "cole-construction",
   "author": "C4 Tech and Design",
   "version": "0.2.0",
-  "homepage": "",
+  "private": true,
+  "homepage": "http://cole.c4sandbox.com/",
   "description": "A Cordova-based app for calculating the total cost of a concrete pouring job.",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
   "engines": {
     "node": "*"
   },
