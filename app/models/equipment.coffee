@@ -88,6 +88,8 @@ module.exports = class EquipmentModel extends BaseModel
         if quantity > 1
             noun_type = 'plural'
         equipment_type = equipment_type_display[noun_type][equipment_type_key]
+        unless equipment_type?
+            equipment_type= ChoicesSingleton.getTextById('equipment_type_options', equipment_type_key).toLowerCase()
 
         noun_type = 'singular'
         if equipment_time > 1

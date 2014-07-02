@@ -19,6 +19,11 @@ module.exports = class LaborModel extends BaseModel
             append: '<hr />'
         ,
             fieldType: "number"
+            label: "Number of laborers"
+            name: "laborers_count"
+            show: true
+        ,
+            fieldType: "number"
             label: "Time per laborer"
             name: "labor_time"
             show: true
@@ -30,11 +35,6 @@ module.exports = class LaborModel extends BaseModel
             show: true
             fieldTypeSelect: true
             optionsType: 'time_options'
-        ,
-            fieldType: "number"
-            label: "Number of laborers"
-            name: "laborers_count"
-            show: true
         ,
             fieldType: "number"
             label: "Pay Rate"
@@ -128,6 +128,8 @@ module.exports = class LaborModel extends BaseModel
         if laborers_count > 1
             noun_type = 'plural'
         labor_type = labor_type_display[noun_type][labor_type_key]
+        unless labor_type?
+            labor_type = ChoicesSingleton.getTextById('labor_type_options', labor_type_key).toLowerCase()
 
         noun_type = 'singular'
         if labor_time > 1

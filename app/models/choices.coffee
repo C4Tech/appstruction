@@ -110,6 +110,12 @@ class ChoicesModel extends Backbone.Model
             ,
                 id: "6"
                 text: "Operator"
+            ,
+                id: "7"
+                text: "Carpenter"
+            ,
+                id: "8"
+                text: "Ironworker"
         ]
 
         labor_type_options_display:
@@ -257,6 +263,13 @@ class ChoicesModel extends Backbone.Model
                 text: "Monthly"
         ]
 
+    getTextById: (options_name, id) ->
+        options = @.get options_name
+        item_found = item for item in options when item.id = id
+        if item_found?
+            return item_found.text
+        return null
+
     addJobGroup: (job) ->
         group_option = item for item in @attributes.group_name_options when item.id == job.attributes.group_id
         filtered_job_groups = item for item in @attributes.job_groups when item.group.id == job.attributes.group_id
@@ -284,8 +297,7 @@ class ChoicesModel extends Backbone.Model
         unless filtered_job_groups?
             @attributes.job_groups.push selected_group
 
-        # Return nothing
-        null
+        return null
 
     removeJobGroup: (job) ->
         new_job_groups = []
@@ -305,9 +317,7 @@ class ChoicesModel extends Backbone.Model
                 new_job_groups.push new_item
 
         @attributes.job_groups = new_job_groups
-
-        # Return nothing
-        null
+        return null
 
 choices = new ChoicesModel
     id: 1
