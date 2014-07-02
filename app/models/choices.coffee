@@ -3,6 +3,23 @@ class ChoicesModel extends Backbone.Model
     url: "choices"
 
     defaults:
+        concrete_type_options: [
+                id: "1"
+                text: "Sidewalk"
+            ,
+                id: "2"
+                text: "Foundation"
+            ,
+                id: "3"
+                text: "Curb"
+            ,
+                id: "4"
+                text: "Footings"
+            ,
+                id: "5"
+                text: "Driveway"
+        ]
+
         equipment_type_options: [
                 id: "1"
                 text: "Dump Truck"

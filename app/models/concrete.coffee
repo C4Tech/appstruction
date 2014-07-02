@@ -3,6 +3,7 @@ ChoicesSingleton = require "models/choices"
 
 module.exports = class ConcreteModel extends BaseModel
     defaults:
+        "concrete_type": null
         "quantity": null
         "depth": null
         "depth_units": null
@@ -17,6 +18,13 @@ module.exports = class ConcreteModel extends BaseModel
     volume: 0
 
     fields: [
+            fieldType: "hidden"
+            label: "What item"
+            name: "concrete_type"
+            show: true
+            optionsType: 'concrete_type_options'
+            append: '<hr />'
+        ,
             fieldType: "number"
             name: "quantity"
             label: 'How many'
@@ -94,10 +102,11 @@ module.exports = class ConcreteModel extends BaseModel
     ]
 
     initialize: ->
-        @help = "Concrete help text"
+        @help = "Describe each concrete structure to be built"
         super
 
     calculate: ->
+        concrete_type = @attributes.concrete_type ? ''
         tax = @attributes.tax ? 0
         tax_value = tax / 100
 
@@ -123,7 +132,7 @@ module.exports = class ConcreteModel extends BaseModel
         @cost = @volume * price_value
         @cost = @cost + (@cost * tax_value)
 
-        console.log "concrete: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} + #{tax} tax = #{@cost}"
+        console.log "concrete row (#{concrete_type}) ##{@cid}: #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity} @ $#{price_value} + #{tax} tax = #{@cost}"
         @cost
 
     overview: ->
