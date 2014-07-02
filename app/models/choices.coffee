@@ -249,7 +249,7 @@ class ChoicesModel extends Backbone.Model
         if filtered_job_groups?
             selected_group = filtered_job_groups
             job_found = _.some selected_group.jobs, (item_job) ->
-                item_job.cid == job.cid
+                item_job.id == job.id
         else
             selected_group =
                 group:
@@ -261,7 +261,7 @@ class ChoicesModel extends Backbone.Model
                 selected_group.jobs = []
 
             selected_group.jobs.push
-                cid: job.cid
+                id: job.id
                 name: job.attributes.job_name
 
         unless filtered_job_groups?
@@ -275,7 +275,7 @@ class ChoicesModel extends Backbone.Model
 
         for item in @attributes.job_groups
             filtered_jobs = item.jobs.filter (job_item) ->
-                return job_item.cid != job.cid
+                return job_item.id != job.id
 
             if filtered_jobs.length == 0
                 @attributes.group_name_options = _(@attributes.group_name_options).reject (group_item) ->

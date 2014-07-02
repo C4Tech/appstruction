@@ -46,10 +46,10 @@ module.exports = class Application extends Backbone.Router
         "open": "open"
         "browse": "browse"
         "delete-browse": "deleteBrowse"
-        "read.:cid": "read"
+        "read.:id": "read"
         "add(.:routeType)": "add"
         "edit(.:routeType)": "edit"
-        "delete-job.:cid": "deleteJob"
+        "delete-job.:id": "deleteJob"
         "delete-group.:group_id": "deleteGroup"
 
     initialize: (opts) ->
@@ -127,11 +127,11 @@ module.exports = class Application extends Backbone.Router
 
         @_showPage @_pages["delete-browse"]
 
-    read: (cid) ->
+    read: (id) ->
         console.log "Loading job listing page"
-        routeType = "read-#{cid}"
+        routeType = "read-#{id}"
         unless @_pages[routeType]?
-            @_readJob cid
+            @_readJob id
             @_pages[routeType] = new PageView
                 title: @_current.attributes.job_name
                 subView: new JobView
@@ -150,9 +150,9 @@ module.exports = class Application extends Backbone.Router
         @_viewJob(routeType, 'edit')
 
     # delete a saved job
-    deleteJob: (cid, navigate_home=true) ->
+    deleteJob: (id, navigate_home=true) ->
         console.log 'Deleting job'
-        @_readJob cid
+        @_readJob id
         ChoicesSingleton.removeJobGroup @_current
         ChoicesSingleton.save()
         @_resetJob(navigate_home)
@@ -161,8 +161,8 @@ module.exports = class Application extends Backbone.Router
     deleteGroup: (group_id) ->
         console.log 'Deleting group'
         group_models = @_jobs.byGroupId(group_id)
-        cids = _.pluck(group_models, 'cid')
-        @deleteJob(cid, false) for cid in cids
+        ids = _.pluck(group_models, 'id')
+        @deleteJob(id, false) for id in ids
         @_navigate 'home'
 
     # Tell jQuery Mobile to change the damn page
@@ -220,9 +220,9 @@ module.exports = class Application extends Backbone.Router
         @_current
 
     # Load a saved job
-    _readJob: (cid) =>
-        console.log "Reading job #{cid}"
-        @_current = @_jobs.get cid
+    _readJob: (id) =>
+        console.log "Reading job #{id}"
+        @_current = @_jobs.get id
         @_current
 
     # View the current job
@@ -324,9 +324,9 @@ module.exports = class Application extends Backbone.Router
         console.log "Saving job"
 
         if @_current.isValid()
+            @_current.save()
             ChoicesSingleton.addJobGroup @_current
             ChoicesSingleton.save()
-            @_current.save()
             @_jobs.add @_current
             console.log JSON.stringify @_current.toJSON()
             true

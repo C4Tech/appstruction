@@ -36,6 +36,7 @@ module.exports = class JobModel extends BaseModel
             label: "Profit Margin"
             show: false
             required: false
+            overview: true
     ]
 
     initialize: ->
