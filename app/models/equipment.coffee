@@ -24,6 +24,11 @@ module.exports = class EquipmentModel extends BaseModel
             show: true
         ,
             fieldType: "number"
+            label: "Time used"
+            name: "equipment_time"
+            show: true
+        ,
+            fieldType: "number"
             label: "What rate"
             name: "rate"
             show: true
@@ -35,15 +40,10 @@ module.exports = class EquipmentModel extends BaseModel
             show: true
             fieldTypeSelect: true
             optionsType: 'time_per_options'
-        ,
-            fieldType: "number"
-            label: "Time used"
-            name: "equipment_time"
-            show: true
     ]
 
     initialize: ->
-        @help = "Equipment help text"
+        @help = "List all equipment"
         super
 
     calculate: ->

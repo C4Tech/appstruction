@@ -45,16 +45,22 @@ class ChoicesModel extends Backbone.Model
                 text: "Bobcat"
             ,
                 id: "4"
-                text: "C pump"
+                text: "Concrete pump"
             ,
                 id: "5"
-                text: "Piles"
+                text: "Concrete saw"
             ,
                 id: "6"
-                text: "Trial"
+                text: "Piles"
             ,
                 id: "7"
+                text: "Trial"
+            ,
+                id: "8"
                 text: "Util Truck"
+            ,
+                id: "9"
+                text: "Trowel machine"
         ]
 
         equipment_type_options_display:
@@ -62,18 +68,22 @@ class ChoicesModel extends Backbone.Model
                 '1': 'dump truck'
                 '2': 'excavator'
                 '3': 'bobcat'
-                '4': 'c pump'
-                '5': 'pile'
-                '6': 'trial'
-                '7': 'util truck'
+                '4': 'concrete pump'
+                '5': 'concrete saw'
+                '6': 'pile'
+                '7': 'trial'
+                '8': 'util truck'
+                '9': 'trowel machine'
             plural:
                 '1': 'dump trucks'
                 '2': 'excavators'
                 '3': 'bobcats'
-                '4': 'c pumps'
-                '5': 'piles'
-                '6': 'trials'
-                '7': 'util trucks'
+                '4': 'concrete pumps'
+                '5': 'concrete saws'
+                '6': 'piles'
+                '7': 'trials'
+                '8': 'util trucks'
+                '9': 'trowel machines'
 
         group_name_options: []
 
