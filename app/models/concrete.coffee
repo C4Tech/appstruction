@@ -137,30 +137,43 @@ module.exports = class ConcreteModel extends BaseModel
 
     overview: ->
         no_concrete = ['No concrete']
-        display = ChoicesSingleton.get 'price_options_display'
-        key = @attributes.price_units ? 'ft'
+        price_options_display = ChoicesSingleton.get 'price_options_display'
+        concrete_type_display = ChoicesSingleton.get 'concrete_type_options_display'
+        price_units_key = @attributes.price_units ? 'ft'
+        concrete_type_key = @attributes.concrete_type ? '1'
+        quantity = @attributes.quantity ? 0
 
         price_value = parseFloat(@attributes.price) ? 0
 
-        noun_type = 'singular'
         if isNaN(@volume) or @volume == 0
             return no_concrete
         else if isNaN(price_value) or price_value == 0
             return no_concrete
 
+        noun_type = 'singular'
         if @volume > 1
             noun_type = 'plural'
-        price_units = display[noun_type][key]
+        price_units = price_options_display[noun_type][price_units_key]
+
+        noun_type = 'singular'
+        if quantity > 1
+            noun_type = 'plural'
+        concrete_type = concrete_type_display[noun_type][concrete_type_key]
+        unless concrete_type?
+            concrete_type = ChoicesSingleton.getTextById('concrete_type_options', concrete_type_key).toLowerCase()
+
+        concrete_item = "Items: #{quantity} #{concrete_type}"
 
         volume_rounded = Math.round(@volume * 100) / 100
         volume_item = "#{volume_rounded} #{price_units} of concrete"
 
-        price_units = display.singular[key]
+        price_units = price_options_display.singular[price_units_key]
         price_item = "$#{price_value.toFixed(2)} per #{price_units}"
 
         total_item = "Total price: $#{@cost.toFixed(2)}"
 
         return [
+            concrete_item,
             volume_item,
             price_item,
             total_item

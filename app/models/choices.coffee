@@ -20,6 +20,20 @@ class ChoicesModel extends Backbone.Model
                 text: "Driveway"
         ]
 
+        concrete_type_options_display:
+            singular:
+                '1': 'sidewalk'
+                '2': 'foundation'
+                '3': 'curb'
+                '4': 'footing'
+                '5': 'driveway'
+            plural:
+                '1': 'sidewalks'
+                '2': 'foundations'
+                '3': 'curbs'
+                '4': 'footings'
+                '5': 'driveways'
+
         equipment_type_options: [
                 id: "1"
                 text: "Dump Truck"
@@ -265,7 +279,7 @@ class ChoicesModel extends Backbone.Model
 
     getTextById: (options_name, id) ->
         options = @.get options_name
-        item_found = item for item in options when item.id = id
+        item_found = item for item in options when item.id == id
         if item_found?
             return item_found.text
         return null
