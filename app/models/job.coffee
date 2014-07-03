@@ -1,8 +1,9 @@
 BaseModel = require "models/base"
-LaborModel = require "models/labor"
 ConcreteModel = require "models/concrete"
+LaborModel = require "models/labor"
 MaterialModel = require "models/material"
 EquipmentModel = require "models/equipment"
+SubcontractorModel = require "models/subcontractor"
 JobCollection = require "models/job-collection"
 ChoicesSingleton = require "models/choices"
 
@@ -64,14 +65,15 @@ module.exports = class JobModel extends BaseModel
             when "labor" then LaborModel
             when "materials" then MaterialModel
             when "equipment" then EquipmentModel
+            when "subcontractor" then SubcontractorModel
         new JobCollection data, {
                 model: model
                 modelType: modelType
             }
 
     calculate: ->
-        @cost = @attributes.concrete.calculate() + @attributes.labor.calculate() + @attributes.materials.calculate() + @attributes.equipment.calculate()
+        @cost = @attributes.concrete.calculate() + @attributes.labor.calculate() + @attributes.materials.calculate() + @attributes.equipment.calculate() + @attributes.subcontractor.calculate()
 
         if @cost
-            console.log "Job total: #{@attributes.equipment.cost} + #{@attributes.concrete.cost} + #{@attributes.labor.cost} + #{@attributes.materials.cost} = #{@cost}"
+            console.log "Job total: #{@attributes.concrete.cost} + #{@attributes.labor.cost} + #{@attributes.materials.cost} + #{@attributes.equipment.cost} + #{@attributes.subcontractor.cost} = #{@cost}"
         @cost
