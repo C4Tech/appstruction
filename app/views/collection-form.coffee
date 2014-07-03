@@ -48,7 +48,14 @@ module.exports = class CollectionFormView extends CollectionView
         # Append all of the rendered children
         _(@_children).each (child) =>
             @$(".items").append child.render().$el
-            @$('#component-help').text child.model.help
+
+            $component_help = @$('#component-help')
+            if child.model.help?
+                $component_help.text child.model.help
+                $component_help.show()
+            else
+                $component_help.hide()
+
             @$("input[type=number]").keyup ->
                 val = self.$(@).val()
 

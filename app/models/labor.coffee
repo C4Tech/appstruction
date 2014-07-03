@@ -51,7 +51,6 @@ module.exports = class LaborModel extends BaseModel
     ]
 
     initialize: ->
-        @help = "Labor help text"
         super
 
     calculate: ->
