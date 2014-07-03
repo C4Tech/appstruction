@@ -24,7 +24,7 @@ module.exports = class EquipmentModel extends BaseModel
             show: true
         ,
             fieldType: "number"
-            label: "Time used"
+            label: "How long"
             name: "equipment_time"
             show: true
         ,
