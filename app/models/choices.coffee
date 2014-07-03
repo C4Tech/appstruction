@@ -113,7 +113,8 @@ class ChoicesModel extends Backbone.Model
             'concrete',
             'labor',
             'materials',
-            'equipment'
+            'equipment',
+            'subcontractor',
         ]
 
         labor_type_options: [

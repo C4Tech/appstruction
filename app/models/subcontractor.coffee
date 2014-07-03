@@ -23,6 +23,7 @@ module.exports = class SubcontractorModel extends BaseModel
     calculate: ->
         scope_of_work = @attributes.scope_of_work ? ''
         @cost = @attributes.contractor_amount ? 0
+        @cost = parseFloat(@cost)
         console.log "subcontractor row (#{scope_of_work}) ##{@cid}: cost #{@cost}"
         @cost
 
