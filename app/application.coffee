@@ -36,9 +36,12 @@ module.exports = class Application extends Backbone.Router
             next: "add.equipment"
         equipment:
             prev: "add.materials"
+            next: "add.subcontractor"
+        subcontractor:
+            prev: "add.equipment"
             next: "add.save"
         save:
-            prev: "add.equipment"
+            prev: "add.subcontractor"
 
     routes:
         "": "home"
@@ -293,11 +296,13 @@ module.exports = class Application extends Backbone.Router
             "add.labor"
             "add.materials"
             "add.equipment"
+            "add.subcontractor"
             "add.save"
             "edit.concrete"
             "edit.labor"
             "edit.materials"
             "edit.equipment"
+            "edit.subcontractor"
         ]
 
         headerJobName = $('div.header-job-name')
