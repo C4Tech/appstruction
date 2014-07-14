@@ -203,6 +203,9 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", ".header-help", @_showHelp
         $(document).hammer().on "tap", ".field-help", @_showHelp
 
+        # Email
+        $(document).hammer().on "tap", ".header-email", @_promptEmail
+
         true
 
     # Handle navigation
@@ -313,6 +316,7 @@ module.exports = class Application extends Backbone.Router
         headerTitle = $('div.header-title').find('h3')
         headerText = headerTitle.find('.header-text')
         headerHelp = headerTitle.find('.header-help')
+        headerEmail = headerTitle.find('.header-email')
 
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
             headerJobName.find('h3').text @_current.attributes.job_name
@@ -330,10 +334,19 @@ module.exports = class Application extends Backbone.Router
             headerHelp.show()
         else
             headerHelp.hide()
+
+        if currentRoute == 'add.save'
+            headerEmail.show()
+        else
+            headerEmail.hide()
+
         @_current
 
     _showHelp: (e) =>
         bootbox.alert $(e.currentTarget).data('help')
+
+    _promptEmail: (e) =>
+        window.location.href = "mailto:?subject=Construction proposal&body=Hello in there";
 
     # Delete the current job
     _resetJob: =>
