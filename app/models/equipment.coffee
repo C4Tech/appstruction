@@ -17,6 +17,8 @@ module.exports = class EquipmentModel extends BaseModel
             show: true
             optionsType: 'equipment_type_options'
             append: '<br />'
+            fieldHelp: true
+            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,
             fieldType: "number"
             label: "How many"

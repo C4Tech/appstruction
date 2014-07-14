@@ -201,6 +201,7 @@ module.exports = class Application extends Backbone.Router
 
         # Help popup
         $(document).hammer().on "tap", ".header-help", @_showHelp
+        $(document).hammer().on "tap", ".field-help", @_showHelp
 
         true
 

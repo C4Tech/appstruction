@@ -9,12 +9,14 @@ module.exports = class MaterialModel extends BaseModel
         "tax": null
 
     fields: [
-            fieldType: "select"
-            name: "material_type"
+            fieldType: "hidden"
             label: "Material Type"
+            name: "material_type"
             show: true
-            fieldTypeSelect: true
             optionsType: 'material_type_options'
+            append: '<hr />'
+            fieldHelp: true
+            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,
             fieldType: "number"
             name: "quantity"

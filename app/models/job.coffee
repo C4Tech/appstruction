@@ -13,10 +13,10 @@ module.exports = class JobModel extends BaseModel
     cid: null
 
     fields: [
-            fieldType: 'hidden'
-            name: 'group_id'
-            label: 'Group Name'
-            optionsType: 'group_name_options'
+            fieldType: "hidden"
+            name: "group_id"
+            label: "Group Name"
+            optionsType: "group_name_options"
             show: true
             append: '<br />'
         ,
@@ -31,6 +31,8 @@ module.exports = class JobModel extends BaseModel
             optionsType: 'job_type_options'
             show: true
             append: '<br />'
+            fieldHelp: true
+            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,
             fieldType: "number"
             name: "profit_margin"

@@ -91,6 +91,7 @@ class ChoicesModel extends Backbone.Model
             concrete: "Describe each concrete structure to be built"
             materials: "Describe all the material needed on the job"
             equipment: "List all equipment"
+            dynamicDropdown: "If you don't see the option you want in the dropdown, start typing and it will be available in the future."
 
         job_groups: []
 

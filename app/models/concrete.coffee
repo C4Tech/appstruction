@@ -24,6 +24,8 @@ module.exports = class ConcreteModel extends BaseModel
             show: true
             optionsType: 'concrete_type_options'
             append: '<hr />'
+            fieldHelp: true
+            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,
             fieldType: "number"
             name: "quantity"
