@@ -91,22 +91,19 @@ class ChoicesModel extends Backbone.Model
 
         job_type_options: [
                 id: "1"
-                text: "Slab"
+                text: "Municipal"
             ,
                 id: "2"
-                text: "GB- H"
+                text: "Commercial"
             ,
                 id: "3"
-                text: "GB - H1A"
+                text: "Residential"
             ,
                 id: "4"
-                text: "GB - V"
+                text: "Civil"
             ,
                 id: "5"
-                text: "Piles"
-            ,
-                id: "6"
-                text: "Truck Well"
+                text: "Structural"
         ]
 
         job_routes: [
