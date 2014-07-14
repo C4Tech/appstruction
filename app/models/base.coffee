@@ -1,9 +1,6 @@
 ChoicesSingleton = require "models/choices"
 
 module.exports = class BaseModel extends Backbone.Model
-    defaults:
-        "help": null
-
     fields: []
     cost: 0
 

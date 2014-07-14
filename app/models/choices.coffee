@@ -87,6 +87,11 @@ class ChoicesModel extends Backbone.Model
 
         group_name_options: []
 
+        help_options:
+            concrete: "Describe each concrete structure to be built"
+            materials: "Describe all the material needed on the job"
+            equipment: "List all equipment"
+
         job_groups: []
 
         job_type_options: [
@@ -284,6 +289,12 @@ class ChoicesModel extends Backbone.Model
                 id: "month"
                 text: "Monthly"
         ]
+
+    getHelp: (key) ->
+        help_options = @.get 'help_options'
+        if key of help_options
+            return help_options[key]
+        return null
 
     getTextById: (options_name, id) ->
         options = @.get options_name

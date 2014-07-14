@@ -186,9 +186,9 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", "button.job.save", @_saveJob
 
         # Bind URL clicks
-        $(document).on "tap", "button.ccma-navigate", @_navigateEvent
-        $(document).on "tap", "button.ccma-navigate", @_updateJobName
-        $(document).on "tap", "button.ccma-navigate", @_updateCost
+        $(document).hammer().on "tap", "button.ccma-navigate", @_navigateEvent
+        $(document).hammer().on "tap", "button.ccma-navigate", @_updateHeader
+        $(document).hammer().on "tap", "button.ccma-navigate", @_updateCost
 
         # Add job component buttons
         $(document).hammer().on "tap", "button.add", @_validateComponent
@@ -197,7 +197,10 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", "button.job.reset", @_resetJob
 
         # Handle application events
-        $(document).on "change", ".field", @_updateCost
+        $(document).hammer().on "change", ".field", @_updateCost
+
+        # Help popup
+        $(document).hammer().on "tap", ".header-help", @_showHelp
 
         true
 
@@ -280,8 +283,8 @@ module.exports = class Application extends Backbone.Router
         @_current
 
     # Refresh the displayed job name
-    _updateJobName: (currentRoute = null) =>
-        console.log "Refreshing job name"
+    _updateHeader: (currentRoute = null) =>
+        console.log "Refreshing header"
 
         # When called from an event, the event object is passed as parameter.
         # In that scenario we want currentRoute to be null at this point.
@@ -306,16 +309,30 @@ module.exports = class Application extends Backbone.Router
         ]
 
         headerJobName = $('div.header-job-name')
+        headerTitle = $('div.header-title').find('h3')
+        headerText = headerTitle.find('.header-text')
+        headerHelp = headerTitle.find('.header-help')
+
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
             headerJobName.find('h3').text @_current.attributes.job_name
             headerJobName.show()
             routeType = currentRoute.split('.')
             routeType = routeType[routeType.length - 1]
             if routeType in ChoicesSingleton.get('job_routes')
-                $('div.header-title').find('h3').text routeType
+                headerText.text routeType
         else
             headerJobName.hide()
+
+        help = ChoicesSingleton.getHelp(routeType)
+        if help?
+            headerHelp.data('help', help)
+            headerHelp.show()
+        else
+            headerHelp.hide()
         @_current
+
+    _showHelp: (e) =>
+        bootbox.alert $(e.currentTarget).data('help')
 
     # Delete the current job
     _resetJob: =>

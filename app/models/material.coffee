@@ -42,7 +42,6 @@ module.exports = class MaterialModel extends BaseModel
     ]
 
     initialize: ->
-        @help = "Describe all the material needed on the job"
         super
 
     calculate: ->

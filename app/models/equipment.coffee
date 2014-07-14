@@ -43,7 +43,6 @@ module.exports = class EquipmentModel extends BaseModel
     ]
 
     initialize: ->
-        @help = "List all equipment"
         super
 
     calculate: ->

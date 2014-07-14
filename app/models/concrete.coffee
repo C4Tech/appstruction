@@ -102,7 +102,6 @@ module.exports = class ConcreteModel extends BaseModel
     ]
 
     initialize: ->
-        @help = "Describe each concrete structure to be built"
         super
 
     calculate: ->
