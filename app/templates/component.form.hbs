@@ -7,18 +7,18 @@
                         name="{{name}}"
                         class="field {{fieldType}} type form-control{{#if hasSiblingField}} has-sibling-field{{/if}}"
                         data-placeholder="{{placeholder}}"
-                >
+                        >
                     <option></option>
                     {{#each options}}
                         <option value="{{id}}">{{text}}</option>
                     {{/each}}
                 </select>
                 {{#unless append}}
-                    <br />
+                    <br/>
                 {{/unless}}
             {{else}}
                 {{#if inputGroup}}
-                    <div class="input-group">
+                <div class="input-group">
                     {{#if inputGroupPrepend}}
                         <span class="input-group-addon">{{inputGroupValue}}</span>
                     {{/if}}
@@ -28,12 +28,12 @@
                        name="{{name}}"
                        placeholder="{{placeholder}}"
                        value="{{value}}"
-                       class="field {{../../../routeType}} {{name}} form-control{{#if hasSiblingField}} has-sibling-field{{/if}}" />
+                       class="field {{../../../routeType}} {{name}} form-control{{#if hasSiblingField}} has-sibling-field{{/if}}"/>
                 {{#if inputGroup}}
                     {{#if inputGroupAppend}}
                         <span class="input-group-addon">{{inputGroupValue}}</span>
                     {{/if}}
-                    </div>
+                </div>
                 {{/if}}
             {{/if}}
             {{#if append}}
