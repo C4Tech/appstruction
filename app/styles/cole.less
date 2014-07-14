@@ -26,16 +26,19 @@ input.field {
 }
 
 .header-title {
-    background: grey;
-    color: white;
     margin-bottom: 20px;
     text-transform: capitalize;
 }
 
+.header-title,
 .header-job-name {
-    background: #333333;
+    background: #1b5790;
     color: white;
+}
+
+.header-job-name {
     display: none;
+    border-bottom: 1px solid @btn-nav-bg;
 }
 
 .header-title h3,
@@ -97,10 +100,6 @@ input.field {
 .panel-heading-link:hover,
 .panel-heading-link:visited {
   color: #fff;
-}
-
-body {
-	background:#000;
 }
 
 #job-subtotal {
