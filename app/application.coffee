@@ -346,7 +346,68 @@ module.exports = class Application extends Backbone.Router
         bootbox.alert $(e.currentTarget).data('help')
 
     _promptEmail: (e) =>
-        window.location.href = "mailto:?subject=Construction proposal&body=Hello in there";
+        a = @_current.attributes
+        job_type = ChoicesSingleton.getTextById('job_type_options', a.job_type)
+        group_name = ChoicesSingleton.getTextById('group_name_options', a.group_id)
+
+        cost = @_current.cost
+        # check if profit_margin is a valid number
+        if isNaN(parseFloat(a.profit_margin)) or !isFinite(a.profit_margin)
+            total_cost = cost
+            profit_margin = 0
+        else
+            profit_margin = a.profit_margin
+            total_cost = cost + (cost * (a.profit_margin / 100))
+
+        concrete = ""
+        for item in a.concrete.models
+            item_text = item.overview().join('\n')
+            concrete = "#{concrete}#{item_text}\n\n"
+
+        labor = ""
+        for item in a.labor.models
+            item_text = item.overview().join('\n')
+            labor = "#{labor}#{item_text}\n\n"
+
+        materials = ""
+        for item in a.materials.models
+            item_text = item.overview().join('\n')
+            materials = "#{materials}#{item_text}\n\n"
+
+        equipment = ""
+        for item in a.equipment.models
+            item_text = item.overview().join('\n')
+            equipment = "#{equipment}#{item_text}\n\n"
+
+        subcontractor = ""
+        for item in a.subcontractor.models
+            item_text = item.overview().join('\n')
+            subcontractor = "#{subcontractor}#{item_text}\n\n"
+
+        subject = "Appstruction proposal"
+        body = """
+            Group: #{group_name}
+            Job name: #{a.job_name}
+            Job type: #{job_type}
+
+            Subtotal: #{cost.toFixed(2)}
+            Profit margin: #{profit_margin}%
+            Cost: #{total_cost.toFixed(2)}
+
+            Concrete:
+            #{concrete}
+            Labor:
+            #{labor}
+            Materials:
+            #{materials}
+            Equipment:
+            #{equipment}
+            Subcontractor:
+            #{subcontractor}
+        """
+        body = encodeURIComponent(body)
+
+        window.location.href = "mailto:?subject=#{subject}&body=#{body}";
 
     # Delete the current job
     _resetJob: =>
