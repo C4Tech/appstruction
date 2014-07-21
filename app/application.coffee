@@ -351,10 +351,7 @@ module.exports = class Application extends Backbone.Router
     _showHelp: (e) =>
         bootbox.alert $(e.currentTarget).data('help')
 
-    _promptPdf: (e) =>
-        bootbox.alert('foo')
-
-    _promptEmail: (e) =>
+    _generatePromptBody: =>
         a = @_current.attributes
         job_type = ChoicesSingleton.getTextById('job_type_options', a.job_type)
         group_name = ChoicesSingleton.getTextById('group_name_options', a.group_id)
@@ -393,7 +390,6 @@ module.exports = class Application extends Backbone.Router
             item_text = item.overview().join('\n')
             subcontractor = "#{subcontractor}#{item_text}\n\n"
 
-        subject = "Appstruction proposal"
         body = """
             Group: #{group_name}
             Job name: #{a.job_name}
@@ -414,8 +410,28 @@ module.exports = class Application extends Backbone.Router
             Subcontractor:
             #{subcontractor}
         """
-        body = encodeURIComponent(body)
+        return body
 
+    _promptPdf: (e) =>
+        filename = "#{@_current.attributes.job_name}.pdf"
+        body = @_generatePromptBody()
+
+        doc = new jsPDF()
+
+        doc.setFontSize(22)
+        doc.setFontType('bold')
+        doc.text 20, 20, "Appstruction Proposal"
+
+        doc.setFontSize(14)
+        doc.setFontType('normal')
+        doc.text 20, 30, body
+
+        doc.save filename
+
+    _promptEmail: (e) =>
+        subject = "Appstruction proposal"
+        body = @_generatePromptBody()
+        body = encodeURIComponent(body)
         window.location.href = "mailto:?subject=#{subject}&body=#{body}";
 
     # Delete the current job
