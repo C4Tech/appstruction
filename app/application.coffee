@@ -56,7 +56,7 @@ module.exports = class Application extends Backbone.Router
         "delete-group.:group_id": "deleteGroup"
 
     initialize: (opts) ->
-        console.log "Initializing Cole"
+        console.log "Initializing Appstruction"
 
         # Load the saved jobs
         @_jobs = new JobCollection null,
@@ -88,7 +88,7 @@ module.exports = class Application extends Backbone.Router
         unless @_pages["home"]?
             @_pages["home"] = new PageView
                 id: "home"
-                title: "Cole"
+                title: "Appstruction"
                 text:
                     id: "start"
                     content: ""
