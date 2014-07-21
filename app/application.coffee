@@ -206,6 +206,9 @@ module.exports = class Application extends Backbone.Router
         # Email
         $(document).hammer().on "tap", ".header-email", @_promptEmail
 
+        # Pdf
+        $(document).hammer().on "tap", ".header-pdf", @_promptPdf
+
         true
 
     # Handle navigation
@@ -317,6 +320,7 @@ module.exports = class Application extends Backbone.Router
         headerText = headerTitle.find('.header-text')
         headerHelp = headerTitle.find('.header-help')
         headerEmail = headerTitle.find('.header-email')
+        headerPdf = headerTitle.find('.header-pdf')
 
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
             headerJobName.find('h3').text @_current.attributes.job_name
@@ -337,13 +341,18 @@ module.exports = class Application extends Backbone.Router
 
         if currentRoute == 'add.save'
             headerEmail.show()
+            headerPdf.show()
         else
             headerEmail.hide()
+            headerPdf.hide()
 
         @_current
 
     _showHelp: (e) =>
         bootbox.alert $(e.currentTarget).data('help')
+
+    _promptPdf: (e) =>
+        bootbox.alert('foo')
 
     _promptEmail: (e) =>
         a = @_current.attributes
