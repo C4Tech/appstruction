@@ -203,6 +203,12 @@ module.exports = class Application extends Backbone.Router
         $(document).hammer().on "tap", ".header-help", @_showHelp
         $(document).hammer().on "tap", ".field-help", @_showHelp
 
+        # Email
+        $(document).hammer().on "tap", ".header-email", @_promptEmail
+
+        # Pdf
+        $(document).hammer().on "tap", ".header-pdf", @_promptPdf
+
         true
 
     # Handle navigation
@@ -313,6 +319,8 @@ module.exports = class Application extends Backbone.Router
         headerTitle = $('div.header-title').find('h3')
         headerText = headerTitle.find('.header-text')
         headerHelp = headerTitle.find('.header-help')
+        headerEmail = headerTitle.find('.header-email')
+        headerPdf = headerTitle.find('.header-pdf')
 
         if currentRoute[0..3] == 'read' or currentRoute in allowedRoutes
             headerJobName.find('h3').text @_current.attributes.job_name
@@ -330,10 +338,101 @@ module.exports = class Application extends Backbone.Router
             headerHelp.show()
         else
             headerHelp.hide()
+
+        if currentRoute == 'add.save'
+            headerEmail.show()
+            headerPdf.show()
+        else
+            headerEmail.hide()
+            headerPdf.hide()
+
         @_current
 
     _showHelp: (e) =>
         bootbox.alert $(e.currentTarget).data('help')
+
+    _generatePromptBody: =>
+        a = @_current.attributes
+        job_type = ChoicesSingleton.getTextById('job_type_options', a.job_type)
+        group_name = ChoicesSingleton.getTextById('group_name_options', a.group_id)
+
+        cost = @_current.cost
+        # check if profit_margin is a valid number
+        if isNaN(parseFloat(a.profit_margin)) or !isFinite(a.profit_margin)
+            total_cost = cost
+            profit_margin = 0
+        else
+            profit_margin = a.profit_margin
+            total_cost = cost + (cost * (a.profit_margin / 100))
+
+        concrete = ""
+        for item in a.concrete.models
+            item_text = item.overview().join('\n')
+            concrete = "#{concrete}#{item_text}\n\n"
+
+        labor = ""
+        for item in a.labor.models
+            item_text = item.overview().join('\n')
+            labor = "#{labor}#{item_text}\n\n"
+
+        materials = ""
+        for item in a.materials.models
+            item_text = item.overview().join('\n')
+            materials = "#{materials}#{item_text}\n\n"
+
+        equipment = ""
+        for item in a.equipment.models
+            item_text = item.overview().join('\n')
+            equipment = "#{equipment}#{item_text}\n\n"
+
+        subcontractor = ""
+        for item in a.subcontractor.models
+            item_text = item.overview().join('\n')
+            subcontractor = "#{subcontractor}#{item_text}\n\n"
+
+        body = """
+            Group: #{group_name}
+            Job name: #{a.job_name}
+            Job type: #{job_type}
+
+            Subtotal: #{cost.toFixed(2)}
+            Profit margin: #{profit_margin}%
+            Cost: #{total_cost.toFixed(2)}
+
+            Concrete:
+            #{concrete}
+            Labor:
+            #{labor}
+            Materials:
+            #{materials}
+            Equipment:
+            #{equipment}
+            Subcontractor:
+            #{subcontractor}
+        """
+        return body
+
+    _promptPdf: (e) =>
+        filename = "#{@_current.attributes.job_name}.pdf"
+        body = @_generatePromptBody()
+
+        doc = new jsPDF()
+
+        doc.setFontSize(22)
+        doc.setFontType('bold')
+        doc.text 20, 20, "Appstruction Proposal"
+
+        doc.setFontSize(14)
+        doc.setFontType('normal')
+        doc.text 20, 30, body
+
+        doc.save filename
+
+    _promptEmail: (e) =>
+        subject = "Appstruction proposal"
+        body = @_generatePromptBody()
+        body = encodeURIComponent(body)
+        window.location.href = "mailto:?subject=#{subject}&body=#{body}";
 
     # Delete the current job
     _resetJob: =>
