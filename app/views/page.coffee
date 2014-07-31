@@ -2,7 +2,7 @@ module.exports = class PageView extends Backbone.View
     tagName: "section"
     className: "page"
 
-    title: "Appstruction"
+    title: "Concrete Estimator"
     text: null
     subView: null
 

@@ -88,7 +88,7 @@ module.exports = class Application extends Backbone.Router
         unless @_pages["home"]?
             @_pages["home"] = new PageView
                 id: "home"
-                title: "Appstruction"
+                title: "Concrete Estimator"
                 text:
                     id: "start"
                     content: ""
