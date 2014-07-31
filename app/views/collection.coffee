@@ -49,6 +49,7 @@ module.exports = class CollectionView extends BaseView
 
     # Event callback to add a view when a model is added to the collection
     add: (model) =>
+        model.index = @_children.length
         child = new @child
             model: model
             modelType: @modelType

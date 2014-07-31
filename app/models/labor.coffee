@@ -16,7 +16,7 @@ module.exports = class LaborModel extends BaseModel
             name: "labor_type"
             show: true
             optionsType: 'labor_type_options'
-            append: '<hr />'
+            append: '<br />'
             fieldHelp: true
             fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,

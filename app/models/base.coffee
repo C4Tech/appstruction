@@ -3,6 +3,7 @@ ChoicesSingleton = require "models/choices"
 module.exports = class BaseModel extends Backbone.Model
     fields: []
     cost: 0
+    index: 0
 
     check:
         number: (value, label, required) ->

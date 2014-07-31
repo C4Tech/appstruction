@@ -14,7 +14,7 @@ module.exports = class MaterialModel extends BaseModel
             name: "material_type"
             show: true
             optionsType: 'material_type_options'
-            append: '<hr />'
+            append: '<br />'
             fieldHelp: true
             fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
         ,

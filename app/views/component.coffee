@@ -39,6 +39,7 @@ module.exports = class ComponentView extends BaseView
             cid: @model.cid
             cost: @model.calculate().toFixed(2) if @model.calculate?
             fields: @model.getFields(@showAll)
+            index: @model.index
 
         # Apply select2 widget for fields accepting user-created options
         for field in @model.fields
