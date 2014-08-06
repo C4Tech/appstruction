@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd build
+cordova platform add android
+cordova build

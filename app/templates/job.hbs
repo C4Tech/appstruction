@@ -1,0 +1,14 @@
+<h2>{{row.title}}</h2>
+
+{{#each row}}
+    {{#if overview}}
+        <div class="field {{../routeType}} {{name}} text-info"><strong>{{placeholder}}</strong>: {{value}}</div>
+    {{/if}}
+{{/each}}
+
+<div class="{{routeType}} text-success">
+    <strong>Cost: $<span class="{{routeType}} cost">{{cost}}</span></strong>
+</div>
+
+<div class="job items panel-group"></div>
+

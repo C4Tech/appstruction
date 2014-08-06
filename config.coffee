@@ -1,15 +1,24 @@
 exports.config =
   plugins:
-    sass:
-      debug: 'comments'
+    coffeelint:
+      pattern: /^app\/.*\.coffee$/
+
+  paths:
+    public: "build/www"
+
   files:
     javascripts:
       joinTo:
-        'javascripts/app.js': /^app/
-        'javascripts/vendor.js': /^(bower_components)/
+        "js/app.js": /^app/
+        "js/vendor.js": /^(bower_components|vendor)/
     stylesheets:
       joinTo:
-        'stylesheets/app.css': /^(app|bower_components)/
-    templates:
-      joinTo: 'javascripts/app.js'
+        "css/app.css": /^app/
+        "css/vendor.css": /^(bower_components|vendor)/
+      order:
+        after: [
+          "app/styles/cole.less"
+        ]
 
+    templates:
+      joinTo: "js/app.js"

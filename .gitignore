@@ -22,7 +22,9 @@ Thumbs.db
 
 # Project specific
 npm-debug.log
-node_modules/
-tmp/
-build/web/
-bower_components/
+/node_modules
+/bower_components
+/tmp
+/build/www
+/build/test
+/build/platforms

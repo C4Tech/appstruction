@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./compile-html
+./compile-cordova

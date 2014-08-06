@@ -1,0 +1,20 @@
+<fieldset class="form-group">
+    <label for="browse-jobs" class="lead">Browse Jobs</label>
+    <select id="browse-jobs" name="browse-jobs" class="field type form-control">
+        <option></option>
+        {{#each job_groups}}
+            <optgroup label="Group: {{group.name}}">
+                {{#each jobs}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </optgroup>
+        {{/each}}
+    </select>
+</fieldset>
+
+<br />
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-6">
+        <button id="browse-button" class="btn btn-default next ccma-navigate form-control" data-path="" role="button">Load Estimate</button>
+    </div>
+</div>
