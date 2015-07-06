@@ -53,5 +53,8 @@
         "select2": "~3.4.5"
       }
     }
+  },
+  "resolutions": {
+    "backbone": "~1.1"
   }
 }
