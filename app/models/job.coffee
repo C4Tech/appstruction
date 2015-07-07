@@ -1,81 +1,87 @@
 BaseModel = require "models/base"
+Choices = require "models/choices"
 ConcreteModel = require "models/concrete"
+EquipmentModel = require "models/equipment"
+JobCollection = require "models/job-collection"
 LaborModel = require "models/labor"
 MaterialModel = require "models/material"
-EquipmentModel = require "models/equipment"
 SubcontractorModel = require "models/subcontractor"
-JobCollection = require "models/job-collection"
-ChoicesSingleton = require "models/choices"
 
 module.exports = class JobModel extends BaseModel
-    localStorage: new Backbone.LocalStorage "cole-job"
-    url: "jobs"
-    cid: null
+  localStorage: new Backbone.LocalStorage "cole-job"
+  url: "jobs"
+  cid: null
 
-    fields: [
-            fieldType: "hidden"
-            name: "group_id"
-            label: "Group Name"
-            optionsType: "group_name_options"
-            show: true
-            append: '<br />'
-        ,
-            fieldType: "text"
-            name: 'job_name'
-            label: 'Job Name'
-            show: true
-        ,
-            fieldType: "hidden"
-            name: "job_type"
-            label: "What type of job"
-            optionsType: 'job_type_options'
-            show: true
-            append: '<br />'
-            fieldHelp: true
-            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
-        ,
-            fieldType: "number"
-            name: "profit_margin"
-            label: "Profit Margin"
-            show: false
-            required: false
-            overview: true
-    ]
+  fields: [
+      fieldType: "hidden"
+      name: "groupId"
+      label: "Group Name"
+      optionsType: "groupNameOptions"
+      show: true
+      append: "<br />"
+    ,
+      fieldType: "text"
+      name: "jobName"
+      label: "Job Name"
+      show: true
+    ,
+      fieldType: "hidden"
+      name: "jobType"
+      label: "What type of job"
+      optionsType: "jobTypeOptions"
+      show: true
+      append: "<br />"
+      fieldHelp: true
+      fieldHelpValue: Choices.getHelp "dynamicDropdown"
+    ,
+      fieldType: "number"
+      name: "profitMargin"
+      label: "Profit Margin"
+      show: false
+      required: false
+      overview: true
+  ]
 
-    initialize: ->
-        @attributes.cid = @cid
-        super
+  initialize: ->
+    @attributes.cid = @cid
+    super
 
-    defaults: ->
-        data =
-            job_name: null
-            profit_margin: null
-            job_type: null
-            group_id: null
+  defaults: ->
+    data =
+      jobName: null
+      profitMargin: null
+      jobType: null
+      groupId: null
 
-        @parse data
+    @parse data
 
-    parse: (data) ->
-        for collection in ChoicesSingleton.get('job_routes')
-            saved = if data[collection]? then data[collection] else false
-            data[collection] = @_inflateCollection collection, saved
-        data
+  parse: (data) ->
+    types = Choices.get "jobRoutes"
+    data[type] = @inflate type, data[type] for type in types
+    data
 
-    _inflateCollection: (modelType, data) ->
-        model = switch modelType
-            when "concrete" then ConcreteModel
-            when "labor" then LaborModel
-            when "materials" then MaterialModel
-            when "equipment" then EquipmentModel
-            when "subcontractor" then SubcontractorModel
-        new JobCollection data, {
-                model: model
-                modelType: modelType
-            }
+  inflate: (type, data) ->
+    model = switch type
+      when "concrete" then ConcreteModel
+      when "labor" then LaborModel
+      when "materials" then MaterialModel
+      when "equipment" then EquipmentModel
+      when "subcontractor" then SubcontractorModel
 
-    calculate: ->
-        @cost = @attributes.concrete.calculate() + @attributes.labor.calculate() + @attributes.materials.calculate() + @attributes.equipment.calculate() + @attributes.subcontractor.calculate()
+    new JobCollection data,
+      model: model
+      modelType: type
 
-        if @cost
-            console.log "Job total: #{@attributes.concrete.cost} + #{@attributes.labor.cost} + #{@attributes.materials.cost} + #{@attributes.equipment.cost} + #{@attributes.subcontractor.cost} = #{@cost}"
-        @cost
+  calculate: ->
+    @cost = @attributes.concrete.calculate()
+    @cost += @attributes.labor.calculate()
+    @cost += @attributes.materials.calculate()
+    @cost += @attributes.equipment.calculate()
+    @cost += @attributes.subcontractor.calculate()
+
+    console.log "Job total: #{@attributes.concrete.cost} +
+      #{@attributes.labor.cost} + #{@attributes.materials.cost} +
+      #{@attributes.equipment.cost} + #{@attributes.subcontractor.cost}
+      = #{@cost}"
+
+    @cost

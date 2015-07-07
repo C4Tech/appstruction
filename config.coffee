@@ -2,9 +2,16 @@ exports.config =
   plugins:
     coffeelint:
       pattern: /^app\/.*\.coffee$/
-
+      options:
+        ensure_comprehensions:
+          level: "ignore"
+    postcss:
+      processors: [
+        require("autoprefixer") ["android >= 4"]
+        require "csswring"
+      ]
   paths:
-    public: "build/www"
+    public: "www"
 
   files:
     javascripts:

@@ -1,36 +1,36 @@
-module.exports = class ConvertModel extends Backbone.Model
-    to_hours: (value, units) ->
-        value = value || 0
-        units = units || 'hour'
+class ConvertModel extends Backbone.Model
+  # Assuming
+  # - 8 hour day
+  hoursInDay: 8
+  # - 40 hour week
+  daysInWeek: 5
+  # - 160 hour month
+  weeksInMonth: 4
 
-        # Assuming
-        # - 8 hour day
-        # - 40 hour week
-        # - 160 hour month
+  getScale: (units) ->
+    units = units or "hour"
+    conversion = 1
 
-        if units == 'hour'
-            conversion = 1
-        else if units == 'day'
-            conversion = 8
-        else if units == 'week'
-            conversion = 40
-        else if units == 'month'
-            conversion = 160
+    conversion *= @hoursInDay unless units is "hour"
+    conversion *= @daysInWeek if units is "week" or units is "month"
+    conversion *= @weeksInMonth if units is "month"
 
-        return value * conversion
+    conversion
 
-    to_per_hour: (value, units) ->
-        value = value || 0
-        units = units || 'hour'
+  normalize: (value, units) ->
+    value = value or 0
+    units = @getScale units
 
-        # Convert to per hour
-        if units == 'hour'
-            conversion = 1
-        else if units == 'day'
-            conversion = 8
-        else if units == 'week'
-            conversion = 40
-        else if units == 'month'
-            conversion = 160
+    [value, units]
 
-        return value / conversion
+  toHours: (value, units) ->
+    [value, units] = normalize value, units
+
+    value * units
+
+  toPerHour: (value, units) ->
+    [value, units] = normalize value, units
+
+    value / conversion
+
+module.exports = new ConvertModel

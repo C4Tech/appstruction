@@ -1,37 +1,37 @@
 <div class="panel panel-overview">
-    <div class="panel-heading">
-        <a class="panel-heading-link" data-toggle="collapse" data-parent="#job-accordion" href="#{{routeType}}-{{modelType}}">
-            <div class="row">
-                <div class="col-xs-10">
-                    <h4 class="panel-title capitalize">
-                        {{title}}
-                    </h4>
-                </div>
-                {{#if title}}
-                    <div class="col-xs-2 pull-right">
-                        <i class="fa fa-arrow-down"></i>
-                    </div>
-                {{/if}}
-            </div>
-        </a>
-    </div>
-
-    <div id="{{routeType}}-{{modelType}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-6 {{modelType}} text-overview lead">
-                    Cost: $<span class="{{modelType}} cost">{{cost}}</span>
-                </div>
-                {{#if title}}
-                    <div class="col-xs-6">
-                        <button class="btn btn-primary pull-right btn-overview-edit ccma-navigate" data-path="edit.{{modelType}}">
-                            <i class="fa fa-edit"></i> Edit
-                        </button>
-                    </div>
-                {{/if}}
-            </div>
-
-            <ul class="{{modelType}} items list-group"></ul>
+  <div class="panel-heading">
+    <a class="panel-heading-link" data-toggle="collapse" data-parent="#job-accordion" href="#{{routeType}}-{{modelType}}">
+      <div class="row">
+        <div class="col-xs-10">
+          <h4 class="panel-title capitalize">
+            {{title}}
+          </h4>
         </div>
+        {{#if title}}
+          <div class="col-xs-2 pull-right">
+            <i class="fa fa-arrow-down"></i>
+          </div>
+        {{/if}}
+      </div>
+    </a>
+  </div>
+
+  <div id="{{routeType}}-{{modelType}}" class="panel-collapse collapse {{#unless title}}in{{/unless}}">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-6 {{modelType}} text-overview lead">
+          Cost: $<span class="{{modelType}} cost">{{cost}}</span>
+        </div>
+        {{#if title}}
+          <div class="col-xs-6">
+            <button class="btn btn-primary pull-right btn-overview-edit ccma-navigate" data-path="edit.{{modelType}}">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        {{/if}}
+      </div>
+
+      <ul class="{{modelType}} items list-group"></ul>
     </div>
+  </div>
 </div>

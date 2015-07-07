@@ -1,29 +1,29 @@
 <fieldset class="form-group">
-    <div class="input-group">
-        <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="profit_margin" class="job field form-control" value="{{row.margin}}" />
-        <span class="input-group-addon">%</span>
-    </div>
-    <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" data-original="{{cost}}" />
+  <div class="input-group">
+    <input type="number" placeholder="Profit Margin" id="job-profit-margin" name="profit_margin" class="job field form-control" value="{{row.margin}}" />
+    <span class="input-group-addon">%</span>
+  </div>
+  <input type="number" placeholder="Subtotal" id="job-subtotal" name="subtotal" class="job field form-control" value="{{cost}}" data-original="{{cost}}" />
 </fieldset>
 
 <div class="row">
-    <div class="col-xs-12 lead">
-        <strong>
-            Job details
-        </strong>
-        <span class="field-help" data-help="View the details of your job below. You may edit any line item once you expand it. You can also Start Over or Save below, and you can email the estimate or save a PDF to your mobile device by using the buttons on the top right of this screen.">
-            <i class="fa fa-question-circle"></i>
-        </span>
-    </div>
+  <div class="col-xs-12 lead">
+    <strong>
+      Job details
+    </strong>
+    <span class="field-help" data-help="View the details of your job below. You may edit any line item once you expand it. You can also Start Over or Save below, and you can email the estimate or save a PDF to your mobile device by using the buttons on the top right of this screen.">
+      <i class="fa fa-question-circle"></i>
+    </span>
+  </div>
 </div>
 
 <div id="job-accordion" class="job items panel-group"></div>
 
 <div class="row">
-    <div class="col-xs-6">
-        <button class="btn btn-primary job reset ccma-navigate form-control" data-path="create">Start Over</button>
-    </div>
-    <div class="col-xs-6">
-        <button class="btn btn-success job save form-control" data-path="home">Save</button>
-    </div>
+  <div class="col-xs-6">
+    <button class="btn btn-primary job reset ccma-navigate form-control" data-path="create">Start Over</button>
+  </div>
+  <div class="col-xs-6">
+    <button class="btn btn-success job save form-control" data-path="home">Save</button>
+  </div>
 </div>

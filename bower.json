@@ -1,60 +1,20 @@
 {
-  "name": "cole-cement",
-  "version": "0.1",
-  "description": "Cole construction app",
+  "name": "appstruction",
+  "description": "Estimate cement pouring jobs with ease.",
+  "version": "1.0.0",
   "dependencies": {
-    "jquery": "~2.1",
-    "underscore": "~1.6",
-    "backbone": "~1.1",
+    "backbone": "^1.2.0",
     "backbone.localstorage": "~1.1",
-    "hammerjs": "~1.0",
-    "jquery-hammerjs": "~1.0",
-    "font-awesome": "~4.1",
-    "bootstrap": "~3.1",
-    "select2": "~3.4.5",
-    "select2-bootstrap-css": "~1.3.0",
-    "js-quantities": "~1.3.0",
-    "bootbox": "~4.2.0",
-    "jspdf": "~1.0.178"
-  },
-  "overrides": {
-    "backbone": {
-      "main": [
-        "backbone.js"
-      ],
-      "dependencies": {
-        "underscore": "~1.6",
-        "jquery": "~2.1"
-      }
-    },
-    "underscore": {
-      "main": [
-        "underscore.js"
-      ]
-    },
-    "backbone.localstorage": {
-      "main": [
-        "backbone.localStorage.js"
-      ],
-      "dependencies": {
-        "backbone": "~1.1"
-      }
-    },
-    "font-awesome": {
-      "main": [
-        "css/font-awesome.css"
-      ]
-    },
-    "select2-bootstrap-css": {
-      "main": [
-        "select2-bootstrap.css"
-      ],
-      "dependencies": {
-        "select2": "~3.4.5"
-      }
-    }
-  },
-  "resolutions": {
-    "backbone": "~1.1"
+    "bootbox": "^4.4.0",
+    "bootstrap": "^3.3.0",
+    "font-awesome": "^4.3.0",
+    "hammerjs": "^2.0.0",
+    "jquery": "^2.1.0",
+    "jquery-hammerjs": "^2.0.0",
+    "js-quantities": "^1.5.0",
+    "jspdf": "^1.1.0",
+    "select2": "^3.5.0",
+    "select2-bootstrap-css": "^1.4.0",
+    "underscore": "^1.8.0"
   }
 }

@@ -1,4 +1,4 @@
 application = require "application"
 
 $ ->
-    Backbone.history.start()
+  Backbone.history.start()

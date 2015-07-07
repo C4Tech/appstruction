@@ -1,29 +1,29 @@
 ComponentView = require "views/component"
 
 module.exports = class ComponentListView extends ComponentView
-    tagName: "li"
+  tagName: "li"
 
-    initialize: (opts) ->
-        @showAll = true
+  initialize: (opts) ->
+    @showAll = true
 
-        super opts
+    super opts
 
-        # Set template
-        @template = require "templates/component.list"
+    # Set template
+    @template = require "templates/component.list"
 
-        # Add attributes
-        @className = "#{@routeType} #{@routeType}-list #{@routeType}-list-item list-group-item"
+    # Add attributes
+    @className = "#{@routeType} #{@routeType}-list #{@routeType}-list-item list-group-item"
 
-        # Re-create the element name
-        @setName()
+    # Re-create the element name
+    @setName()
 
-        # Return nothing
-        null
+    # Return nothing
+    null
 
-    render: ->
-        # Set the HTML
-        @$el.html @template
-            overview_items: @model.overview()
+  render: ->
+    # Set the HTML
+    @$el.html @template
+      overview_items: @model.overview()
 
-        # Return this
-        @
+    # Return this
+    @

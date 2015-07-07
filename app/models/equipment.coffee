@@ -1,106 +1,95 @@
 BaseModel = require "models/base"
-ChoicesSingleton = require "models/choices"
-ConvertModel = require "models/convert"
+Choices = require "models/choices"
+convert = require "models/convert"
 
 module.exports = class EquipmentModel extends BaseModel
-    defaults:
-        "equipment_time": null
-        "equipment_type": null
-        "quantity": null
-        "rate": null
-        "rate_units": null
+  defaults:
+    equipmentTime: null
+    equipmentType: null
+    quantity: null
+    rate: null
+    rateUnits: null
 
-    fields: [
-            fieldType: "hidden"
-            label: "Equipment Type"
-            name: "equipment_type"
-            show: true
-            optionsType: 'equipment_type_options'
-            append: '<br />'
-            fieldHelp: true
-            fieldHelpValue: ChoicesSingleton.getHelp('dynamicDropdown')
-        ,
-            fieldType: "number"
-            label: "How many"
-            name: "quantity"
-            show: true
-        ,
-            fieldType: "number"
-            label: "How long"
-            name: "equipment_time"
-            show: true
-        ,
-            fieldType: "number"
-            label: "What rate"
-            name: "rate"
-            show: true
-            hasSiblingField: true
-        ,
-            fieldType: "select"
-            placeholder: "Unit"
-            name: "rate_units"
-            show: true
-            fieldTypeSelect: true
-            optionsType: 'time_per_options'
-    ]
+  fields: [
+      fieldType: "hidden"
+      label: "Equipment Type"
+      name: "equipmentType"
+      show: true
+      optionsType: "equipmentTypeOptions"
+      append: "<br />"
+      fieldHelp: true
+      fieldHelpValue: Choices.getHelp "dynamicDropdown"
+    ,
+      fieldType: "number"
+      label: "How many"
+      name: "quantity"
+      show: true
+    ,
+      fieldType: "number"
+      label: "How long"
+      name: "equipmentTime"
+      show: true
+    ,
+      fieldType: "number"
+      label: "What rate"
+      name: "rate"
+      show: true
+      hasSiblingField: true
+    ,
+      fieldType: "select"
+      placeholder: "Unit"
+      name: "rateUnits"
+      show: true
+      fieldTypeSelect: true
+      optionsType: "timePerOptions"
+  ]
 
-    initialize: ->
-        super
+  initialize: ->
+    super
 
-    calculate: ->
-        equipment_type = @attributes.equipment_type ? ''
+  calculate: ->
+    equipmentType = @attributes.equipmentType or ""
 
-        convert = new ConvertModel
+    time = convert.toHours @attributes.equipmentTime, @attributes.rateUnits
+    rate = convert.toPerHour @attributes.rate, @attributes.rateUnits
+    quantity = @attributes.quantity or 0
+    @cost = time * rate * quantity
 
-        time = convert.to_hours @attributes.equipment_time, @attributes.rate_units
-        rate = convert.to_per_hour @attributes.rate, @attributes.rate_units
+    console.log "equipment row (#{equipmentType}) ##{@cid}:
+      #{time} (#{@attributes.rateUnits}) x #{quantity} (quantity)
+      @ $#{rate} (#{@attributes.rateUnits}) = #{@cost}"
 
-        quantity = @attributes.quantity ? 0
+    @cost
 
-        @cost = time * rate * quantity
-        console.log "equipment row (#{equipment_type}) ##{@cid}: #{time} (#{@attributes.rate_units}) x #{quantity} (quantity) @ $#{rate} (#{@attributes.rate_units}) = #{@cost}"
-        @cost
+  overview: ->
+    noEquipment = ["No equipment"]
 
-    overview: ->
-        no_equipment = ['No equipment']
-        equipment_type_display = ChoicesSingleton.get 'equipment_type_options_display'
-        time_options_display = ChoicesSingleton.get 'time_options_display'
+    quantity = parseFloat @attributes.quantity or 0
+    noEquipment if isNaN(quantity) or quantity is 0
+    quantity = Math.round(quantity * 100) / 100
 
-        equipment_type_key = @attributes.equipment_type ? 'dump truck'
-        equipment_time = parseFloat(@attributes.equipment_time) ? 0
-        rate_key = @attributes.rate_units ? 'hour'
+    time = parseFloat @attributes.equipmentTime or 0
+    noEquipment if isNaN(time) or time is 0
+    time = Math.round(time * 100) / 100
 
-        quantity = parseFloat(@attributes.quantity) ? 0
-        equipment_time = parseFloat(@attributes.equipment_time) ? 0
-        rate = parseFloat(@attributes.rate) ? 0
+    rate = parseFloat(@attributes.rate) or 0
+    noEquipment if isNaN(rate) or rate is 0
 
-        if isNaN(quantity) or quantity == 0
-            return no_equipment
-        else if isNaN(equipment_time) or equipment_time == 0
-            return no_equipment
-        else if isNaN(rate) or rate == 0
-            return no_equipment
+    typeNoun = "plural"
+    typeNoun = "singular" if quantity is 1
+    typeDisplay = Choices.get "equipmentTypeOptionsDisplay"
+    typeKey = @attributes.equipmentType or "dump truck"
+    type = typeDisplay[typeNoun][typeKey]
+    type = Choices.getTextById "equipmentTypeOptions", typeKey unless type?
+    type = type.toLowerCase()
 
-        # round values to no more than 2 decimals
-        quantity = Math.round(quantity * 100) / 100
-        equipment_time = Math.round(equipment_time * 100) / 100
+    rateKey = @attributes.rateUnits or "hour"
 
-        noun_type = 'singular'
-        if quantity > 1
-            noun_type = 'plural'
-        equipment_type = equipment_type_display[noun_type][equipment_type_key]
-        unless equipment_type?
-            equipment_type= ChoicesSingleton.getTextById('equipment_type_options', equipment_type_key).toLowerCase()
+    timeNoun = "plural"
+    timeNoun = "singular" if time is 1
+    timeOptionsDisplay = Choices.get "timeOptionsDisplay"
+    timeUnit = timeOptionsDisplay[timeNoun][rateKey]
 
-        noun_type = 'singular'
-        if equipment_time > 1
-            noun_type = 'plural'
-        equipment_time_unit = time_options_display[noun_type][rate_key]
+    rateUnit = timeOptionsDisplay["singular"][rateKey]
 
-        rate_unit = time_options_display['singular'][rate_key]
-
-        equipment_item = "#{quantity} #{equipment_type} for #{equipment_time} #{equipment_time_unit} @ $#{rate}/#{rate_unit}"
-
-        return [
-            equipment_item,
-        ]
+    ["#{quantity} #{type} for #{time} #{timeUnit} @ $#{rate}/#{rateUnit}"]
