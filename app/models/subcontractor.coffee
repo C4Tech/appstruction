@@ -2,18 +2,18 @@ BaseModel = require "models/base"
 
 module.exports = class SubcontractorModel extends BaseModel
   defaults:
-    "scope_of_work": null
-    "contractor_amount": null
+    scopeOfWork: null
+    contractorAmount: null
 
   fields: [
       fieldType: "text"
-      name: 'scope_of_work'
-      label: 'Scope of Work'
+      name: "scopeOfWork"
+      label: "Scope of Work"
       show: true
     ,
       fieldType: "number"
-      name: "contractor_amount"
-      label: 'Contractor Amount'
+      name: "contractorAmount"
+      label: "Contractor Amount"
       show: true
   ]
 
@@ -21,22 +21,14 @@ module.exports = class SubcontractorModel extends BaseModel
     super
 
   calculate: ->
-    scope_of_work = @attributes.scope_of_work ? ''
-    @cost = @attributes.contractor_amount ? 0
-    @cost = parseFloat(@cost)
-    console.log "subcontractor row (#{scope_of_work}) ##{@cid}: cost #{@cost}"
+    @cost = parseFloat @attributes.contractorAmount or 0
+    @cost = @cost.toFixed 2 if @numberValid @cost
+    console.log "subcontractor row (#{@attributes.scopeOfWork}) ##{@cid}:
+      cost #{@cost}"
+
     @cost
 
   overview: ->
-    no_subcontractor = ['No subcontractor']
-    scope_of_work = @attributes.scope_of_work ? ''
-    contractor_amount = parseFloat(@attributes.contractor_amount) ? 0
+    ["No subcontractor"] unless @numberValid @cost
 
-    if isNaN(contractor_amount) or contractor_amount == 0
-      return no_subcontractor
-
-    subcontractor_item = "#{scope_of_work}: $#{contractor_amount.toFixed(2)}"
-
-    return [
-      subcontractor_item,
-    ]
+    ["#{@attributes.scopeOfWork}: $#{@cost}"]

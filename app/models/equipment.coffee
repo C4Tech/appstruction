@@ -48,48 +48,35 @@ module.exports = class EquipmentModel extends BaseModel
     super
 
   calculate: ->
-    equipmentType = @attributes.equipmentType or ""
+    type = @attributes.equipmentType or ""
 
     time = convert.toHours @attributes.equipmentTime, @attributes.rateUnits
     rate = convert.toPerHour @attributes.rate, @attributes.rateUnits
     quantity = @attributes.quantity or 0
     @cost = time * rate * quantity
 
-    console.log "equipment row (#{equipmentType}) ##{@cid}:
+    console.log "equipment row (#{type}) ##{@cid}:
       #{time} (#{@attributes.rateUnits}) x #{quantity} (quantity)
       @ $#{rate} (#{@attributes.rateUnits}) = #{@cost}"
 
     @cost
 
   overview: ->
-    noEquipment = ["No equipment"]
+    quantity = parseFloat @attributes.quantity
+    time = parseFloat @attributes.equipmentTime
+    rate = parseFloat @attributes.rate
 
-    quantity = parseFloat @attributes.quantity or 0
-    noEquipment if isNaN(quantity) or quantity is 0
-    quantity = Math.round(quantity * 100) / 100
+    ["No equipment"] unless @numberValid quantity, time, rate
 
-    time = parseFloat @attributes.equipmentTime or 0
-    noEquipment if isNaN(time) or time is 0
-    time = Math.round(time * 100) / 100
+    quantity = @round quantity
+    time = @round time
+    rate = @round rate
 
-    rate = parseFloat(@attributes.rate) or 0
-    noEquipment if isNaN(rate) or rate is 0
-
-    typeNoun = "plural"
-    typeNoun = "singular" if quantity is 1
-    typeDisplay = Choices.get "equipmentTypeOptionsDisplay"
     typeKey = @attributes.equipmentType or "dump truck"
-    type = typeDisplay[typeNoun][typeKey]
-    type = Choices.getTextById "equipmentTypeOptions", typeKey unless type?
-    type = type.toLowerCase()
+    type = Choices.getLabelFor typeKey, quantity, "equipmentTypeOptions"
 
     rateKey = @attributes.rateUnits or "hour"
-
-    timeNoun = "plural"
-    timeNoun = "singular" if time is 1
-    timeOptionsDisplay = Choices.get "timeOptionsDisplay"
-    timeUnit = timeOptionsDisplay[timeNoun][rateKey]
-
-    rateUnit = timeOptionsDisplay["singular"][rateKey]
+    timeUnit = Choices.getLabelFor rateKey, quantity, "timeOptions"
+    rateUnit = Choices.getLabelFor rateKey, 1, "timeOptions"
 
     ["#{quantity} #{type} for #{time} #{timeUnit} @ $#{rate}/#{rateUnit}"]

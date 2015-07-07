@@ -8,15 +8,18 @@ module.exports = class BaseModel extends Backbone.Model
   index: 0
 
   check:
-    number: (value, label, required) ->
+    required: (value, label) ->
       result = false
+      result = "You must enter a #{label}" unless value?
+      result = "You must enter a #{label}" if value is ""
+      result
 
+    number: (value, label, required) ->
       # add double quotes around label
       label = "\"#{label}\""
+      result = false
 
-      if required
-        result = "You must enter a #{label}" unless value?
-        result = "You must enter a #{label}" if value is ""
+      result = @check.required value, label if required
 
       if value?
         result = "#{label} must be a number" if isNaN value
@@ -26,16 +29,12 @@ module.exports = class BaseModel extends Backbone.Model
 
     text: (value, label, required) ->
       result = false
-      if required
-        result = "You must enter a #{label}" unless value?
-        result = "You must enter a #{label}" if value is ""
+      result = @check.required value, label if required
       result
 
     select: (value, label, required) ->
       result = false
-      if required
-        result = "You must select a #{label}" unless value?
-        result = "You must select a #{label}" if value is ""
+      result = @check.required value, label if required
 
       if value?
         result = "You must select a #{label}" if value < 0
@@ -82,3 +81,10 @@ module.exports = class BaseModel extends Backbone.Model
   _setValue: (item, value) ->
     value = if parseInt(item.id) is parseInt(value) then item.text else value
     value
+
+  numberValid: (numbers...) ->
+    false for number in numbers when number is 0 or isNaN number
+    true
+
+  round: (number) ->
+    Math.round(number * 100) / 100

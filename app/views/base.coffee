@@ -1,3 +1,5 @@
+# Backbone = require "backbone"
+
 module.exports = class BaseView extends Backbone.View
   routeType: null
   self: null

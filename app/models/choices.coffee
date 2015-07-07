@@ -227,19 +227,19 @@ class ChoicesModel extends Backbone.Model
 
     priceOptions: [
         id: "in"
-        text: "Per Cubic Inch"
+        text: "Cubic Inch"
       ,
         id: "ft"
-        text: "Per Cubic Foot"
+        text: "Cubic Foot"
       ,
         id: "yd"
-        text: "Per Cubic Yard"
+        text: "Cubic Yard"
       ,
         id: "cm"
-        text: "Per Cubic Centimeter"
+        text: "Cubic Centimeter"
       ,
         id: "m"
-        text: "Per Cubic Meter"
+        text: "Cubic Meter"
     ]
 
     priceOptionsDisplay:
@@ -300,10 +300,32 @@ class ChoicesModel extends Backbone.Model
     helpOptions = @.get "helpOptions"
     helpOptions[key] if key of helpOptions
 
+  getLabelFor: (id, count, option, lowercase = true, displayOption) ->
+    displayOption = "#{option}Display" unless displayOption
+
+    display = @get displayOption
+    type = @getDisplay id, count, displayOption
+
+    unless type
+      type = @getTextById option, id
+      type = type.toLowerCase() if lowercase
+
+    type
+
+  getDisplay: (id, count, option) ->
+    noun = "plural"
+    noun = "singular" if count is 1
+    display = @get option
+
+    display[noun][id] or false
+
   getTextById: (optionsName, id) ->
+    text = ""
     options = @get optionsName
     itemFound = item for item in options when item.id is id
-    itemFound.text if itemFound?
+    text = itemFound.text if itemFound?
+    text = text.toLowerCase() if lowercase
+    text
 
   filterMatchId: (match) ->
     (item) ->

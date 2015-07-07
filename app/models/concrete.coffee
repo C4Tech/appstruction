@@ -3,6 +3,7 @@ Choices = require "models/choices"
 # Qty = require "js-quantities"
 
 module.exports = class ConcreteModel extends BaseModel
+  defaultUnit: "ft"
   defaults:
     type: null
     quantity: null
@@ -23,7 +24,7 @@ module.exports = class ConcreteModel extends BaseModel
       label: "What item"
       name: "type"
       show: true
-      optionsType: "typeOptions"
+      optionsType: "concreteTypeOptions"
       append: "<br />"
       fieldHelp: true
       fieldHelpValue: Choices.getHelp "dynamicDropdown"
@@ -107,67 +108,52 @@ module.exports = class ConcreteModel extends BaseModel
   initialize: ->
     super
 
+  normalize: (measure = 0, unit = @defaultUnit, toUnit = @defaultUnit) ->
+    Qty(measure + " " + unit).to toUnit
+
+  setVolume: (depth, length, width, quantity = 0) ->
+    volume = depth.mul(length).mul(width).scalar
+    @volume = @round volume * quantity
+    @volume
+
+  setPrice: (price = 0, tax = 0) ->
+    cost = @volume * price
+    tax /= 100
+    cost += cost * tax
+    @cost = cost.toFixed 2
+    @cost
+
   calculate: ->
-    depthUnits = @attributes.depthUnits or "ft"
-    depthValue = @attributes.depth or 0
-    depth = Qty(depthValue + " " + depthUnits).to priceUnits
-
-    lengthUnits = @attributes.lengthUnits or "ft"
-    lengthValue = @attributes.length or 0
-    length = Qty(lengthValue + " " + lengthUnits).to priceUnits
-
-    widthUnits = @attributes.widthUnits or "ft"
-    widthValue = @attributes.width or 0
-    width = Qty(widthValue + " " + widthUnits).to priceUnits
-
-    @volume = depth.mul(length).mul(width).scalar
-    quantity = @attributes.quantity or 0
-    @volume = @volume * quantity
-
-    priceUnits = @attributes.priceUnits or "ft"
-    priceValue = @attributes.price or 0
-    @cost = @volume * priceValue
-
-    taxUnits = @attributes.tax or 0
-    taxValue = taxUnits / 100
-    tax = @cost * taxValue
-
-    @cost += tax
+    priceUnits = @attributes.priceUnits or @defaultUnit
     type = @attributes.concreteType or ""
+    depth = @normalize @attributes.depth, @attributes.depthUnits, priceUnits
+    length = @normalize @attributes.length, @attributes.lengthUnits, priceUnits
+    width = @normalize @attributes.width, @attributes.widthUnits, priceUnits
+
+    @setVolume depth, length, width, @attributes.quantity
+    @setPrice @attributes.price, @attributes.tax
+
     console.log "concrete row (#{type}) ##{@cid}:
-      #{depth} (d) * #{width} (w) x #{length} (h) x #{quantity}
-      @ $#{priceValue} + #{taxUnits} tax = #{@cost}"
+      #{depth} (d) * #{width} (w) x #{length} (h) x #{@attributes.quantity}
+      @ $#{@attributes.price} + #{@attributes.tax}% tax = #{@cost}"
 
     @cost
 
   overview: ->
-    noConcrete = ["No concrete"]
-    priceValue = parseFloat @attributes.price or 0
-    noConcrete if isNaN(priceValue) or priceValue is 0
+    value = parseFloat @attributes.price or 0
+    ["No concrete"] unless @numberValid value, @volume
 
-    priceOptionsDisplay = Choices.get "priceOptionsDisplay"
-    priceUnitsKey = @attributes.priceUnits or "ft"
-
-    noConcrete if isNaN(@volume) or @volume is 0
-    volumeNoun = "plural"
-    volumeNoun = "singular"  if @volume is 1
-    volumeUnits = priceOptionsDisplay[volumeNoun][priceUnitsKey]
-    volumeRounded = Math.round(@volume * 100) / 100
-    volume = "#{volumeRounded} #{volumeUnits} of concrete"
-
+    key = @attributes.type or "1"
+    type = Choices.getLabelFor key, quantity, "concreteTypeOptions"
     quantity = @attributes.quantity or 0
 
-    typeNoun = "plural"
-    typeNoun = "singular" if quantity is 1
-    typeKey = @attributes.type or "1"
-    typeDisplay = Choices.get "typeOptionsDisplay"
-    type = typeDisplay[typeNoun][typeKey]
-    type = Choices.getTextById "typeOptions", typeKey unless type?
-    type = type.toLowerCase()
+    priceUnits = @attributes.priceUnits or @defaultUnit
+    units = Choices.getLabelFor priceUnits, @volume, "priceOptions"
+    unit = Choices.getLabelFor priceUnits, 1, "priceOptions"
 
-    priceUnits = priceOptionsDisplay.singular[priceUnitsKey]
-    concrete = "Items: #{quantity} #{type}"
-    price = "$#{priceValue.toFixed(2)} per #{priceUnits}"
-    total = "Total price: $#{@cost.toFixed(2)}"
-
-    [concrete, volume, price, total]
+    [
+      "Items: #{quantity} #{type}"
+      "#{@volume} #{units} of concrete"
+      "$#{value.toFixed(2)} per #{unit}"
+      "Total price: $#{@cost}"
+    ]

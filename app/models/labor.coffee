@@ -58,57 +58,34 @@ module.exports = class LaborModel extends BaseModel
 
   calculate: ->
     type = @attributes.laborType or ""
+    quantity = @attributes.laborersCount or 0
     time = convert.toHours @attributes.laborTime, @attributes.laborTimeUnits
     rate = convert.toPerHour @attributes.rate, @attributes.rateUnits
-    quantity = @attributes.laborersCount or 0
 
     @cost = time * rate * quantity
+
     console.log "labor row (#{type}) ##{@cid}: #{time} hours
       x #{quantity} (laborers)  @ $#{rate}/hr = #{@cost}"
 
     @cost
 
   overview: ->
-    no_labor = ["No labor"]
-    laborType_display = Choices.get "laborTypeOptions_display"
-    timeOptions_display = Choices.get "timeOptions_display"
+    quantity = parseFloat @attributes.laborersCount
+    time = parseFloat @attributes.laborTime
+    rate = parseFloat @attributes.rate
 
-    laborType_key = @attributes.laborType or "1"
-    laborTime_key = @attributes.laborTimeUnits or "hour"
-    rate_key = @attributes.rateUnits or "hour"
+    ["No labor"] unless @numberValid quantity, time, rate
 
-    laborersCount = parseFloat(@attributes.laborersCount) or 0
-    laborTime = parseFloat(@attributes.laborTime) or 0
-    rate = parseFloat(@attributes.rate) or 0
+    typeKey = @attributes.laborType or "1"
+    quantity = @round quantity
+    type = Choices.getLabelFor typeKey, quantity, "laborTypeOptions"
 
-    if isNaN(laborersCount) or laborersCount == 0
-      return no_labor
-    else if isNaN(laborTime) or laborTime == 0
-      return no_labor
-    else if isNaN(rate) or rate == 0
-      return no_labor
+    timeKey = @attributes.laborTimeUnits or "hour"
+    time = @round time
+    timeUnit = Choices.getLabelFor timeKey, time, "timeOptions"
 
-    # round values to no more than 2 decimals
-    laborersCount = Math.round(laborersCount * 100) / 100
-    laborTime = Math.round(laborTime * 100) / 100
-    rate = Math.round(rate * 100) / 100
+    rateKey = @attributes.rateUnits or "hour"
+    rate = @round rate
+    rateUnit = Choices.getLabelFor rateKey, 1, "timeOptions"
 
-    nounType = "singular"
-    if laborersCount > 1
-      nounType = "plural"
-    laborType = laborType_display[nounType][laborType_key]
-    unless laborType?
-      laborType = Choices.getTextById("laborTypeOptions", laborType_key).toLowerCase()
-
-    nounType = "singular"
-    if laborTime > 1
-      nounType = "plural"
-    laborTimeUnit = timeOptions_display[nounType][laborTime_key]
-
-    rateUnit = timeOptions_display["singular"][rate_key]
-
-    laborer_item = "#{laborersCount} #{laborType} for #{laborTime} #{laborTimeUnit} @ $#{rate}/#{rateUnit}"
-
-    return [
-      laborer_item,
-    ]
+    ["#{quantity} #{type} for #{time} #{timeUnit} @ $#{rate}/#{rateUnit}"]
