@@ -1,7 +1,7 @@
 {
     "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+        "uninstalled": [],
+        "installed": []
     },
     "config_munge": {
         "files": {

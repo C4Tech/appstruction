@@ -1,30 +1,7 @@
-# Numerous always-ignore extensions
-*.diff
-*.err
-*.orig
-*.log
-*.rej
-*.swo
-*.swp
-*.vi
-*~
-*.sass-cache
-*.sublime*
-
-# OS or Editor folders
-.DS_Store
-.cache
-.project
-.settings
-.tmproj
-nbproject
-Thumbs.db
-
-# Project specific
-npm-debug.log
-/node_modules
 /bower_components
+/npm-debug.log
+/node_modules
+/platforms
+/plugins/**/*
 /tmp
-/build/www
-/build/test
-/build/platforms
+/www
