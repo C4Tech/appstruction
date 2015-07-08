@@ -317,7 +317,7 @@ class ChoicesModel extends Backbone.Model
     noun = "singular" if count is 1
     display = @get option
 
-    display[noun][id] or false
+    display[noun][id] ? false
 
   getTextById: (optionsName, id) ->
     text = ""
@@ -346,7 +346,7 @@ class ChoicesModel extends Backbone.Model
     foundJob = false
     defaultJob =
       id: job.id
-      name: job.attributes.job_name
+      name: job.attributes.jobName
     selectedGroup =
       group:
         id: groupOptions.id
@@ -354,7 +354,7 @@ class ChoicesModel extends Backbone.Model
       jobs: []
 
     selectedGroup = filteredJobGroups if filteredJobGroups?
-    selectedGroup.jobs = [] unless selectedGroup.jobs?
+    selectedGroup.jobs ?= []
 
     foundJob = _.some selectedGroup.jobs, @filterMatchId job.id
 

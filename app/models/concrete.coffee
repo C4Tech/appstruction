@@ -109,7 +109,7 @@ module.exports = class ConcreteModel extends BaseModel
     super
 
   normalize: (measure = 0, unit = @defaultUnit, toUnit = @defaultUnit) ->
-    Qty(measure + " " + unit).to toUnit
+    Qty("#{measure} #{unit}").to toUnit
 
   setVolume: (depth, length, width, quantity = 0) ->
     volume = depth.mul(length).mul(width).scalar
@@ -124,8 +124,8 @@ module.exports = class ConcreteModel extends BaseModel
     @cost
 
   calculate: ->
-    priceUnits = @attributes.priceUnits or @defaultUnit
-    type = @attributes.concreteType or ""
+    priceUnits = @attributes.priceUnits ? @defaultUnit
+    type = @attributes.concreteType ? ""
     depth = @normalize @attributes.depth, @attributes.depthUnits, priceUnits
     length = @normalize @attributes.length, @attributes.lengthUnits, priceUnits
     width = @normalize @attributes.width, @attributes.widthUnits, priceUnits
@@ -140,14 +140,14 @@ module.exports = class ConcreteModel extends BaseModel
     @cost
 
   overview: ->
-    value = parseFloat @attributes.price or 0
+    value = parseFloat @attributes.price ? 0
     ["No concrete"] unless @numberValid value, @volume
 
-    key = @attributes.type or "1"
+    key = @attributes.type ? "1"
     type = Choices.getLabelFor key, quantity, "concreteTypeOptions"
-    quantity = @attributes.quantity or 0
+    quantity = @attributes.quantity ? 0
 
-    priceUnits = @attributes.priceUnits or @defaultUnit
+    priceUnits = @attributes.priceUnits ? @defaultUnit
     units = Choices.getLabelFor priceUnits, @volume, "priceOptions"
     unit = Choices.getLabelFor priceUnits, 1, "priceOptions"
 

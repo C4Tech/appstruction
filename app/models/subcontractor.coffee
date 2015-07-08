@@ -21,7 +21,7 @@ module.exports = class SubcontractorModel extends BaseModel
     super
 
   calculate: ->
-    @cost = parseFloat @attributes.contractorAmount or 0
+    @cost = parseFloat @attributes.contractorAmount ? 0
     @cost = @cost.toFixed 2 if @numberValid @cost
     console.log "subcontractor row (#{@attributes.scopeOfWork}) ##{@cid}:
       cost #{@cost}"

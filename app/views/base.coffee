@@ -9,8 +9,8 @@ module.exports = class BaseView extends Backbone.View
   _child: null
 
   initialize: ->
-    @self = @constructor unless @self?
-    @container = ".#{@routeType}-items" unless @container?
+    @self ?= @constructor
+    @container ?= ".#{@routeType}-items"
     null
 
   render: ->

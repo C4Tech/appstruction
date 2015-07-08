@@ -4,13 +4,15 @@ ComponentListView = require "views/component-list"
 module.exports = class CollectionListView extends CollectionView
   initialize: (opts) ->
     @child = ComponentListView
-    @className = "#{@modelType}-list-collection" unless @className
-    @id = "job-list-#{@modelType}" unless @id
     @step = opts.step
     @title = opts.title
     @template = require "templates/collection.list"
-
     super opts
+
+    @className ?= "#{@modelType}-list-collection"
+    @id =? "job-list-#{@modelType}"
+    @setName()
+    null
 
   render: =>
     console.log "Rendering #{@modelType} list collection"

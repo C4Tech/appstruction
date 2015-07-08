@@ -6,6 +6,7 @@ JobCollection = require "models/job-collection"
 LaborModel = require "models/labor"
 MaterialModel = require "models/material"
 SubcontractorModel = require "models/subcontractor"
+# Backbone = require "backbone"
 
 module.exports = class JobModel extends BaseModel
   localStorage: new Backbone.LocalStorage "cole-job"

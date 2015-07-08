@@ -1,20 +1,23 @@
 CollectionView = require "views/collection"
 ComponentFormView = require "views/component-form"
+# _ = require "underscore"
 
 module.exports = class CollectionFormView extends CollectionView
   tagName: "article"
 
   initialize: (opts) ->
     @child = ComponentFormView
-    @className = "container #{@routeType}-form-collection"
-    @id = "job-form-#{@routeType}"
     @multiple = true
-    @multiple = false if @routeType is "create" or @routeType is "job"
     @step = opts.step
     @template = require "templates/collection.form"
     @title = opts.title
-
     super opts
+
+    @className = "container #{@routeType}-form-collection"
+    @id = "job-form-#{@routeType}"
+    @multiple = false if @routeType is "create" or @routeType is "job"
+    @setName()
+    null
 
   render: =>
     console.log "Rendering #{@routeType} collection"

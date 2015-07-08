@@ -1,3 +1,5 @@
+# Backbone = require "backbone"
+
 class ConvertModel extends Backbone.Model
   # Assuming
   # - 8 hour day

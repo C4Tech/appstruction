@@ -1,71 +1,66 @@
 ChoicesSingleton = require "models/choices"
 BaseView = require "views/base"
+# Backbone = require "backbone"
 
 module.exports = class DeleteBrowseView extends BaseView
   initialize: (opts) ->
     @routeType = opts.routeType if opts.routeType?
-    @template = require 'templates/delete-browse'
-
-    # Add attributes
+    @template = require "templates/delete-browse"
     @className = "#{@routeType} container"
 
-    # Re-create the element name
     @setName()
 
-    # Return nothing
     null
 
   render: ->
     @$el.html @template
-      job_groups: ChoicesSingleton.get 'job_groups'
+      jobGroups: ChoicesSingleton.get "jobGroups"
 
     # Apply select2 widget, enable filter by optgroups as well as options
     # https://github.com/ivaynberg/select2/issues/193
-    @$('#delete-job').select2
+    @$("#delete-job").select2
       minimumResultsForSearch: 6
       matcher: (term, optText, els) ->
-        allText = optText + els[0].parentNode.getAttribute('label') or ''
-        ('' + allText).toUpperCase().indexOf(('' + term).toUpperCase()) >= 0
+        label = els[0].parentNode.getAttribute "label"
+        allText = "#{optText}#{label}"
+        allText.toUpperCase().indexOf(("#{term}").toUpperCase()) >= 0
 
-    @$('#delete-group').select2
+    @$("#delete-group").select2
       minimumResultsForSearch: 6
 
-    self = @
-    @$('#delete-job').click ->
-      data = self.$(@).select2('data')
-      value = 'delete-job.' + data.id
-      self.$('#delete-job-button').data('path', value).data('name', data.text)
+    @$("#delete-job").click (event) =>
+      @$("#delete-job-button").data
+        path: "delete-job.#{data.id}"
+        name: @$(event.currentTarget).select2("data")?.text
 
-    @$('#delete-group').click ->
-      data = self.$(@).select2('data')
-      value = 'delete-group.' + data.id
-      self.$('#delete-group-button').data('path', value).data('name', data.text)
+    @$("#delete-group").click (event) =>
+      @$("#delete-group-button").data
+        path: "delete-group.#{data.id}"
+        name: @$(event.currentTarget).select2("data")?.text
 
-    @$('#delete-job-button').click (e) ->
-      e.preventDefault()
-      name = self.$(@).data('name')
+    @$("#delete-job-button").click (event) =>
+      event.preventDefault()
+      name = @$(event.currentTarget).data "name"
 
-      unless !!name
+      unless name
         bootbox.alert "No job estimate selected"
-        return
+        null
 
-      path = self.$(@).data('path')
-      bootbox.confirm "Delete the job estimate '#{name}'?", (result) ->
-        if result
-          Backbone.history.navigate(path, true)
+      path = @$(event.currentTarget).data "path"
+      bootbox.confirm "Delete the job estimate \"#{name}\"?", (result) ->
+        Backbone.history.navigate path, true if result
 
-    @$('#delete-group-button').click (e) ->
+    @$("#delete-group-button").click (event) ->
       e.preventDefault()
-      name = self.$(@).data('name')
+      name = self.$(event.currentTarget).data "name"
 
-      unless !!name
+      unless name
         bootbox.alert "No group selected"
         return
 
-      path = self.$(@).data('path')
-      bootbox.confirm "Delete the group '#{name}' and all of it's jobs?", (result) ->
-        if result
-          Backbone.history.navigate(path, true)
+      path = self.$(event.currentTarget).data "path"
+      bootbox.confirm "Delete the group \"#{name}\" and all of it's jobs?",
+        (result) ->
+          Backbone.history.navigate path, true if result
 
-    # Return this
     @

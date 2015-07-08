@@ -1,18 +1,19 @@
 BaseView = require "views/base"
 ComponentView = require "views/component"
+# _ = require "underscore"
 
 module.exports = class CollectionView extends BaseView
   initialize: (opts) ->
-    @routeType = opts.routeType if opts.routeType?
-    @modelType = if opts.modelType? then opts.modelType else "collection"
-    @className = "#{@modelType}-collection" unless @className?
+    @modelType = opts.modelType ? "collection"
+    @className ?= "#{@modelType}-collection"
 
     @child = opts.child if opts.child?
-    @child = ComponentView if not @child?
+    @child ?= ComponentView
     @_children = []
     @_rendered = false
 
     @setName()
+
     @collection.each @add
     _(@).bindAll "add", "remove"
     @listenTo @collection, "add", @add

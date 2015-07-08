@@ -48,11 +48,11 @@ module.exports = class EquipmentModel extends BaseModel
     super
 
   calculate: ->
-    type = @attributes.equipmentType or ""
+    type = @attributes.equipmentType ? ""
 
     time = convert.toHours @attributes.equipmentTime, @attributes.rateUnits
     rate = convert.toPerHour @attributes.rate, @attributes.rateUnits
-    quantity = @attributes.quantity or 0
+    quantity = @attributes.quantity ? 0
     @cost = time * rate * quantity
 
     console.log "equipment row (#{type}) ##{@cid}:
@@ -72,10 +72,10 @@ module.exports = class EquipmentModel extends BaseModel
     time = @round time
     rate = @round rate
 
-    typeKey = @attributes.equipmentType or "dump truck"
+    typeKey = @attributes.equipmentType ? "dump truck"
     type = Choices.getLabelFor typeKey, quantity, "equipmentTypeOptions"
 
-    rateKey = @attributes.rateUnits or "hour"
+    rateKey = @attributes.rateUnits ? "hour"
     timeUnit = Choices.getLabelFor rateKey, quantity, "timeOptions"
     rateUnit = Choices.getLabelFor rateKey, 1, "timeOptions"
 

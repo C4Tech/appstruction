@@ -1,3 +1,5 @@
+# Backbone = require "backbone"
+
 module.exports = class PageView extends Backbone.View
   tagName: "section"
   className: "page"
@@ -9,30 +11,38 @@ module.exports = class PageView extends Backbone.View
   initialize: (opts) ->
     @section = require "templates/page"
     @header = require "templates/header"
-
     @title = opts.title if opts.title?
     @text = opts.text if opts.text?
     @subView = opts.subView if opts.subView?
-    true
 
-  # Render the template
+    null
+
   render: ->
     @$el.empty()
-
-    if @title?
-      header = @header
-        title: @title
-        step: @subView?.step ? null
-      console.log "Rendering page header"
-      @$el.append header
-
-    if @text?
-      @$el.append @section
-        text: @text
-      console.log "Rendering page view"
-
-    if @subView?
-      console.log "Appending form view"
-      @$el.append @subView.render().$el
+    @renderHeader() if @title?
+    @renderPage() if @text?
+    @renderSubView() if @subView?
 
     @
+
+  renderHeader: ->
+    header = @header
+      title: @title
+      step: @subView?step ? null
+    console.log "Rendering page header"
+    @$el.append header
+
+    null
+
+  renderPage: ->
+    console.log "Rendering page view"
+    @$el.append @section
+      text: @text
+
+    null
+
+  renderSubView: ->
+    console.log "Appending form view"
+    @$el.append @subView.render().$el
+
+    null

@@ -1,52 +1,41 @@
 ComponentView = require "views/component"
-ChoicesSingleton = require "models/choices"
+Choices = require "models/choices"
+# _ = require "underscore"
 
 module.exports = class ComponentFormView extends ComponentView
   events:
     "change .field": "refresh"
 
   initialize: (opts) ->
+    @template = require "templates/component.form"
     super opts
 
-    # Set template
-    @template = require "templates/component.form"
-
-    # Add attributes
     @className = "#{@routeType} #{@routeType}-form #{@routeType}-form-item"
-
-    # Re-create the element name
     @setName()
-
-    # Bind the auto-update of the model when the view is altered
     _.bindAll @, "refresh"
 
-    # Return nothing
     null
 
-  # Event callback to update the model on input change
   refresh: (event) =>
-    # Get the current element being modified
     target = $ event.currentTarget
 
-    # Update the model
-    name = target.attr('name')
+    name = target.attr "name"
     @model.set name, target.val()
     field = @model.getField name
 
-    if field? and field.optionsType? and field.fieldType == 'hidden'
-      selected_option = target.select2('data')
-      choices_options = ChoicesSingleton.get field.optionsType
+    console.log "View changed", target.attr "name", target.val()
+    $(".#{@routeType}.cost").text @model.collection.calculate().toFixed 2
 
-      option_found = _.some choices_options, (item) ->
-        item.id == selected_option.id and item.text == selected_option.text
+    null unless field?optionsType? and field.fieldType is "hidden"
 
-      if not option_found
-        select2_selected_option = target.select2 'data'
-        choices_options.push
-          id: select2_selected_option.id
-          text: select2_selected_option.text
+    selectedOption = target.select2 "data"
+    choicesOptions = Choices.get field.optionsType
+    optionFound = _.some choicesOptions, (item) ->
+      item.id is selectedOption.id and item.text is selectedOption.text
 
-    console.log "View changed", target.attr('name'), target.val()
-    $(".#{@routeType}.cost").text @model.collection.calculate().toFixed(2)
+    unless optionFound
+      choicesOptions.push
+        id: selectedOption.id
+        text: selectedOption.text
 
     null

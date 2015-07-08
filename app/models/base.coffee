@@ -62,7 +62,7 @@ module.exports = class BaseModel extends Backbone.Model
 
   getField: (name) ->
     found = _.where @fields, {name: name}
-    return found[0] ? null
+    found[0] ? null
 
   getFields: (showAll = false) ->
     fields = if showAll then @fields else _.where @fields, show: true

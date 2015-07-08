@@ -6,6 +6,7 @@ module.exports = class BrowseView extends BaseView
     @routeType = opts.routeType
     @template = require "templates/browse"
     @className = "#{@routeType} container"
+    super opts
     @setName()
     null
 

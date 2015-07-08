@@ -47,10 +47,10 @@ module.exports = class MaterialModel extends BaseModel
     super
 
   calculate: ->
-    type = @attributes.materialType or ""
-    quantity = @attributes.quantity or 0
-    price = @attributes.price or 0
-    tax = @attributes.tax or 0
+    type = @attributes.materialType ? ""
+    quantity = @attributes.quantity ? 0
+    price = @attributes.price ? 0
+    tax = @attributes.tax ? 0
 
     @cost = quantity * price
     @cost += @cost * tax/100
@@ -68,7 +68,7 @@ module.exports = class MaterialModel extends BaseModel
     quantity = @round quantity
     price = @round price
 
-    typeKey = @attributes.materialType or "wire"
+    typeKey = @attributes.materialType ? "wire"
     type = Choices.getLabelFor typeKey, quantity, "materialTypeOptions"
     unit = Choices.getLabelFor typeKey, 1, "materialTypeOptions"
 

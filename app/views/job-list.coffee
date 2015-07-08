@@ -4,16 +4,11 @@ module.exports = class JobListView extends ComponentView
   tagName: "li"
 
   initialize: (opts) ->
+    @template = require "templates/job.list"
     super opts
 
-    # Set template
-    @template = require "templates/job.list"
-
-    # Add attributes
-    @className = "#{@routeType} #{@routeType}-list #{@routeType}-list-item list-group-item"
-
-    # Re-create the element name
+    @className = "#{@routeType} #{@routeType}-list #{@routeType}-list-item
+        list-group-item"
     @setName()
 
-    # Return nothing
     null

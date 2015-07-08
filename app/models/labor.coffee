@@ -57,8 +57,8 @@ module.exports = class LaborModel extends BaseModel
     super
 
   calculate: ->
-    type = @attributes.laborType or ""
-    quantity = @attributes.laborersCount or 0
+    type = @attributes.laborType ? ""
+    quantity = @attributes.laborersCount ? 0
     time = convert.toHours @attributes.laborTime, @attributes.laborTimeUnits
     rate = convert.toPerHour @attributes.rate, @attributes.rateUnits
 
@@ -76,15 +76,15 @@ module.exports = class LaborModel extends BaseModel
 
     ["No labor"] unless @numberValid quantity, time, rate
 
-    typeKey = @attributes.laborType or "1"
+    typeKey = @attributes.laborType ? "1"
     quantity = @round quantity
     type = Choices.getLabelFor typeKey, quantity, "laborTypeOptions"
 
-    timeKey = @attributes.laborTimeUnits or "hour"
+    timeKey = @attributes.laborTimeUnits ? "hour"
     time = @round time
     timeUnit = Choices.getLabelFor timeKey, time, "timeOptions"
 
-    rateKey = @attributes.rateUnits or "hour"
+    rateKey = @attributes.rateUnits ? "hour"
     rate = @round rate
     rateUnit = Choices.getLabelFor rateKey, 1, "timeOptions"
 
