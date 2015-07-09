@@ -10,7 +10,7 @@ module.exports = class CollectionListView extends CollectionView
     super opts
 
     @className ?= "#{@modelType}-list-collection"
-    @id =? "job-list-#{@modelType}"
+    @id ?= "job-list-#{@modelType}"
     @setName()
     null
 

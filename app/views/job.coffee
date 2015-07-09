@@ -16,7 +16,7 @@ module.exports = class JobView extends BaseView
     null
 
   addCollection: (collection) ->
-    data = if @model.attributes[collection] ? false
+    data = @model.attributes[collection] ? false
     @_children.push new CollectionListView
       className: "job-list-collection"
       collection: data
