@@ -1,12 +1,12 @@
 # Backbone = require "backbone"
 
 module.exports = class BaseView extends Backbone.View
+  child: null
+  container: null
   routeType: null
   self: null
-  container: null
   templateFile: null
 
-  _child: null
 
   initialize: ->
     @self ?= @constructor

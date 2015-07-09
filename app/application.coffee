@@ -13,14 +13,14 @@ DeleteBrowseView = require "views/delete-browse"
 # Backbone = require "backbone"
 
 module.exports = class Application extends Backbone.Router
-  _jobs: null
+  jobs: null
 
   # Current job view
-  _current: null
+  current: null
 
-  _pages: null
+  pages: null
 
-  _steps:
+  steps:
     home:
       prev: "home"
     create:
@@ -58,177 +58,178 @@ module.exports = class Application extends Backbone.Router
   initialize: (opts) ->
     console.log "Initializing Appstruction"
 
-    @_jobs = new JobCollection null,
+    @jobs = new JobCollection null,
       model: JobModel
       modelType: "job"
       url: "jobs"
 
-    @_jobs.fetch()
-    @_createJob()
-    @_bindEvents()
+    @jobs.fetch()
+    @createJob()
+    @bindEvents()
+
+    console.log "Finished initialization"
 
     @
 
+  bindEvents: ->
+    console.log "Binding events"
+
+    $(document.body).hammer().on "tap", "button.ccma-navigate", @navigateEvent
+    $(document.body).hammer().on "tap", "button.ccma-navigate", @updateHeader
+    $(document.body).hammer().on "tap", "button.ccma-navigate", @updateCost
+
+    $(document.body).hammer().on "tap", "button.add", @validateComponent
+    $(document.body).hammer().on "tap", "button.job.save", @saveJob
+    $(document.body).hammer().on "tap", "button.job.reset", @resetJob
+
+    $(document.body).hammer().on "tap", ".field-help", @showHelp
+
+    $(document.body).hammer().on "tap", ".header-help", @showHelp
+    $(document.body).hammer().on "tap", ".header-email", @promptEmail
+    $(document.body).hammer().on "tap", ".header-pdf", @promptPdf
+
+    $(document.body).hammer().on "change", ".field", @updateCost
+
+    console.log "Finished binding events"
+    true
+
+  createJob: =>
+    console.log "Creating new job"
+    @current = new JobModel
+    @current
+
+  readJob: (id) =>
+    console.log "Reading job #{id}"
+    @current = @jobs.get id
+    @current
+
   home: ->
     console.log "Loading home page"
-    @_createJob()
-    @_pages = {}
+    @createJob()
+    @pages = {}
 
-    @setHomePage() unless @_pages["home"]?
-    @_showPage @_pages["home"]
+    @createHomePage() unless @pages["home"]?
+    @showPage @pages["home"]
 
-  setHomePage: ->
-    @_pages["home"] = new PageView
+  createHomePage: ->
+    @pages["home"] = new PageView
       id: "home"
       title: "Concrete Estimator"
       text:
         id: "start"
         content: ""
 
-    @_setPage @_pages["home"]
+    @setPage @pages["home"]
     null
 
   browse: ->
     console.log "Loading browse page"
-    @setBrowsePage() unless @_pages["browse"]?
-    @_showPage @_pages["browse"]
+    @createBrowsePage() unless @pages["browse"]?
+    @showPage @pages["browse"]
 
-  setBrowsePage: ->
-    @_pages["browse"] = new PageView
+  createBrowsePage: ->
+    @pages["browse"] = new PageView
       id: "browse"
       title: "Load an Estimate"
       subView: new BrowseView
         routeType: "browse"
 
-    @_setPage @_pages["browse"]
+    @setPage @pages["browse"]
     null
 
   deleteBrowse: ->
     console.log "Loading delete-browse page"
-    @setDeleteBrowsePage() unless @_pages["delete-browse"]?
-    @_showPage @_pages["delete-browse"]
+    @createDeleteBrowsePage() unless @pages["delete-browse"]?
+    @showPage @pages["delete-browse"]
 
-  setDeleteBrowsePage: ->
-    @_pages["delete-browse"] = new PageView
+  createDeleteBrowsePage: ->
+    @pages["delete-browse"] = new PageView
       id: "delete-browse"
       title: "Delete an Estimate"
       subView: new DeleteBrowseView
         routeType: "delete-browse"
 
-    @_setPage @_pages["delete-browse"]
+    @setPage @pages["delete-browse"]
     null
 
   read: (id) ->
     console.log "Loading job listing page"
     routeType = "read-#{id}"
-    @setReadPage id, routeType unless @_pages[routeType]?
-    @_showPage @_pages[routeType]
+    @createReadPage id, routeType unless @pages[routeType]?
+    @showPage @pages[routeType]
 
-  setReadPage: (id, type) ->
-    @_readJob id
-    @_pages[type] = new PageView
-      title: @_current.attributes.jobName
+  createReadPage: (id, type) ->
+    @readJob id
+    @pages[type] = new PageView
+      title: @current.attributes.jobName
       subView: new JobView
-        model: @_current
+        model: @current
         routeType: "read"
 
-    @_setPage @_pages[type]
+    @setPage @pages[type]
     null
 
   add: (routeType = "create") ->
     console.log "Loading #{routeType} component page"
-    @_viewJob routeType
+    @viewJob routeType
 
   edit: (routeType = "create") ->
     console.log "Editing #{routeType} component page"
-    @_viewJob routeType, "edit"
+    @viewJob routeType, "edit"
 
   deleteJob: (id, navigateHome = true) ->
     console.log "Deleting job"
-    @_readJob id
-    Choices.removeJobGroup @_current
+    @readJob id
+    Choices.removeJobGroup @current
     Choices.save()
-    @_resetJob navigateHome
+    @resetJob navigateHome
 
   deleteGroup: (groupId) ->
     console.log "Deleting group"
-    groupModels = @_jobs.byGroupId groupId
+    groupModels = @jobs.byGroupId groupId
     ids = _.pluck groupModels, "id"
     @deleteJob id, false for id in ids
-    @_navigate "home"
+    @navigate "home"
 
-  _setPage: (page) ->
-    $("body").append page.render().$el
+  setPage: (page) ->
+    $(document.body).append page.render().$el
     true
 
-  _showPage: (page) ->
+  showPage: (page) ->
     $("section").hide()
     page.$el.show()
     true
 
-  _bindEvents: ->
-    console.log "Binding events"
-
-    $(document).hammer().on "tap", "button.ccma-navigate", @_navigateEvent
-    $(document).hammer().on "tap", "button.ccma-navigate", @_updateHeader
-    $(document).hammer().on "tap", "button.ccma-navigate", @_updateCost
-
-    $(document).hammer().on "tap", "button.add", @_validateComponent
-    $(document).hammer().on "tap", "button.job.save", @_saveJob
-    $(document).hammer().on "tap", "button.job.reset", @_resetJob
-
-    $(document).hammer().on "tap", ".field-help", @_showHelp
-
-    $(document).hammer().on "tap", ".header-help", @_showHelp
-    $(document).hammer().on "tap", ".header-email", @_promptEmail
-    $(document).hammer().on "tap", ".header-pdf", @_promptPdf
-
-    $(document).hammer().on "change", ".field", @_updateCost
-
-    true
-
-  _navigateEvent: (event) ->
+  navigateEvent: (event) =>
     event.preventDefault()
+    console.log "Navigation triggered on", event.currentTarget
     path = $(event.currentTarget).data "path"
+    @navigate path
+
+  navigate: (path) ->
     Backbone.history.navigate path, true
     $("nav button").removeClass "active"
     pathNav = path.split ".", 1
     $("nav button.#{pathNav}").addClass "active"
 
-  _navigate: (path) ->
-    Backbone.history.navigate path, true
-    $("nav button").removeClass "active"
-    pathNav = path.split ".", 1
-    $("nav button.#{pathNav}").addClass "active"
-
-  _createJob: =>
-    console.log "Creating new job"
-    @_current = new JobModel
-    @_current
-
-  _readJob: (id) =>
-    console.log "Reading job #{id}"
-    @_current = @_jobs.get id
-    @_current
-
-  _viewJob: (routeType = "create", viewType = "add") =>
+  viewJob: (routeType = "create", viewType = "add") =>
     console.log "Viewing job"
-    @setJobPage routeType, viewType unless @_pages[routeType]?
-    @_showPage @_pages[routeType]
+    @createJobPage routeType, viewType unless @pages[routeType]?
+    @showPage @pages[routeType]
 
-  setJobPage: (type, viewType) ->
-    collection = @_current.get type if type in Choices.get "job_routes"
+  createJobPage: (type, viewType) ->
+    collection = @current.get type if type in Choices.get "jobRoutes"
 
     view = createJobCollectionPage collection, type if collection?
     view ?= @createJobElementPage type
 
-    @_pages[routeType] = new PageView
+    @pages[type] = new PageView
       id: type
       title: "Job Builder"
       subView: view
 
-    @_addComponent type if viewType is "add"
-    @_setPage @_pages[type]
+    @addComponent type if viewType is "add"
+    @setPage @pages[type]
 
     null
 
@@ -238,7 +239,7 @@ module.exports = class Application extends Backbone.Router
       title: type
       routeType: type
       collection: collection
-      step: @_steps[type]
+      step: @steps[type]
 
   createJobElementPage: (type) ->
     console.log "Creating job element form view"
@@ -246,16 +247,16 @@ module.exports = class Application extends Backbone.Router
     new JobElementFormView
       title: type
       routeType: type
-      model: @_current
-      step: @_steps[type]
+      model: @current
+      step: @steps[type]
 
-  _updateCost: =>
+  updateCost: =>
     console.log "Recalculating job cost"
-    cost = @_current.calculate() if @_current?
+    cost = @current.calculate() if @current?
     $(".subtotal").text cost.toFixed 2
-    @_current
+    @current
 
-  _updateHeader: (currentRoute = null) =>
+  updateHeader: (currentRoute = null) =>
     console.log "Refreshing header"
 
     # When called from an event, the event object is passed as parameter.
@@ -283,7 +284,7 @@ module.exports = class Application extends Backbone.Router
       headerEmail.show()
       headerPdf.show()
 
-    @_current
+    @current
 
   setPageHeader: (title, route, type) ->
     allowedRoutes = [
@@ -305,7 +306,7 @@ module.exports = class Application extends Backbone.Router
 
     null unless route[0..3] is "read" and route not in allowedRoutes
 
-    jobName.find("h3").text @_current.attributes.jobName
+    jobName.find("h3").text @current.attributes.jobName
     jobName.show()
 
     headerText = title.find ".header-text"
@@ -324,15 +325,15 @@ module.exports = class Application extends Backbone.Router
     headerHelp.show()
     null
 
-  _showHelp: (event) ->
+  showHelp: (event) ->
     bootbox.alert $(event.currentTarget).data "help"
 
-  _generatePromptBody: =>
-    a = @_current.attributes
+  generatePromptBody: =>
+    a = @current.attributes
     jobType = Choices.getTextById "jobTypeOptions", a.jobType
     groupName = Choices.getTextById "groupNameOptions", a.groupId
 
-    cost = @_current.cost
+    cost = @current.cost
     totalCost = cost
     profitMargin = 0
 
@@ -380,9 +381,9 @@ module.exports = class Application extends Backbone.Router
     itemText = item.overview().join "\n"
     "#{itemText}\n\n"
 
-  _promptPdf: (event) =>
-    filename = "#{@_current.attributes.jobName}.pdf"
-    body = @_generatePromptBody()
+  promptPdf: (event) =>
+    filename = "#{@current.attributes.jobName}.pdf"
+    body = @generatePromptBody()
 
     doc = new jsPDF()
 
@@ -396,34 +397,34 @@ module.exports = class Application extends Backbone.Router
 
     doc.save filename
 
-  _promptEmail: (event) =>
+  promptEmail: (event) =>
     subject = "Appstruction proposal"
-    body = @_generatePromptBody()
+    body = @generatePromptBody()
     body = encodeURIComponent body
     window.location.href = "mailto:?subject=#{subject}&body=#{body}";
 
-  _resetJob: =>
+  resetJob: =>
     console.log "Reseting job"
-    @_current.destroy()
-    @_navigate "home"
+    @current.destroy()
+    @navigate "home"
     true
 
-  _saveJob: (event) =>
+  saveJob: (event) =>
     console.log "Saving job"
 
-    unless @_current.isValid()
-      alert @_current.validationError
+    unless @current.isValid()
+      alert @current.validationError
       false
 
-    @_current.save()
-    Choices.addJobGroup @_current
+    @current.save()
+    Choices.addJobGroup @current
     Choices.save()
-    @_jobs.add @_current
-    console.log JSON.stringify @_current.toJSON()
+    @jobs.add @current
+    console.log JSON.stringify @current.toJSON()
     true
 
-  _addComponent: (routeType) =>
-    @_current.get(routeType).add {} if routeType in Choices.get "jobRoutes"
+  addComponent: (routeType) =>
+    @current.get(routeType).add {} if routeType in Choices.get "jobRoutes"
 
     $("select").select2
       allowClear: true
@@ -439,16 +440,16 @@ module.exports = class Application extends Backbone.Router
 
     null
 
-  _validateComponent: (event) =>
+  validateComponent: (event) =>
     event.preventDefault()
     routeType = $(event.currentTarget).data "type"
     console.log "Validating #{routeType}"
 
-    last = @_current.get(routeType).last()
+    last = @current.get(routeType).last()
     unless last.isValid()
       alert last.validationError
       null
 
     console.log "Adding #{routeType} to active job"
-    @_addComponent routeType
+    @addComponent routeType
     last

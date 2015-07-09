@@ -12,7 +12,7 @@ module.exports = class JobElementFormView extends ComponentView
   initialize: (opts) ->
     @step = opts.step if opts.step?
     @title = opts.title if opts.title?
-    @_children = []
+    @children = []
 
     super opts
 
@@ -31,7 +31,7 @@ module.exports = class JobElementFormView extends ComponentView
 
   addCollection: (collection) ->
     data = @model.attributes[collection] ? false
-    @_children.push new CollectionListView
+    @children.push new CollectionListView
       className: "job-list-collection"
       collection: data
       title: collection
@@ -89,7 +89,7 @@ module.exports = class JobElementFormView extends ComponentView
       $subtotal.val subtotalValue
       null
 
-    _(@_children).each (child) =>
+    _(@children).each (child) =>
       @$(".job.items").append child.render().$el
 
     @

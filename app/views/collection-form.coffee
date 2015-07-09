@@ -21,7 +21,7 @@ module.exports = class CollectionFormView extends CollectionView
 
   render: =>
     console.log "Rendering #{@routeType} collection"
-    @_rendered = true
+    @rendered = true
 
     @$el.empty()
 
@@ -31,7 +31,7 @@ module.exports = class CollectionFormView extends CollectionView
       title: @title
       multiple: @multiple
 
-    _(@_children).each (child) =>
+    _(@children).each (child) =>
       @$(".items").append child.render().$el
 
       @$("input[type=number]").keyup (event) =>

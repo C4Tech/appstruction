@@ -10,7 +10,7 @@ class Cordova
     true
 
   onDeviceReady: =>
-    @router = new Aapplication
+    @router = new Application
     Backbone.history.start()
     @receivedEvent "deviceready"
 

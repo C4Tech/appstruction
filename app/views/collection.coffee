@@ -9,8 +9,8 @@ module.exports = class CollectionView extends BaseView
 
     @child = opts.child if opts.child?
     @child ?= ComponentView
-    @_children = []
-    @_rendered = false
+    @children = []
+    @rendered = false
 
     @setName()
 
@@ -23,34 +23,34 @@ module.exports = class CollectionView extends BaseView
 
   render: ->
     console.log "Rendering #{@modelType} collection"
-    @_rendered = true
+    @rendered = true
 
     @$el.empty()
 
-    _(@_children).each (child) =>
+    _(@children).each (child) =>
       @$(".items").append child.render().$el
 
     @
 
   add: (model) =>
-    model.index = @_children.length
+    model.index = @children.length
     child = new @child
       model: model
       modelType: @modelType
       routeType: @routeType
 
-    @_children.push child
-    @$(".items").append child.render().$el if @_rendered
+    @children.push child
+    @$(".items").append child.render().$el if @rendered
 
     null
 
   remove: (model) ->
-    orphan = _(@_children).select (child) ->
+    orphan = _(@children).select (child) ->
       child.model is model
     orphan = orphan.unshift()
 
     orphan.stopListening()
-    @_children = _(@_children).without orphan
-    orphan.$el.remove() if @_rendered
+    @children = _(@children).without orphan
+    orphan.$el.remove() if @rendered
 
     null

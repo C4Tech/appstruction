@@ -22,8 +22,6 @@
     "less-brunch": "^1.8.0",
     "css-brunch": "^1.7.0",
     "clean-css-brunch": "^1.7.0",
-    "postcss-brunch": "^0.4.0",
-    "autoprefixer": "^5.1.0",
-    "csswring": "^3.0.0"
+    "autoprefixer-brunch": "^1.8.0"
   }
 }

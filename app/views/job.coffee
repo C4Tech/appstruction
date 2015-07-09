@@ -5,7 +5,7 @@ Choices = require "models/choices"
 #
 module.exports = class JobView extends BaseView
   initialize: (opts) ->
-    @_children = []
+    @children = []
     @routeType = opts.routeType if opts.routeType?
     @id = @model.cid
     @className = "#{@routeType}-overview"
@@ -17,7 +17,7 @@ module.exports = class JobView extends BaseView
 
   addCollection: (collection) ->
     data = @model.attributes[collection] ? false
-    @_children.push new CollectionListView
+    @children.push new CollectionListView
       className: "job-list-collection"
       collection: data
       title: collection
@@ -34,7 +34,7 @@ module.exports = class JobView extends BaseView
       row: @model.getFields()
       cost: @model.cost.toFixed 2
 
-    _(@_children).each (child) =>
+    _(@children).each (child) =>
       @$(".job.items").append child.render().$el
 
     @

@@ -16,7 +16,7 @@ module.exports = class CollectionListView extends CollectionView
 
   render: =>
     console.log "Rendering #{@modelType} list collection"
-    @_rendered = true
+    @rendered = true
 
     @$el.empty()
 
@@ -26,7 +26,7 @@ module.exports = class CollectionListView extends CollectionView
       title: @title
       cost: @collection.calculate?().toFixed 2
 
-    _(@_children).each (child) =>
+    _(@children).each (child) =>
       @$(".items").append child.render().$el
 
     @

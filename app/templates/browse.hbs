@@ -2,7 +2,7 @@
   <label for="browse-jobs" class="lead">Browse Jobs</label>
   <select id="browse-jobs" name="browse-jobs" class="field type form-control">
     <option></option>
-    {{#each job_groups}}
+    {{#each jobGroups}}
       <optgroup label="Group: {{group.name}}">
         {{#each jobs}}
           <option value="{{id}}">{{name}}</option>
