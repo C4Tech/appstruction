@@ -1,4 +1,4 @@
-ChoicesSingleton = require "models/choices"
+Choices = require "models/choices"
 BaseView = require "views/base"
 # Backbone = require "backbone"
 
@@ -14,7 +14,7 @@ module.exports = class DeleteBrowseView extends BaseView
 
   render: ->
     @$el.html @template
-      jobGroups: ChoicesSingleton.get "jobGroups"
+      jobGroups: Choices.get "jobGroups"
 
     # Apply select2 widget, enable filter by optgroups as well as options
     # https://github.com/ivaynberg/select2/issues/193

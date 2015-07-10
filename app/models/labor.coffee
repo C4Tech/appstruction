@@ -64,7 +64,7 @@ module.exports = class LaborModel extends BaseModel
 
     @cost = time * rate * quantity
 
-    console.log "labor row (#{type}) ##{@cid}: #{time} hours
+    log.trace "labor row (#{type}) ##{@cid}: #{time} hours
       x #{quantity} (laborers)  @ $#{rate}/hr = #{@cost}"
 
     @cost

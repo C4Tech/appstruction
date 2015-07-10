@@ -18,7 +18,7 @@ module.exports = class Application extends Backbone.Router
   # Current job view
   current: null
 
-  pages: null
+  pages: {}
 
   steps:
     home:
@@ -56,7 +56,7 @@ module.exports = class Application extends Backbone.Router
     "delete-group.:groupId": "deleteGroup"
 
   initialize: (opts) ->
-    console.log "Initializing Appstruction"
+    log.debug "Initializing Appstruction"
 
     @jobs = new JobCollection null,
       model: JobModel
@@ -65,46 +65,48 @@ module.exports = class Application extends Backbone.Router
 
     @jobs.fetch()
     @createJob()
-    @bindEvents()
 
-    console.log "Finished initialization"
+    clickType = opts.clickType ? "tap"
+    @bindEvents clickType
+
+    log.debug "Finished initialization"
 
     @
 
-  bindEvents: ->
-    console.log "Binding events"
+  bindEvents: (action = "tap") ->
+    log.debug "Binding events"
 
-    $(document.body).hammer().on "tap", "button.ccma-navigate", @navigateEvent
-    $(document.body).hammer().on "tap", "button.ccma-navigate", @updateHeader
-    $(document.body).hammer().on "tap", "button.ccma-navigate", @updateCost
+    $(document.body).hammer().on action, "button.ccma-navigate", @navigateEvent
+    $(document.body).hammer().on action, "button.ccma-navigate", @updateHeader
+    $(document.body).hammer().on action, "button.ccma-navigate", @updateCost
 
-    $(document.body).hammer().on "tap", "button.add", @validateComponent
-    $(document.body).hammer().on "tap", "button.job.save", @saveJob
-    $(document.body).hammer().on "tap", "button.job.reset", @resetJob
+    $(document.body).hammer().on action, "button.add", @validateComponent
+    $(document.body).hammer().on action, "button.job.save", @saveJob
+    $(document.body).hammer().on action, "button.job.reset", @resetJob
 
-    $(document.body).hammer().on "tap", ".field-help", @showHelp
+    $(document.body).hammer().on action, ".field-help", @showHelp
 
-    $(document.body).hammer().on "tap", ".header-help", @showHelp
-    $(document.body).hammer().on "tap", ".header-email", @promptEmail
-    $(document.body).hammer().on "tap", ".header-pdf", @promptPdf
+    $(document.body).hammer().on action, ".header-help", @showHelp
+    $(document.body).hammer().on action, ".header-email", @promptEmail
+    $(document.body).hammer().on action, ".header-pdf", @promptPdf
 
-    $(document.body).hammer().on "change", ".field", @updateCost
+    $(document.body).on "change", ".field", @updateCost
 
-    console.log "Finished binding events"
+    log.debug "Finished binding events"
     true
 
   createJob: =>
-    console.log "Creating new job"
+    log.debug "Creating new job"
     @current = new JobModel
     @current
 
   readJob: (id) =>
-    console.log "Reading job #{id}"
+    log.info "Reading job #{id}"
     @current = @jobs.get id
     @current
 
   home: ->
-    console.log "Loading home page"
+    log.debug "Loading home page"
     @createJob()
     @pages = {}
 
@@ -123,7 +125,7 @@ module.exports = class Application extends Backbone.Router
     null
 
   browse: ->
-    console.log "Loading browse page"
+    log.debug "Loading browse page"
     @createBrowsePage() unless @pages["browse"]?
     @showPage @pages["browse"]
 
@@ -138,7 +140,7 @@ module.exports = class Application extends Backbone.Router
     null
 
   deleteBrowse: ->
-    console.log "Loading delete-browse page"
+    log.debug "Loading delete-browse page"
     @createDeleteBrowsePage() unless @pages["delete-browse"]?
     @showPage @pages["delete-browse"]
 
@@ -153,7 +155,7 @@ module.exports = class Application extends Backbone.Router
     null
 
   read: (id) ->
-    console.log "Loading job listing page"
+    log.debug "Loading job listing page"
     routeType = "read-#{id}"
     @createReadPage id, routeType unless @pages[routeType]?
     @showPage @pages[routeType]
@@ -170,22 +172,22 @@ module.exports = class Application extends Backbone.Router
     null
 
   add: (routeType = "create") ->
-    console.log "Loading #{routeType} component page"
+    log.info "Loading #{routeType} component page"
     @viewJob routeType
 
   edit: (routeType = "create") ->
-    console.log "Editing #{routeType} component page"
+    log.debug "Editing #{routeType} component page"
     @viewJob routeType, "edit"
 
   deleteJob: (id, navigateHome = true) ->
-    console.log "Deleting job"
+    log.info "Deleting job"
     @readJob id
     Choices.removeJobGroup @current
     Choices.save()
     @resetJob navigateHome
 
   deleteGroup: (groupId) ->
-    console.log "Deleting group"
+    log.notice "Deleting group"
     groupModels = @jobs.byGroupId groupId
     ids = _.pluck groupModels, "id"
     @deleteJob id, false for id in ids
@@ -202,7 +204,6 @@ module.exports = class Application extends Backbone.Router
 
   navigateEvent: (event) =>
     event.preventDefault()
-    console.log "Navigation triggered on", event.currentTarget
     path = $(event.currentTarget).data "path"
     @navigate path
 
@@ -213,14 +214,14 @@ module.exports = class Application extends Backbone.Router
     $("nav button.#{pathNav}").addClass "active"
 
   viewJob: (routeType = "create", viewType = "add") =>
-    console.log "Viewing job"
+    log.debug "Viewing job"
     @createJobPage routeType, viewType unless @pages[routeType]?
     @showPage @pages[routeType]
 
   createJobPage: (type, viewType) ->
     collection = @current.get type if type in Choices.get "jobRoutes"
 
-    view = createJobCollectionPage collection, type if collection?
+    view = @createJobCollectionPage collection, type if collection?
     view ?= @createJobElementPage type
 
     @pages[type] = new PageView
@@ -234,7 +235,7 @@ module.exports = class Application extends Backbone.Router
     null
 
   createJobCollectionPage: (collection, type) ->
-    console.log "Creating #{routeType} collection form view"
+    log.info "Creating #{type} collection form view"
     new CollectionFormView
       title: type
       routeType: type
@@ -242,8 +243,8 @@ module.exports = class Application extends Backbone.Router
       step: @steps[type]
 
   createJobElementPage: (type) ->
-    console.log "Creating job element form view"
-    null unless type in ["create", "save"]
+    log.debug "Creating job element form view"
+    return unless type in ["create", "save"]
     new JobElementFormView
       title: type
       routeType: type
@@ -251,13 +252,13 @@ module.exports = class Application extends Backbone.Router
       step: @steps[type]
 
   updateCost: =>
-    console.log "Recalculating job cost"
-    cost = @current.calculate() if @current?
-    $(".subtotal").text cost.toFixed 2
+    log.trace "Recalculating job cost"
+    cost = @current?.calculate()
+    $(".subtotal").text cost
     @current
 
   updateHeader: (currentRoute = null) =>
-    console.log "Refreshing header"
+    log.trace "Refreshing header"
 
     # When called from an event, the event object is passed as parameter.
     # In that scenario we want currentRoute to be null at this point.
@@ -266,7 +267,7 @@ module.exports = class Application extends Backbone.Router
       currentRoute = null
 
     currentRoute ?= Backbone.history.fragment
-    null unless currentRoute?
+    return unless currentRoute?
 
     headerTitle = $("div.header-title").find "h3"
     headerEmail = headerTitle.find ".header-email"
@@ -301,10 +302,10 @@ module.exports = class Application extends Backbone.Router
       "edit.subcontractor"
     ]
 
-    headerJobName = $ "div.header-job-name"
-    headerJobName.hide()
+    jobName = $ "div.header-job-name"
+    jobName.hide()
 
-    null unless route[0..3] is "read" and route not in allowedRoutes
+    return unless route[0..3] is "read" and route not in allowedRoutes
 
     jobName.find("h3").text @current.attributes.jobName
     jobName.show()
@@ -319,7 +320,7 @@ module.exports = class Application extends Backbone.Router
     help = Choices.getHelp type
     headerHelp.hide()
 
-    null unless help?
+    return unless help?
 
     headerHelp.data "help", help
     headerHelp.show()
@@ -404,13 +405,13 @@ module.exports = class Application extends Backbone.Router
     window.location.href = "mailto:?subject=#{subject}&body=#{body}";
 
   resetJob: =>
-    console.log "Reseting job"
+    log.info "Reseting job"
     @current.destroy()
     @navigate "home"
     true
 
   saveJob: (event) =>
-    console.log "Saving job"
+    log.info "Saving job"
 
     unless @current.isValid()
       alert @current.validationError
@@ -420,7 +421,7 @@ module.exports = class Application extends Backbone.Router
     Choices.addJobGroup @current
     Choices.save()
     @jobs.add @current
-    console.log JSON.stringify @current.toJSON()
+    log.debug JSON.stringify @current.toJSON()
     true
 
   addComponent: (routeType) =>
@@ -443,13 +444,13 @@ module.exports = class Application extends Backbone.Router
   validateComponent: (event) =>
     event.preventDefault()
     routeType = $(event.currentTarget).data "type"
-    console.log "Validating #{routeType}"
+    log.info "Validating #{routeType}"
 
     last = @current.get(routeType).last()
     unless last.isValid()
       alert last.validationError
       null
 
-    console.log "Adding #{routeType} to active job"
+    log.info "Adding #{routeType} to active job"
     @addComponent routeType
     last

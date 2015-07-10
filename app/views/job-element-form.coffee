@@ -60,7 +60,7 @@ module.exports = class JobElementFormView extends ComponentView
 
 
   render: =>
-    console.log "Rendering #{@routeType} element"
+    log.info "Rendering #{@routeType} element"
 
     @$el.empty()
 
@@ -101,18 +101,19 @@ module.exports = class JobElementFormView extends ComponentView
     @model.set name, target.val()
     field = @model.getField name
 
-    if field?optionsType? and field.fieldType is "hidden"
-      selectedOption = target.select2 "data"
-      choicesOptions = Choices.get field.optionsType
+    log.debug "View changed", name, target.val()
+    return unless field?.optionsType and field?.fieldType is "hidden"
 
-      optionFound = _.some choicesOptions, (item) ->
-        item.id is selectedOption.id and item.text is selectedOption.text
+    selectedOption = target.select2 "data"
+    choicesOptions = Choices.get field.optionsType
 
-      unless optionFound
-        choicesOptions.push
-          id: selectedOption.id
-          text: selectedOption.text
+    optionFound = _.some choicesOptions, (item) ->
+      item.id is selectedOption.id and item.text is selectedOption.text
 
-    console.log "View changed", target.attr("name"), target.val()
+    unless optionFound
+      choicesOptions.push
+        id: selectedOption.id
+        text: selectedOption.text
+
 
     null

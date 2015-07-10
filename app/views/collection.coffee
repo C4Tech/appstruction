@@ -22,7 +22,7 @@ module.exports = class CollectionView extends BaseView
     null
 
   render: ->
-    console.log "Rendering #{@modelType} collection"
+    log.info "Rendering #{@modelType} collection"
     @rendered = true
 
     @$el.empty()

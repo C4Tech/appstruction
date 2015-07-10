@@ -55,7 +55,7 @@ module.exports = class EquipmentModel extends BaseModel
     quantity = @attributes.quantity ? 0
     @cost = time * rate * quantity
 
-    console.log "equipment row (#{type}) ##{@cid}:
+    log.trace "equipment row (#{type}) ##{@cid}:
       #{time} (#{@attributes.rateUnits}) x #{quantity} (quantity)
       @ $#{rate} (#{@attributes.rateUnits}) = #{@cost}"
 

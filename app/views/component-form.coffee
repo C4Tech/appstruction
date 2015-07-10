@@ -18,15 +18,14 @@ module.exports = class ComponentFormView extends ComponentView
 
   refresh: (event) =>
     target = $ event.currentTarget
-
     name = target.attr "name"
     @model.set name, target.val()
+
+    log.debug "View changed", name, target.val()
+    $(".#{@routeType}.cost").text @model.collection.calculate()
+
     field = @model.getField name
-
-    console.log "View changed", target.attr "name", target.val()
-    $(".#{@routeType}.cost").text @model.collection.calculate().toFixed 2
-
-    null unless field?optionsType? and field.fieldType is "hidden"
+    return unless field?.optionsType and field?.fieldType is "hidden"
 
     selectedOption = target.select2 "data"
     choicesOptions = Choices.get field.optionsType

@@ -35,7 +35,7 @@ module.exports = class ComponentView extends BaseView
       row: @model.toJSON()
       routeType: @routeType
       cid: @model.cid
-      cost: @model.calculate().toFixed 2 if @model.calculate?
+      cost: @model.calculate?()
       fields: @model.getFields @showAll
       index: @model.index
 

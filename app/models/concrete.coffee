@@ -125,7 +125,7 @@ module.exports = class ConcreteModel extends BaseModel
 
   calculate: ->
     priceUnits = @attributes.priceUnits ? @defaultUnit
-    type = @attributes.concreteType ? ""
+    type = @attributes.type ? ""
     depth = @normalize @attributes.depth, @attributes.depthUnits, priceUnits
     length = @normalize @attributes.length, @attributes.lengthUnits, priceUnits
     width = @normalize @attributes.width, @attributes.widthUnits, priceUnits
@@ -133,7 +133,7 @@ module.exports = class ConcreteModel extends BaseModel
     @setVolume depth, length, width, @attributes.quantity
     @setPrice @attributes.price, @attributes.tax
 
-    console.log "concrete row (#{type}) ##{@cid}:
+    log.debug "concrete row (#{type}) ##{@cid}:
       #{depth} (d) * #{width} (w) x #{length} (h) x #{@attributes.quantity}
       @ $#{@attributes.price} + #{@attributes.tax}% tax = #{@cost}"
 

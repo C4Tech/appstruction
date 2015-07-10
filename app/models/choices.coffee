@@ -337,29 +337,34 @@ class ChoicesModel extends Backbone.Model
 
   addJobGroup: (job) ->
     groupId = job.attributes.groupId
-    groupNameOptions = @attributes.groupNameOptions
-    jobGroups = @attributes.jobGroups
 
-    groupOptions = item for item in groupNameOptions when item.id is groupId
-    filteredJobGroups = item for item in jobGroups when item.group.id is groupId
+    # Pull the group information from the select list. This shouldn't be empty
+    groupNames = _.filter @attributes.groupNameOptions, @filterMatchId groupId
+    groupInfo = groupNames.shift() if groupNames.length
 
-    foundJob = false
-    defaultJob =
+    # Create a default saved job group
+    jobGroup =
+      group:
+        id: groupInfo.id
+        name: groupInfo.text
+
+    # Extract the existing saved job group from all saved job groups
+    [foundGroup, allGroups] = _.partition @attributes.jobGroups, (item) ->
+      item.group.id is groupId
+    jobGroup = foundGroup.shift() if foundGroup.length
+    jobGroup.jobs ?= []
+
+    # Add this job to the saved job group if it's not there already
+    jobData =
       id: job.id
       name: job.attributes.jobName
-    selectedGroup =
-      group:
-        id: groupOptions.id
-        name: groupOptions.text
-      jobs: []
+    isJobFound = false
+    isJobFound = _.some jobGroup.jobs, @filterMatchId job.id
+    jobGroup.jobs.push jobData unless isJobFound
 
-    selectedGroup = filteredJobGroups if filteredJobGroups?
-    selectedGroup.jobs ?= []
-
-    foundJob = _.some selectedGroup.jobs, @filterMatchId job.id
-
-    selectedGroup.jobs.push defaultJob unless foundJob
-    @attributes.jobGroups.push selectedGroup unless filteredJobGroups?
+    # Replace all saved job groups with the updated one
+    allGroups.unshift jobGroup
+    @attributes.jobGroups = allGroups
 
     null
 

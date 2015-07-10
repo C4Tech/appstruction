@@ -15,7 +15,7 @@ module.exports = class BaseView extends Backbone.View
 
   render: ->
     @$el.html @template
-    console.log "Rendering #{@routeType} into #{@container}"
+    log.info "Rendering #{@routeType} into #{@container}"
     $(@container).append @$el
     @
 

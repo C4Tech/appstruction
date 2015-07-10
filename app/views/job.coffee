@@ -27,7 +27,7 @@ module.exports = class JobView extends BaseView
     null
 
   render: ->
-    console.log "Rendering job overview"
+    log.info "Rendering job overview"
     @model.calculate()
 
     @$el.html @template

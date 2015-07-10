@@ -28,21 +28,21 @@ module.exports = class PageView extends Backbone.View
   renderHeader: ->
     header = @header
       title: @title
-      step: @subView?step ? null
-    console.log "Rendering page header"
+      step: @subView?.step ? null
+    log.debug "Rendering page header"
     @$el.append header
 
     null
 
   renderPage: ->
-    console.log "Rendering page view"
+    log.debug "Rendering page view"
     @$el.append @section
       text: @text
 
     null
 
   renderSubView: ->
-    console.log "Appending form view"
+    log.debug "Appending form view"
     @$el.append @subView.render().$el
 
     null

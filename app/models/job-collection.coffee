@@ -11,9 +11,9 @@ module.exports = class JobCollection extends Backbone.Collection
 
   calculate: ->
     @cost = 0
-    @cost += model.calculate() for model in @models
+    @cost += +model.calculate() for model in @models
 
-    console.log "#{@modelType} total", @cost
+    log.trace "#{@modelType} total: #{@cost}"
     @cost
 
   byGroupId: (groupId) ->

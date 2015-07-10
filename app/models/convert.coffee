@@ -26,13 +26,13 @@ class ConvertModel extends Backbone.Model
     [value, units]
 
   toHours: (value, units) ->
-    [value, units] = normalize value, units
+    [quantity, unit] = @normalize value, units
 
-    value * units
+    quantity*unit
 
   toPerHour: (value, units) ->
-    [value, units] = normalize value, units
+    [quantity, unit] = @normalize value, units
 
-    value / conversion
+    quantity/unit
 
 module.exports = new ConvertModel

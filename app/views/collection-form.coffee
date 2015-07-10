@@ -9,18 +9,16 @@ module.exports = class CollectionFormView extends CollectionView
     @child = ComponentFormView
     @multiple = true
     @step = opts.step
-    @template = require "templates/collection.form"
+    @routeType = opts.routeType
     @title = opts.title
-    super opts
-
     @className = "container #{@routeType}-form-collection"
     @id = "job-form-#{@routeType}"
     @multiple = false if @routeType is "create" or @routeType is "job"
-    @setName()
-    null
+    @template = require "templates/collection.form"
+    super opts
 
   render: =>
-    console.log "Rendering #{@routeType} collection"
+    log.info "Rendering #{@routeType} collection"
     @rendered = true
 
     @$el.empty()
@@ -40,7 +38,7 @@ module.exports = class CollectionFormView extends CollectionView
 
         if val.lastIndexOf ".", 0 is 0
           template = ".0000000000"
-          null if val is template.substring 0, val.length
+          return unless val is template.substring 0, val.length
           target.val "0#{val}"
 
     @$("select").select2

@@ -2,6 +2,7 @@ Application = require "application"
 
 class Cordova
   initialize: ->
+    log.setLevel "warn", false
     @bindEvents()
     true
 
@@ -22,7 +23,7 @@ class Cordova
     listeningElement.setAttribute "style", "display:none;"
     receivedElement.setAttribute "style", "display:block;"
 
-    console.log "Received Event: #{id}"
+    log.debug "Received Event: #{id}"
     true
 
 module.exports = new Cordova

@@ -1,5 +1,6 @@
 Application = require "application"
 
 $ ->
-  Router = new Application
+  log.setLevel "debug", false
+  Router = new Application clickType: "click"
   Backbone.history.start()

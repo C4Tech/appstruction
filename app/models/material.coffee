@@ -54,7 +54,7 @@ module.exports = class MaterialModel extends BaseModel
 
     @cost = quantity * price
     @cost += @cost * tax/100
-    console.log "material row (#{type}) ##{@cid}: #{quantity}@#{price}
+    log.trace "material row (#{type}) ##{@cid}: #{quantity}@#{price}
       + #{tax}% tax = #{@cost}"
 
     @cost

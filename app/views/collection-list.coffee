@@ -15,7 +15,7 @@ module.exports = class CollectionListView extends CollectionView
     null
 
   render: =>
-    console.log "Rendering #{@modelType} list collection"
+    log.info "Rendering #{@modelType} list collection"
     @rendered = true
 
     @$el.empty()

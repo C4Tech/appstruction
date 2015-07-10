@@ -80,7 +80,7 @@ module.exports = class JobModel extends BaseModel
     @cost += @attributes.equipment.calculate()
     @cost += @attributes.subcontractor.calculate()
 
-    console.log "Job total: #{@attributes.concrete.cost} +
+    log.trace "Job total: #{@attributes.concrete.cost} +
       #{@attributes.labor.cost} + #{@attributes.materials.cost} +
       #{@attributes.equipment.cost} + #{@attributes.subcontractor.cost}
       = #{@cost}"
