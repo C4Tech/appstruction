@@ -2,29 +2,26 @@
   "name": "appstruction",
   "description": "Estimate cement pouring jobs with ease.",
   "author": "C4 Tech and Design",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "engines": {
     "node": "*"
   },
   "scripts": {
     "start": "brunch watch --server",
-    "test": "brunch test",
-    "postinstall": "bower install",
-    "postupdate": "bower prune; bower update"
+    "test": "echo 'No test setup'; exit 1"
   },
   "dependencies": {
-    "autoprefixer-brunch": "^1.8.0",
+    "auto-reload-brunch": "^1.8.0",
+    "autoprefixer-brunch": "^1.7.0",
     "clean-css-brunch": "^1.7.0",
-    "coffee-script-brunch": "^1.8.0",
+    "coffee-script-brunch": "^1.7.0",
     "coffeelint-brunch": "^1.7.0",
     "css-brunch": "^1.7.0",
-    "handlebars-brunch": "^1.9.0",
     "javascript-brunch": "^1.7.0",
-    "less-brunch": "^1.8.0",
+    "jsenv-brunch": "^1.4.2",
+    "less-brunch": "^1.7.0",
+    "react-coffee-brunch": "^1.7.1",
     "uglify-js-brunch": "^1.7.0"
-  },
-  "devDependencies": {
-    "auto-reload-brunch": "^1.8.0"
   }
 }
