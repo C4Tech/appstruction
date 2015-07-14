@@ -1,0 +1,28 @@
+
+(env) ->
+  # Default to production
+  endpoint = "https://api.streetcarshops.com"
+
+  # Use API Environment if set
+  endpoint = "https://api.#{env.API_ENV}.streetcarshops.com" if env.API_ENV?
+
+  # Use full string if set
+  endpoint = env.ENDPOINT if env.ENDPOINT?
+
+  # Default to production value
+  fakeRequests = "no"
+
+  # Enable faking if set
+  fakeRequests = "yes" if env.DEV_MODE
+
+  # Default local storage prefix
+  prefix = "scs"
+
+  # Use API Environment if set
+  prefix = "scs-#{env.API_ENV}" if env.API_ENV?
+
+  {
+    "apiEndpoint": endpoint
+    "fakeRequests": fakeRequests
+    "storagePrefix": prefix
+  }
