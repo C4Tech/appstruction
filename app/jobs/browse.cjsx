@@ -13,7 +13,7 @@ module.exports = React.createClass
     @transitionTo "home"
 
   render: ->
-    <article>
+    <article className="browse-jobs">
       <JobSelect jobs={@state.jobs} />
 
       <Row>

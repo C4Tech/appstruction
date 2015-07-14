@@ -1,23 +1,40 @@
-Icon = require "react-fa/dist/Icon.js"
-React = require "react"
-ReactBootstrap = require "react-bootstrap"
-# ReactRouterBootstrap = require "react-router-bootstrap"
-Brand = require "./brand"
-
-Nav = ReactBootstrap.Nav
 Navbar = ReactBootstrap.Navbar
-NavItem = ReactBootstrap.NavItem
+Row = ReactBootstrap.Row
+
+NavButton = require "layouts/nav-button"
 
 module.exports = React.createClass
-  render: ->
-    <Navbar brand={<Brand />} inverse fluid>
-      <Nav navbar eventKey={2}>
-        <NavItem href="#">Nav One</NavItem>
-        <NavItem href="#">Nav Two</NavItem>
-        <NavItem href="#">Nav Three</NavItem>
-      </Nav>
+  handleNavBack: (event) ->
+    null
 
-      <Nav navbar right eventKey={4}>
-        <NavItem href="#"><Icon name="cog" size="lg" /></NavItem>
-      </Nav>
+  handleNavHome: (event) ->
+    null
+
+  handleNavNext: (event) ->
+    null
+
+  render: ->
+    prev = <NavButton label="Back"
+              icon="arrow-left"
+              className={"prev": true}
+              onClick={@handleNavBack} />
+
+    next = <NavButton label="Next"
+              icon="arrow-right"
+              className={"next": true, "pull-right": true}
+              onClick={@handleNavNext} />
+
+    <Navbar>
+      <Row>
+        {prev if @state.nav.prev}
+
+        <NavButton label="Home"
+            icon="home"
+            className={"home": true, "center-block": true}
+            offset={4 unless @state.nav.prev}
+            onClick={@handleNavHome} />
+
+        {next if @state.nav.next}
+      </Row>
     </Navbar>
+

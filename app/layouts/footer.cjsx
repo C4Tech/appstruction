@@ -1,8 +1,10 @@
-React = require "react"
+Row = ReactBootstrap.Row
 
 module.exports = React.createClass
   render:  ->
-    <footer>
-      App Footer
-    </footer>
+    <Row className="footer-logo">
+      <div>
+        <img src="img/logo.png" class="img-responsive center-block" alt="Appstruction" />
+      </div>
+    </Row>
 
