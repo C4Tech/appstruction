@@ -1,5 +1,6 @@
 JobActions = require "jobs/actions"
 ChoicesStore = require "choices/store"
+Select = require "forms/input-selectize"
 
 module.exports = React.createClass
   getInitialState: ->
@@ -23,6 +24,7 @@ module.exports = React.createClass
     }
 
   render: ->
-    <Select {..@props}
+    <Select help={<HelpText type="dropdown" />}
+      {..@props}
       name={@props.type}
       options={@state.options} />

@@ -5,8 +5,20 @@ class ChoicesStore
   constructor: ->
     @options = @getDefaultState()
     @bindActions actions
-
+    @exportPublicMethods
+      getById: @getById
     null
+
+  @getById: (type, id) ->
+    return choice for choice in @options[type]? when choice.id is id
+
+  @getLabelFor: (type, id, quantity = 1) ->
+      choice = @getById type, id
+      return id unless choice
+      label = choice.plural if choice.plural?
+      label = choice.singular if quantity is 1
+      label ?= choice.text
+      label
 
   getDefaultState: ->
     {
