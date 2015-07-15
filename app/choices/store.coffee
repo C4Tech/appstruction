@@ -1,6 +1,14 @@
+system = require "system"
+actions = require "choices/actions"
 
 class ChoicesStore
-  getInitialState: ->
+  constructor: ->
+    @options = @getDefaultState()
+    @bindActions actions
+
+    null
+
+  getDefaultState: ->
     {
       concrete: [
           id: 1
@@ -254,3 +262,14 @@ class ChoicesStore
           per: "Monthly"
       ]
     }
+
+  onCreate: (payload) ->
+    @[payload.name].push
+      id: payload.data.id ? @[payload.name].length + 1
+      text: payload.data.text
+      singular: payload.data.singular ? payload.data.text
+      plural: payload.data.plural ? "#{payload.data.text}s"
+
+    null
+
+module.exports = system.createStore ChoicesStore

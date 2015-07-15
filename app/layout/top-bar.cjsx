@@ -1,7 +1,7 @@
 Navbar = ReactBootstrap.Navbar
 Row = ReactBootstrap.Row
 
-NavButton = require "layouts/nav-button"
+NavButton = require "elements/nav-button"
 
 module.exports = React.createClass
   handleNavBack: (event) ->

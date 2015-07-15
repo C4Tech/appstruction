@@ -6,4 +6,8 @@ module.exports = class JobActions
       data: data
       navigateTo: navigateTo
 
+  setCurrent: (job) ->
+    @dispatch
+      job: job
+
 module.exports = system.createActions JobActions

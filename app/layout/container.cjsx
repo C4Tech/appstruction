@@ -1,4 +1,4 @@
-Header = require "layouts/header"
+Header = require "layout/header"
 
 Grid = ReactBootstrap.Grid
 RouteHandler = ReactRouter.RouteHandler

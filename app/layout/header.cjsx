@@ -1,12 +1,12 @@
 Grid = ReactBootstrap.Grid
 
-Decoration = require "layouts/header-decoration"
-UserBar = require "layouts/user-bar"
+Decoration = require "elements/header-decoration"
+TopBar = require "layout/top-bar"
 
 module.exports = React.createClass
   render: ->
     <header>
-      <UserBar />
+      <TopBar />
 
       <div className="header-job-name">
         <Grid>

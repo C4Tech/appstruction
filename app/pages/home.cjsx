@@ -1,17 +1,23 @@
 Row = ReactBootstrap.Row
+Navigation = ReactRouter.Navigation
 
 Footer = require "layouts/footer"
 NavButton = require "layouts/nav-button"
 
 module.exports = React.createClass
+  mixins = [Navigation]
+
   handleNavCreate: (event) ->
-    null
+    event.preventDefault()
+    @transitionTo "job"
 
   handleNavLoad: (event) ->
-    null
+    event.preventDefault()
+    @transitionTo "load"
 
   handleNavDelete: (event) ->
-    null
+    event.preventDefault()
+    @transitionTo "delete"
 
   render: ->
     <div>
