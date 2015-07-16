@@ -1,5 +1,6 @@
 ComponentItem = require "jobs/component-form-item"
 InstanceFormMixin = require "mixins/form-instance"
+JobStore = require "jobs/store"
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
 Input = ReactBootstrap.Input
@@ -8,36 +9,70 @@ Row = ReactBootstrap.Row
 module.exports = React.createClass
   mixins: [ReactRouter.State]
 
-  render: ->
-    type = @getParam "component"
+  getInitialState: ->
+    @syncStoreStateCollection()
 
+  componentDidMount: ->
+    JobStore.listen @onStoreChangeCollection
+    null
+
+  componentWillUnmount: ->
+    JobStore.unlisten @onStoreChangeCollection
+    null
+
+  onStoreChangeCollection: ->
+    @setState @syncStoreStateCollection()
+    null
+
+  syncStoreStateCollection: ->
+    type = @getParam "component"
+    job = JobStore.getState().current
+    component = job[type]
+
+    {
+      type: type
+      items: component.items ? []
+      cost: component.subtotal
+      total: job.cost
+    }
+
+  handleAdd: (event) ->
+    null
+
+  handleNext: (event) ->
+    null
+
+  handleSave: (event) ->
+    null
+
+  render: ->
     addButton = <Row>
-        <div>
-          <Button bsStyle="warning">
-            <Icon name="plus-circle" />
-            Add another
-          </Button>
-        </div>
+        <Button bsStyle="warning" block onClick={@handleAdd}>
+          <Icon name="plus-circle" />
+          Add another
+        </Button>
+
+        <hr />
       </Row>
 
     addButton = null if @state.type is "concrete"
 
-    <Form submitLabel="Next"
-          onHandleSubmit={@onHandleSubmit}
-          {...@props}>
+    <Form handleNext={@handleNext}
+          handleSave={@handleSave}>
+
       {<ComponentItem type={@state.type} item={item} /> for item in @state.items}
 
       <hr />
-
       {addButton}
-      {<hr /> unless @state.type is "concrete"}
 
       <Row>
         <div className="lead">
-          <span className="capitalize">{@state.type}</span>
-          $<span className="{@props.type} cost">{@state.cost}</span>
-          <br />
-          Subtotal $<span className="subtotal">{@state.total}</span>
+          <div className="capitalize">
+            {@state.type} ${@state.cost}
+          </div>
+          <div>
+            Subtotal ${@state.total}
+          </div>
         </div>
       </Row>
     </Form>

@@ -1,3 +1,5 @@
+# Qty = require "js-quantities"
+
 module.exports =
   defaultUnit: "ft"
 

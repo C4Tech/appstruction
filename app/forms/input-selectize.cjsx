@@ -1,4 +1,4 @@
 
 module.exports = React.createClass
   render: ->
-    <Select {..@props} />
+    <Select {...@props} />

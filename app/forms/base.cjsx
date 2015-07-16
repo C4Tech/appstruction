@@ -12,9 +12,9 @@ module.exports = React.createClass
       isModal: false
       title: false
       submitLabel: "Submit"
-      cancelLabel: "Cancel"
-      onHandleCancel: @handleCancel
-      onHandleSubmit: @handleSubmit
+      saveLabel: "Save &amp; Exit"
+      handleSave: @handleSubmit
+      handleNext: @handleSubmit
     }
 
   handleSubmit: (event) ->
@@ -22,21 +22,19 @@ module.exports = React.createClass
     console.log "Nothing is configured to handle form submission"
     null
 
-  handleCancel: (event) =>
-    event.preventDefault()
-    @goBack()
-    null
-
   render: ->
     title = <PageHeader>{@props.title}</PageHeader>
     title = null unless @props.title
 
-    cancelButton = <Button className="btn-cancel btn-rounded pull-right" bsSize="large" onClick={@props.onHandleCancel}>{@props.cancelLabel or "Cancel"}</Button>
-    cancelButton = null unless @props.cancelLabel
+    nextButton = <Button bsStyle="success" block onClick={@props.handleNext}>
+        {@props.submitLabel or "Next"}
+      </Button>
+    nextButton = null unless @props.handleNext
 
-    footerClasses =
-      "btn-rounded": true
-      "pull-left": if cancelButton then true else false
+    saveButton = <Button bsStyle="primary" block onClick={@props.handleSave}>
+        {saveLabel}
+      </Button>
+    nextButton = null unless @props.saveLabel
 
     <form>
       {title}
@@ -47,8 +45,11 @@ module.exports = React.createClass
         * Required Fields
       </div>
 
-      <div className="form-footer">
-        <Button className={classNames footerClasses} bsStyle="primary" bsSize="large" onClick={@props.onHandleSubmit}>{@props.submitLabel or "Submit"}</Button>
-        {cancelButton}
-      </div>
+      <Row className="form-footer">
+        <Col xs={6}>
+          {saveButton}
+        </Col>
+        <Col xs={6}>
+          {nextButton}
+        </Col>
     </form>

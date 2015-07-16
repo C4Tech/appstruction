@@ -4,8 +4,6 @@ Col = ReactBootstrap.Col
 Input = ReactBootstrap.Input
 Row = ReactBootstrap.Row
 
-ParentInput = require "businesses/input-parent"
-
 module.exports = React.createClass
   getInitialState: ->
     {
@@ -22,7 +20,7 @@ module.exports = React.createClass
     form[event.target.name] = event.target.value
     @setState form: form
 
-  handleSubmit: (event) ->
+  handleNext: (event) ->
     event.preventDefault()
     JobActions.create @state.form, @props.nav.next if @validate()
 
@@ -44,8 +42,8 @@ module.exports = React.createClass
     response
 
   render: ->
-    <Form submitLabel="Next"
-          onHandleSubmit={@onHandleSubmit}
+    <Form saveLabel={null}
+          handleNext={@handleNext}
           {...@props}>
       <Row>
         <ChooseInput type="group"

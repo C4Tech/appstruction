@@ -3,24 +3,25 @@ Route = Router.Route
 DefaultRoute = Router.DefaultRoute
 
 Layout = require "layout/container"
-HomePage = require "pages/home"
-JobInfo = require "jobs/info"
-JobComponent = require "jobs/component-form"
-JobOverview = require "jobs/overview"
-LoadJob = require "jobs/load"
-DeleteJob = require "jobs/delete"
+Home = require "pages/home"
+Component = require "jobs/component-form"
+JobLayout = require "jobs/container"
+Add = require "jobs/add"
+# JobOverview = require "jobs/overview"
+# LoadJob = require "jobs/load"
+# DeleteJob = require "jobs/delete"
 
+  # <Route name="browse" handler={LoadJob} />
+  # <Route name="delete" handler={DeleteJob} />
+    # <Route name="save" path="overview" handler={JobOverview} />
 routes =
   <Route name="home" path="/" handler={Layout}>
-    <DefaultRoute handler={HomePage} />
-    <Route name="job">
-        <DefaultRoute handler={JobInfo} />
-        <Route name="save" path="overview" handler={JobOverview} />
-        <Route name="component" path=":component" handler={JobComponent} />
-    </Route>
+    <DefaultRoute handler={Home} />
 
-    <Route name="load" handler={LoadJob} />
-    <Route name="delete" handler={DeleteJob} />
+    <Route name="add" handler={Add} />
+    <Route name="job" handler={JobLayout}>
+      <Route name="component" path=":component" handler={Component} />
+    </Route>
   </Route>
 
 render = (target) ->

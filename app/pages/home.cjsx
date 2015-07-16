@@ -1,11 +1,11 @@
 Row = ReactBootstrap.Row
 Navigation = ReactRouter.Navigation
 
-Footer = require "layouts/footer"
-NavButton = require "layouts/nav-button"
+Footer = require "layout/footer"
+NavButton = require "elements/nav-button"
 
 module.exports = React.createClass
-  mixins = [Navigation]
+  mixins: [Navigation]
 
   handleNavCreate: (event) ->
     event.preventDefault()

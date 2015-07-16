@@ -1,6 +1,6 @@
 Col = ReactBootstrap.Col
 Button = ReactBootstrap.Button
-Icon = ReactFA.Icon
+Icon = require "elements/icon"
 
 module.exports = React.createClass
   render: ->
@@ -10,11 +10,8 @@ module.exports = React.createClass
     classes["navbar-btn"] = true
 
     <Col xs={4} xsOffset={@props.offset or 0}>
-      <Button {..@props}
-              className={classes}
-              role="button">
+      <Button {...@props} className={classes}>
         <Icon name={@props.icon or "arrow-left"} size="2x" />
-        <br />
-        {@props.label or "Back"}
+        <div>{@props.label or "Back"}</div>
       </Button>
     </Col>
