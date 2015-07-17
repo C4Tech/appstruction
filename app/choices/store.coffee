@@ -9,13 +9,13 @@ class ChoicesStore
       {getById: @getById}
     null
 
-  @getById: (type, id) ->
-    return choice for choice in @options[type]? when choice.id is id
+  @getById: (type, value) ->
+    return choice for choice in @options[type]? when choice.value is value
 
-  @getLabelFor: (type, id, quantity = 1) ->
-    choice = @getById type, id
-    return id unless choice
-    label = choice.text
+  @getLabelFor: (type, value, quantity = 1) ->
+    choice = @getById type, value
+    return value unless choice
+    label = choice.label
     label = choice.plural if choice.plural?
     label = choice.singular if quantity is 1 and choice.singular
     label
@@ -23,75 +23,75 @@ class ChoicesStore
   getDefaultState: ->
     {
       concrete: [
-          id: 1
-          text: "Sidewalk"
+          value: "1"
+          label: "Sidewalk"
           singular: "Sidewalk"
           plural: "Sidewalks"
         ,
-          id: 2
-          text: "Foundation"
+          value: "2"
+          label: "Foundation"
           singular: "Foundation"
           plural: "Foundations"
         ,
-          id: 3
-          text: "Curb"
+          value: "3"
+          label: "Curb"
           singular: "Curb"
           plural: "Curbs"
         ,
-          id: 4
-          text: "Footings"
+          value: "4"
+          label: "Footings"
           singular: "Footing"
           plural: "Footings"
         ,
-          id: 5
-          text: "Driveway"
+          value: "5"
+          label: "Driveway"
           singular: "Driveway"
           plural: "Driveways"
       ]
 
       equipment: [
-          id: 1
-          text: "Dump Truck"
+          value: "1"
+          label: "Dump Truck"
           singular: "Dump Truck"
           plural: "Dump Trucks"
         ,
-          id: 2
-          text: "Excavator"
+          value: "2"
+          label: "Excavator"
           singular: "Excavator"
           plural: "Excavators"
         ,
-          id: 3
-          text: "Bobcat"
+          value: "3"
+          label: "Bobcat"
           singular: "Bobcat"
           plural: "Bobcats"
         ,
-          id: 4
-          text: "Concrete Pump"
+          value: "4"
+          label: "Concrete Pump"
           singular: "Concrete Pump"
           plural: "Concrete Pumps"
         ,
-          id: 5
-          text: "Concrete Saw"
+          value: "5"
+          label: "Concrete Saw"
           singular: "Concrete Saw"
           plural: "Concrete Saws"
         ,
-          id: 6
-          text: "Piles"
+          value: "6"
+          label: "Piles"
           singular: "Pile"
           plural: "Piles"
         ,
-          id: 7
-          text: "Trial"
+          value: "7"
+          label: "Trial"
           singular: "Trial"
           plural: "Trials"
         ,
-          id: 8
-          text: "Util Truck"
+          value: "8"
+          label: "Util Truck"
           singular: "Util Truck"
           plural: "Util Trucks"
         ,
-          id: 9
-          text: "Trowel Machine"
+          value: "9"
+          label: "Trowel Machine"
           singular: "Trowel Machine"
           plural: "Trowel Machines"
       ]
@@ -99,176 +99,176 @@ class ChoicesStore
       group: []
 
       job: [
-          id: 1
-          text: "Municipal"
+          value: "1"
+          label: "Municipal"
         ,
-          id: 2
-          text: "Commercial"
+          value: "2"
+          label: "Commercial"
         ,
-          id: 3
-          text: "Residential"
+          value: "3"
+          label: "Residential"
         ,
-          id: 4
-          text: "Civil"
+          value: "4"
+          label: "Civil"
         ,
-          id: 5
-          text: "Structural"
+          value: "5"
+          label: "Structural"
       ]
 
       labor: [
-          id: 1
-          text: "Finishers"
+          value: "1"
+          label: "Finishers"
           singular: "Finisher"
           plural: "Finishers"
         ,
-          id: 2
-          text: "Supervisors"
+          value: "2"
+          label: "Supervisors"
           singular: "Supervisor"
           plural: "Supervisors"
         ,
-          id: 3
-          text: "Forms crp"
+          value: "3"
+          label: "Forms crp"
           singular: "Forms crp"
           plural: "Forms crp"
         ,
-          id: 4
-          text: "Laborers"
+          value: "4"
+          label: "Laborers"
           singular: "Laborer"
           plural: "Laborers"
         ,
-          id: 5
-          text: "Driver"
+          value: "5"
+          label: "Driver"
           singular: "Driver"
           plural: "Drivers"
         ,
-          id: 6
-          text: "Operator"
+          value: "6"
+          label: "Operator"
           singular: "Operator"
           plural: "Operators"
         ,
-          id: 7
-          text: "Carpenter"
+          value: "7"
+          label: "Carpenter"
           singular: "Carpenter"
           plural: "Carpenters"
         ,
-          id: 8
-          text: "Ironworker"
+          value: "8"
+          label: "Ironworker"
           singular: "Ironworker"
           plural: "Ironworkers"
       ]
 
       material: [
-          id: 1
-          text: "Wire (sheet)"
+          value: "1"
+          label: "Wire (sheet)"
           singular: "Wire"
           plural: "Wire"
         ,
-          id: 2
-          text: "Keyway (lf)"
+          value: "2"
+          label: "Keyway (lf)"
           singular: "Keyway"
           plural: "Keyways"
         ,
-          id: 3
-          text: "Stakes (ea.)"
+          value: "3"
+          label: "Stakes (ea.)"
           singular: "Stake"
           plural: "Stakes"
         ,
-          id: 4
-          text: "Cap (lf)"
+          value: "4"
+          label: "Cap (lf)"
           singular: "Cap"
           plural: "Caps"
         ,
-          id: 5
-          text: "Dowells  (ea.)"
+          value: "5"
+          label: "Dowells  (ea.)"
           singular: "Dowell"
           plural: "Dowells"
         ,
-          id: 6
-          text: "2x8x20  (lf)"
+          value: "6"
+          label: "2x8x20  (lf)"
           singular: "lf of 2x8x20"
           plural: "lf of 2x8x20"
         ,
-          id: 7
-          text: "Misc"
+          value: "7"
+          label: "Misc"
           singular: "Misc"
           plural: "Misc"
       ]
 
       measurement: [
-          id: "in"
-          text: "Inches"
+          value: "in"
+          label: "Inches"
           singular: "Inch"
           plural: "Inches"
         ,
-          id: "ft"
-          text: "Feet"
+          value: "ft"
+          label: "Feet"
           singular: "Foot"
           plural: "Feet"
         ,
-          id:"yd"
-          text: "Yards"
+          value:"yd"
+          label: "Yards"
           singular: "Yard"
           plural: "Yards"
         ,
-          id:"cm"
-          text: "Centimeters"
+          value:"cm"
+          label: "Centimeters"
           singular: "Centimeter"
           plural: "Centimeters"
         ,
-          id:"m"
-          text: "Meters"
+          value:"m"
+          label: "Meters"
           singular: "Meter"
           plural: "Meters"
       ]
 
       volume: [
-          id: "in"
-          text: "Cubic Inch"
+          value: "in"
+          label: "Cubic Inch"
           singular: "Cubic Inch"
           plural: "Cubic Inches"
         ,
-          id: "ft"
-          text: "Cubic Foot"
+          value: "ft"
+          label: "Cubic Foot"
           singular: "Cubic Foot"
           plural: "Cubic Feet"
         ,
-          id: "yd"
-          text: "Cubic Yard"
+          value: "yd"
+          label: "Cubic Yard"
           singular: "Cubic Yard"
           plural: "Cubic Yards"
         ,
-          id: "cm"
-          text: "Cubic Centimeter"
+          value: "cm"
+          label: "Cubic Centimeter"
           singular: "Cubic Centimeter"
           plural: "Cubic Centimeters"
         ,
-          id: "m"
-          text: "Cubic Meter"
+          value: "m"
+          label: "Cubic Meter"
           singular: "Cubic Meter"
           plural: "Cubic Meters"
       ]
 
       time: [
-          id: "hour"
-          text: "Hours"
+          value: "hour"
+          label: "Hours"
           singular: "Hour"
           plural: "Hours"
           per: "Hourly"
         ,
-          id: "day"
-          text: "Days"
+          value: "day"
+          label: "Days"
           singular: "Day"
           plural: "Days"
           per: "Daily"
         ,
-          id: "week"
-          text: "Weeks"
+          value: "week"
+          label: "Weeks"
           singular: "Week"
           plural: "Weeks"
           per: "Weekly"
         ,
-          id: "month"
-          text: "Months"
+          value: "month"
+          label: "Months"
           singular: "Month"
           plural: "Months"
           per: "Monthly"
@@ -276,11 +276,12 @@ class ChoicesStore
     }
 
   onCreate: (payload) ->
+    value = payload.data.value ? @[payload.name].length + 1
     @[payload.name].push
-      id: payload.data.id ? @[payload.name].length + 1
-      text: payload.data.text
-      singular: payload.data.singular ? payload.data.text
-      plural: payload.data.plural ? "#{payload.data.text}s"
+      value: "#{value}"
+      label: "#{payload.data.label}"
+      singular: "#{payload.data.singular}" ? "#{payload.data.label}"
+      plural: "#{payload.data.plural}" ? "#{payload.data.label}s"
 
     null
 

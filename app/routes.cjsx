@@ -29,7 +29,7 @@ render = (target) ->
     React.render <Handler />, target
 
 module.exports =
-  run: (target = document.body, history = true) ->
+  run: (target = document.body, history = false) ->
     location = ReactRouter.HistoryLocation
     renderer = render target
 

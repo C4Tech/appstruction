@@ -1,8 +1,8 @@
-Navigation = ReactRouter.Navigation
 Button = ReactBootstrap.Button
+Col = ReactBootstrap.Col
+Navigation = ReactRouter.Navigation
 PageHeader = ReactBootstrap.PageHeader
-
-classNames = require "classnames"
+Row = ReactBootstrap.Row
 
 module.exports = React.createClass
   mixins: [Navigation]
@@ -11,7 +11,7 @@ module.exports = React.createClass
     {
       isModal: false
       title: false
-      submitLabel: "Submit"
+      submitLabel: "Next"
       saveLabel: "Save &amp; Exit"
       handleSave: @handleSubmit
       handleNext: @handleSubmit
@@ -32,18 +32,14 @@ module.exports = React.createClass
     nextButton = null unless @props.handleNext
 
     saveButton = <Button bsStyle="primary" block onClick={@props.handleSave}>
-        {saveLabel}
+        {@props.saveLabel}
       </Button>
-    nextButton = null unless @props.saveLabel
+    saveButton = null unless @props.saveLabel
 
     <form>
       {title}
 
       {@props.children}
-
-      <div className="text-left text-primary">
-        * Required Fields
-      </div>
 
       <Row className="form-footer">
         <Col xs={6}>
@@ -52,4 +48,5 @@ module.exports = React.createClass
         <Col xs={6}>
           {nextButton}
         </Col>
+      </Row>
     </form>

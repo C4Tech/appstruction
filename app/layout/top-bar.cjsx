@@ -26,15 +26,15 @@ module.exports = React.createClass
 
     <Navbar>
       <Row>
-        {prev if @state.nav.prev}
+        {prev if @state?.nav?.prev}
 
         <NavButton label="Home"
             icon="home"
             className={"home": true, "center-block": true}
-            offset={4 unless @state.nav.prev}
+            offset={4 unless @state?.nav?.prev}
             onClick={@handleNavHome} />
 
-        {next if @state.nav.next}
+        {next if @state?.nav?.next}
       </Row>
     </Navbar>
 

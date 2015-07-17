@@ -4,7 +4,7 @@ Icon = require "elements/icon"
 
 module.exports = React.createClass
   render: ->
-    classes = @prop.className ? {}
+    classes = @props.className ? {}
     classes["btn-nav"] = true
     classes["ccma-navigate"] = true
     classes["navbar-btn"] = true

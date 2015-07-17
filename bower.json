@@ -24,8 +24,11 @@
     "jspdf": {
       "main": "dist/jspdf.js"
     },
-    "react-fa": {
-      "main": "src/Icon.js"
+    "react-select": {
+      "main": [
+        "dist/react-select.js",
+        "dist/default.css"
+      ]
     }
   },
   "resolutions": {

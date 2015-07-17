@@ -2,14 +2,14 @@ Row = ReactBootstrap.Row
 Navigation = ReactRouter.Navigation
 
 Footer = require "layout/footer"
-NavButton = require "elements/nav-button"
+NavButton = require "elements/main-nav"
 
 module.exports = React.createClass
   mixins: [Navigation]
 
   handleNavCreate: (event) ->
     event.preventDefault()
-    @transitionTo "job"
+    @transitionTo "add"
 
   handleNavLoad: (event) ->
     event.preventDefault()

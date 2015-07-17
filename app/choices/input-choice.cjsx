@@ -24,7 +24,9 @@ module.exports = React.createClass
     }
 
   render: ->
-    <Select help={<HelpText type="dropdown" />}
-      {..@props}
+    <Select help="Dropdown help"
       name={@props.type}
+      allowCreate
+      addLabelText="{label}"
+      {...@props}
       options={@state.options} />

@@ -22,4 +22,4 @@ module.exports = React.createClass
     classNames += " fa-inverse" if @props.inverse
     classNames += " #{@props.className}"  if @props.className
 
-    <span {...props} className={classNames} />
+    <span {...@props} className={classNames} />

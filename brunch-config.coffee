@@ -15,7 +15,7 @@ exports.config =
         "assets/vendor.js": /^(bower_components|vendor)/
     stylesheets:
       joinTo:
-        "assets/app.css": /^(app|bower_components|vendor)/
+        "assets/style.css": /^(app|bower_components|vendor)/
       order:
         after: [
           "app/styles/cole.less"
