@@ -1,9 +1,33 @@
 RouteHandler = ReactRouter.RouteHandler
 
+Decoration = require "elements/header-decoration"
+JobStore = require "jobs/store"
+
 module.exports = React.createClass
+  getInitialState: ->
+    @syncStoreStateCollection()
+
+  componentDidMount: ->
+    JobStore.listen @onStoreChangeCollection
+    null
+
+  componentWillUnmount: ->
+    JobStore.unlisten @onStoreChangeCollection
+    null
+
+  onStoreChangeCollection: ->
+    @setState @syncStoreStateCollection()
+    null
+
+  syncStoreStateCollection: ->
+    {
+      job: JobStore.getState().current
+      title: "Static Title"
+    }
+
   render: ->
     <div>
-      <h3>{@state.job.name}</h3>
+      <h3>{@state.job?.name}</h3>
 
       <div className="header-title">
         <h3>

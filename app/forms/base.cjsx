@@ -12,7 +12,7 @@ module.exports = React.createClass
       isModal: false
       title: false
       submitLabel: "Next"
-      saveLabel: "Save &amp; Exit"
+      saveLabel: "Save & Exit"
       handleSave: @handleSubmit
       handleNext: @handleSubmit
     }

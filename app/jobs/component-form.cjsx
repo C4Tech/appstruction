@@ -1,4 +1,6 @@
 ComponentItem = require "jobs/component-form-item"
+Form = require "forms/base"
+Icon = require "elements/icon"
 InstanceFormMixin = require "mixins/form-instance"
 JobStore = require "jobs/store"
 Button = ReactBootstrap.Button
@@ -25,15 +27,15 @@ module.exports = React.createClass
     null
 
   syncStoreStateCollection: ->
-    type = @getParam "component"
+    type = @getParams().component
     job = JobStore.getState().current
     component = job[type]
 
     {
       type: type
-      items: component.items ? []
-      cost: component.subtotal
-      total: job.cost
+      items: component?.items ? []
+      cost: component?.subtotal
+      total: job?.cost
     }
 
   handleAdd: (event) ->

@@ -1,14 +1,16 @@
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
 Input = ReactBootstrap.Input
+Navigation = ReactRouter.Navigation
 Row = ReactBootstrap.Row
 
 FormInstanceMixin = require "mixins/form-instance"
 Form = require "forms/base"
 ChooseInput = require "choices/input-choice"
+JobActions = require "jobs/actions"
 
 module.exports = React.createClass
-  mixins: [FormInstanceMixin]
+  mixins: [FormInstanceMixin, Navigation]
 
   getInitialState: ->
     {
@@ -35,12 +37,13 @@ module.exports = React.createClass
       @changeFormField field, value
 
   performSubmit: (formData) ->
-    JobActions.create formData, @props?.nav?.next
+    JobActions.create formData
+    @transitionTo "component", {component: "concrete"}
 
   validate: (data) ->
     errors =
-      name: []
       group: []
+      name: []
       type: []
 
     requiredText = "This field is required"

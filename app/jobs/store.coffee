@@ -25,9 +25,6 @@ class JobStore
     @data[index] = job
     null
 
-  navigate: (to) ->
-    App.transitionTo to if to?
-
   recalculate: ->
     cost = 0.0
     cost += component.cost for own key, component of @current.components
@@ -43,12 +40,10 @@ class JobStore
   onCreate: (payload) ->
     @current = payload.data
     @current.components ?= {}
-    @navigate payload.navigateTo
     null
 
   onUpdate: (payload) ->
     @current[key] = value for own key, value of payload.data
-    @navigate payload.navigateTo
     null
 
   onUpdateComponent: (payload) ->
@@ -69,14 +64,11 @@ class JobStore
 
     @current.total = @current.subtotal
     @current.total += @current.subtotal * profitMargin
-
-    @navigate payload.navigateTo if payload.navigateTo?
     null
 
   onSave: (payload) ->
     @addToCollection @current
     @saveToStorage()
-    @navigate payload.navigateTo
     null
 
 module.exports = system.createStore JobStore
