@@ -4,6 +4,9 @@ exports.config =
       pattern: /^app\/.*\.coffee$/
     autoprefixer:
       browsers: ["android >= 4"]
+    afterBrunch: [
+      './node_modules/.bin/mocha-casperjs test test/index.js'
+    ]
 
   paths:
     public: "www"
