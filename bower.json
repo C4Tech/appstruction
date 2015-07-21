@@ -17,6 +17,9 @@
     "bootbox": "~4.2.0",
     "jspdf": "~1.0.178"
   },
+  "devDependencies": {
+    "bind-polyfill": "~1.0.0"
+  },
   "overrides": {
     "backbone": {
       "main": [

@@ -1,0 +1,1 @@
+../bower_components/bind-polyfill/index.js

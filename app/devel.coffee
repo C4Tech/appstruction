@@ -1,3 +1,4 @@
+require "polyfill-bind"
 application = require "application"
 
 $ ->

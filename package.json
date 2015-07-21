@@ -31,6 +31,7 @@
     "casper-chai": "^0.2.1",
     "casperjs": "^1.1.0-beta3",
     "chai": "^3.2.0",
+    "coffee-script": "^1.9.3",
     "mocha": "^2.2.5",
     "mocha-casperjs": "^0.5.4",
     "phantomcss": "^0.10.2",
