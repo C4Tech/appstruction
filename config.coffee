@@ -2,6 +2,9 @@ exports.config =
   plugins:
     coffeelint:
       pattern: /^app\/.*\.coffee$/
+    # afterBrunch: [
+    #   "./node_modules/.bin/mocha-casperjs"
+    # ]
 
   paths:
     public: "build/www"
