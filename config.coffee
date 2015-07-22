@@ -7,6 +7,7 @@ exports.config =
     # ]
 
   paths:
+    watched: ["app", "vendor"]
     public: "build/www"
 
   files:

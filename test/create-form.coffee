@@ -35,3 +35,25 @@ describe "Create Estimate", ->
         "section#concrete .header-title .header-text".should.have.text /concrete/i
         phantomcss.screenshot "section#concrete .navbar", "concrete-navbar"
         phantomcss.screenshot "#job-form-concrete", "concrete-form"
+
+  it "Should add a sidewalk", ->
+    casper.then ->
+      @fillSelectors "#job-form-concrete .concrete-form-item:nth-child(1)",
+        "input[name='quantity']": "3"
+        "input[name='length']": "1"
+        "input[name='width']": "3"
+        "input[name='depth']": "1"
+        "input[name='price']": "10"
+        "input[name='tax']": "0.1"
+
+      @evaluate ->
+        $("input[name='concrete_type']").select2 "val", "Sidewalk", true
+        $("input[name='length_units']").select2 "val", "Yards", true
+        $("input[name='width_units']").select2 "val", "Feet", true
+        $("input[name='depth_units']").select2 "val", "Yards", true
+        $("input[name='price_units]").select2 "val", "Per Cubic Yards", true
+        true
+
+      "#job-form-concrete .concrete.cost".should.have.text "30.03"
+
+      @click "#job-form-create button.ccma-navigate.next"
