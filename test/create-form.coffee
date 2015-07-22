@@ -7,15 +7,15 @@ setSelectors = (driver, selectors) ->
       target = "[name='#{item.name}']"
       target = "#{item.parent} #{target}" if item.parent
       $(target).select2 "data", item.value, true
-      return "INTERNAL CONSOLE: Failed to set #{item.name}" unless item.value.text is $(target).select2("data").text
-      "INTERNAL CONSOLE: Changed #{item.name} to #{item.value.text}"
+      current = $(target).select2 "data"
+      return "Set #{item.name} to #{item.value.text}" if current.text is item.value.text
 
-    responses = []
-    responses.push setSelector item for item in items
-    responses
+    response = []
+    response.push setSelector item for item in items
+    response
 
-  values = driver.evaluate evaluation, selectors ? []
-  # driver.echo value for value in values
+  values = driver.evaluate evaluation, selectors
+  # driver.echo value, "PARAMETER" for value in values
   true
 
 expectedJob =
@@ -100,6 +100,22 @@ expectedJob =
       id: "hour"
       text: "Hours"
     cost: 258.75
+  materialA:
+    type:
+      id: "1"
+      text: "Wire (sheet)"
+    quantity: 10
+    price: 5
+    tax: "0.0"
+    cost: "50.00"
+  materialB:
+    type:
+      id: "4"
+      text: "Cap (lf)"
+    quantity: 1
+    price: 20
+    tax: 10.0
+    cost: 72.00
 
 describe "Create Estimate", ->
   before ->
@@ -302,3 +318,48 @@ describe "Create Estimate", ->
         "section#materials .header-title .header-text".should.have.text /materials/i
         phantomcss.screenshot "section#materials .navbar", "material-navbar"
         phantomcss.screenshot "#job-form-materials", "material-form"
+
+  it "Should add wires", ->
+    formTarget = "#job-form-materials fieldset"
+
+    casper.then ->
+      setSelectors @, [
+          parent: formTarget
+          name: "material_type"
+          value: expectedJob.materialA.type
+      ]
+
+      @fillSelectors formTarget,
+        "[name='quantity']": expectedJob.materialA.quantity
+        "[name='price']": expectedJob.materialA.price
+        "[name='tax']": expectedJob.materialA.tax
+
+      "#job-form-materials .materials.cost".should.have.text "#{expectedJob.materialA.cost}"
+
+      @click "#job-form-materials button.materials.add"
+
+  it "Should add a second material component item", ->
+    target = "#job-form-materials .materials-form-item:nth-child(2)"
+    casper.then ->
+      @waitForSelector target, ->
+        target.should.be.inDOM
+
+  it "Should add caps", ->
+    formTarget = "#job-form-materials .materials-form-item:nth-child(2) fieldset"
+
+    casper.then ->
+      setSelectors @, [
+          parent: formTarget
+          name: "material_type"
+          value: expectedJob.materialB.type
+      ]
+
+      @fillSelectors formTarget,
+        "[name='quantity']": expectedJob.materialB.quantity
+        "[name='price']": expectedJob.materialB.price
+        "[name='tax']": expectedJob.materialB.tax
+
+      "#job-form-materials .materials.cost".should.have.text "#{expectedJob.materialB.cost}"
+
+      @click "#job-form-materials button.materials.add"
+

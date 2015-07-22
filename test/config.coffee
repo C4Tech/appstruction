@@ -4,7 +4,11 @@ phantomcss.init
   prefixCount: true
 
 # casper.on "remote.message", (message) ->
-#     @echo "CONSOLE: #{message}"
+  # @echo "#{message}", "COMMENT"
+
+casper.on "remote.alert", (message) ->
+  @echo "ALERT: #{message}", "WARNING"
+
 
 module.exports =
   url: "http://localhost:3333/devel.html"
