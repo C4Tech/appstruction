@@ -9,6 +9,12 @@ class JobStore
 
     @bindActions actions
 
+  readFromStorage: ->
+    null
+
+  saveToStorage: ->
+    null
+
   createIndex: (job) ->
     "job-#{job.id}"
 
@@ -23,11 +29,11 @@ class JobStore
     index = @createIndex job
     @count++ unless @data[index]?
     @data[index] = job
-    null
+    @emitChange()
 
-  recalculate: ->
+  recalculate: (current) ->
     cost = 0.0
-    cost += component.cost for own key, component of @current.components
+    cost += component.cost for own key, component of current.components
     cost
 
   recalculateComponent: (component) ->
@@ -38,15 +44,19 @@ class JobStore
     cost
 
   onCreate: (payload) ->
-    @current = payload.data
-    @current.components ?= {}
-    null
+    current = payload.data
+    current.components ?= {}
+    @setState
+      current: current
 
   onUpdate: (payload) ->
-    @current[key] = value for own key, value of payload.data
-    null
+    current = @current
+    current[key] = value for own key, value of payload.data
+    @setState
+      current: current
 
   onUpdateComponent: (payload) ->
+    current = @current
     component = @current.components[payload.component] ?=
       cost: 0.0
       items: []
@@ -56,15 +66,16 @@ class JobStore
     component.items[index] = payload.data
     component.cost = @recalculateComponent component
 
-    @current.components[payload.component] = component
-    @current.subtotal = @recalculate()
+    current.components[payload.component] = component
+    current.subtotal = @recalculate()
 
-    profitMargin = @current.profitMargin ? 0
+    profitMargin = current.profitMargin ? 0
     profitMargin /= 100
 
-    @current.total = @current.subtotal
-    @current.total += @current.subtotal * profitMargin
-    null
+    current.total = current.subtotal
+    current.total += current.subtotal * profitMargin
+    @setState
+      current: current
 
   onSave: (payload) ->
     @addToCollection @current

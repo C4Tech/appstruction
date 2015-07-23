@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "npm run prepare && npm run build",
-    "compile": "npm run prepare && npm run build && npm run prepare-cordova && npm run cordova",
-    "recompile": "npm run rebuild && npm run cordova",
+    "compile": "npm run start && npm run prepare-phonegap && npm run phonegap",
+    "recompile": "npm run rebuild && npm run phonegap",
     "test": "npm run serve && npm run mocha",
     "quicktest": "npm run server && npm run mocha",
     "build": "brunch build",
@@ -18,19 +18,18 @@
     "start-over": "npm run torch && npm run start",
     "watch": "brunch watch",
     "watch-server": "brunch watch --server",
-    "server": "./node_modules/.bin/http-server build/www &",
+    "server": "./node_modules/.bin/http-server www &",
     "serve": "npm run prepare && npm run build && npm run server",
     "prepare": "npm run prepare-node && npm run prepare-bower",
-    "prepare-all": "npm run prepare && npm run prepare-cordova",
     "prepare-node": "npm prune && npm install",
     "prepare-bower": "bower prune && bower install",
-    "prepare-cordova": "cd build && cordova platform add android",
+    "prepare-phonegap": "phonegap platform add android",
     "update": "npm run update-node && npm run update-bower",
     "update-node": "npm prune && npm update",
     "update-bower": "bower prune && bower update",
     "torch": "rm -rf ./bower_components ./node_modules",
     "mocha": "./node_modules/.bin/mocha-casperjs",
-    "cordova": "cd build && cordova build"
+    "phonegap": "phonegap build android"
   },
   "dependencies": {
     "auto-reload-brunch": "^1.8.0",

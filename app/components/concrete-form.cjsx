@@ -4,6 +4,7 @@ JobActions = require "jobs/actions"
 ChooseField = require "choices/input-choice"
 TextField = require "forms/input-field"
 MeasurementField = require "forms/input-measurement"
+NavigationActions = require "navigation/actions"
 
 FormGroup = ReactBootstrap.FormGroup
 
@@ -25,6 +26,16 @@ module.exports = React.createClass
         tax: 0.0
         cost: 0.0
     }
+
+  componentWillMount: ->
+    NavigationActions.setTitle "Concrete"
+    NavigationActions.setNext "component", "labor"
+    null
+
+  componentWillUnmount: ->
+    NavigationActions.setTitle null
+    null
+
 
   handleChange: (event) ->
     data = @props.data

@@ -5,10 +5,9 @@ RouteHandler = ReactRouter.RouteHandler
 
 module.exports = React.createClass
   render: ->
-    <Grid>
+    <div className="application">
       <Header />
-
-      <main>
+      <Grid componentClass="main">
         <RouteHandler />
-      </main>
-    </Grid>
+      </Grid>
+    </div>

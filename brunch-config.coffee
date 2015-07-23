@@ -21,6 +21,9 @@ exports.config =
         before: [
           "app/styles/cordova.less"
         ]
+        after: [
+          "app/styles/cole.less"
+        ]
 
     templates:
       joinTo: "assets/app.js"

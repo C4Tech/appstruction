@@ -276,13 +276,15 @@ class ChoicesStore
     }
 
   onCreate: (payload) ->
-    value = payload.data.value ? @[payload.name].length + 1
-    @[payload.name].push
+    grouping = @[payload.name]
+    value = payload.data.value ? grouping.length + 1
+    grouping.push
       value: "#{value}"
       label: "#{payload.data.label}"
       singular: "#{payload.data.singular}" ? "#{payload.data.label}"
       plural: "#{payload.data.plural}" ? "#{payload.data.label}s"
 
-    null
+    @setState
+      "#{payload.name}": grouping
 
 module.exports = system.createStore ChoicesStore

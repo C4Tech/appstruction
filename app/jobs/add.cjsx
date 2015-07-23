@@ -8,6 +8,7 @@ FormInstanceMixin = require "mixins/form-instance"
 Form = require "forms/base"
 ChooseInput = require "choices/input-choice"
 JobActions = require "jobs/actions"
+NavigationActions = require "navigation/actions"
 
 module.exports = React.createClass
   mixins: [FormInstanceMixin, Navigation]
@@ -19,6 +20,11 @@ module.exports = React.createClass
         name: ""
         type: null
     }
+
+  componentWillMount: ->
+    NavigationActions.setTitle "Job Builder"
+    NavigationActions.setNext "component", "concrete"
+    null
 
   getFormData: ->
     @state.form

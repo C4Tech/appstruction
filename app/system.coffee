@@ -1,1 +1,1 @@
-module.exports = new Alt
+module.exports = window['alt.js.org'] = new Alt

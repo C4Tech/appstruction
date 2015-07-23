@@ -2,6 +2,7 @@ RouteHandler = ReactRouter.RouteHandler
 
 Decoration = require "elements/header-decoration"
 JobStore = require "jobs/store"
+NavigationStore = require "navigation/store"
 
 module.exports = React.createClass
   getInitialState: ->
@@ -9,10 +10,12 @@ module.exports = React.createClass
 
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
+    NavigationStore.listen @onStoreChangeCollection
     null
 
   componentWillUnmount: ->
     JobStore.unlisten @onStoreChangeCollection
+    NavigationStore.unlisten @onStoreChangeCollection
     null
 
   onStoreChangeCollection: ->
@@ -22,22 +25,24 @@ module.exports = React.createClass
   syncStoreStateCollection: ->
     {
       job: JobStore.getState().current
-      title: "Static Title"
+      title: NavigationStore.getState().title
     }
 
   render: ->
+    pageTitle = <div className="header-title">
+      <h4>
+        {@state.title}
+
+        <Decoration iconType="help" icon="question-circle" />
+        <Decoration iconType="email" icon="envelope" />
+        <Decoration iconType="pdf" icon="file-pdf-o" />
+      </h4>
+    </div>
+    pageTitle = null unless @state.title
+
     <div>
       <h3>{@state.job?.name}</h3>
-
-      <div className="header-title">
-        <h3>
-          {@state.title}
-
-          <Decoration iconType="help" icon="question-circle" />
-          <Decoration iconType="email" icon="envelope" />
-          <Decoration iconType="pdf" icon="file-pdf-o" />
-        </h3>
-      </div>
+      {pageTitle}
 
       <RouteHandler />
     </div>

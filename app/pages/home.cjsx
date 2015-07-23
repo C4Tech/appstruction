@@ -21,7 +21,7 @@ module.exports = React.createClass
 
   render: ->
     <div>
-      <Row>
+      <Row componentClass="article">
         <div className="lead">
           <NavButton onClick={@handleNavCreate}>
             Create new estimate
