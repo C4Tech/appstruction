@@ -503,11 +503,9 @@ describe "Create Estimate", ->
       @fillSelectors formTarget,
         "[name='profit_margin']": expectedJob.profitMargin
 
-    casper.thenEvaulate () ->
-      $("#job-form-save fieldset [name='profit_margin']").keyup()
-      true
+      @evaluate ->
+        $("#job-form-save fieldset [name='profit_margin']").keyup()
 
-    casper.then ->
       "subtotal".should.have.fieldValue "#{expectedJob.cost}"
 
       @click "#job-form-subcontractor button.job.save"

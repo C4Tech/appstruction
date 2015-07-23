@@ -11,4 +11,4 @@ casper.on "remote.alert", (message) ->
 
 
 module.exports =
-  url: "http://localhost:3333/devel.html"
+  url: "http://localhost:8080/devel.html"
