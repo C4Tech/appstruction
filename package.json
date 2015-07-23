@@ -15,7 +15,8 @@
     "test": "npm run serve && npm run mocha",
     "quicktest": "npm run server && npm run mocha",
     "build": "brunch build",
-    "rebuild": "npm run torch && npm run prepare && npm run build",
+    "rebuild": "npm run update && npm run build",
+    "start-over": "npm run torch && npm run start",
     "watch": "brunch watch",
     "server": "./node_modules/.bin/http-server build/www &",
     "serve": "npm run prepare && npm run build && npm run server",
@@ -44,7 +45,6 @@
     "autoprefixer-brunch": "~1.8"
   },
   "devDependencies": {
-    "after-brunch": "0.0.5",
     "casper-chai": "^0.2.1",
     "casperjs": "^1.1.0-beta3",
     "chai": "^3.2.0",

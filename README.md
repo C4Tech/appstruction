@@ -33,17 +33,28 @@ Build Requirements
 1. [NodeJS](http://nodejs.org/) is a requirement for the build tools.
 2. [Bower](http://bower.io/) manages the exteneral UI components.
 3. [Brunch](http://brunch.io/) builds a usable application from the sources.
-4. [Cordova](http://cordova.apache.org/) is used to export the application into 
+4. [Cordova](http://cordova.apache.org/) is used to export the application into
    a usable mobile application.
 
+tl;dr: Install NodeJS and `npm install --global bower brunch cordova`
 
 How to Build From Source
 ------------------------
 
-1. Run the installers: npm install && bower install
-2. Build: brunch build
+1. Build the HTML: npm start
     - A browser-friendly version is available at ./build/www/devel.html
-3. Compile: cordova build
+2. Build the Android app: `npm run compile`
+3. Rebuild the HTML: `npm run rebuild`
+4. Rebuild the Android app: `npm run recompile`
+5. Start over: `npm run start-over`
 
-A few script files are included in the repo to automate this process: 
-compile-html, compile-cordova, and compile-all.
+
+Testing
+-------
+
+We are using a mixture of PhantomJS, CasperJS, Mocha, Chai. Each test
+steps through a process (e.g. creating an estimate), verifying that
+each step works properly. Additionally, we are using PhantomCSS to
+catch any style regressions.
+
+Run `npm test`.
