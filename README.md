@@ -25,6 +25,7 @@ Directory Structure
 |- bower_components/ - Contains third-party UI components (e.g. Bootstrap)
 |- build/ - Contains sources necessary for Cordova to compile
 |- node_modules/ - Contains third-party NodeJS scripts
+|- screenshots/ - Contains screenshots of the interface with expected styling
 
 
 Build Requirements
@@ -57,4 +58,5 @@ steps through a process (e.g. creating an estimate), verifying that
 each step works properly. Additionally, we are using PhantomCSS to
 catch any style regressions.
 
-Run `npm test`.
+Run `npm test`. PhantomCSS captures are stored in the `screenshots`
+directory.

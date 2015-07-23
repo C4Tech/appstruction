@@ -18,6 +18,7 @@
     "rebuild": "npm run update && npm run build",
     "start-over": "npm run torch && npm run start",
     "watch": "brunch watch",
+    "watch-server": "brunch watch --server",
     "server": "./node_modules/.bin/http-server build/www &",
     "serve": "npm run prepare && npm run build && npm run server",
     "prepare": "npm run prepare-node && npm run prepare-bower",
