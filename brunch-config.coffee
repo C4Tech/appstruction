@@ -4,11 +4,9 @@ exports.config =
       pattern: /^app\/.*\.coffee$/
     autoprefixer:
       browsers: ["android >= 4"]
-    afterBrunch: [
-      './node_modules/.bin/mocha-casperjs test test/index.js'
-    ]
 
   paths:
+    watched: ["app", "vendor"]
     public: "www"
 
   files:
@@ -20,8 +18,8 @@ exports.config =
       joinTo:
         "assets/style.css": /^(app|bower_components|vendor)/
       order:
-        after: [
-          "app/styles/cole.less"
+        before: [
+          "app/styles/cordova.less"
         ]
 
     templates:

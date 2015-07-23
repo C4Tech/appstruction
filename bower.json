@@ -17,6 +17,9 @@
     "react-router-bootstrap": "^0.17.2",
     "react-select": "^0.5.5"
   },
+  "devDependencies": {
+    "bind-polyfill": "~1.0.0"
+  },
   "overrides": {
     "font-awesome": {
       "main": "/fonts/*"
