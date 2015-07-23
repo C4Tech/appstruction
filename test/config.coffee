@@ -4,7 +4,7 @@ phantomcss.init
   prefixCount: true
 
 # casper.on "remote.message", (message) ->
-  # @echo "#{message}", "COMMENT"
+#   @echo "#{message}", "COMMENT"
 
 casper.on "remote.alert", (message) ->
   @echo "ALERT: #{message}", "WARNING"
