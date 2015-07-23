@@ -9,8 +9,8 @@
     "node": "*"
   },
   "scripts": {
-    "start": "npm run prepare-all && npm run build",
-    "compile": "npm run prepare && npm run build && npm run cordova",
+    "start": "npm run prepare && npm run build",
+    "compile": "npm run prepare && npm run build && npm run prepare-cordova && npm run cordova",
     "recompile": "npm run rebuild && npm run cordova",
     "test": "npm run serve && npm run mocha",
     "quicktest": "npm run server && npm run mocha",
