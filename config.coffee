@@ -4,6 +4,7 @@ exports.config =
       pattern: /^app\/.*\.coffee$/
 
   paths:
+    watched: ["app", "vendor"]
     public: "build/www"
 
   files:

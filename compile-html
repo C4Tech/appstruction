@@ -1,6 +1,0 @@
-#!/bin/sh
-
-rm -r node_modules bower_components build/www
-npm install
-bower install
-brunch build
