@@ -1,4 +1,5 @@
 ChoicesStore = require "choices/store"
+Measure = require "util/measure"
 
 module.exports =
   getDefaultProps: ->
@@ -7,26 +8,24 @@ module.exports =
         type: 1
         quantity: 0
         volume: 0
-        rate: 0
-        rateUnits: "ft"
+        price: 0
+        priceUnits: "ft"
         cost: 0.0
     }
 
-    render: ->
-      body = <div>No Concrete</div>
+  render: ->
+    data = @props.data
+    nothing = <div>No Concrete</div>
 
-      if @props.data.rate and @props.data.volume
-        type = ChoicesStore.getLabelFor "concrete", @props.data.type, @props.data.quantity
-        body = <div>Items: {@props.data.quantity} {type}</div>
+    return nothing unless data.price and data.volume
 
-        units = ChoicesStore.getLabelFor "measurement", @props.data.rateUnits, @props.data.volume
-        body += <div>{@props.data.volume} #{units} of concrete</div>
+    type = ChoicesStore.getLabelFor "concrete", data.type, data.quantity, true
+    units = Measure.getLabelFor "volume", data.priceUnits, data.volume, true
+    unit = Measure.getLabelFor "volume", data.priceUnits
 
-        unit = ChoicesStore.getLabelFor "measurement", @props.data.rateUnits
-        body += <div>${@props.data.rate} per #{unit}</div>
-
-        body += <div>Total price: ${@props.data.cost}</div>
-
-      <div>
-        {body}
-      </div>
+    <div>
+      <div>Item: {type}</div>
+      <div>#{units} of concrete</div>
+      <div>${data.price} per #{unit}</div>
+      <div>Total price: ${data.cost}</div>
+    </div>

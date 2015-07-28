@@ -7,35 +7,28 @@ NavButton = require "elements/main-nav"
 module.exports = React.createClass
   mixins: [Navigation]
 
-  handleNavCreate: (event) ->
-    event.preventDefault()
-    @transitionTo "add"
-
-  handleNavLoad: (event) ->
-    event.preventDefault()
-    @transitionTo "load"
-
-  handleNavDelete: (event) ->
-    event.preventDefault()
-    @transitionTo "delete"
+  handleNavTo: (to) ->
+    (event) ->
+      event.preventDefault()
+      @transitionTo to
 
   render: ->
     <div>
       <Row componentClass="article">
         <div className="lead">
-          <NavButton onClick={@handleNavCreate}>
+          <NavButton onClick={@handleNavTo "add"}>
             Create new estimate
           </NavButton>
 
           <hr />
 
-          <NavButton onClick={@handleNavLoad}>
+          <NavButton onClick={@handleNavTo "load"}>
             Load saved estimate
           </NavButton>
 
           <hr />
 
-          <NavButton onClick={@handleNavDelete}>
+          <NavButton onClick={@handleNavTo "delete"}>
             Delete saved estimate
           </NavButton>
         </div>

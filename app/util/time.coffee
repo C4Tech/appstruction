@@ -1,4 +1,6 @@
-module.exports =
+LabelLookup = require "util/label-lookup"
+
+class TimeUtil extends LabelLookup
   # Assuming
   # - 8 hour day
   hoursInDay: 8
@@ -7,8 +9,37 @@ module.exports =
   # - 160 hour month
   weeksInMonth: 4
 
+  options:
+    time: [
+        value: "hour"
+        label: "Hours"
+      ,
+        value: "day"
+        label: "Days"
+      ,
+        value: "week"
+        label: "Weeks"
+      ,
+        value: "month"
+        label: "Months"
+    ]
+
+    rate: [
+        value: "hour"
+        label: "Hourly"
+      ,
+        value: "day"
+        label: "Daily"
+      ,
+        value: "week"
+        label: "Weekly"
+      ,
+        value: "month"
+        label: "Monthly"
+    ]
+
   getScale: (units) ->
-    units = units or "hour"
+    units ?= "hour"
     conversion = 1
 
     conversion *= @hoursInDay unless units is "hour"
@@ -18,7 +49,7 @@ module.exports =
     conversion
 
   normalize: (value, units) ->
-    value = value or 0
+    value ?= 0
     units = @getScale units
 
     [value, units]
@@ -32,3 +63,5 @@ module.exports =
     [quantity, unit] = @normalize value, units
 
     quantity/unit
+
+module.exports = new TimeUtil

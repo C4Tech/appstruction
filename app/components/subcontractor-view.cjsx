@@ -1,5 +1,3 @@
-ChoicesStore = require "choices/store"
-
 module.exports =
   getDefaultProps: ->
     {
@@ -8,12 +6,13 @@ module.exports =
         cost: 0.0
     }
 
-    render: ->
-      body = <div>No Subcontractor</div>
+  render: ->
+    data = @props.data
+    nothing = <div>No Subcontractor</div>
 
-      if @props.data.cost
-        body = <div>{@props.scope}: ${@props.cost}</div>
+    return nothing unless data.cost
 
-      <div>
-        {body}
-      </div>
+    <div>
+      <div>{data.scope}</div>
+      <div>Total price: ${data.cost}</div>
+    </div>

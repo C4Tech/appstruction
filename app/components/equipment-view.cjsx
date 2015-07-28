@@ -1,4 +1,5 @@
 ChoicesStore = require "choices/store"
+Time = require "util/time"
 
 module.exports =
   getDefaultProps: ->
@@ -12,16 +13,19 @@ module.exports =
         rateUnits: "hour"
     }
 
-    render: ->
-      body = <div>No Equipment</div>
+  render: ->
+    data = @props.data
+    nothing = <div>No Equipment</div>
 
-      if @props.data.rate and @props.data.time
-        type = ChoicesStore.getLabelFor "equipment", @props.data.type, @props.data.quantity
-        units = ChoicesStore.getLabelFor "time", @props.data.timeUnits, @props.data.time
-        unit = ChoicesStore.getLabelFor "time", @props.data.rateUnits
+    return nothing unless data.rate and data.time
 
-        body = <div>{@props.data.quantity} {type} for {@props.data.time} {units} @ ${@props.rate}/{unit}</div>
+    type = ChoicesStore.getLabelFor "equipment", data.type, data.quantity, true
+    units = Time.getLabelFor "time", data.timeUnits, data.time, true
+    unit = Time.getLabelFor "time", data.priceUnits
 
-      <div>
-        {body}
-      </div>
+    <div>
+      <div>Item: {type}</div>
+      <div>#{units}</div>
+      <div>${data.price} per #{unit}</div>
+      <div>Total price: ${data.cost}</div>
+    </div>

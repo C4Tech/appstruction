@@ -58,3 +58,14 @@ catch any style regressions.
 
 Run `npm test`. PhantomCSS captures are stored in the `screenshots`
 directory.
+
+
+Debugging
+---------
+
+The logger has several debug levels. Production environments default to warning
+while dev environments default to info.
+
+Trace: calculations, live changes
+Debug: form field change
+Info: navigation events

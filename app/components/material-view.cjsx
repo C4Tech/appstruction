@@ -9,15 +9,17 @@ module.exports =
         price: 0
     }
 
-    render: ->
-      body = <div>No Material</div>
+  render: ->
+    data = @props.data
+    nothing = <div>No Material</div>
 
-      if @props.data.price
-        type = ChoicesStore.getLabelFor "material", @props.data.type, @props.data.quantity
-        unit = ChoicesStore.getLabelFor "material", @props.data.type
+    return nothing unless data.price
 
-        body = <div>{@props.data.quantity} {type} @ ${@props.data.price}/{unit}</div>
+    type = ChoicesStore.getLabelFor "material", data.type, data.quantity, true
+    unit = ChoicesStore.getLabelFor "material", data.type
 
-      <div>
-        {body}
-      </div>
+    <div>
+      <div>Item: {type}</div>
+      <div>${data.price} per #{unit}</div>
+      <div>Total price: ${data.cost}</div>
+    </div>

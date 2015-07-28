@@ -15,7 +15,8 @@
     "react-bootstrap": "^0.23.7",
     "react-router": "^0.13.3",
     "react-router-bootstrap": "^0.17.2",
-    "react-select": "^0.5.5"
+    "react-select": "^0.5.5",
+    "pluralize": "~1.1.2"
   },
   "devDependencies": {
     "bind-polyfill": "^1.0.0"

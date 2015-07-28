@@ -1,4 +1,7 @@
+# log = require "loglevel"
+
 JobActions = require "jobs/actions"
+MoneyField = require "forms/input-money"
 TextField = require "forms/input-field"
 
 FormGroup = ReactBootstrap.FormGroup
@@ -14,7 +17,7 @@ module.exports = React.createClass
   handleChange: (event) ->
     data = @props.data
     data[event.target.name] = event.target.value
-
+    log.debug "subcontractor row (#{data.scope}): #{data.cost}"
     JobActions.updateComponent "subcontractor", data
 
     null
@@ -25,7 +28,7 @@ module.exports = React.createClass
                  value={@props.data.scope}
                  onChange={@handleChange} />
 
-      <TextField name="cost" label="Contractor Amount"
-                 value={@props.data.cost}
-                 onChange={@handleChange} />
+      <MoneyField name="cost" label="Contractor Amount"
+                  value={@props.data.cost}
+                  onChange={@handleChange} />
     </FormGroup>
