@@ -31,10 +31,12 @@ class JobStore
     "job-#{job.id}"
 
   findComponentIndex: (component, id) ->
+    return 0 unless @current.components[component]?
+
     index = @current.components[component].items.findIndex (element) ->
       element.id is id
+    index = @current.components[component].items.length unless index >= 0
 
-    index = @current.components[component].items.length unless index > 0
     index
 
   addToCollection: (job) ->
@@ -59,12 +61,31 @@ class JobStore
   onCreate: (payload) ->
     current = payload.data
     current.components ?= {}
+
     @setState
       current: current
 
   onUpdate: (payload) ->
     current = @current
     current[key] = value for own key, value of payload.data
+
+    @setState
+      current: current
+
+  onCreateComponent: (payload) ->
+    defaultComponent =
+      cost: 0.0
+      items: []
+
+    current = @current
+    component = current.components[payload.component] or defaultComponent
+
+    index = @findComponentIndex payload.component, payload.data.id
+    payload.data.id ?= index
+    component.items[index] = payload.data
+    component.cost = 0.00
+    current.components[payload.component] = component
+
     @setState
       current: current
 
@@ -90,7 +111,7 @@ class JobStore
     @setState
       current: current
 
-  onSave: (payload) ->
+  onSave: () ->
     @addToCollection @current
     @saveToStorage()
     @emitChange()

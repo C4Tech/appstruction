@@ -17,7 +17,7 @@ FormGroup = ReactBootstrap.FormGroup
 module.exports = React.createClass
   getDefaultProps: ->
     {
-      data:
+      item:
         type: null
         quantity: 0
         length: 0
@@ -44,33 +44,33 @@ module.exports = React.createClass
     null
 
   handleChange: (event) ->
-    data = @props.data
+    item = @props.item
     name = Str.dashToCamel event.target.name
-    data[name] = event.target.value
-    data.volume = @calculateVolume data
-    data.cost = @calculateCost data
-    log.debug "concrete row (#{data.type}): #{data.volume} (vol) = #{data.cost}"
-    JobActions.updateComponent "concrete", data
+    item[name] = event.target.value
+    item.volume = @calculateVolume item
+    item.cost = @calculateCost item
+    log.debug "concrete row (#{item.type}): #{item.volume} (vol) = #{item.cost}"
+    JobActions.updateComponent "concrete", item
 
     null
 
-  calculateVolume: (data) ->
-    Measure.setDefault data.priceUnits
-    depth = Measure.normalize data.depth, data.depthUnits
-    length = Measure.normalize data.length, data.lengthUnits
-    width = Measure.normalize data.width, data.widthUnits
-    volume = depth.mul(length).mul(width).scalar * data.quantity
+  calculateVolume: (item) ->
+    Measure.setDefault item.priceUnits
+    depth = Measure.normalize item.depth, item.depthUnits
+    length = Measure.normalize item.length, item.lengthUnits
+    width = Measure.normalize item.width, item.widthUnits
+    volume = depth.mul(length).mul(width).scalar * item.quantity
 
-    log.trace "concrete row volume (#{data.type}):
+    log.trace "concrete row volume (#{item.type}):
       #{depth} (d) x #{width} (w) x #{length} (h) = #{volume}"
 
     volume
 
-  calculateCost: (data) ->
-    cost = Cost.calculate data.quantity *  data.volume * data.price, data.tax
+  calculateCost: (item) ->
+    cost = Cost.calculate item.quantity *  item.volume * item.price, item.tax
 
-    log.trace "concrete row cost (#{data.type}): #{data.quantity} x
-      #{data.volume} @ $#{data.price} + #{data.tax}% tax = #{cost}"
+    log.trace "concrete row cost (#{item.type}): #{item.quantity} x
+      #{item.volume} @ $#{item.price} + #{item.tax}% tax = #{cost}"
 
     cost
 
@@ -78,46 +78,46 @@ module.exports = React.createClass
     <FormGroup>
       <ChooseField name="type" label="What item"
                    type="concrete"
-                   value={@props.data.type}
+                   value={@props.item.type}
                    onChange={@handleChange} />
 
       <NumberField name="quantity" label="How many"
-                   value={@props.data.quantity}
+                   value={@props.item.quantity}
                    onChange={@handleChange} />
 
       <NumberField name="length" label="How long"
-                   value={@props.data.length}
+                   value={@props.item.length}
                    onChange={@handleChange} />
 
       <MeasurementField name="length-units"
-                        value={@props.data.lengthUnits}
+                        value={@props.item.lengthUnits}
                         onChange={@handleChange} />
 
       <NumberField name="width" label="How wide"
-                   value={@props.data.width}
+                   value={@props.item.width}
                    onChange={@handleChange} />
 
       <MeasurementField name="width-units"
-                        value={@props.data.widthUnits}
+                        value={@props.item.widthUnits}
                         onChange={@handleChange} />
 
       <NumberField name="depth" label="How deep"
-                   value={@props.data.depth}
+                   value={@props.item.depth}
                    onChange={@handleChange} />
 
       <MeasurementField name="depth-units"
-                        value={@props.data.depthUnits}
+                        value={@props.item.depthUnits}
                         onChange={@handleChange} />
 
       <MoneyField name="price" label="What price"
-                   value={@props.data.price}
+                   value={@props.item.price}
                    onChange={@handleChange} />
 
       <VolumeField name="price-units"
-                   value={@props.data.priceUnits}
+                   value={@props.item.priceUnits}
                    onChange={@handleChange} />
 
       <PercentField name="tax" label="What tax rate"
-                    value={@props.data.tax}
+                    value={@props.item.tax}
                     onChange={@handleChange} />
     </FormGroup>

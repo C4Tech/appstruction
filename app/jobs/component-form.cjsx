@@ -2,6 +2,7 @@ ComponentItem = require "jobs/component-form-item"
 Form = require "forms/base"
 Icon = require "elements/icon"
 InstanceFormMixin = require "mixins/form-instance"
+JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
@@ -16,6 +17,11 @@ module.exports = React.createClass
 
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
+    type = @getParams().component
+    job = JobStore.getState().current
+    component = job?.components?[type]
+    JobActions.createComponent type, {} unless component?
+
     null
 
   componentWillUnmount: ->
@@ -29,13 +35,13 @@ module.exports = React.createClass
   syncStoreStateCollection: ->
     type = @getParams().component
     job = JobStore.getState().current
-    component = job[type]
+    component = job?.components?[type]
 
     {
       type: type
       items: component?.items ? []
-      cost: component?.subtotal
-      total: job?.cost
+      cost: component?.subtotal ? 0.00
+      total: job?.cost ? 0.00
     }
 
   handleAdd: (event) ->

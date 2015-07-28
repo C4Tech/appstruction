@@ -8,7 +8,7 @@ module.exports = React.createClass
   mixins: [Navigation]
 
   handleNavTo: (to) ->
-    (event) ->
+    (event) =>
       event.preventDefault()
       @transitionTo to
 

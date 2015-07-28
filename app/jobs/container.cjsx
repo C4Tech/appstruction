@@ -25,7 +25,7 @@ module.exports = React.createClass
   syncStoreStateCollection: ->
     {
       job: JobStore.getState().current
-      title: NavigationStore.getState().title
+      title: NavigationStore.getState().data?.title
     }
 
   render: ->
