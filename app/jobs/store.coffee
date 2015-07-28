@@ -1,19 +1,31 @@
 actions = require "jobs/actions"
+config = require "config"
+Cost = require "util/cost"
 system = require "system"
 
 class JobStore
   constructor: ->
-    @count = 0
+    @data = @readFromStorage()
+    @count = Object.keys(@data).length or 0
     @current = {}
-    @data = {}
 
     @bindActions actions
 
-  readFromStorage: ->
-    null
+  getStorageId: ->
+    prefix = config.storagePrefix
+    "#{prefix}-jobs"
 
   saveToStorage: ->
+    return unless window.localStorage?
+    localStorage.setItem @getStorageId(), JSON.stringify @options
+
     null
+
+  readFromStorage: ->
+    return unless window.localStorage?
+    data = JSON.parse localStorage.getItem @getStorageId()
+
+    data or {}
 
   createIndex: (job) ->
     "job-#{job.id}"
@@ -29,7 +41,8 @@ class JobStore
     index = @createIndex job
     @count++ unless @data[index]?
     @data[index] = job
-    @emitChange()
+
+    null
 
   recalculate: (current) ->
     cost = 0.0
@@ -56,30 +69,31 @@ class JobStore
       current: current
 
   onUpdateComponent: (payload) ->
-    current = @current
-    component = @current.components[payload.component] ?=
+    defaultComponent =
       cost: 0.0
       items: []
 
+    current = @current
+    component = current.components[payload.component] or defaultComponent
+
+    # Update/Insert component item
     index = @findComponentIndex payload.component, payload.data.id
     payload.data.id ?= index
     component.items[index] = payload.data
     component.cost = @recalculateComponent component
-
     current.components[payload.component] = component
-    current.subtotal = @recalculate()
 
-    profitMargin = current.profitMargin ? 0
-    profitMargin /= 100
+    # Recalculate job
+    current.subtotal = @recalculate current
+    current.total = Cost.calculate current.subtotal, current.profitMargin
 
-    current.total = current.subtotal
-    current.total += current.subtotal * profitMargin
     @setState
       current: current
 
   onSave: (payload) ->
     @addToCollection @current
     @saveToStorage()
+    @emitChange()
     null
 
 module.exports = system.createStore JobStore

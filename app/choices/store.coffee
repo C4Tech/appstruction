@@ -1,11 +1,13 @@
-system = require "system"
 actions = require "choices/actions"
+config = require "config"
 LabelLookupClass = require "util/label-lookup"
+system = require "system"
+
 LabelLookup = new LabelLookup
 
 class ChoicesStore
   constructor: ->
-    @options = @getDefaultState()
+    @options = @readFromStorage()
     @bindActions actions
     @exportPublicMethods ->
       {
@@ -14,7 +16,36 @@ class ChoicesStore
       }
     null
 
-  getDefaultState: ->
+  getStorageId: ->
+    prefix = config.storagePrefix
+    "#{prefix}-choices"
+
+  saveToStorage: ->
+    return unless window.localStorage?
+    localStorage.setItem @getStorageId(), JSON.stringify @options
+
+    null
+
+  readFromStorage: ->
+    return unless window.localStorage?
+    data = JSON.parse localStorage.getItem @getStorageId()
+
+    data or @getDefaultOptions()
+
+  onCreate: (payload) ->
+    options = @options
+    options[payload.name].push
+      value: payload.data.value ? grouping.length + 1
+      label: "#{payload.data.label}"
+
+    @setState
+      options: options
+
+    @saveToStorage()
+
+    null
+
+  getDefaultOptions: ->
     {
       concrete: [
           value: 1
@@ -125,14 +156,5 @@ class ChoicesStore
           label: "Misc"
       ]
     }
-
-  onCreate: (payload) ->
-    options = @options
-    options[payload.name].push
-      value: payload.data.value ? grouping.length + 1
-      label: "#{payload.data.label}"
-
-    @setState
-      options: options
 
 module.exports = system.createStore ChoicesStore
