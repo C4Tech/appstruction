@@ -1,16 +1,20 @@
 ComponentItem = require "jobs/component-form-item"
+EnsureJobMixin = require "mixins/ensure-job"
 Form = require "forms/base"
 Icon = require "elements/icon"
 InstanceFormMixin = require "mixins/form-instance"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
+
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
 Input = ReactBootstrap.Input
+Navigation = ReactRouter.Navigation
 Row = ReactBootstrap.Row
+State = ReactRouter.State
 
 module.exports = React.createClass
-  mixins: [ReactRouter.State]
+  mixins: [EnsureJobMixin, Navigation, State]
 
   getInitialState: ->
     @syncStoreStateCollection()
@@ -18,9 +22,8 @@ module.exports = React.createClass
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
     type = @getParams().component
-    job = JobStore.getState().current
-    component = job?.components?[type]
-    JobActions.createComponent type, {} unless component?
+    component = @state.job?.components?[type]
+    @addComponent() unless component?
 
     null
 
@@ -40,8 +43,8 @@ module.exports = React.createClass
     {
       type: type
       items: component?.items ? []
-      cost: component?.subtotal ? 0.00
-      total: job?.cost ? 0.00
+      cost: component?.cost ? 0.00
+      total: job?.subtotal ? 0.00
     }
 
   handleAdd: (event) ->
@@ -52,6 +55,9 @@ module.exports = React.createClass
 
   handleSave: (event) ->
     null
+
+  addComponent: ->
+    JobActions.createComponent @getParams().component, {}
 
   render: ->
     addButton = <Row>

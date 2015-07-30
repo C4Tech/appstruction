@@ -14,6 +14,8 @@ VolumeField = require "forms/input-volume"
 module.exports = React.createClass
   mixins: [ComponentFormMixin]
 
+  typeName: "concrete"
+
   getDefaultProps: ->
     {
       item:
@@ -54,16 +56,20 @@ module.exports = React.createClass
     depth = Measure.normalize item.depth, item.depthUnits
     length = Measure.normalize item.length, item.lengthUnits
     width = Measure.normalize item.width, item.widthUnits
-    volume = depth.mul(length).mul(width).scalar * item.quantity
+    volume = depth.mul(length).mul(width).scalar
+    volume = 0.0 if isNaN volume
 
     log.trace "#{depth} (d) x #{width} (w) x #{length} (h) = #{volume}"
 
     volume
 
   calculateCost: (item) ->
-    cost = Cost.calculate item.quantity *  item.volume * item.price, item.tax
+    price = item.quantity * item.volume * item.price
+    price = 0.00 if isNaN price
+    tax = if isNaN item.tax then 0.0 else item.tax
+    cost = Cost.calculate price, tax
 
-    log.trace "#{item.quantity} x #{item.volume} @ $#{item.price} + #{item.tax}% tax"
+    log.trace "#{item.quantity} x #{item.volume} @ $#{item.price} + #{tax}% tax = #{price}"
 
     cost
 
@@ -72,7 +78,7 @@ module.exports = React.createClass
       <ChooseField name="type" label="What item"
                    type="concrete"
                    value={@props.item.type}
-                   onChange={@handleSelect} />
+                   onChange={@handleSelect "type"} />
 
       <NumberField name="quantity" label="How many"
                    value={@props.item.quantity}
@@ -84,7 +90,7 @@ module.exports = React.createClass
 
       <MeasurementField name="length-units"
                         value={@props.item.lengthUnits}
-                        onChange={@handleChange} />
+                        onChange={@handleSelect "lengthUnits"} />
 
       <NumberField name="width" label="How wide"
                    value={@props.item.width}
@@ -92,7 +98,7 @@ module.exports = React.createClass
 
       <MeasurementField name="width-units"
                         value={@props.item.widthUnits}
-                        onChange={@handleChange} />
+                        onChange={@handleSelect  "widthUnits"} />
 
       <NumberField name="depth" label="How deep"
                    value={@props.item.depth}
@@ -100,7 +106,7 @@ module.exports = React.createClass
 
       <MeasurementField name="depth-units"
                         value={@props.item.depthUnits}
-                        onChange={@handleChange} />
+                        onChange={@handleSelect  "depthUnits"} />
 
       <MoneyField name="price" label="What price"
                    value={@props.item.price}
@@ -108,7 +114,7 @@ module.exports = React.createClass
 
       <VolumeField name="price-units"
                    value={@props.item.priceUnits}
-                   onChange={@handleChange} />
+                   onChange={@handleSelect  "priceUnits"} />
 
       <PercentField name="tax" label="What tax rate"
                     value={@props.item.tax}

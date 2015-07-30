@@ -1,4 +1,5 @@
 module.exports =
   dashToCamel: (input) ->
     input.toLowerCase().replace /-(.)/g, (match, group) ->
-      group.toUpperCase()
+      console.log "#{match} and #{group}"
+      group?.toUpperCase()

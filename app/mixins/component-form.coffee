@@ -12,10 +12,9 @@ module.exports =
       @changeFormField field, value
 
   changeFormField: (key, value) ->
-    item[name] = event.target.value
+    item = @props.item
+    item[key] = value
     JobActions.updateComponent @typeName, @handleRecalculate item
-
-    null
 
   handleRecalculate: (item) ->
     return @recalculate item if @recalculate?

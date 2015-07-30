@@ -35,7 +35,7 @@ module.exports = React.createClass
       <ChooseField name="type" label="Material Type"
                    type="material"
                    value={@props.item.type}
-                   onChange={@handleChange} />
+                   onChange={@handleSelect} />
 
       <NumberField name="quantity" label="How many"
                  value={@props.item.quantity}
