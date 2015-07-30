@@ -4,6 +4,12 @@ Col = ReactBootstrap.Col
 Row = ReactBootstrap.Row
 
 module.exports = React.createClass
+  getDefaultProps: ->
+    {
+      type: null
+      item: {}
+    }
+
   render: ->
     Item = require "components/#{@props.type}-form"
 

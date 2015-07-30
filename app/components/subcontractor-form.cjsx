@@ -1,34 +1,26 @@
 # log = require "loglevel"
 
-JobActions = require "jobs/actions"
+ComponentFormMixin = require "mixins/component-form"
 MoneyField = require "forms/input-money"
 TextField = require "forms/input-field"
 
-FormGroup = ReactBootstrap.FormGroup
-
 module.exports = React.createClass
+  mixins: [ComponentFormMixin]
+
   getDefaultProps: ->
     {
-      data:
+      item:
         scope: ""
         cost: 0.0
     }
 
-  handleChange: (event) ->
-    data = @props.data
-    data[event.target.name] = event.target.value
-    log.debug "subcontractor row (#{data.scope}): #{data.cost}"
-    JobActions.updateComponent "subcontractor", data
-
-    null
-
   render: ->
-    <FormGroup>
+    <div>
       <TextField name="scope" label="Scope of Work"
-                 value={@props.data.scope}
+                 value={@props.item.scope}
                  onChange={@handleChange} />
 
       <MoneyField name="cost" label="Contractor Amount"
-                  value={@props.data.cost}
+                  value={@props.item.cost}
                   onChange={@handleChange} />
-    </FormGroup>
+    </div>

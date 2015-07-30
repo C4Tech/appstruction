@@ -2,19 +2,18 @@
 
 Cost = require "util/cost"
 ChooseField = require "choices/input-choice"
-JobActions = require "jobs/actions"
+ComponentFormMixin = require "mixins/component-form"
 Measure = require "util/measure"
 MeasurementField = require "forms/input-measurement"
 MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 PercentField = require "forms/input-percentage"
-Str = require "util/str"
 VolumeField = require "forms/input-volume"
 
-FormGroup = ReactBootstrap.FormGroup
-
 module.exports = React.createClass
+  mixins: [ComponentFormMixin]
+
   getDefaultProps: ->
     {
       item:
@@ -43,16 +42,12 @@ module.exports = React.createClass
     NavigationActions.unsetNext()
     null
 
-  handleChange: (event) ->
-    item = @props.item
-    name = Str.dashToCamel event.target.name
-    item[name] = event.target.value
+  recalculate: (item) ->
     item.volume = @calculateVolume item
     item.cost = @calculateCost item
     log.debug "concrete row (#{item.type}): #{item.volume} (vol) = #{item.cost}"
-    JobActions.updateComponent "concrete", item
 
-    null
+    item
 
   calculateVolume: (item) ->
     Measure.setDefault item.priceUnits
@@ -61,25 +56,23 @@ module.exports = React.createClass
     width = Measure.normalize item.width, item.widthUnits
     volume = depth.mul(length).mul(width).scalar * item.quantity
 
-    log.trace "concrete row volume (#{item.type}):
-      #{depth} (d) x #{width} (w) x #{length} (h) = #{volume}"
+    log.trace "#{depth} (d) x #{width} (w) x #{length} (h) = #{volume}"
 
     volume
 
   calculateCost: (item) ->
     cost = Cost.calculate item.quantity *  item.volume * item.price, item.tax
 
-    log.trace "concrete row cost (#{item.type}): #{item.quantity} x
-      #{item.volume} @ $#{item.price} + #{item.tax}% tax = #{cost}"
+    log.trace "#{item.quantity} x #{item.volume} @ $#{item.price} + #{item.tax}% tax"
 
     cost
 
   render: ->
-    <FormGroup>
+    <div>
       <ChooseField name="type" label="What item"
                    type="concrete"
                    value={@props.item.type}
-                   onChange={@handleChange} />
+                   onChange={@handleSelect} />
 
       <NumberField name="quantity" label="How many"
                    value={@props.item.quantity}
@@ -120,4 +113,4 @@ module.exports = React.createClass
       <PercentField name="tax" label="What tax rate"
                     value={@props.item.tax}
                     onChange={@handleChange} />
-    </FormGroup>
+    </div>

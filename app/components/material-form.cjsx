@@ -1,8 +1,8 @@
 # log = require "loglevel"
 
 ChooseField = require "choices/input-choice"
+ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
-JobActions = require "jobs/actions"
 MoneyField = require "forms/input-money"
 NumberField = require "forms/input-field"
 PercentField = require "forms/input-percentage"
@@ -10,9 +10,11 @@ PercentField = require "forms/input-percentage"
 FormGroup = ReactBootstrap.FormGroup
 
 module.exports = React.createClass
+  mixins: [ComponentFormMixin]
+
   getDefaultProps: ->
     {
-      data:
+      item:
         type: null
         quantity: 0
         price: 0
@@ -20,38 +22,30 @@ module.exports = React.createClass
         cost: 0.0
     }
 
-  handleChange: (event) ->
-    data = @props.data
-    data[event.target.name] = event.target.value
-    data.cost = @calculate data
-    log.debug "material row (#{data.type}): #{data.cost}"
-    JobActions.updateComponent "material", data
+  recalculate: (item) ->
+    item = @props.item
+    item.cost = Cost.calculate item.quantity * item.price, item.tax
+    log.debug "material row (#{item.type}): #{item.cost}"
+    log.trace "#{item.quantity} @ $#{item.price} + #{item.tax}% tax"
 
-    null
-
-  calculate: (data) ->
-    cost = Cost.calculate data.quantity * data.price, data.tax
-    log.trace "material row (#{data.type}): #{data.quantity}
-      @ $#{data.price} + #{data.tax}% tax = #{cost}"
-
-    cost
+    item
 
   render: ->
-    <FormGroup>
+    <div>
       <ChooseField name="type" label="Material Type"
                    type="material"
-                   value={@props.data.type}
+                   value={@props.item.type}
                    onChange={@handleChange} />
 
       <NumberField name="quantity" label="How many"
-                 value={@props.data.quantity}
+                 value={@props.item.quantity}
                  onChange={@handleChange} />
 
       <MoneyField name="price" label="What price"
-                  value={@props.data.price}
+                  value={@props.item.price}
                   onChange={@handleChange} />
 
       <PercentField name="tax" label="What tax rate"
-                    value={@props.data.tax}
+                    value={@props.item.tax}
                     onChange={@handleChange} />
-    </FormGroup>
+    </div>

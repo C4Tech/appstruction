@@ -1,21 +1,20 @@
 # log = require "loglevel"
 
 ChooseField = require "choices/input-choice"
+ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
-JobActions = require "jobs/actions"
 MoneyField = require "forms/input-money"
 NumberField = require "forms/input-field"
 RateField = require "forms/input-pay-rate"
-Str = require "util/str"
 Time = require "util/time"
 TimeField = require "forms/input-time"
 
-FormGroup = ReactBootstrap.FormGroup
-
 module.exports = React.createClass
+  mixins: [ComponentFormMixin]
+
   getDefaultProps: ->
     {
-      data:
+      item:
         type: null
         quantity: 0
         time: 0
@@ -25,49 +24,40 @@ module.exports = React.createClass
         cost: 0.0
     }
 
-  handleChange: (event) ->
-    data = @props.data
-    name = Str.dashToCamel event.target.name
-    data[name] = event.target.value
-    data.cost = @calculate data
-    log.debug "equipment row (#{data.type}): #{data.cost}"
-    JobActions.updateComponent "equipment", data
+  recalculate: (item) ->
+    time = Time.toHours item.time, item.timeUnits
+    rate = Time.toPerHour item.price, item.priceUnits
+    item.cost = Cost.calculate time * rate * item.quantity
+    log.debug "equipment row (#{item.type}): #{item.cost}"
+    log.trace "#{item.quantity} x #{time} #{item.timeUnits}
+      @ $#{item.price}/#{item.priceUnits}"
 
-    null
-
-  calculate: (data) ->
-    time = Time.toHours data.time, data.timeUnits
-    rate = Time.toPerHour data.price, data.priceUnits
-    cost = Cost.calculate time * rate * data.quantity
-    log.trace "equipment row (#{data.type}): #{data.quantity} x
-      #{time} #{data.timeUnits} @ $#{data.price}/#{data.priceUnits} = #{cost}"
-
-    cost
+    item
 
   render: ->
-    <FormGroup>
+    <div>
       <ChooseField name="type" label="Equipment Type"
                    type="equipment"
-                   value={@props.data.type}
+                   value={@props.item.type}
                    onChange={@handleChange} />
 
       <NumberField name="quantity" label="How many"
-                   value={@props.data.quantity}
+                   value={@props.item.quantity}
                    onChange={@handleChange} />
 
       <NumberField name="time" label="How long"
-                   value={@props.data.time}
+                   value={@props.item.time}
                    onChange={@handleChange} />
 
       <TimeField name="time-units"
-                 value={@props.data.timeUnits}
+                 value={@props.item.timeUnits}
                  onChange={@handleChange} />
 
       <MoneyField name="price" label="What rate"
-                  value={@props.data.price}
+                  value={@props.item.price}
                   onChange={@handleChange} />
 
       <RateField name="price-units"
-                 value={@props.data.priceUnits}
+                 value={@props.item.priceUnits}
                  onChange={@handleChange} />
-    </FormGroup>
+    </div>
