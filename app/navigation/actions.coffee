@@ -1,8 +1,13 @@
 system = require "system"
 
 module.exports = class NavigationActions
-  set: (payload) ->
-    @dispatch payload
+  constructor: ->
+    @generateActions "set",
+      "setTitle",
+      "unset",
+      "unsetNext",
+      "unsetPrev",
+      "unsetTitle"
 
   setNext: (link, param) ->
     @dispatch
@@ -13,9 +18,5 @@ module.exports = class NavigationActions
     @dispatch
       link: link
       param: param
-
-  setTitle: (title) ->
-    @dispatch
-      title: title
 
 module.exports = system.createActions NavigationActions

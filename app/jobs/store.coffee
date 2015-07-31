@@ -1,4 +1,5 @@
 actions = require "jobs/actions"
+ChoicesActions = require "choices/actions"
 config = require "config"
 Cost = require "util/cost"
 system = require "system"
@@ -58,16 +59,19 @@ class JobStore
     cost += item.cost for own key, item of component.items
     cost
 
+  onSetCurrent: (payload) ->
+    @setState
+      current: payload
+
   onCreate: (payload) ->
-    current = payload.data
-    current.components ?= {}
+    payload.components ?= {}
 
     @setState
-      current: current
+      current: payload
 
   onUpdate: (payload) ->
     current = @current
-    current[key] = value for own key, value of payload.data
+    current[key] = value for own key, value of payload
 
     @setState
       current: current
@@ -114,6 +118,7 @@ class JobStore
   onSave: () ->
     @addToCollection @current
     @saveToStorage()
+    ChoicesActions.save()
     @emitChange()
     null
 

@@ -3,14 +3,18 @@ system = require "system"
 
 class NavigationStore
   constructor: ->
-    @data =
+    @data = @getDefaultData()
+
+    @bindActions actions
+
+  getDefaultData: ->
+    {
       next: false
       nextParam: null
       prev: false
       prevParam: null
       title: null
-
-    @bindActions actions
+    }
 
   updateData: (data) ->
     @setState
@@ -19,10 +23,19 @@ class NavigationStore
   onSet: (payload) ->
     @updateData payload
 
+  onUnset: ->
+    @updateData @getDefaultData()
+
   onSetNext: (payload) ->
     data = @data
     data.next = payload.link
     data.nextParam = payload.param
+    @updateData data
+
+  onUnsetNext: ->
+    data = @data
+    data.next = @getDefaultData().next
+    data.nextParam = @getDefaultData().nextParam
     @updateData data
 
   onSetPrev: (payload) ->
@@ -31,9 +44,20 @@ class NavigationStore
     data.prevParam = payload.param
     @updateData data
 
+  onUnsetPrev: ->
+    data = @data
+    data.prev = @getDefaultData().prev
+    data.prevParam = @getDefaultData().prevParam
+    @updateData data
+
   onSetTitle: (payload) ->
     data = @data
-    data.title = payload.title
+    data.title = payload
+    @updateData data
+
+  onUnsetTitle: ->
+    data = @data
+    data.title = @getDefaultData().title
     @updateData data
 
 module.exports = system.createStore NavigationStore

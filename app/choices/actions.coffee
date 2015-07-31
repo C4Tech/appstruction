@@ -1,6 +1,9 @@
 system = require "system"
 
 class ChoicesActions
+  constructor: ->
+    @generateActions "save"
+
   create: (name, text, id, singular, plural) ->
     @dispatch
       data: data

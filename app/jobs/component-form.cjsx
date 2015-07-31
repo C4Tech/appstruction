@@ -5,6 +5,7 @@ Icon = require "elements/icon"
 InstanceFormMixin = require "mixins/form-instance"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
+NavigationStore = require "navigation/store"
 
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
@@ -21,6 +22,8 @@ module.exports = React.createClass
 
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
+    NavigationStore.listen @onStoreChangeCollection
+
     type = @getParams().component
     component = @state.job?.components?[type]
     @addComponent() unless component?
@@ -29,6 +32,7 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     JobStore.unlisten @onStoreChangeCollection
+    NavigationStore.unlisten @onStoreChangeCollection
     null
 
   onStoreChangeCollection: ->
@@ -45,15 +49,27 @@ module.exports = React.createClass
       items: component?.items ? []
       cost: component?.cost ? 0.00
       total: job?.subtotal ? 0.00
+      nav: NavigationStore.getState().data
     }
 
   handleAdd: (event) ->
+    event.preventDefault()
+    @addComponent()
+
     null
 
   handleNext: (event) ->
+    event.preventDefault()
+    @transitionTo @state.nav.next,
+      component: @state.nav.nextParam
+
     null
 
   handleSave: (event) ->
+    event.preventDefault()
+    JobActions.save()
+    @transitionTo "home"
+
     null
 
   addComponent: ->
