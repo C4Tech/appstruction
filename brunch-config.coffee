@@ -20,9 +20,8 @@ exports.config =
       order:
         before: [
           "app/styles/cordova.less"
-        ]
-        after: [
-          "app/styles/cole.less"
+          "app/styles/bootstrap.less"
+          "app/styles/font-awesome.less"
         ]
 
     templates:

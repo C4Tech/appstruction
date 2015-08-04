@@ -9,12 +9,11 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     {
-      isModal: false
+      clickLeft: @handleSubmit
+      clickRight: @handleSubmit
+      leftLabel: "Save & Exit"
+      rightLabel: "Next"
       title: false
-      submitLabel: "Next"
-      saveLabel: "Save & Exit"
-      handleSave: @handleSubmit
-      handleNext: @handleSubmit
     }
 
   handleSubmit: (event) ->
@@ -26,15 +25,15 @@ module.exports = React.createClass
     title = <PageHeader>{@props.title}</PageHeader>
     title = null unless @props.title
 
-    nextButton = <Button bsStyle="success" block onClick={@props.handleNext}>
-        {@props.submitLabel or "Next"}
+    rightButton = <Button bsStyle="success" block onClick={@props.clickRight}>
+        {@props.rightLabel or "Next"}
       </Button>
-    nextButton = null unless @props.handleNext
+    rightButton = null unless @props.clickRight
 
-    saveButton = <Button bsStyle="primary" block onClick={@props.handleSave}>
-        {@props.saveLabel}
+    leftButton = <Button bsStyle="primary" block onClick={@props.clickLeft}>
+        {@props.leftLabel}
       </Button>
-    saveButton = null unless @props.saveLabel
+    leftButton = null unless @props.leftLabel
 
     <form>
       {title}
@@ -43,10 +42,10 @@ module.exports = React.createClass
 
       <Row className="form-footer">
         <Col xs={6}>
-          {saveButton}
+          {leftButton}
         </Col>
         <Col xs={6}>
-          {nextButton}
+          {rightButton}
         </Col>
       </Row>
     </form>

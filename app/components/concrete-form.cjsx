@@ -36,12 +36,8 @@ module.exports = React.createClass
 
   componentWillMount: ->
     NavigationActions.setTitle "Concrete"
-    NavigationActions.setNext "component", "labor"
-    null
-
-  componentWillUnmount: ->
-    NavigationActions.unsetTitle()
-    NavigationActions.unsetNext()
+    NavigationActions.setNext "component", "equipment"
+    NavigationActions.setPrev "add"
     null
 
   recalculate: (item) ->

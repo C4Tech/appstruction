@@ -1,38 +1,55 @@
-Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
-Input = ReactBootstrap.Input
 Navigation = ReactRouter.Navigation
 Row = ReactBootstrap.Row
 
-FormInstanceMixin = require "mixins/form-instance"
-Form = require "forms/base"
 ChooseInput = require "choices/input-choice"
+Form = require "forms/base"
+FormInstanceMixin = require "mixins/form-instance"
+InputField = require "forms/input-field"
 JobActions = require "jobs/actions"
+JobStore = require "jobs/store"
 NavigationActions = require "navigation/actions"
 
 module.exports = React.createClass
   mixins: [FormInstanceMixin, Navigation]
 
   getInitialState: ->
+    @syncStoreStateCollection()
+
+  onStoreChangeCollection: ->
+    @setState @syncStoreStateCollection()
+
+    null
+
+  syncStoreStateCollection: ->
+    job = JobStore.getState().current or {}
+    job.group ?= null
+    job.name ?= ""
+    job.type ?= null
+
     {
-      form:
-        group: null
-        name: ""
-        type: null
+      job: job
     }
+
+  componentDidMount: ->
+    JobStore.listen @onStoreChangeCollection
+
+    null
 
   componentWillMount: ->
     NavigationActions.setTitle "Job Builder"
-    NavigationActions.setNext "component", "concrete"
+    NavigationActions.setNext @onHandleSubmit
     null
 
-  getFormData: ->
-    @state.form
+  componentWillUnmount: ->
+    JobStore.unlisten @onStoreChangeCollection
+
+    null
 
   changeFormField: (key, value) ->
-    form = @state.form
-    form[key] = value
-    @setState form: form
+    job = @state.job
+    job[key] = value
+    @setState job: job
 
   handleChange: (event) ->
     event.preventDefault()
@@ -42,9 +59,8 @@ module.exports = React.createClass
     (value) =>
       @changeFormField field, value
 
-  performSubmit: (formData) ->
-    JobActions.create formData
-    @transitionTo "component", {component: "concrete"}
+  getFormData: ->
+    @state.job
 
   validate: (data) ->
     errors =
@@ -60,33 +76,36 @@ module.exports = React.createClass
 
     errors
 
+  performSubmit: (formData) ->
+    JobActions.create formData
+    @transitionTo "component", {component: "concrete"}
+
   render: ->
-    <Form saveLabel={null}
-          handleNext={@onHandleSubmit}
+    <Form leftLabel={null}
+          clickRight={@onHandleSubmit}
           {...@props}>
       <Row>
-        <ChooseInput type="group"
-                     value={@state.form.group}
-                     className="form-group"
+        <Col xs={12}>
+          <ChooseInput type="group" name="group"
+                     value={@state.job.group}
                      bsStyle={@getFieldStyle "group"}
                      help={@getFieldErrors "group"}
                      onChange={@handleSelect "group"} />
+          </Col>
       </Row>
+      <InputField name="name"
+             placeholder="Job Name"
+             value={@state.job.name}
+             bsStyle={@getFieldStyle "name"}
+             help={@getFieldErrors "name"}
+             onChange={@handleChange} />
       <Row>
-        <Input type="text"
-               name="name"
-               placeholder="Job Name"
-               value={@state.form.name}
-               bsStyle={@getFieldStyle "name"}
-               help={@getFieldErrors "name"}
-               onChange={@handleChange} />
-      </Row>
-      <Row>
-        <ChooseInput type="job" name="type"
-                     value={@state.form.type}
-                     className="form-group"
-                     bsStyle={@getFieldStyle "type"}
-                     help={@getFieldErrors "type"}
-                     onChange={@handleSelect "type"} />
+        <Col xs={12}>
+          <ChooseInput type="job" name="type"
+                       value={@state.job.type}
+                       bsStyle={@getFieldStyle "type"}
+                       help={@getFieldErrors "type"}
+                       onChange={@handleSelect "type"} />
+        </Col>
       </Row>
     </Form>

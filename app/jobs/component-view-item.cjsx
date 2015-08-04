@@ -1,9 +1,9 @@
 Components =
-  concrete: require "components/concrete-form"
-  equipment: require "components/equipment-form"
-  labor: require "components/labor-form"
-  material: require "components/material-form"
-  subcontractor: require "components/subcontractor-form"
+  concrete: require "components/concrete-view"
+  equipment: require "components/equipment-view"
+  labor: require "components/labor-view"
+  material: require "components/material-view"
+  subcontractor: require "components/subcontractor-view"
 
 Col = ReactBootstrap.Col
 Row = ReactBootstrap.Row
@@ -24,6 +24,5 @@ module.exports = React.createClass
     <Row>
       <Col xs={12}>
         <Item item={@props.item} />
-        <hr />
       </Col>
     </Row>

@@ -1,6 +1,5 @@
 RouteHandler = ReactRouter.RouteHandler
 
-Decoration = require "elements/header-decoration"
 JobStore = require "jobs/store"
 NavigationStore = require "navigation/store"
 
@@ -24,7 +23,7 @@ module.exports = React.createClass
 
   syncStoreStateCollection: ->
     {
-      job: JobStore.getState().current
+      job: JobStore.getState().current?.name
       title: NavigationStore.getState().data?.title
     }
 
@@ -32,16 +31,12 @@ module.exports = React.createClass
     pageTitle = <div className="header-title">
       <h4>
         {@state.title}
-
-        <Decoration iconType="help" icon="question-circle" />
-        <Decoration iconType="email" icon="envelope" />
-        <Decoration iconType="pdf" icon="file-pdf-o" />
       </h4>
     </div>
     pageTitle = null unless @state.title
 
     <div>
-      <h3>{@state.job?.name}</h3>
+      <h3>{@state.job}</h3>
       {pageTitle}
 
       <RouteHandler />

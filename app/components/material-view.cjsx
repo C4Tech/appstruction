@@ -3,23 +3,23 @@ ChoicesStore = require "choices/store"
 module.exports =
   getDefaultProps: ->
     {
-      data:
+      item:
         type: 1
         quantity: 0
         price: 0
     }
 
   render: ->
-    data = @props.data
+    item = @props.item
     nothing = <div>No Material</div>
 
-    return nothing unless data.price
+    return nothing unless item.price
 
-    type = ChoicesStore.getLabelFor "material", data.type, data.quantity, true
-    unit = ChoicesStore.getLabelFor "material", data.type
+    type = ChoicesStore.getLabelFor "material", item.type, item.quantity, true
+    unit = ChoicesStore.getLabelFor "material", item.type
 
     <div>
       <div>Item: {type}</div>
-      <div>${data.price} per #{unit}</div>
-      <div>Total price: ${data.cost}</div>
+      <div>${item.price} per #{unit}</div>
+      <div>Total price: ${item.cost}</div>
     </div>

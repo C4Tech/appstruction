@@ -4,6 +4,7 @@ ChooseField = require "choices/input-choice"
 ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
 MoneyField = require "forms/input-money"
+NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 RateField = require "forms/input-pay-rate"
 Time = require "util/time"
@@ -11,6 +12,8 @@ TimeField = require "forms/input-time"
 
 module.exports = React.createClass
   mixins: [ComponentFormMixin]
+
+  typeName: "equipment"
 
   getDefaultProps: ->
     {
@@ -23,6 +26,12 @@ module.exports = React.createClass
         priceUnits: "hour"
         cost: 0.0
     }
+
+  componentWillMount: ->
+    NavigationActions.setTitle "Equipment"
+    NavigationActions.setNext "component", "labor"
+    NavigationActions.setPrev "component", "concrete"
+    null
 
   recalculate: (item) ->
     time = Time.toHours item.time, item.timeUnits
@@ -39,7 +48,7 @@ module.exports = React.createClass
       <ChooseField name="type" label="Equipment Type"
                    type="equipment"
                    value={@props.item.type}
-                   onChange={@handleSelect} />
+                   onChange={@handleSelect "type"} />
 
       <NumberField name="quantity" label="How many"
                    value={@props.item.quantity}
@@ -51,7 +60,7 @@ module.exports = React.createClass
 
       <TimeField name="time-units"
                  value={@props.item.timeUnits}
-                 onChange={@handleSelect} />
+                 onChange={@handleSelect "timeUnits"} />
 
       <MoneyField name="price" label="What rate"
                   value={@props.item.price}
@@ -59,5 +68,5 @@ module.exports = React.createClass
 
       <RateField name="price-units"
                  value={@props.item.priceUnits}
-                 onChange={@handleSelect} />
+                 onChange={@handleSelect "priceUnits"} />
     </div>

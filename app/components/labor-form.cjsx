@@ -4,6 +4,7 @@ ChooseField = require "choices/input-choice"
 ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
 MoneyField = require "forms/input-money"
+NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 RateField = require "forms/input-pay-rate"
 Time = require "util/time"
@@ -11,6 +12,8 @@ TimeField = require "forms/input-time"
 
 module.exports = React.createClass
   mixins: [ComponentFormMixin]
+
+  typeName: "labor"
 
   getDefaultProps: ->
     {
@@ -24,6 +27,12 @@ module.exports = React.createClass
         cost: 0.0
     }
 
+  componentWillMount: ->
+    NavigationActions.setTitle "Labor"
+    NavigationActions.setNext "component", "material"
+    NavigationActions.setPrev "component", "equipment"
+    null
+
   recalculate: (item) ->
     item = @props.item
     time = Time.toHours item.time, item.timeUnits
@@ -31,7 +40,7 @@ module.exports = React.createClass
     item.cost = Cost.calculate time * rate * item.quantity
     log.debug "labor row (#{item.type}): #{item.cost}"
     log.trace "#{item.quantity} x #{time} #{item.timeUnits}
-      @ $#{price}/#{item.priceUnits}"
+      @ $#{item.price}/#{item.priceUnits}"
 
     item
 
@@ -40,7 +49,7 @@ module.exports = React.createClass
       <ChooseField name="type" label="Labor Class"
                    type="labor"
                    value={@props.item.type}
-                   onChange={@handleSelect} />
+                   onChange={@handleSelect "type"} />
 
       <NumberField name="quantity" label="Number of laborers"
                    value={@props.item.quantity}
@@ -52,7 +61,7 @@ module.exports = React.createClass
 
       <TimeField name="time-units"
                  value={@props.item.timeUnits}
-                 onChange={@handleSelect} />
+                 onChange={@handleSelect "timeUnits"} />
 
       <MoneyField name="price" label="Pay rate"
                   value={@props.item.price}
@@ -60,5 +69,5 @@ module.exports = React.createClass
 
       <RateField name="price-units"
                  value={@props.item.priceUnits}
-                 onChange={@handleSelect} />
+                 onChange={@handleSelect "priceUnits"} />
     </div>

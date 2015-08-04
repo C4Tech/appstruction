@@ -7,18 +7,18 @@ Home = require "pages/home"
 Component = require "jobs/component-form"
 JobLayout = require "jobs/container"
 Add = require "jobs/add"
-# JobOverview = require "jobs/overview"
+Save = require "jobs/save"
 # LoadJob = require "jobs/load"
 # DeleteJob = require "jobs/delete"
 
   # <Route name="browse" handler={LoadJob} />
   # <Route name="delete" handler={DeleteJob} />
-    # <Route name="save" path="overview" handler={JobOverview} />
 routes =
   <Route name="home" path="/" handler={Layout}>
     <DefaultRoute handler={Home} />
 
     <Route name="add" handler={Add} />
+    <Route name="save" handler={Save} />
     <Route name="job" handler={JobLayout}>
       <Route name="component" path=":component" handler={Component} />
     </Route>

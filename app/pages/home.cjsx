@@ -1,11 +1,19 @@
+Footer = require "layout/footer"
+NavButton = require "elements/main-nav"
+NavigationActions = require "navigation/actions"
+
 Row = ReactBootstrap.Row
 Navigation = ReactRouter.Navigation
 
-Footer = require "layout/footer"
-NavButton = require "elements/main-nav"
-
 module.exports = React.createClass
   mixins: [Navigation]
+
+  componentWillMount: ->
+    NavigationActions.unsetTitle()
+    NavigationActions.unsetNext()
+    NavigationActions.unsetPrev()
+    null
+
 
   handleNavTo: (to) ->
     (event) =>

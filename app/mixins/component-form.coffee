@@ -14,7 +14,7 @@ module.exports =
   changeFormField: (key, value) ->
     item = @props.item
     item[key] = value
-    JobActions.updateComponent @typeName, @handleRecalculate item
+    JobActions.upsertComponent @typeName, @handleRecalculate item
 
   handleRecalculate: (item) ->
     return @recalculate item if @recalculate?

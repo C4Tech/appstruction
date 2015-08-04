@@ -6,16 +6,21 @@ InstanceFormMixin = require "mixins/form-instance"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
 NavigationStore = require "navigation/store"
+Components =
+  concrete: require "components/concrete-form"
+  equipment: require "components/equipment-form"
+  labor: require "components/labor-form"
+  material: require "components/material-form"
+  subcontractor: require "components/subcontractor-form"
 
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
 Input = ReactBootstrap.Input
 Navigation = ReactRouter.Navigation
 Row = ReactBootstrap.Row
-State = ReactRouter.State
 
 module.exports = React.createClass
-  mixins: [EnsureJobMixin, Navigation, State]
+  mixins: [EnsureJobMixin, Navigation]
 
   getInitialState: ->
     @syncStoreStateCollection()
@@ -23,29 +28,37 @@ module.exports = React.createClass
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
     NavigationStore.listen @onStoreChangeCollection
+    @ensureComponentExists()
 
-    type = @getParams().component
-    component = @state.job?.components?[type]
-    @addComponent() unless component?
+    null
+
+  componentDidUpdate: ->
+    @ensureComponentExists()
+
+    null
+
+  ensureComponentExists: ->
+    @addComponent() if @state.items.length is 0
 
     null
 
   componentWillUnmount: ->
     JobStore.unlisten @onStoreChangeCollection
     NavigationStore.unlisten @onStoreChangeCollection
+
     null
 
   onStoreChangeCollection: ->
     @setState @syncStoreStateCollection()
+
     null
 
   syncStoreStateCollection: ->
-    type = @getParams().component
+    type = @props.params.component
     job = JobStore.getState().current
     component = job?.components?[type]
 
     {
-      type: type
       items: component?.items ? []
       cost: component?.cost ? 0.00
       total: job?.subtotal ? 0.00
@@ -60,6 +73,7 @@ module.exports = React.createClass
 
   handleNext: (event) ->
     event.preventDefault()
+    return @state.nav.next event if typeof @state.nav.next is "function"
     @transitionTo @state.nav.next,
       component: @state.nav.nextParam
 
@@ -68,14 +82,20 @@ module.exports = React.createClass
   handleSave: (event) ->
     event.preventDefault()
     JobActions.save()
-    @transitionTo "home"
+    return @state.nav.prev event if typeof @state.nav.prev is "function"
+    @transitionTo @state.nav.prev,
+      component: @state.nav.prevParam
 
     null
 
   addComponent: ->
-    JobActions.createComponent @getParams().component, {}
+    JobActions.upsertComponent @props.params.component, {}
+
+    null
 
   render: ->
+    type = @props.params.component
+
     addButton = <Row>
         <Button bsStyle="warning" block onClick={@handleAdd}>
           <Icon name="plus-circle" />
@@ -85,20 +105,30 @@ module.exports = React.createClass
         <hr />
       </Row>
 
-    addButton = null if @state.type is "concrete"
+    addButton = null if type is "concrete"
 
-    <Form handleNext={@handleNext}
-          handleSave={@handleSave}>
+    Item = Components[type]
+    log.error "Component not found: #{@props.type}" unless Item
 
-      {<ComponentItem type={@state.type} item={item} /> for item in @state.items}
+    <Row>
+      <Col xs={12}>
+        <Item item={@props.item} />
+        <hr />
+      </Col>
+    </Row>
 
-      <hr />
+
+    <Form clickRight={@handleNext}
+          clickLeft={@handleSave}>
+
+      {<ComponentItem type={type} item={item} /> for item in @state.items}
+
       {addButton}
 
       <Row>
         <div className="lead">
           <div className="capitalize">
-            {@state.type} ${@state.cost}
+            {type} ${@state.cost}
           </div>
           <div>
             Subtotal ${@state.total}

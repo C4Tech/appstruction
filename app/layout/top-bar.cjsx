@@ -28,6 +28,7 @@ module.exports = React.createClass
 
   handleNavBack: (event) ->
     event.preventDefault()
+    return @state.prev event if typeof @state.prev is "function"
     @transitionTo @state.prev,
       component: @state.prevParam
     null
@@ -39,6 +40,7 @@ module.exports = React.createClass
 
   handleNavNext: (event) ->
     event.preventDefault()
+    return @state.next event if typeof @state.next is "function"
     @transitionTo @state.next,
       component: @state.nextParam
     null

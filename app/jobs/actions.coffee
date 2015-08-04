@@ -4,12 +4,7 @@ module.exports = class JobActions
   constructor: ->
     @generateActions "create", "update", "setCurrent", "save"
 
-  createComponent: (component, object = {}) ->
-    @dispatch
-      component: component
-      data: object
-
-  updateComponent: (component, object = {}) ->
+  upsertComponent: (component, object = {}) ->
     @dispatch
       component: component
       data: object

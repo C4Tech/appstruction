@@ -49,14 +49,14 @@ class JobStore
 
   recalculate: (current) ->
     cost = 0.0
-    cost += component.cost for own key, component of current.components
+    cost += component.cost for key, component of current.components
     cost
 
   recalculateComponent: (component) ->
     cost = 0.0
-    return cost unless component?.items
+    return cost unless component?.items?.length
 
-    cost += item.cost for own key, item of component.items
+    cost += item.cost for own key, item of component.items when item.cost > 0.0
     cost
 
   onSetCurrent: (payload) ->
@@ -76,39 +76,19 @@ class JobStore
     @setState
       current: current
 
-  onCreateComponent: (payload) ->
+  onUpsertComponent: (payload) ->
     defaultComponent =
       cost: 0.0
       items: []
 
     current = @current
     component = current.components[payload.component] or defaultComponent
-
     index = @findComponentIndex payload.component, payload.data.id
     payload.data.id ?= index
     component.items[index] = payload.data
-    component.cost = 0.00
-    current.components[payload.component] = component
 
-    @setState
-      current: current
-
-  onUpdateComponent: (payload) ->
-    defaultComponent =
-      cost: 0.0
-      items: []
-
-    current = @current
-    component = current.components[payload.component] or defaultComponent
-
-    # Update/Insert component item
-    index = @findComponentIndex payload.component, payload.data.id
-    payload.data.id ?= index
-    component.items[index] = payload.data
     component.cost = @recalculateComponent component
     current.components[payload.component] = component
-
-    # Recalculate job
     current.subtotal = @recalculate current
     current.total = Cost.calculate current.subtotal, current.profitMargin
 

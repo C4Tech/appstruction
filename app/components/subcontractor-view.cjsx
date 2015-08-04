@@ -1,18 +1,18 @@
 module.exports =
   getDefaultProps: ->
     {
-      data:
+      item:
         scope: ""
         cost: 0.0
     }
 
   render: ->
-    data = @props.data
+    item = @props.item
     nothing = <div>No Subcontractor</div>
 
-    return nothing unless data.cost
+    return nothing unless item.cost
 
     <div>
-      <div>{data.scope}</div>
-      <div>Total price: ${data.cost}</div>
+      <div>{item.scope}</div>
+      <div>Total price: ${item.cost}</div>
     </div>
