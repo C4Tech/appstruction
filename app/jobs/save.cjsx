@@ -59,29 +59,34 @@ module.exports = React.createClass
     null
 
   render: ->
-    <Form saveLabel="Start Over"
-          handleSave={@handleReset}
-          nextLabel="Save"
-          handleNext={@handleSave}
+    <Form leftLabel="Start Over"
+          clickLeft={@handleReset}
+          rightLabel="Save"
+          clickRight={@handleSave}
           {...@props}>
-      <div>
-        <h3>{@state.job.name}</h3>
-        <div className="header-title">
-          <h4>
-            {@state.job.name}
+      <Row>
+        <Col xs={12}>
+          <h3>{@state.job?.name}</h3>
+        </Col>
+      </Row>
 
+      <Row>
+        <Col xs={12} className="header-title">
+          <h4>Job Overview
             <Decoration iconType="help" icon="question-circle" />
             <Decoration iconType="email" icon="envelope" />
             <Decoration iconType="pdf" icon="file-pdf-o" />
           </h4>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <StaticField label="Subtotal" value={@state.job.subtotal} />
+      <StaticField label="Subtotal"
+                   className="lead"
+                   value={@state.job.subtotal} />
       <PercentField name="profit-margin" label="Profit Margin"
                     value={@state.job.profitMargin}
                     onChange={@handleChange} />
-      <StaticField label="Grand Total" value={@state.job.total} />
-
-      <JobReview job={@state.job} />
+      <StaticField label="Grand Total"
+                   className="lead"
+                   value={@state.job.total} />
     </Form>

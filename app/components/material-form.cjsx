@@ -3,6 +3,7 @@
 ChooseField = require "choices/input-choice"
 ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
+Help = require "elements/help"
 MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
@@ -27,7 +28,7 @@ module.exports = React.createClass
 
   componentWillMount: ->
     NavigationActions.setTitle "Materials"
-    NavigationActions.setNext "component", "subcontractor"
+    NavigationActions.setNext "component", "equipment"
     NavigationActions.setPrev "component", "labor"
     null
 
@@ -41,7 +42,8 @@ module.exports = React.createClass
 
   render: ->
     <div>
-      <ChooseField name="type" label="Material Type"
+      <ChooseField name="type"
+                   label={<Help title="Material Type" helpText="help" />}
                    type="material"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />

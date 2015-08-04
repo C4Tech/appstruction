@@ -1,4 +1,4 @@
-cordovaClass = class CordovaApp
+class CordovaApp
   initialize: ->
     @bindEvents()
     true
@@ -8,8 +8,22 @@ cordovaClass = class CordovaApp
     true
 
   onDeviceReady: ->
-    require "application"
+    log.setLevel "warn"
+    require "initialize"
 
-app = new cordovaClass
+  share: (subject, message, file) ->
+    window.plugins.socialsharing.share message,
+      subject,
+      file
 
-app.initialize()
+  email: (to, subject, message, file) ->
+    window.plugins.socialsharing.shareViaEmail message,
+      subject,
+      to,
+      null,
+      null,
+      file
+
+window.app = new CordovaApp
+
+window.app.initialize()

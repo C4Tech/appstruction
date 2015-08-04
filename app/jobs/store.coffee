@@ -72,6 +72,7 @@ class JobStore
   onUpdate: (payload) ->
     current = @current
     current[key] = value for own key, value of payload
+    current.total = Cost.calculate current.subtotal, current.profitMargin
 
     @setState
       current: current

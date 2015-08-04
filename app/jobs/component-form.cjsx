@@ -6,21 +6,14 @@ InstanceFormMixin = require "mixins/form-instance"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
 NavigationStore = require "navigation/store"
-Components =
-  concrete: require "components/concrete-form"
-  equipment: require "components/equipment-form"
-  labor: require "components/labor-form"
-  material: require "components/material-form"
-  subcontractor: require "components/subcontractor-form"
 
 Button = ReactBootstrap.Button
 Col = ReactBootstrap.Col
-Input = ReactBootstrap.Input
-Navigation = ReactRouter.Navigation
+Panel = ReactBootstrap.Panel
 Row = ReactBootstrap.Row
 
 module.exports = React.createClass
-  mixins: [EnsureJobMixin, Navigation]
+  mixins: [EnsureJobMixin, ReactRouter.Navigation]
 
   getInitialState: ->
     @syncStoreStateCollection()
@@ -95,44 +88,39 @@ module.exports = React.createClass
 
   render: ->
     type = @props.params.component
-
-    addButton = <Row>
-        <Button bsStyle="warning" block onClick={@handleAdd}>
-          <Icon name="plus-circle" />
-          Add another
-        </Button>
-
-        <hr />
-      </Row>
-
-    addButton = null if type is "concrete"
-
-    Item = Components[type]
-    log.error "Component not found: #{@props.type}" unless Item
-
-    <Row>
-      <Col xs={12}>
-        <Item item={@props.item} />
-        <hr />
-      </Col>
-    </Row>
-
+    return null unless type
 
     <Form clickRight={@handleNext}
           clickLeft={@handleSave}>
 
       {<ComponentItem type={type} item={item} /> for item in @state.items}
 
-      {addButton}
+      <Row>
+        <Col xs={12}>
+          <Button bsStyle="warning" block onClick={@handleAdd}>
+            <Icon name="plus-circle" />
+            Add another
+          </Button>
+
+          <hr />
+        </Col>
+      </Row>
 
       <Row>
-        <div className="lead">
-          <div className="capitalize">
-            {type} ${@state.cost}
-          </div>
-          <div>
-            Subtotal ${@state.total}
-          </div>
-        </div>
+        <Col xs={12}>
+          <Panel className="lead panel-totals text-capitalize">
+            <Row>
+              <Col xs={12}>
+                {type} ${@state.cost}
+              </Col>
+            </Row>
+
+            <Row>
+              <Col xs={12}>
+                Subtotal ${@state.total}
+              </Col>
+            </Row>
+          </Panel>
+        </Col>
       </Row>
     </Form>

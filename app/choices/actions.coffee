@@ -4,9 +4,10 @@ class ChoicesActions
   constructor: ->
     @generateActions "save"
 
-  create: (name, text, id, singular, plural) ->
+  create: (type, label, value) ->
     @dispatch
-      data: data
-      navigateTo: navigateTo
+      value: value
+      label: label
+      type: type
 
 module.exports = system.createActions ChoicesActions

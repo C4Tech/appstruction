@@ -40,7 +40,7 @@ module.exports = React.createClass
 
       {@props.children}
 
-      <Row className="form-footer">
+      <Row componentClass="footer">
         <Col xs={6}>
           {leftButton}
         </Col>

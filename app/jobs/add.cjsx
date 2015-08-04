@@ -1,17 +1,19 @@
-Col = ReactBootstrap.Col
-Navigation = ReactRouter.Navigation
-Row = ReactBootstrap.Row
-
 ChooseInput = require "choices/input-choice"
 Form = require "forms/base"
 FormInstanceMixin = require "mixins/form-instance"
+ComponentFormMixin = require "mixins/component-form"
+Help = require "elements/help"
 InputField = require "forms/input-field"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
 NavigationActions = require "navigation/actions"
 
 module.exports = React.createClass
-  mixins: [FormInstanceMixin, Navigation]
+  mixins: [
+    FormInstanceMixin,
+    ComponentFormMixin,
+    ReactRouter.Navigation
+  ]
 
   getInitialState: ->
     @syncStoreStateCollection()
@@ -51,14 +53,6 @@ module.exports = React.createClass
     job[key] = value
     @setState job: job
 
-  handleChange: (event) ->
-    event.preventDefault()
-    @changeFormField event.target.name, event.target.value
-
-  handleSelect: (field) ->
-    (value) =>
-      @changeFormField field, value
-
   getFormData: ->
     @state.job
 
@@ -84,28 +78,22 @@ module.exports = React.createClass
     <Form leftLabel={null}
           clickRight={@onHandleSubmit}
           {...@props}>
-      <Row>
-        <Col xs={12}>
-          <ChooseInput type="group" name="group"
-                     value={@state.job.group}
-                     bsStyle={@getFieldStyle "group"}
-                     help={@getFieldErrors "group"}
-                     onChange={@handleSelect "group"} />
-          </Col>
-      </Row>
+      <ChooseInput type="group" name="group"
+                   label="Group name"
+                   value={@state.job.group}
+                   bsStyle={@getFieldStyle "group"}
+                   help={@getFieldErrors "group"}
+                   onChange={@handleSelectCreate "group"} />
       <InputField name="name"
-             placeholder="Job Name"
+             label="Job name"
              value={@state.job.name}
              bsStyle={@getFieldStyle "name"}
              help={@getFieldErrors "name"}
              onChange={@handleChange} />
-      <Row>
-        <Col xs={12}>
-          <ChooseInput type="job" name="type"
-                       value={@state.job.type}
-                       bsStyle={@getFieldStyle "type"}
-                       help={@getFieldErrors "type"}
-                       onChange={@handleSelect "type"} />
-        </Col>
-      </Row>
+      <ChooseInput type="job" name="type"
+                   label={<Help title="What type of job" helpText="help" />}
+                   value={@state.job.type}
+                   bsStyle={@getFieldStyle "type"}
+                   help={@getFieldErrors "type"}
+                   onChange={@handleSelect "type"} />
     </Form>

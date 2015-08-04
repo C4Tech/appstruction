@@ -3,6 +3,7 @@
 ChooseField = require "choices/input-choice"
 ComponentFormMixin = require "mixins/component-form"
 Cost = require "util/cost"
+Help = require "elements/help"
 MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
@@ -30,7 +31,7 @@ module.exports = React.createClass
   componentWillMount: ->
     NavigationActions.setTitle "Labor"
     NavigationActions.setNext "component", "material"
-    NavigationActions.setPrev "component", "equipment"
+    NavigationActions.setPrev "component", "concrete"
     null
 
   recalculate: (item) ->
@@ -46,7 +47,8 @@ module.exports = React.createClass
 
   render: ->
     <div>
-      <ChooseField name="type" label="Labor Class"
+      <ChooseField name="type"
+                   label={<Help title="Labor Class" helpText="help" />}
                    type="labor"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />
@@ -56,6 +58,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <NumberField name="time" label="Time per laborer"
+                   className="has-sibling-field"
                    value={@props.item.time}
                    onChange={@handleChange} />
 
@@ -64,6 +67,7 @@ module.exports = React.createClass
                  onChange={@handleSelect "timeUnits"} />
 
       <MoneyField name="price" label="Pay rate"
+                  className="has-sibling-field"
                   value={@props.item.price}
                   onChange={@handleChange} />
 

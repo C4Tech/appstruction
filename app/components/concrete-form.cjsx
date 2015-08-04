@@ -3,6 +3,7 @@
 Cost = require "util/cost"
 ChooseField = require "choices/input-choice"
 ComponentFormMixin = require "mixins/component-form"
+Help = require "elements/help"
 Measure = require "util/measure"
 MeasurementField = require "forms/input-measurement"
 MoneyField = require "forms/input-money"
@@ -36,7 +37,7 @@ module.exports = React.createClass
 
   componentWillMount: ->
     NavigationActions.setTitle "Concrete"
-    NavigationActions.setNext "component", "equipment"
+    NavigationActions.setNext "component", "labor"
     NavigationActions.setPrev "add"
     null
 
@@ -71,7 +72,8 @@ module.exports = React.createClass
 
   render: ->
     <div>
-      <ChooseField name="type" label="What item"
+      <ChooseField name="type"
+                  label={<Help title="What item" helpText="Dropdown Help" />}
                    type="concrete"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />
@@ -81,6 +83,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <NumberField name="length" label="How long"
+                   className="has-sibling-field"
                    value={@props.item.length}
                    onChange={@handleChange} />
 
@@ -89,6 +92,7 @@ module.exports = React.createClass
                         onChange={@handleSelect "lengthUnits"} />
 
       <NumberField name="width" label="How wide"
+                   className="has-sibling-field"
                    value={@props.item.width}
                    onChange={@handleChange} />
 
@@ -97,6 +101,7 @@ module.exports = React.createClass
                         onChange={@handleSelect  "widthUnits"} />
 
       <NumberField name="depth" label="How deep"
+                   className="has-sibling-field"
                    value={@props.item.depth}
                    onChange={@handleChange} />
 
@@ -105,6 +110,7 @@ module.exports = React.createClass
                         onChange={@handleSelect  "depthUnits"} />
 
       <MoneyField name="price" label="What price"
+                   className="has-sibling-field"
                    value={@props.item.price}
                    onChange={@handleChange} />
 

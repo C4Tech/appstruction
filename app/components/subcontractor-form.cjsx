@@ -21,7 +21,7 @@ module.exports = React.createClass
   componentWillMount: ->
     NavigationActions.setTitle "Subcontractor"
     NavigationActions.setNext "save"
-    NavigationActions.setPrev "component", "material"
+    NavigationActions.setPrev "component", "equipment"
     null
 
   recalculate: (item) ->

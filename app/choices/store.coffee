@@ -16,6 +16,8 @@ class ChoicesStore
       }
     null
 
+  getById: LabelLookup.getById
+
   getStorageId: ->
     prefix = config.storagePrefix
     "#{prefix}-choices"
@@ -33,15 +35,23 @@ class ChoicesStore
     data or @getDefaultOptions()
 
   onCreate: (payload) ->
+    payload.value ?= payload.label.toLowerCase()
+    existing = @getById payload.type, payload.value
+    log.info "existing choice", existing
+    return null if existing
+
     options = @options
-    id = payload.data.value ? grouping.length + 1
-    options[payload.name].push
-      value: "#{id}"
-      label: "#{payload.data.label}"
+    grouping = options[payload.type]
+    options[payload.type].push
+      value: "#{payload.value}"
+      label: "#{payload.label}"
 
     @setState
       options: options
 
+    null
+
+  onSave: ->
     @saveToStorage()
 
     null
@@ -49,111 +59,111 @@ class ChoicesStore
   getDefaultOptions: ->
     {
       concrete: [
-          value: "1"
+          value: "sidewalk"
           label: "Sidewalk"
         ,
-          value: "2"
+          value: "foundation"
           label: "Foundation"
         ,
-          value: "3"
+          value: "curb"
           label: "Curb"
         ,
-          value: "4"
+          value: "footings"
           label: "Footings"
         ,
-          value: "5"
+          value: "driveway"
           label: "Driveway"
       ]
       equipment: [
-          value: "1"
+          value: "dump truck"
           label: "Dump Truck"
         ,
-          value: "2"
+          value: "excavator"
           label: "Excavator"
         ,
-          value: "3"
+          value: "bobcat"
           label: "Bobcat"
         ,
-          value: "4"
+          value: "concrete pump"
           label: "Concrete Pump"
         ,
-          value: "5"
+          value: "concrete saw"
           label: "Concrete Saw"
         ,
-          value: "6"
+          value: "piles"
           label: "Piles"
         ,
-          value: "7"
+          value: "trial"
           label: "Trial"
         ,
-          value: "8"
+          value: "util truck"
           label: "Util Truck"
         ,
-          value: "9"
+          value: "trowel machine"
           label: "Trowel Machine"
       ]
       group: []
       job: [
-          value: "1"
+          value: "municipal"
           label: "Municipal"
         ,
-          value: "2"
+          value: "commercial"
           label: "Commercial"
         ,
-          value: "3"
+          value: "residential"
           label: "Residential"
         ,
-          value: "4"
+          value: "civil"
           label: "Civil"
         ,
-          value: "5"
+          value: "structural"
           label: "Structural"
       ]
       labor: [
-          value: "1"
+          value: "finishers"
           label: "Finishers"
         ,
-          value: "2"
+          value: "supervisors"
           label: "Supervisors"
         ,
-          value: "3"
+          value: "forms crp"
           label: "Forms crp"
         ,
-          value: "4"
+          value: "laborers"
           label: "Laborers"
         ,
-          value: "5"
+          value: "driver"
           label: "Driver"
         ,
-          value: "6"
+          value: "operator"
           label: "Operator"
         ,
-          value: "7"
+          value: "carpenter"
           label: "Carpenter"
         ,
-          value: "8"
+          value: "ironworker"
           label: "Ironworker"
       ]
       material: [
-          value: "1"
+          value: "wire (sheet)"
           label: "Wire (sheet)"
         ,
-          value: "2"
+          value: "keyway (lf)"
           label: "Keyway (lf)"
         ,
-          value: "3"
+          value: "stakes (ea.)"
           label: "Stakes (ea.)"
         ,
-          value: "4"
+          value: "cap (lf)"
           label: "Cap (lf)"
         ,
-          value: "5"
+          value: "dowells  (ea.)"
           label: "Dowells  (ea.)"
         ,
-          value: "6"
+          value: "2x8x20  (lf)"
           label: "2x8x20  (lf)"
         ,
-          value: "7"
+          value: "misc"
           label: "Misc"
       ]
     }

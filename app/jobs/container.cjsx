@@ -1,4 +1,6 @@
+Col = ReactBootstrap.Col
 RouteHandler = ReactRouter.RouteHandler
+Row = ReactBootstrap.Row
 
 JobStore = require "jobs/store"
 NavigationStore = require "navigation/store"
@@ -28,16 +30,22 @@ module.exports = React.createClass
     }
 
   render: ->
-    pageTitle = <div className="header-title">
-      <h4>
-        {@state.title}
-      </h4>
-    </div>
-    pageTitle = null unless @state.title
-
     <div>
-      <h3>{@state.job}</h3>
-      {pageTitle}
+      <Row>
+        <Col xs={12}>
+          <h3>{@state.job}</h3>
+        </Col>
+      </Row>
 
-      <RouteHandler />
+      <Row>
+        <Col xs={12} className="header-title">
+          {<h4>{@state.title}</h4> if @state.title}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col xs={12}>
+          <RouteHandler />
+        </Col>
+      </Row>
     </div>

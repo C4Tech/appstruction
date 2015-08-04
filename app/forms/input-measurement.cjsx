@@ -3,8 +3,8 @@ Measure = require "util/measure"
 
 module.exports = React.createClass
   render: ->
-    <Select help="Dropdown help"
-      name={@props.type}
+    <Select name={@props.type}
       addLabelText="{label}"
+      placeholder="Unit"
       {...@props}
       options={Measure.options.linear} />
