@@ -99,6 +99,7 @@ class JobStore
     @current.id ?= Date.now()
     @addToCollection @current
     @saveToStorage()
+    @current = {}
     @emitChange()
     null
 

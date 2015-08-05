@@ -14,7 +14,6 @@
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.7",
     "react-router": "^0.13.3",
-    "react-router-bootstrap": "^0.17.2",
     "react-select": "^0.5.5",
     "pluralize": "~1.1.2"
   },
@@ -23,13 +22,23 @@
   },
   "overrides": {
     "bootstrap": {
-      "main": "/fonts/*"
+      "main": "/fonts/*",
+      "dependencies": {}
     },
     "font-awesome": {
       "main": "/fonts/*"
     },
+    "loglevel": {
+      "main": "dist/loglevel.js"
+    },
     "jspdf": {
       "main": "dist/jspdf.js"
+    },
+    "react-input-autosize": {
+      "main": "dist/react-input-autosize.js",
+      "dependencies": {
+        "react": "^0.13.3"
+      }
     },
     "react-select": {
       "main": [

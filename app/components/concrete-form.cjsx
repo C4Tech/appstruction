@@ -53,7 +53,7 @@ module.exports = React.createClass
     depth = Measure.normalize item.depth, item.depthUnits
     length = Measure.normalize item.length, item.lengthUnits
     width = Measure.normalize item.width, item.widthUnits
-    volume = depth.mul(length).mul(width).scalar
+    volume = depth.mul(length).mul(width).scalar.toFixed(2)/1
     volume = 0.0 if isNaN volume
 
     log.trace "#{depth} (d) x #{width} (w) x #{length} (h) = #{volume}"

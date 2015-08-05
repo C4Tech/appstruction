@@ -2,7 +2,12 @@ system = require "system"
 
 module.exports = class JobActions
   constructor: ->
-    @generateActions "create", "update", "setCurrent", "save"
+    @generateActions "create",
+      "update",
+      "delete",
+      "setCurrent",
+      "save",
+      "deleteGroup"
 
   upsertComponent: (component, object = {}) ->
     @dispatch

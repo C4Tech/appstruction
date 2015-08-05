@@ -6,17 +6,15 @@ exports.config =
       browsers: ["android >= 4"]
 
   paths:
-    watched: ["app", "vendor"]
     public: "www"
 
   files:
     javascripts:
       joinTo:
         "assets/app.js": /^app/
-        "assets/vendor.js": /^(bower_components|vendor)/
+        "assets/vendor.js": /^(vendor|bower_components)/
     stylesheets:
-      joinTo:
-        "assets/style.css": /^(app|bower_components|vendor)/
+      joinTo: "assets/style.css"
       order:
         before: [
           "app/styles/cordova.less"
@@ -24,13 +22,13 @@ exports.config =
           "app/styles/font-awesome.less"
         ]
 
-    templates:
-      joinTo: "assets/app.js"
-
   overrides:
     production:
+      optimize: true
       sourceMaps: false
       plugins:
+        autoReload:
+          enabled: false
         cleancss:
           keepSpecialComments: 0
           removeEmpty: true

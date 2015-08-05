@@ -20,15 +20,17 @@ module.exports = React.createClass
       {@props.helpText}
     </Popover>
 
+    icon = <Icon name="question-circle" size="lg" className="pad-left" />
+
     button = <span>
       <strong>{@props.title}</strong>
-      <Icon name="question-circle" className="pad-left" />
+      {icon}
     </span>
 
     if @props.bsStyle isnt "plain"
       button = <Button bsStyle={@props.bsStyle}>
         <strong>{@props.title}</strong>
-        <Icon name="question-circle" pull="right" />
+        {icon}
       </Button>
 
     <OverlayTrigger trigger={@props.trigger}

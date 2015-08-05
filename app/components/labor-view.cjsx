@@ -1,7 +1,7 @@
 ChoicesStore = require "choices/store"
 Time = require "util/time"
 
-module.exports =
+module.exports = React.createClass
   getDefaultProps: ->
     {
       item:
@@ -24,8 +24,5 @@ module.exports =
     unit = Time.getLabelFor "time", item.priceUnits
 
     <div>
-      <div>Item: {type}</div>
-      <div>#{units}</div>
-      <div>${item.price} per #{unit}</div>
-      <div>Total price: ${item.cost}</div>
+      {type.toLowerCase()} for {units.toLowerCase()} @ ${item.price}/{unit.toLowerCase()}
     </div>

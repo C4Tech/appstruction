@@ -1,6 +1,7 @@
 Footer = require "layout/footer"
 NavButton = require "elements/main-nav"
 NavigationActions = require "navigation/actions"
+JobActions = require "jobs/actions"
 
 Row = ReactBootstrap.Row
 Navigation = ReactRouter.Navigation
@@ -9,6 +10,7 @@ module.exports = React.createClass
   mixins: [Navigation]
 
   componentWillMount: ->
+    JobActions.setCurrent {}
     NavigationActions.unsetTitle()
     NavigationActions.unsetNext()
     NavigationActions.unsetPrev()
@@ -30,7 +32,7 @@ module.exports = React.createClass
 
           <hr />
 
-          <NavButton onClick={@handleNavTo "load"}>
+          <NavButton onClick={@handleNavTo "browse"}>
             Load saved estimate
           </NavButton>
 

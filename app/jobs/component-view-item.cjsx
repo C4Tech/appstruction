@@ -5,8 +5,7 @@ Components =
   material: require "components/material-view"
   subcontractor: require "components/subcontractor-view"
 
-Col = ReactBootstrap.Col
-Row = ReactBootstrap.Row
+ListGroupItem = ReactBootstrap.ListGroupItem
 
 module.exports = React.createClass
   getDefaultProps: ->
@@ -21,8 +20,6 @@ module.exports = React.createClass
       log.error "Component not found: #{@props.type}"
       return null
 
-    <Row>
-      <Col xs={12}>
-        <Item item={@props.item} />
-      </Col>
-    </Row>
+    <ListGroupItem className="text-component-cost">
+      <Item item={@props.item} />
+    </ListGroupItem>

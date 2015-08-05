@@ -91,4 +91,5 @@ module.exports = React.createClass
       <StaticField label="Grand Total"
                    className="lead"
                    value={@state.job.total} />
+       <JobReview job={@state.job} />
     </Form>

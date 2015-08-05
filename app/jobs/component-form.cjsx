@@ -108,7 +108,7 @@ module.exports = React.createClass
 
       <Row>
         <Col xs={12}>
-          <Panel className="lead panel-totals text-capitalize">
+          <Panel className="panel-cost text-capitalize lead">
             <Row>
               <Col xs={12}>
                 {type} ${@state.cost}

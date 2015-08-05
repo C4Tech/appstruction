@@ -13,6 +13,7 @@ module.exports = React.createClass
     classes =
       "form-group": true
       "has-error": @props.bsStyle is "error"
+      "has-warning": @props.bsStyle is "warning"
 
     helpBlock = <span className="help-block">{@props.help}</span>
     helpBlock = null unless @props.help

@@ -1,6 +1,6 @@
 ChoicesStore = require "choices/store"
 
-module.exports =
+module.exports = React.createClass
   getDefaultProps: ->
     {
       item:
@@ -19,7 +19,5 @@ module.exports =
     unit = ChoicesStore.getLabelFor "material", item.type
 
     <div>
-      <div>Item: {type}</div>
-      <div>${item.price} per #{unit}</div>
-      <div>Total price: ${item.cost}</div>
+      {type.toLowerCase()} @ ${item.price}/{unit.toLowerCase()}
     </div>

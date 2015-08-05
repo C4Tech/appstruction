@@ -2,21 +2,26 @@
 @import "bower_components/bootstrap/less/mixins.less";
 
 // Colors
+@aqua-blue:     #4b7890;
+@royal-blue:    #1b5790;
+@gray-medium:   #414042;
+@white:         #ffffff;
+
 @brand-primary: #60afd7;
 @brand-success: #74ab00;
 @brand-info:    #5bc0de;
 @brand-warning: #ffab01;
 @brand-danger:  #d9534f;
 
-@body-bg:       #414042;
-@text-color:    #ffffff;
+@body-bg:       @gray-medium;
+@text-color:    @white;
 
 // Iconography
 @icon-font-path: "/assets/fonts/";
 
 // Buttons
-@btn-nav-color:  #FFFFFF;
-@btn-nav-bg:     #4b7890;
+@btn-nav-color:  @white;
+@btn-nav-bg:     @aqua-blue;
 @btn-nav-border: @btn-nav-bg;
 
 // Forms
@@ -31,19 +36,20 @@
 // Inverted navbar
 @navbar-inverse-color:            @gray-light;
 @navbar-inverse-link-color:       @gray-light;
-@navbar-inverse-link-hover-color: #fff;
+@navbar-inverse-link-hover-color: @white;
 
 // Popovers
-@popover-arrow-color: #fff;
+@popover-arrow-color: @white;
 
 // Modals
 @modal-inner-padding: 20px;
 
 // Panels
-@panel-bg: #333;
+@panel-bg: @gray-dark;
 
 // Wells
-@well-bg: #333333;
+@well-bg: @gray-dark;
 
 // Miscellaneous
 @component-offset-horizontal: 180px;
+@component-title-margin: 5px;

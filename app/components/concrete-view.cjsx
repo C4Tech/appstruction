@@ -1,11 +1,11 @@
 ChoicesStore = require "choices/store"
 Measure = require "util/measure"
 
-module.exports =
+module.exports = React.createClass
   getDefaultProps: ->
     {
       item:
-        type: 1
+        type: null
         quantity: 0
         volume: 0
         price: 0
@@ -17,15 +17,12 @@ module.exports =
     item = @props.item
     nothing = <div>No Concrete</div>
 
-    return nothing unless item.price and item.volume
+    return nothing unless item.cost and item.volume
 
     type = ChoicesStore.getLabelFor "concrete", item.type, item.quantity, true
     units = Measure.getLabelFor "volume", item.priceUnits, item.volume, true
     unit = Measure.getLabelFor "volume", item.priceUnits
 
     <div>
-      <div>Item: {type}</div>
-      <div>#{units} of concrete</div>
-      <div>${item.price} per #{unit}</div>
-      <div>Total price: ${item.cost}</div>
+      {type.toLowerCase()} ({units.toLowerCase()} of concrete) @ ${item.price}/{unit.toLowerCase()}
     </div>

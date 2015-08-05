@@ -31,19 +31,19 @@ module.exports = React.createClass
 
   render: ->
     <div>
-      <Row>
+      <Row className="job-title">
         <Col xs={12}>
           <h3>{@state.job}</h3>
         </Col>
       </Row>
 
-      <Row>
-        <Col xs={12} className="header-title">
+      <Row className="job-subtitle">
+        <Col xs={12} className="text-capitalize">
           {<h4>{@state.title}</h4> if @state.title}
         </Col>
       </Row>
 
-      <Row>
+      <Row componentClass="article">
         <Col xs={12}>
           <RouteHandler />
         </Col>

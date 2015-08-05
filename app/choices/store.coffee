@@ -9,14 +9,10 @@ class ChoicesStore
   constructor: ->
     @options = @readFromStorage()
     @bindActions actions
-    @exportPublicMethods ->
-      {
-        getById: LabelLookup.getById,
-        getLabelFor: LabelLookup.getLabelFor
-      }
+    @exportPublicMethods
+      getById: LabelLookup.getById,
+      getLabelFor: LabelLookup.getLabelFor
     null
-
-  getById: LabelLookup.getById
 
   getStorageId: ->
     prefix = config.storagePrefix
@@ -36,7 +32,7 @@ class ChoicesStore
 
   onCreate: (payload) ->
     payload.value ?= payload.label.toLowerCase()
-    existing = @getById payload.type, payload.value
+    existing = instance.getById payload.type, payload.value
     return null if existing
 
     options = @options
@@ -167,4 +163,4 @@ class ChoicesStore
       ]
     }
 
-module.exports = system.createStore ChoicesStore
+module.exports = instance = system.createStore ChoicesStore

@@ -1,27 +1,30 @@
+Layout = require "layout/container"
+Home = require "pages/home"
+Browse = require "jobs/browse"
+Read = require "jobs/read"
+Add = require "jobs/add"
+EditLayout = require "jobs/container"
+Component = require "jobs/component-form"
+Delete = require "jobs/delete"
+Save = require "jobs/save"
+
 Router = ReactRouter
 Route = Router.Route
 DefaultRoute = Router.DefaultRoute
 
-Layout = require "layout/container"
-Home = require "pages/home"
-Component = require "jobs/component-form"
-JobLayout = require "jobs/container"
-Add = require "jobs/add"
-Save = require "jobs/save"
-# LoadJob = require "jobs/load"
-# DeleteJob = require "jobs/delete"
-
-  # <Route name="browse" handler={LoadJob} />
-  # <Route name="delete" handler={DeleteJob} />
 routes =
   <Route name="home" path="/" handler={Layout}>
     <DefaultRoute handler={Home} />
 
+    <Route name="browse" handler={Browse} />
+    <Route name="read" handler={Read} />
     <Route name="add" handler={Add} />
-    <Route name="save" handler={Save} />
-    <Route name="job" handler={JobLayout}>
+    <Route name="edit" handler={EditLayout}>
       <Route name="component" path=":component" handler={Component} />
     </Route>
+    <Route name="delete" handler={Delete} />
+
+    <Route name="save" handler={Save} />
   </Route>
 
 render = (target) ->

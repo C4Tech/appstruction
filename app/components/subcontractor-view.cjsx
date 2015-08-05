@@ -1,4 +1,4 @@
-module.exports =
+module.exports = React.createClass
   getDefaultProps: ->
     {
       item:

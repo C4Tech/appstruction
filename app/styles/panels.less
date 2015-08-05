@@ -1,20 +1,25 @@
 @import "app/styles/_variables.less";
 
-.panel-overview {
-  .panel-variant(#333; #fff; #000; #333);
+.panel-heading a {
+    text-transform: capitalize;
+    display: block;
 }
 
-.panel-totals {
+.panel-overview {
+  .panel-variant(@gray-dark; @white; @gray-base; @gray-dark);
+
+  .btn-edit {
+    margin-bottom: 5px;
+  }
+
+  .list-group {
+    color: #000;
+  }
+}
+
+.panel-cost {
   border: none;
   border-radius: 0;
-  background: #fff;
-  color: @panel-bg;
-}
-
-.panel-heading-link,
-.panel-heading-link:active,
-.panel-heading-link:focus,
-.panel-heading-link:hover,
-.panel-heading-link:visited {
-  color: #fff;
+  background: @white;
+  color: @gray-dark;
 }

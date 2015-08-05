@@ -1,7 +1,8 @@
-ComponentItem = require "jobs/component-view-item"
+Component = require "jobs/component-view"
 Help = require "elements/help"
 
 Col = ReactBootstrap.Col
+Panel = ReactBootstrap.Panel
 Row = ReactBootstrap.Row
 
 types = ["concrete", "equipment", "labor", "material", "subcontractor"]
@@ -15,7 +16,7 @@ module.exports = React.createClass
   render: ->
     components = @props.job.components
 
-    <div>
+    <article>
       <Row>
         <Col xs={12} className="lead">
           <Help title="Job details" helpText="View the details of your job below.
@@ -26,5 +27,7 @@ module.exports = React.createClass
         </Col>
       </Row>
 
-      {<ComponentItem type={type} items={components?[type]} /> for type in types}
-    </div>
+      <Panel bsStyle="primary">
+        {<Component type={type} items={components?[type]} /> for type in types}
+      </Panel>
+    </article>
