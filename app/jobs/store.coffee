@@ -1,5 +1,4 @@
 actions = require "jobs/actions"
-ChoicesActions = require "choices/actions"
 config = require "config"
 Cost = require "util/cost"
 system = require "system"
@@ -18,7 +17,7 @@ class JobStore
 
   saveToStorage: ->
     return unless window.localStorage?
-    localStorage.setItem @getStorageId(), JSON.stringify @options
+    localStorage.setItem @getStorageId(), JSON.stringify @data
 
     null
 
@@ -97,9 +96,9 @@ class JobStore
       current: current
 
   onSave: () ->
+    @current.id ?= Date.now()
     @addToCollection @current
     @saveToStorage()
-    ChoicesActions.save()
     @emitChange()
     null
 

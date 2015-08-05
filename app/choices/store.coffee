@@ -37,7 +37,6 @@ class ChoicesStore
   onCreate: (payload) ->
     payload.value ?= payload.label.toLowerCase()
     existing = @getById payload.type, payload.value
-    log.info "existing choice", existing
     return null if existing
 
     options = @options

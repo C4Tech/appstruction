@@ -1,3 +1,4 @@
+ChoicesActions = require "choices/actions"
 Decoration = require "elements/header-decoration"
 EnsureJobMixin = require "mixins/ensure-job"
 Form = require "forms/base"
@@ -53,6 +54,7 @@ module.exports = React.createClass
     null
 
   handleSave: ->
+    ChoicesActions.save()
     JobActions.save()
     @transitionTo "home"
 
