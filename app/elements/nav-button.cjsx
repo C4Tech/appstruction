@@ -6,7 +6,6 @@ module.exports = React.createClass
   render: ->
     classes = @props.className ? {}
     classes["btn-nav"] = true
-    classes["ccma-navigate"] = true
     classes["navbar-btn"] = true
 
     <Col xs={4} xsOffset={@props.offset or 0}>

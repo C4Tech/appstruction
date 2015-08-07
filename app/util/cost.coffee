@@ -9,4 +9,5 @@ module.exports =
     total /= 1
     total = 0.00 if isNaN total
     total = +total.toFixed 2
-    total + @tax total, tax
+    total += @tax total, tax
+    +total.toFixed 2

@@ -46,6 +46,16 @@ class ChoicesStore
 
     null
 
+  onDelete: (payload) ->
+    index = @options[payload.type].findIndex (option) ->
+      option.value is payload.item
+
+    return null unless index >= 0
+    @options[payload.type].splice index, 1
+    @saveToStorage()
+
+    @emitChange()
+
   onSave: ->
     @saveToStorage()
 

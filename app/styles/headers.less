@@ -1,21 +1,19 @@
 @import "app/styles/_variables.less";
 
-.job-subtitle,
-.job-title {
+article > header {
   background: @royal-blue;
+  margin: 0 -@component-padding @component-title-margin*4;
+  padding: @component-padding/2 @component-padding;
 
-  h3 {
+  h2, h4 {
     margin-top: @component-title-margin;
-    margin-bottom: @component-title-margin;
     padding-left: @component-title-margin;
+  }
+
+  h2 {
+    margin-bottom: @component-title-margin;
+    border-bottom: 1px solid @btn-nav-bg;
   }
 }
 
-.job-title {
-    border-bottom: 1px solid @btn-nav-bg;
-}
-
-.job-subtitle {
-    margin-bottom: 20px;
-}
 

@@ -35,12 +35,10 @@ module.exports = React.createClass
 
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
-
-    null
-
-  componentWillMount: ->
-    NavigationActions.setTitle "Job Builder"
+    NavigationActions.unsetTitle()
     NavigationActions.setNext @onHandleSubmit
+    NavigationActions.unsetPrev()
+
     null
 
   componentWillUnmount: ->
@@ -75,25 +73,33 @@ module.exports = React.createClass
     @transitionTo "component", {component: "concrete"}
 
   render: ->
-    <Form leftLabel={null}
-          clickRight={@onHandleSubmit}
-          {...@props}>
-      <ChooseInput type="group" name="group"
-                   label="Group name"
-                   value={@state.job.group}
-                   bsStyle={@getFieldStyle "group"}
-                   help={@getFieldErrors "group"}
-                   onChange={@handleSelectCreate "group"} />
-      <InputField name="name"
-             label="Job name"
-             value={@state.job.name}
-             bsStyle={@getFieldStyle "name"}
-             help={@getFieldErrors "name"}
-             onChange={@handleChange} />
-      <ChooseInput type="job" name="type"
-                   label={<Help title="What type of job" helpText="help" />}
-                   value={@state.job.type}
-                   bsStyle={@getFieldStyle "type"}
-                   help={@getFieldErrors "type"}
-                   onChange={@handleSelect "type"} />
-    </Form>
+    <article>
+      <header>
+        <h2>Job Builder</h2>
+      </header>
+      <Form id="create"
+            leftLabel={null}
+            clickRight={@onHandleSubmit}
+            {...@props}>
+        <ChooseInput type="group" name="group"
+                     label="Group name"
+                     className="group-name"
+                     value={@state.job.group}
+                     bsStyle={@getFieldStyle "group"}
+                     help={@getFieldErrors "group"}
+                     onChange={@handleSelectCreate "group"} />
+        <InputField name="name"
+               label="Job name"
+               value={@state.job.name}
+               bsStyle={@getFieldStyle "name"}
+               help={@getFieldErrors "name"}
+               onChange={@handleChange} />
+        <ChooseInput type="job" name="type"
+                     label={<Help title="What type of job" helpText="help" />}
+                     className="job-tpe"
+                     value={@state.job.type}
+                     bsStyle={@getFieldStyle "type"}
+                     help={@getFieldErrors "type"}
+                     onChange={@handleSelect "type"} />
+      </Form>
+    </article>

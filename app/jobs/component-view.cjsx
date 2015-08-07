@@ -8,18 +8,27 @@ Panel = ReactBootstrap.Panel
 Row = ReactBootstrap.Row
 
 module.exports = React.createClass
+  mixins: [ReactRouter.Navigation]
+
   getDefaultProps: ->
     {
       type: null
       editable: false
-      items: []
+      component: {}
     }
 
+  handleEdit: (event) ->
+    event.preventDefault()
+    @transitionTo "component",
+      component: @props.type
+
+    null
+
   render: ->
-    return null unless @props.component.items.length
+    return null unless @props.component?.items?.length
     items = @props.component.items
 
-    edit = <Button bsStyle="warning">
+    edit = <Button bsStyle="warning" onClick={@handleEdit}>
       <Icon name="edit" size="lg" />
       Edit
     </Button>

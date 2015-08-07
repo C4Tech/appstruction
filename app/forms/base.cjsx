@@ -35,7 +35,7 @@ module.exports = React.createClass
       </Button>
     leftButton = null unless @props.leftLabel
 
-    <form>
+    <form id={@props.id or "general"}>
       {title}
 
       {@props.children}

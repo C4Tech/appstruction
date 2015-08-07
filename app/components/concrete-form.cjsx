@@ -35,10 +35,11 @@ module.exports = React.createClass
         cost: 0.0
     }
 
-  componentWillMount: ->
+  componentDidMount: ->
     NavigationActions.setTitle "Concrete"
     NavigationActions.setNext "component", "labor"
     NavigationActions.setPrev "add"
+
     null
 
   recalculate: (item) ->

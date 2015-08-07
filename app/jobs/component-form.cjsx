@@ -90,7 +90,8 @@ module.exports = React.createClass
     type = @props.params.component
     return null unless type
 
-    <Form clickRight={@handleNext}
+    <Form id={type}
+          clickRight={@handleNext}
           clickLeft={@handleSave}>
 
       {<ComponentItem type={type} item={item} /> for item in @state.items}

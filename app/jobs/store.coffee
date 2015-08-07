@@ -1,3 +1,5 @@
+"use strict"
+
 actions = require "jobs/actions"
 config = require "config"
 Cost = require "util/cost"
@@ -76,6 +78,14 @@ class JobStore
     @setState
       current: current
 
+  removeJob: (job) ->
+    delete @data[job]
+
+  onDelete: (job) ->
+    @removeJob job
+    @saveToStorage()
+    @emitChange()
+
   onUpsertComponent: (payload) ->
     defaultComponent =
       cost: 0.0
@@ -101,6 +111,12 @@ class JobStore
     @saveToStorage()
     @current = {}
     @emitChange()
+
     null
+
+  onDeleteGroup: (group) ->
+    @removeJob id for id, job of @data when job.group is group
+    @saveToStorage()
+    @emitChange()
 
 module.exports = system.createStore JobStore

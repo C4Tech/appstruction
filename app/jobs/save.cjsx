@@ -5,6 +5,7 @@ Form = require "forms/base"
 JobActions = require "jobs/actions"
 JobReview = require "jobs/review"
 JobStore = require "jobs/store"
+NavigationActions = require "navigation/actions"
 PercentField = require "forms/input-percentage"
 Str = require "util/str"
 
@@ -21,6 +22,9 @@ module.exports = React.createClass
 
   componentDidMount: ->
     JobStore.listen @onStoreChangeCollection
+    NavigationActions.unsetTitle()
+    NavigationActions.unsetNext()
+    NavigationActions.setPrev "component", "subcontractor"
 
     null
 
@@ -61,35 +65,30 @@ module.exports = React.createClass
     null
 
   render: ->
-    <Form leftLabel="Start Over"
-          clickLeft={@handleReset}
-          rightLabel="Save"
-          clickRight={@handleSave}
-          {...@props}>
-      <Row>
-        <Col xs={12}>
-          <h3>{@state.job?.name}</h3>
-        </Col>
-      </Row>
+    <article>
+      <header>
+        <h2>{@state.job?.name}</h2>
+        <h4>Job Overview
+          <Decoration iconType="help" icon="question-circle" />
+          <Decoration iconType="email" icon="envelope" />
+          <Decoration iconType="pdf" icon="file-pdf-o" />
+        </h4>
+      </header>
 
-      <Row>
-        <Col xs={12} className="header-title">
-          <h4>Job Overview
-            <Decoration iconType="help" icon="question-circle" />
-            <Decoration iconType="email" icon="envelope" />
-            <Decoration iconType="pdf" icon="file-pdf-o" />
-          </h4>
-        </Col>
-      </Row>
-
-      <StaticField label="Subtotal"
-                   className="lead"
-                   value={@state.job.subtotal} />
-      <PercentField name="profit-margin" label="Profit Margin"
-                    value={@state.job.profitMargin}
-                    onChange={@handleChange} />
-      <StaticField label="Grand Total"
-                   className="lead"
-                   value={@state.job.total} />
-       <JobReview job={@state.job} />
-    </Form>
+      <Form leftLabel="Start Over"
+            clickLeft={@handleReset}
+            rightLabel="Save"
+            clickRight={@handleSave}
+            {...@props}>
+        <StaticField label="Subtotal"
+                     className="lead"
+                     value={@state.job.subtotal} />
+        <PercentField name="profit-margin" label="Profit Margin"
+                      value={@state.job.profitMargin}
+                      onChange={@handleChange} />
+        <StaticField label="Grand Total"
+                     className="lead"
+                     value={@state.job.total} />
+      </Form>
+      <JobReview job={@state.job} />
+    </article>

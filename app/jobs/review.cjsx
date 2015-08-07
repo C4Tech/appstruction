@@ -4,6 +4,7 @@ Help = require "elements/help"
 Col = ReactBootstrap.Col
 Panel = ReactBootstrap.Panel
 Row = ReactBootstrap.Row
+Well = ReactBootstrap.Well
 
 types = ["concrete", "equipment", "labor", "material", "subcontractor"]
 
@@ -16,7 +17,7 @@ module.exports = React.createClass
   render: ->
     components = @props.job.components
 
-    <article>
+    <Well bsStyle="success">
       <Row>
         <Col xs={12} className="lead">
           <Help title="Job details" helpText="View the details of your job below.
@@ -28,6 +29,6 @@ module.exports = React.createClass
       </Row>
 
       <Panel bsStyle="primary">
-        {<Component type={type} items={components?[type]} /> for type in types}
+        {<Component editable type={type} component={components[type]} /> for type in types when components[type]?}
       </Panel>
-    </article>
+    </Well>

@@ -1,4 +1,6 @@
+ChoicesStore = require "choices/store"
 Component = require "jobs/component-view"
+Decoration = require "elements/header-decoration"
 JobStore = require "jobs/store"
 
 Panel = ReactBootstrap.Panel
@@ -35,8 +37,16 @@ module.exports = React.createClass
     items = @state.job.components
 
     <article>
-      <h3 className="text-capitalize">{@state.job.name}</h3>
-      <h4 className="text-capitalize">{@state.job.group}</h4>
+      <header>
+        <h2 className="text-capitalize">{@state.job.name}
+          <Decoration iconType="pdf" icon="file-pdf-o" />
+          <Decoration iconType="email" icon="envelope" />
+          <Decoration iconType="help" icon="question-circle" />
+        </h2>
+        <h4 className="text-capitalize">
+          {ChoicesStore.getLabelFor "group", @state.job.group}
+        </h4>
+      </header>
       <Panel header="Cost: #{@state.job.total}" bsStyle="primary">
         {<Component type={type} component={items[type]} /> for type in types when items?[type]?.cost}
       </Panel>

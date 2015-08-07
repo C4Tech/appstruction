@@ -9,7 +9,7 @@ Navigation = ReactRouter.Navigation
 module.exports = React.createClass
   mixins: [Navigation]
 
-  componentWillMount: ->
+  componentDidMount: ->
     JobActions.setCurrent {}
     NavigationActions.unsetTitle()
     NavigationActions.unsetNext()
@@ -23,26 +23,24 @@ module.exports = React.createClass
       @transitionTo to
 
   render: ->
-    <div>
-      <Row componentClass="article">
-        <div className="lead">
-          <NavButton onClick={@handleNavTo "add"}>
-            Create new estimate
-          </NavButton>
+    <article id="home">
+      <Row>
+        <NavButton onClick={@handleNavTo "add"}>
+          Create new estimate
+        </NavButton>
 
-          <hr />
+        <hr />
 
-          <NavButton onClick={@handleNavTo "browse"}>
-            Load saved estimate
-          </NavButton>
+        <NavButton onClick={@handleNavTo "browse"}>
+          Load saved estimate
+        </NavButton>
 
-          <hr />
+        <hr />
 
-          <NavButton onClick={@handleNavTo "delete"}>
-            Delete saved estimate
-          </NavButton>
-        </div>
+        <NavButton onClick={@handleNavTo "delete"}>
+          Delete saved estimate
+        </NavButton>
       </Row>
 
       <Footer />
-    </div>
+    </article>

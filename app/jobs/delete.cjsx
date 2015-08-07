@@ -1,3 +1,4 @@
+ChoicesActions = require "choices/actions"
 ChoicesField = require "choices/input-choice"
 ChoicesStore = require "choices/store"
 JobActions = require "jobs/actions"
@@ -64,13 +65,15 @@ module.exports = React.createClass
   handleDeleteJob: (event) ->
     event.preventDefault()
     JobActions.delete @state.selectedJob
-    null
+    @setState
+      selectedJob: null
 
   handleDeleteGroup: (event) ->
     event.preventDefault()
     JobActions.deleteGroup @state.selectedGroup
     ChoicesActions.delete "group", @state.selectedGroup
-    null
+    @setState
+      selectedGroup: null
 
   render: ->
     <article className="browse-jobs">
@@ -96,4 +99,12 @@ module.exports = React.createClass
                     options={@state.groups}
                     onChange={@handleSelectGroup}
                     allowCreate={false} />
+
+      <Row>
+        <Col xs={6} xsOffset={6}>
+          <Button bsStyle="danger" className="form-control" onClick={@handleDeleteGroup}>
+            Delete Group
+          </Button>
+        </Col>
+      </Row>
     </article>
