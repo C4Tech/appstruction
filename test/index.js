@@ -1,7 +1,4 @@
-var fs = require( "fs" );
-var phantomcss = require("phantomcss");
-
-casper.on( "page.initialized", function() {
+casper.on("page.initialized", function() {
   this.evaluate(function() {
     var isFunction = function (o) {
       return typeof o === "function";
@@ -36,28 +33,5 @@ casper.on( "page.initialized", function() {
       };
       proto.bind = bind;
     }
-  });
-});
-
-
-phantomcss.init();
-
-describe("Home page", function() {
-  before(function() {
-    casper.start("http://localhost:3333/devel.html");
-  });
-
-  it ("Should look the same", function() {
-    casper.then(function() {
-      casper.waitForSelector("body > .container", function() {
-        phantomcss.screenshot("body > .container", "homepage");
-      });
-    })
-  });
-
-  it("Should load with title", function() {
-    casper.then(function() {
-      "Appstruction".should.matchTitle;
-    }, true);
   });
 });

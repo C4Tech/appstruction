@@ -20,6 +20,8 @@ setSelectors = (driver, selectors, debug = false) ->
 
 expectedJob = config.job
 
+return null
+
 describe "Load Estimate", ->
   before ->
     casper.start config.url, ->

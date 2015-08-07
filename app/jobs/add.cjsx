@@ -96,7 +96,7 @@ module.exports = React.createClass
                onChange={@handleChange} />
         <ChooseInput type="job" name="type"
                      label={<Help title="What type of job" helpText="help" />}
-                     className="job-tpe"
+                     className="job-type"
                      value={@state.job.type}
                      bsStyle={@getFieldStyle "type"}
                      help={@getFieldErrors "type"}

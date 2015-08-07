@@ -1,5 +1,3 @@
-require "polyfill-bind"
-
 class WebApp
   initialize: ->
     @bindEvents()

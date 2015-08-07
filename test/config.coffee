@@ -1,135 +1,111 @@
+require "./"
 phantomcss = require "phantomcss"
 
 phantomcss.init
   prefixCount: true
 
-# casper.on "remote.message", (message) ->
-#   @echo "#{message}", "COMMENT"
-
-casper.on "remote.alert", (message) ->
-  @echo "ALERT: #{message}", "WARNING"
-
-
 module.exports =
   url: "http://localhost:8080/devel.html"
+  navbarSelector: "header > .navbar"
+  jobTitleSelector: "article header h2"
+  jobPageTitleSelector: "article header h4"
+
+  fillSelectize: (formTarget, key, value) ->
+    casper.thenClick ".Select.#{key}", ->
+      selector = {}
+      selector[".Select.#{key} .Select-input > input"] = value
+      @fillSelectors formTarget, selector
+      phantomcss.screenshot ".Select.#{key}", "#{key}-selector"
+
+    casper.thenClick ".Select.#{key} .Select-menu .Select-option:nth-child(1)"
+
+    null
+
+  fillSelectizeOld: (formTarget, key, value) ->
+    casper.thenClick ".Select.#{key}"
+    casper.then ->
+      phantomcss.screenshot ".Select.#{key}", "job-type-selector"
+      @clickLabel value
+
+    null
+
+  clickNext: (formTarget) ->
+    casper.thenClick "#{formTarget} footer button.btn-success"
+
+    null
+
   job:
-    group:
-      id: "1"
-      text: "Test Group"
+    group: "Test Group"
     name: "Job Testing"
+    type: "Commercial"
     profitMargin: 6.2
     cost: 1798.94
-    type:
-      id: "2"
-      text: "Commercial"
     concreteA:
-      type:
-        id: "1"
-        text: "Sidewalk"
+      type: "Sidewalk"
       quantity: 3
       length: 1
-      lengthUnits:
-        id: "yd"
-        text: "Yards"
+      lengthUnits: "Yards"
       width: 3
-      widthUnits:
-        id: "ft"
-        text: "Feet"
+      widthUnits: "Feet"
       depth: 36
-      depthUnits:
-        id: "in"
-        text: "Inches"
+      depthUnits: "Inches"
       price: 10
-      priceUnits:
-        id: "yd"
-        text: "Per Cubic Yard"
+      priceUnits: "Per Cubic Yard"
       tax: 0.1
       cost: 30.03
     concreteB:
-      type:
-        id: "7"
-        text: "Sculpture"
+      type: "Sculpture"
       quantity: 1
       length: 3
-      lengthUnits:
-        id: "yd"
-        text: "Yards"
+      lengthUnits: "Yards"
       width: 1
-      widthUnits:
-        id: "yd"
-        text: "Yards"
+      widthUnits: "Yards"
       depth: 2
-      depthUnits:
-        id: "yd"
-        text: "Yards"
+      depthUnits: "Yards"
       price: 5
-      priceUnits:
-        id: "yd"
-        text: "Per Cubic Yard"
+      priceUnits: "Per Cubic Yard"
       tax: 0.0
       cost: 60.03
     laborA:
-      type:
-        id: "5"
-        text: "Driver"
+      type: "Driver"
       quantity: 1
       time: 3
-      timeUnits:
-        id: "hour"
-        text: "Hours"
+      timeUnits: "Hours"
       rate: 50
-      rateUnits:
-        id: "day"
-        text: "Days"
+      rateUnits: "Days"
       cost: 18.75
     laborB:
-      type:
-        id: "9"
-        text: "Tester"
+      type: "Tester"
       quantity: 3
       time: 1
-      timeUnits:
-        id: "day"
-        text: "Days"
+      timeUnits: "Days"
       rate: 10
-      rateUnits:
-        id: "hour"
-        text: "Hours"
+      rateUnits: "Hours"
       cost: 258.75
     materialA:
-      type:
-        id: "1"
-        text: "Wire (sheet)"
+      type: "Wire (sheet)"
       quantity: 10
       price: 5
       tax: "0.0"
       cost: "50.00"
     materialB:
-      type:
-        id: "7"
-        text: "Adamantium"
+      type: "Adamantium"
       quantity: 212
       price: 5
       tax: "0.0"
       cost: "1110.00"
     materialC:
-      type:
-        id: "4"
-        text: "Cap (lf)"
+      type: "Cap (lf)"
       quantity: 1
       price: 20
       tax: 10.0
       cost: "1132.00"
     equipment:
-      type:
-        id: "3"
-        text: "Bobcat"
+      type: "Bobcat"
       quantity: 2
       time: 3
       rate: 20
-      rateUnits:
-        id: "day"
-        text: "Daily"
+      rateUnits: "Daily"
       cost: "120.00"
     subcontractor:
       scope: "Quality Tester"
