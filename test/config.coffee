@@ -4,20 +4,33 @@ phantomcss = require "phantomcss"
 phantomcss.init
   prefixCount: true
 
+casper.on "remote.message", (message) ->
+  @echo "#{message}", "COMMENT"
+
 module.exports =
   url: "http://localhost:8080/devel.html"
   navbarSelector: "header > .navbar"
   jobTitleSelector: "article header h2"
   jobPageTitleSelector: "article header h4"
 
-  fillSelectize: (formTarget, key, value) ->
-    casper.thenClick ".Select.#{key}", ->
-      selector = {}
-      selector[".Select.#{key} .Select-input > input"] = value
-      @fillSelectors formTarget, selector
-      phantomcss.screenshot ".Select.#{key}", "#{key}-selector"
+  fillSelectize: (formTarget, key, value, exists = false) ->
+    selectBox = ".Select.#{key}"
+    selectInput = "#{selectBox} .Select-input > input"
+    selectMenu = "#{selectBox} > .Select-menu-outer > .Select-menu"
+    selectOption = "#{selectMenu} > .Select-option"
+    selectOption = ":nth-child(2)" if exists
 
-    casper.thenClick ".Select.#{key} .Select-menu .Select-option:nth-child(1)"
+    casper.thenClick selectBox, ->
+      @echo @getHTML selectBox, true
+
+    casper.waitForSelector selectMenu, ->
+      selector = {}
+      selector[selectInput] = value
+      @fillSelectors formTarget, selector
+
+    casper.waitForSelectorTextChange selectOption, ->
+      selectOption.should.have.text value
+      @click selectOption
 
     null
 

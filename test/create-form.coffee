@@ -14,6 +14,7 @@ describe "Create Estimate", ->
       @waitForSelector "article#home", ->
         @click "a.btn-main-nav:nth-child(1)"
 
+
   describe "Job Info Form", ->
     formTarget = "form#create"
 
@@ -31,7 +32,7 @@ describe "Create Estimate", ->
         @fill formTarget,
           "name": expectedJob.name
 
-      fillSelectize formTarget, "job-type", expectedJob.type
+      fillSelectize formTarget, "job-type", expectedJob.type, true
 
       clickNext formTarget
 
