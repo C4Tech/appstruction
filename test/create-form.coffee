@@ -32,7 +32,7 @@ describe "Create Estimate", ->
         @fill formTarget,
           "name": expectedJob.name
 
-      fillSelectize formTarget, "job-type", expectedJob.type, true
+      fillSelectize formTarget, "job-type", expectedJob.type
 
       clickNext formTarget
 

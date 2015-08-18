@@ -13,24 +13,21 @@ module.exports =
   jobTitleSelector: "article header h2"
   jobPageTitleSelector: "article header h4"
 
-  fillSelectize: (formTarget, key, value, exists = false) ->
+  fillSelectize: (formTarget, key, value) ->
     selectBox = ".Select.#{key}"
+    selectValue = "#{selectBox} input[type=hidden]"
     selectInput = "#{selectBox} .Select-input > input"
-    selectMenu = "#{selectBox} > .Select-menu-outer > .Select-menu"
-    selectOption = "#{selectMenu} > .Select-option"
-    selectOption = ":nth-child(2)" if exists
+    selectOption = "#{selectBox} .Select-menu .Select-option"
 
     casper.thenClick selectBox, ->
+      @sendKeys selectInput, value, {keepFocus: true}
+      phantomcss.screenshot selectBox, "add-form-open-#{key}"
+
+    casper.thenClick selectOption, ->
+      @sendKeys selectInput, @page.event.key.Enter, {keepFocus: true}
+      @sendKeys selectInput, @page.event.key.Enter
+      phantomcss.screenshot selectBox, "add-form-close-#{key}"
       @echo @getHTML selectBox, true
-
-    casper.waitForSelector selectMenu, ->
-      selector = {}
-      selector[selectInput] = value
-      @fillSelectors formTarget, selector
-
-    casper.waitForSelectorTextChange selectOption, ->
-      selectOption.should.have.text value
-      @click selectOption
 
     null
 
