@@ -15,32 +15,20 @@ module.exports =
 
   fillSelectize: (formTarget, key, value) ->
     selectBox = ".Select.#{key}"
-    selectValue = "#{selectBox} input[type=hidden]"
     selectInput = "#{selectBox} .Select-input > input"
     selectOption = "#{selectBox} .Select-menu .Select-option"
 
     casper.thenClick selectBox, ->
       @sendKeys selectInput, value, {keepFocus: true}
-      phantomcss.screenshot selectBox, "add-form-open-#{key}"
 
-    casper.thenClick selectOption, ->
-      @sendKeys selectInput, @page.event.key.Enter, {keepFocus: true}
+    casper.waitForSelectorTextChange selectOption, ->
       @sendKeys selectInput, @page.event.key.Enter
-      phantomcss.screenshot selectBox, "add-form-close-#{key}"
-      @echo @getHTML selectBox, true
-
-    null
-
-  fillSelectizeOld: (formTarget, key, value) ->
-    casper.thenClick ".Select.#{key}"
-    casper.then ->
-      phantomcss.screenshot ".Select.#{key}", "job-type-selector"
-      @clickLabel value
+      @click formTarget
 
     null
 
   clickNext: (formTarget) ->
-    casper.thenClick "#{formTarget} footer button.btn-success"
+    casper.thenClick "#{formTarget} footer .btn-success"
 
     null
 

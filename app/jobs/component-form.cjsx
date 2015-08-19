@@ -94,7 +94,7 @@ module.exports = React.createClass
           clickRight={@handleNext}
           clickLeft={@handleSave}>
 
-      {<ComponentItem type={type} item={item} /> for item in @state.items}
+      {<ComponentItem key={item.id} type={type} item={item} /> for item in @state.items}
 
       <Row>
         <Col xs={12}>
