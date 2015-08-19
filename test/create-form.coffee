@@ -63,7 +63,7 @@ describe "Create Estimate", ->
       config.checkComponentCost formTarget, concrete.cost
       config.clickNext formTarget
 
-  return describe "Labor Component Form", ->
+  describe "Labor Component Form", ->
     formTarget = "form#labor"
     secondTarget = "#{formTarget} > .item:nth-child(2)"
 
@@ -96,144 +96,80 @@ describe "Create Estimate", ->
       config.clickNext formTarget
 
   describe "Material Component Form", ->
+    formTarget = "form#material"
+    secondTarget = "#{formTarget} > .item:nth-child(2)"
+    thirdTarget = "#{formTarget} > .item:nth-child(3)"
+
     it "Should transition to the material component page", ->
-      casper.then ->
-        @waitForSelector "section#materials", ->
-          "section#materials".should.be.inDOM
-          "section#materials .header-job-name h3".should.have.text expectedJob.name
-          "section#materials .header-title .header-text".should.have.text /materials/i
-          phantomcss.screenshot "section#materials > .navbar", "material-navbar"
-          phantomcss.screenshot "#job-form-materials", "material-form"
+      config.checkFormPage "material", formTarget, /materials/i
 
     it "Should add wires", ->
-      formTarget = "#job-form-materials fieldset"
+      material = expectedJob.materialA
 
-      casper.then ->
-        setSelectors @, [
-          {
-            parent: formTarget
-            name: "material_type"
-            value: expectedJob.materialA.type
-          }
-        ]
-
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.materialA.quantity
-          "[name='price']": expectedJob.materialA.price
-          "[name='tax']": expectedJob.materialA.tax
-
-        "#job-form-materials .materials.cost".should.have.text "#{expectedJob.materialA.cost}"
-
-        @click "#job-form-materials button.materials.add"
+      config.fillSelectize formTarget, "material-type", material.type
+      config.fillInput formTarget, "quantity", material.quantity
+      config.fillInput formTarget, "price", material.price
+      config.fillInput formTarget, "tax", material.tax
+      config.checkComponentCost formTarget, material.cost
 
     it "Should add a second material component item", ->
-      target = "#job-form-materials .materials-form-item:nth-child(2)"
-      casper.then ->
-        @waitForSelector target, ->
-          target.should.be.inDOM
+      config.clickAdd formTarget
+      config.checkAdditionalFormRow "material", secondTarget
 
     it "Should add adamantium", ->
-      formTarget = "#job-form-materials .materials-form-item:nth-child(2) fieldset"
+      material = expectedJob.materialB
 
-      casper.then ->
-        setSelectors @, [
-          {
-            parent: formTarget
-            name: "material_type"
-            value: expectedJob.materialB.type
-          }
-        ]
-
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.materialB.quantity
-          "[name='price']": expectedJob.materialB.price
-          "[name='tax']": expectedJob.materialB.tax
-
-        "#job-form-materials .materials.cost".should.have.text "#{expectedJob.materialB.cost}"
-
-        @click "#job-form-materials button.materials.add"
+      config.fillSelectize secondTarget, "material-type", material.type
+      config.fillInput secondTarget, "quantity", material.quantity
+      config.fillInput secondTarget, "price", material.price
+      config.fillInput secondTarget, "tax", material.tax
+      config.checkComponentCost formTarget, material.cost
 
     it "Should add a third material component item", ->
-      target = "#job-form-materials .materials-form-item:nth-child(3)"
-      casper.then ->
-        @waitForSelector target, ->
-          target.should.be.inDOM
+      config.clickAdd formTarget
+      config.checkAdditionalFormRow "material", thirdTarget
 
     it "Should add caps", ->
-      formTarget = "#job-form-materials .materials-form-item:nth-child(3) fieldset"
+      material = expectedJob.materialC
 
-      casper.then ->
-        setSelectors @, [
-          {
-            parent: formTarget
-            name: "material_type"
-            value: expectedJob.materialC.type
-          }
-        ]
-
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.materialC.quantity
-          "[name='price']": expectedJob.materialC.price
-          "[name='tax']": expectedJob.materialC.tax
-
-        "#job-form-materials .materials.cost".should.have.text "#{expectedJob.materialC.cost}"
-
-        @click "#job-form-materials button.ccma-navigate.next"
+      config.fillSelectize thirdTarget, "material-type", material.type
+      config.fillInput thirdTarget, "quantity", material.quantity
+      config.fillInput thirdTarget, "price", material.price
+      config.fillInput thirdTarget, "tax", material.tax
+      config.checkComponentCost formTarget, material.cost
+      config.clickNext formTarget
 
   describe "Equipment Component Form", ->
+    formTarget = "form#equipment"
+
     it "Should transition to the equipment component page", ->
-      casper.then ->
-        @waitForSelector "section#equipment", ->
-          "section#equipment".should.be.inDOM
-          "section#equipment .header-job-name h3".should.have.text expectedJob.name
-          "section#equipment .header-title .header-text".should.have.text /equipment/i
-          phantomcss.screenshot "section#equipment > .navbar", "equipment-navbar"
-          phantomcss.screenshot "#job-form-equipment", "equipment-form"
+      config.checkFormPage "equipment", formTarget, /equipment/i
 
     it "Should add bobcat", ->
-      formTarget = "#job-form-equipment fieldset"
+      equipment = expectedJob.equipment
 
-      casper.then ->
-        setSelectors @, [
-            parent: formTarget
-            name: "equipment_type"
-            value: expectedJob.equipment.type
-          ,
-            parent: formTarget
-            name: "rate_units"
-            value: expectedJob.equipment.rateUnits
-        ]
+      config.fillSelectize formTarget, "equipment-type", equipment.type
+      config.fillInput formTarget, "quantity", equipment.quantity
+      config.fillInput formTarget, "time", equipment.time
+      config.fillSelectize formTarget, "time-units", equipment.timeUnits
+      config.fillInput formTarget, "price", equipment.price
+      config.fillSelectize formTarget, "price-units", equipment.priceUnits
+      config.checkComponentCost formTarget, equipment.cost
+      config.clickNext formTarget
 
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.equipment.quantity
-          "[name='equipment_time']": expectedJob.equipment.time
-          "[name='rate']": expectedJob.equipment.rate
+  return describe "Subcontractor Component Form", ->
+    formTarget = "form#subcontractor"
 
-        "#job-form-equipment .equipment.cost".should.have.text "#{expectedJob.equipment.cost}"
-
-        @click "#job-form-equipment button.ccma-navigate.next"
-
-  describe "Subcontractor Component Form", ->
     it "Should transition to the subcontractor component page", ->
-      casper.then ->
-        @waitForSelector "section#subcontractor", ->
-          "section#subcontractor".should.be.inDOM
-          "section#subcontractor .header-job-name h3".should.have.text expectedJob.name
-          "section#subcontractor .header-title .header-text".should.have.text /subcontractor/i
-          phantomcss.screenshot "section#subcontractor > .navbar", "subcontractor-navbar"
-          phantomcss.screenshot "#job-form-subcontractor", "subcontractor-form"
+      config.checkFormPage "subcontractor", formTarget, /subcontractor/i
 
     it "Should add subcontractor", ->
-      formTarget = "#job-form-subcontractor fieldset"
+      subcontractor = expectedJob.subcontractor
 
-      casper.then ->
-        @fillSelectors formTarget,
-          "[name='scope_of_work']": expectedJob.subcontractor.scope
-          "[name='contractor_amount']": expectedJob.subcontractor.cost
-
-        "#job-form-subcontractor .subcontractor.cost".should.have.text "#{expectedJob.subcontractor.cost}"
-
-        @click "#job-form-subcontractor button.ccma-navigate.next"
+      config.fillInput formTarget, "scope", subcontractor.scope
+      config.fillInput formTarget, "cost", subcontractor.cost
+      # config.checkComponentCost formTarget, subcontractor.cost
+      config.clickNext formTarget
 
   describe "Job Save Form", ->
     it "Should transition to the job save page", ->

@@ -4,8 +4,8 @@ phantomcss = require "phantomcss"
 phantomcss.init
   prefixCount: true
 
-casper.on "remote.message", (message) ->
-  @echo "#{message}", "COMMENT"
+# casper.on "remote.message", (message) ->
+  # @echo "#{message}", "COMMENT"
 
 module.exports =
   url: "http://localhost:8080/devel.html"
@@ -129,27 +129,27 @@ module.exports =
       quantity: "10"
       price: "5"
       tax: "0.0"
-      cost: "50.00"
+      cost: "50"
     materialB:
       type: "Adamantium"
       quantity: "212"
       price: "5"
       tax: "0.0"
-      cost: "1110.00"
+      cost: "1110"
     materialC:
       type: "Cap (lf)"
       quantity: "1"
       price: "20"
       tax: "10.0"
-      cost: "1132.00"
+      cost: "1132"
     equipment:
       type: "Bobcat"
       quantity: "2"
       time: "3"
-      timeUnits: "Hours"
+      timeUnits: "Days"
       price: "20"
       priceUnits: "Daily"
-      cost: "120.00"
+      cost: "120"
     subcontractor:
       scope: "Quality Tester"
       cost: "123.14"
