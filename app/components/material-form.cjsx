@@ -46,6 +46,7 @@ module.exports = React.createClass
       <ChooseField name="type"
                    label={<Help title="Material Type" helpText="help" />}
                    type="material"
+                   className="material-type"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />
 

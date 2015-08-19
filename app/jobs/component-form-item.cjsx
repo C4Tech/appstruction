@@ -21,7 +21,7 @@ module.exports = React.createClass
       log.error "Component not found: #{@props.type}"
       return null
 
-    <Row>
+    <Row className="item">
       <Col xs={12}>
         <Item item={@props.item} />
         <hr />

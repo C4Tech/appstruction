@@ -2,11 +2,6 @@ config = require "./config"
 phantomcss = require "phantomcss"
 
 expectedJob = config.job
-fillSelectize = config.fillSelectize
-clickNext = config.clickNext
-navbarSelector = config.navbarSelector
-jobTitleSelector = config.jobTitleSelector
-jobPageTitleSelector = config.jobPageTitleSelector
 
 describe "Create Estimate", ->
   before ->
@@ -14,190 +9,91 @@ describe "Create Estimate", ->
       @waitForSelector "article#home", ->
         @click "a.btn-main-nav:nth-child(1)"
 
-
   describe "Job Info Form", ->
     formTarget = "form#create"
 
     it "Should transition to the job info page", ->
-      casper.waitForSelector formTarget, ->
-        formTarget.should.be.inDOM
-        jobTitleSelector.should.have.text /Job Builder/
-        phantomcss.screenshot navbarSelector, "add-navbar"
-        phantomcss.screenshot formTarget, "add-form"
+      config.checkPage "add", formTarget, /Job Builder/
 
     it "Should submit the job info form", ->
-      fillSelectize formTarget, "group-name", expectedJob.group
+      config.fillSelectize formTarget, "group-name", expectedJob.group
+      config.fillInput formTarget, "name", expectedJob.name
+      config.fillSelectize formTarget, "job-type", expectedJob.type
+      config.clickNext formTarget
 
-      casper.then ->
-        @fill formTarget,
-          "name": expectedJob.name
-
-      fillSelectize formTarget, "job-type", expectedJob.type
-
-      clickNext formTarget
-
-  return describe "Concrete Component Form", ->
+  describe "Concrete Component Form", ->
     formTarget = "form#concrete"
+    secondTarget = "#{formTarget} > .item:nth-child(2)"
 
-    return it "Should transition to the concrete component page", ->
-      casper.waitForSelector formTarget, ->
-          formTarget.should.be.inDOM
-          jobTitleSelector.should.have.text expectedJob.name
-          jobPageTitleSelector.should.have.text /concrete/i
-          phantomcss.screenshot navbarSelector, "concrete-navbar"
-          phantomcss.screenshot formTarget, "concrete-form"
+    it "Should transition to the concrete component page", ->
+      config.checkFormPage "concrete", formTarget, /concrete/i
 
     it "Should add a sidewalk", ->
-      formTarget = "#job-form-concrete fieldset"
-
-      casper.then ->
-        setSelectors @, [
-            parent: formTarget
-            name: "concrete_type"
-            value: expectedJob.concreteA.type
-          ,
-            parent: formTarget
-            name: "length_units"
-            value: expectedJob.concreteA.lengthUnits
-          ,
-            parent: formTarget
-            name: "width_units"
-            value: expectedJob.concreteA.widthUnits
-          ,
-            parent: formTarget
-            name: "depth_units"
-            value: expectedJob.concreteA.depthUnits
-          ,
-            parent: formTarget
-            name: "price_units"
-            value: expectedJob.concreteA.priceUnits
-        ]
-
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.concreteA.quantity
-          "[name='length']": expectedJob.concreteA.length
-          "[name='width']": expectedJob.concreteA.width
-          "[name='depth']": expectedJob.concreteA.depth
-          "[name='price']": expectedJob.concreteA.price
-          "[name='tax']": expectedJob.concreteA.tax
-
-        "#job-form-concrete .concrete.cost".should.have.text "#{expectedJob.concreteA.cost}"
-
-        @click "#job-form-concrete button.concrete.add"
+      concrete = expectedJob.concreteA
+      config.fillSelectize formTarget, "concrete-type", concrete.type
+      config.fillInput formTarget, "quantity", concrete.quantity
+      config.fillInput formTarget, "length", concrete.length
+      config.fillSelectize formTarget, "length-units", concrete.lengthUnits
+      config.fillInput formTarget, "width", concrete.width
+      config.fillSelectize formTarget, "width-units", concrete.widthUnits
+      config.fillInput formTarget, "depth", concrete.depth
+      config.fillSelectize formTarget, "depth-units", concrete.depthUnits
+      config.fillInput formTarget, "price", concrete.price
+      config.fillSelectize formTarget, "price-units", concrete.priceUnits
+      config.fillInput formTarget, "tax", concrete.tax
+      config.checkComponentCost formTarget, concrete.cost
 
     it "Should add a second concrete component item", ->
-      target = "#job-form-concrete .concrete-form-item:nth-child(2)"
-      casper.then ->
-        @waitForSelector target, ->
-          target.should.be.inDOM
+      config.clickAdd formTarget
+      config.checkAdditionalFormRow "concrete", secondTarget
 
     it "Should add a sculpture", ->
-      formTarget = "#job-form-concrete .concrete-form-item:nth-child(2) fieldset"
+      concrete = expectedJob.concreteB
+      config.fillSelectize secondTarget, "concrete-type", concrete.type
+      config.fillInput secondTarget, "quantity", concrete.quantity
+      config.fillInput secondTarget, "length", concrete.length
+      config.fillSelectize secondTarget, "length-units", concrete.lengthUnits
+      config.fillInput secondTarget, "width", concrete.width
+      config.fillSelectize secondTarget, "width-units", concrete.widthUnits
+      config.fillInput secondTarget, "depth", concrete.depth
+      config.fillSelectize secondTarget, "depth-units", concrete.depthUnits
+      config.fillInput secondTarget, "price", concrete.price
+      config.fillSelectize secondTarget, "price-units", concrete.priceUnits
+      config.fillInput secondTarget, "tax", concrete.tax
+      config.checkComponentCost formTarget, concrete.cost
+      config.clickNext formTarget
 
-      casper.then ->
-        setSelectors @, [
-            parent: formTarget
-            name: "concrete_type"
-            value: expectedJob.concreteB.type
-          ,
-            parent: formTarget
-            name: "length_units"
-            value: expectedJob.concreteB.lengthUnits
-          ,
-            parent: formTarget
-            name: "width_units"
-            value: expectedJob.concreteB.widthUnits
-          ,
-            parent: formTarget
-            name: "depth_units"
-            value: expectedJob.concreteB.depthUnits
-          ,
-            parent: formTarget
-            name: "price_units"
-            value: expectedJob.concreteB.priceUnits
-        ]
+  return describe "Labor Component Form", ->
+    formTarget = "form#labor"
+    secondTarget = "#{formTarget} > .item:nth-child(2)"
 
-        @fillSelectors formTarget,
-          "[name='quantity']": expectedJob.concreteB.quantity
-          "[name='length']": expectedJob.concreteB.length
-          "[name='width']": expectedJob.concreteB.width
-          "[name='depth']": expectedJob.concreteB.depth
-          "[name='price']": expectedJob.concreteB.price
-          "[name='tax']": expectedJob.concreteB.tax
-
-        "#job-form-concrete .concrete.cost".should.have.text "#{expectedJob.concreteB.cost}"
-
-        @click "#job-form-concrete button.ccma-navigate.next"
-
-  describe "Labor Component Form", ->
     it "Should transition to the labor component page", ->
-      casper.then ->
-        @waitForSelector "section#labor", ->
-          "section#labor".should.be.inDOM
-          "section#labor .header-job-name h3".should.have.text expectedJob.name
-          "section#labor .header-title .header-text".should.have.text /labor/i
-          phantomcss.screenshot "section#labor > .navbar", "labor-navbar"
-          phantomcss.screenshot "#job-form-labor", "labor-form"
+      config.checkFormPage "labor", formTarget, /labor/i
 
     it "Should add a driver", ->
-      formTarget = "#job-form-labor fieldset"
-
-      casper.then ->
-        setSelectors @, [
-            parent: formTarget
-            name: "labor_type"
-            value: expectedJob.laborA.type
-          ,
-            parent: formTarget
-            name: "labor_time_units"
-            value: expectedJob.laborA.timeUnits
-          ,
-            parent: formTarget
-            name: "rate_units"
-            value: expectedJob.laborA.rateUnits
-        ]
-
-        @fillSelectors formTarget,
-          "[name='laborers_count']": expectedJob.laborA.quantity
-          "[name='labor_time']": expectedJob.laborA.time
-          "[name='rate']": expectedJob.laborA.rate
-
-        "#job-form-labor .labor.cost".should.have.text "#{expectedJob.laborA.cost}"
-
-        @click "#job-form-labor button.labor.add"
+      labor = expectedJob.laborA
+      config.fillSelectize formTarget, "labor-type", labor.type
+      config.fillInput formTarget, "quantity", labor.quantity
+      config.fillInput formTarget, "time", labor.time
+      config.fillSelectize formTarget, "time-units", labor.timeUnits, false
+      config.fillInput formTarget, "price", labor.price
+      config.fillSelectize formTarget, "price-units", labor.priceUnits, false
+      config.checkComponentCost formTarget, labor.cost
 
     it "Should add a second labor component item", ->
-      target = "#job-form-labor .labor-form-item:nth-child(2)"
-      casper.then ->
-        @waitForSelector target, ->
-          target.should.be.inDOM
+      config.clickAdd formTarget
+      config.checkAdditionalFormRow "labor", secondTarget
 
     it "Should add a tester", ->
-      formTarget = "#job-form-labor .labor-form-item:nth-child(2) fieldset"
-
-      casper.then ->
-        setSelectors @, [
-            parent: formTarget
-            name: "labor_type"
-            value: expectedJob.laborB.type
-          ,
-            parent: formTarget
-            name: "labor_time_units"
-            value: expectedJob.laborB.timeUnits
-          ,
-            parent: formTarget
-            name: "rate_units"
-            value: expectedJob.laborB.rateUnits
-        ]
-
-        @fillSelectors formTarget,
-          "[name='laborers_count']": expectedJob.laborB.quantity
-          "[name='labor_time']": expectedJob.laborB.time
-          "[name='rate']": expectedJob.laborB.rate
-
-        "#job-form-labor .labor.cost".should.have.text "#{expectedJob.laborB.cost}"
-
-        @click "#job-form-labor button.ccma-navigate.next"
+      labor = expectedJob.laborB
+      config.fillSelectize secondTarget, "labor-type", labor.type
+      config.fillInput secondTarget, "quantity", labor.quantity
+      config.fillInput secondTarget, "time", labor.time
+      config.fillSelectize secondTarget, "time-units", labor.timeUnits, false
+      config.fillInput secondTarget, "price", labor.price
+      config.fillSelectize secondTarget, "price-units", labor.priceUnits, false
+      config.checkComponentCost formTarget, labor.cost
+      config.clickNext formTarget
 
   describe "Material Component Form", ->
     it "Should transition to the material component page", ->

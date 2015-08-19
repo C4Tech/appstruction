@@ -51,6 +51,7 @@ module.exports = React.createClass
       <ChooseField name="type"
                    label={<Help title="Labor Class" helpText="help" />}
                    type="labor"
+                   className="labor-type"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />
 
@@ -64,6 +65,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <TimeField name="time-units"
+                 className="time-units"
                  value={@props.item.timeUnits}
                  onChange={@handleSelect "timeUnits"} />
 
@@ -73,6 +75,7 @@ module.exports = React.createClass
                   onChange={@handleChange} />
 
       <RateField name="price-units"
+                 className="price-units"
                  value={@props.item.priceUnits}
                  onChange={@handleSelect "priceUnits"} />
     </div>

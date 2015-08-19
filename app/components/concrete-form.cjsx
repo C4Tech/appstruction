@@ -76,6 +76,7 @@ module.exports = React.createClass
       <ChooseField name="type"
                   label={<Help title="What item" helpText="Dropdown Help" />}
                    type="concrete"
+                   className="concrete-type"
                    value={@props.item.type}
                    onChange={@handleSelect "type"} />
 
@@ -89,6 +90,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <MeasurementField name="length-units"
+                        className="length-units"
                         value={@props.item.lengthUnits}
                         onChange={@handleSelect "lengthUnits"} />
 
@@ -98,6 +100,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <MeasurementField name="width-units"
+                        className="width-units"
                         value={@props.item.widthUnits}
                         onChange={@handleSelect  "widthUnits"} />
 
@@ -107,6 +110,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <MeasurementField name="depth-units"
+                        className="depth-units"
                         value={@props.item.depthUnits}
                         onChange={@handleSelect  "depthUnits"} />
 
@@ -116,6 +120,7 @@ module.exports = React.createClass
                    onChange={@handleChange} />
 
       <VolumeField name="price-units"
+                   className="price-units"
                    value={@props.item.priceUnits}
                    onChange={@handleSelect  "priceUnits"} />
 
