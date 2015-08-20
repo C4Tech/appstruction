@@ -56,10 +56,12 @@ module.exports = React.createClass
     @transitionTo "read"
 
   render: ->
-    <Form leftLabel={null}
+    <Form id="browse"
+          leftLabel={null}
           rightLabel="Load Estimate"
           clickRight={@handleLoad}>
       <JobSelect name="job"
+                 className="job-select"
                  label="Browse Jobs"
                  value={@state.selectedJob}
                  options={@state.options}

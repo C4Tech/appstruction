@@ -75,7 +75,8 @@ module.exports = React.createClass
         </h4>
       </header>
 
-      <Form leftLabel="Start Over"
+      <Form id="save"
+            leftLabel="Start Over"
             clickLeft={@handleReset}
             rightLabel="Save"
             clickRight={@handleSave}
@@ -87,7 +88,7 @@ module.exports = React.createClass
                       value={@state.job.profitMargin}
                       onChange={@handleChange} />
         <StaticField label="Grand Total"
-                     className="lead"
+                     className="lead total"
                      value={@state.job.total} />
       </Form>
       <JobReview job={@state.job} />

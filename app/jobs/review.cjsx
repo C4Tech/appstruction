@@ -28,7 +28,7 @@ module.exports = React.createClass
         </Col>
       </Row>
 
-      <Panel bsStyle="primary">
+      <Panel bsStyle="primary" className="job-review">
         {<Component editable type={type} component={components[type]} /> for type in types when components[type]?}
       </Panel>
     </Well>

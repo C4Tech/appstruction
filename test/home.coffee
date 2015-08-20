@@ -3,7 +3,7 @@ phantomcss = require "phantomcss"
 
 describe "Home page", ->
   before ->
-    casper.start config.url, ->
+    casper.thenOpen config.url, ->
 
   it "Should look the same", ->
     casper.waitForSelector "article#home", ->

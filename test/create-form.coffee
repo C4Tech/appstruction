@@ -157,7 +157,7 @@ describe "Create Estimate", ->
       config.checkComponentCost formTarget, equipment.cost
       config.clickNext formTarget
 
-  return describe "Subcontractor Component Form", ->
+  describe "Subcontractor Component Form", ->
     formTarget = "form#subcontractor"
 
     it "Should transition to the subcontractor component page", ->
@@ -167,50 +167,33 @@ describe "Create Estimate", ->
       subcontractor = expectedJob.subcontractor
 
       config.fillInput formTarget, "scope", subcontractor.scope
+      # For some strange reason, this particlar field cuts off the first character here only
+      config.fillInput formTarget, "cost", "1"
       config.fillInput formTarget, "cost", subcontractor.cost
-      # config.checkComponentCost formTarget, subcontractor.cost
+      config.checkComponentCost formTarget, subcontractor.cost
       config.clickNext formTarget
 
   describe "Job Save Form", ->
+    formTarget = "form#save"
+
     it "Should transition to the job save page", ->
+      config.checkFormPage "save", formTarget, /job overview/i
+
       casper.then ->
-        @waitForSelector "section#save", ->
-          "section#save".should.be.inDOM
-          "section#save .header-job-name h3".should.have.text expectedJob.name
-          "section#save .header-title .header-text".should.have.text /job builder/i
-          phantomcss.screenshot "section#save > .navbar", "save-navbar"
-          phantomcss.screenshot "#job-form-save fieldset", "save-form"
-          phantomcss.screenshot "#job-accordion", "save-accordion"
+        phantomcss.screenshot ".job-review", "save-accordion"
 
     it "Should open job info accordions", ->
-      casper.then ->
-        @waitForSelector "#job-accordion", ->
-          @click "#job-list-concrete .panel-heading-link"
-          @wait 1000
-          phantomcss.screenshot "#job-list-concrete", "save-concrete"
-
-          @click "#job-list-labor .panel-heading-link"
-          phantomcss.screenshot "#job-list-labor", "save-labor"
-
-          @click "#job-list-materials .panel-heading-link"
-          phantomcss.screenshot "#job-list-materials", "save-materials"
-
-          @click "#job-list-equipment .panel-heading-link"
-          phantomcss.screenshot "#job-list-equipment", "save-equipment"
-
-          @click "#job-list-subcontractor .panel-heading-link"
-          phantomcss.screenshot "#job-list-subcontractor", "save-subcontractor"
+      casper.waitForSelector ".job-review", ->
+        config.checkComponentReview "concrete"
+        config.checkComponentReview "labor"
+        config.checkComponentReview "material"
+        config.checkComponentReview "equipment"
+        config.checkComponentReview "subcontractor"
 
     it "Should set a profit margin", ->
-      formTarget = "#job-form-save fieldset"
+      totalField = "#{formTarget} .total"
+      config.fillInput formTarget, "profit-margin", expectedJob.profitMargin
 
-      casper.then ->
-        @fillSelectors formTarget,
-          "[name='profit_margin']": expectedJob.profitMargin
-
-        @evaluate ->
-          $("#job-form-save fieldset [name='profit_margin']").keyup()
-
-        "subtotal".should.have.fieldValue "#{expectedJob.cost}"
-
-        @click "#job-form-subcontractor button.job.save"
+      casper.waitForSelectorTextChange totalField, ->
+        totalField.should.have.text expectedJob.cost
+        config.clickNext formTarget

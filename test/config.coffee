@@ -13,11 +13,11 @@ module.exports =
   jobTitleSelector: "article header h2"
   jobPageTitleSelector: "article header h4"
 
-  checkPage: (page, target, title, navbar = true) ->
+  checkPage: (page, target, title= false, navbar = true) ->
     navbarSelector = @navbarSelector
     casper.waitForSelector target, ->
       target.should.be.inDOM
-      "article header h2".should.have.text title
+      "article header h2".should.have.text title if title
       phantomcss.screenshot navbarSelector, "#{page}-navbar" if navbar
       phantomcss.screenshot target, "#{page}-form"
 
@@ -70,11 +70,18 @@ module.exports =
 
     null
 
-  checkComponentCost:(formTarget, cost) ->
-    casper.then ->
-      "#{formTarget} .component-cost".should.have.text cost
+  checkComponentCost: (formTarget, cost) ->
+    costField = "#{formTarget} .component-cost"
+    casper.waitForSelectorTextChange costField, ->
+      costField.should.have.text cost
 
     null
+
+  checkComponentReview: (name) ->
+    target = ".panel-overview.#{name}"
+    casper.thenClick "#{target} .panel-heading a"
+    casper.waitForSelector "#{target} .panel-collapse.in", ->
+      phantomcss.screenshot "#{target} .panel-collapse", "save-#{name}"
 
   job:
     group: "Test Group"

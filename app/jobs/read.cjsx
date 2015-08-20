@@ -36,7 +36,7 @@ module.exports = React.createClass
   render: ->
     items = @state.job.components
 
-    <article>
+    <article className="job-summary">
       <header>
         <h2 className="text-capitalize">{@state.job.name}
           <Decoration iconType="pdf" icon="file-pdf-o" />

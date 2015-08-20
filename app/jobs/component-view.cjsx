@@ -28,14 +28,14 @@ module.exports = React.createClass
     return null unless @props.component?.items?.length
     items = @props.component.items
 
-    edit = <Button bsStyle="warning" onClick={@handleEdit}>
+    edit = <Button bsStyle="warning" className="pull-right" onClick={@handleEdit}>
       <Icon name="edit" size="lg" />
       Edit
     </Button>
     edit = null unless @props.editable
 
     <Panel header="#{@props.type}"
-           className="panel-overview"
+           className="panel-overview #{@props.type}"
            collapsible
            defaultExpanded={false}>
       <Row>
