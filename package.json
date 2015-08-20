@@ -9,12 +9,12 @@
   },
   "scripts": {
     "start": "npm run prepare && npm run build",
-    "compile": "npm run start && npm run prepare-phonegap && npm run phonegap",
+    "compile": "npm run start && npmnpm run prepare-phonegap && npm run phonegap",
     "recompile": "npm run rebuild && npm run phonegap",
     "test": "npm run serve && npm run mocha",
     "quicktest": "npm run server && npm run mocha",
     "build": "brunch build",
-    "rebuild": "npm run update && npm run build",
+    "rebuild": "npm run build",
     "start-over": "npm run torch && npm run start",
     "watch": "brunch watch",
     "watch-server": "brunch watch --server",
@@ -29,7 +29,9 @@
     "update-bower": "bower prune && bower update",
     "torch": "rm -rf ./bower_components ./node_modules",
     "mocha": "./node_modules/.bin/mocha-casperjs",
-    "phonegap": "phonegap build android"
+    "phonegap": "phonegap prepare android && phonegap build android"
+    ,
+    "device": "phonegap run android --device"
   },
   "dependencies": {
     "auto-reload-brunch": "^1.8.0",
