@@ -8,6 +8,7 @@ MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 PercentField = require "forms/input-percentage"
+Str = require "util/str"
 
 FormGroup = ReactBootstrap.FormGroup
 
@@ -27,7 +28,7 @@ module.exports = React.createClass
     }
 
   componentDidMount: ->
-    NavigationActions.setTitle "Materials"
+    NavigationActions.setTitle <Help title="Materials" helpText={Str.material} />
     NavigationActions.setNext "component", "equipment"
     NavigationActions.setPrev "component", "labor"
 
@@ -44,7 +45,7 @@ module.exports = React.createClass
   render: ->
     <div>
       <ChooseField name="type"
-                   label={<Help title="Material Type" helpText="help" />}
+                   label={<Help title="Material Type" helpText={Str.dropdown} />}
                    type="material"
                    className="material-type"
                    value={@props.item.type}

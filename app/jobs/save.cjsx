@@ -68,11 +68,7 @@ module.exports = React.createClass
     <article>
       <header>
         <h2>{@state.job?.name}</h2>
-        <h4>Job Overview
-          <Decoration iconType="help" icon="question-circle" />
-          <Decoration iconType="email" icon="envelope" />
-          <Decoration iconType="pdf" icon="file-pdf-o" />
-        </h4>
+        <h4>Job Overview</h4>
       </header>
 
       <Form id="save"

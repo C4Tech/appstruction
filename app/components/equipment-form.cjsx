@@ -8,6 +8,7 @@ MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 RateField = require "forms/input-pay-rate"
+Str = require "util/str"
 Time = require "util/time"
 TimeField = require "forms/input-time"
 
@@ -29,7 +30,7 @@ module.exports = React.createClass
     }
 
   componentDidMount: ->
-    NavigationActions.setTitle "Equipment"
+    NavigationActions.setTitle <Help title="Equipment" helpText={Str.equipment} />
     NavigationActions.setNext "component", "subcontractor"
     NavigationActions.setPrev "component", "material"
 
@@ -48,7 +49,7 @@ module.exports = React.createClass
   render: ->
     <div>
       <ChooseField name="type"
-                   label={<Help title="Equipment Type" helpText="help" />}
+                   label={<Help title="Equipment Type" helpText={Str.dropdown} />}
                    type="equipment"
                    className="equipment-type"
                    value={@props.item.type}

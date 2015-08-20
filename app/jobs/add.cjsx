@@ -7,6 +7,7 @@ InputField = require "forms/input-field"
 JobActions = require "jobs/actions"
 JobStore = require "jobs/store"
 NavigationActions = require "navigation/actions"
+Str = require "util/str"
 
 module.exports = React.createClass
   mixins: [
@@ -95,7 +96,7 @@ module.exports = React.createClass
                help={@getFieldErrors "name"}
                onChange={@handleChange} />
         <ChooseInput type="job" name="type"
-                     label={<Help title="What type of job" helpText="help" />}
+                     label={<Help title="What type of job" helpText={Str.dropdown} />}
                      className="job-type"
                      value={@state.job.type}
                      bsStyle={@getFieldStyle "type"}

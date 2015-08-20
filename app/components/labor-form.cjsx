@@ -8,6 +8,7 @@ MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 RateField = require "forms/input-pay-rate"
+Str = require "util/str"
 Time = require "util/time"
 TimeField = require "forms/input-time"
 
@@ -49,7 +50,7 @@ module.exports = React.createClass
   render: ->
     <div>
       <ChooseField name="type"
-                   label={<Help title="Labor Class" helpText="help" />}
+                   label={<Help title="Labor Class" helpText={Str.dropdown} />}
                    type="labor"
                    className="labor-type"
                    value={@props.item.type}

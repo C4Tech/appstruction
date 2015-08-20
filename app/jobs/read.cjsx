@@ -38,11 +38,7 @@ module.exports = React.createClass
 
     <article className="job-summary">
       <header>
-        <h2 className="text-capitalize">{@state.job.name}
-          <Decoration iconType="pdf" icon="file-pdf-o" />
-          <Decoration iconType="email" icon="envelope" />
-          <Decoration iconType="help" icon="question-circle" />
-        </h2>
+        <h2 className="text-capitalize">{@state.job.name}</h2>
         <h4 className="text-capitalize">
           {ChoicesStore.getLabelFor "group", @state.job.group}
         </h4>

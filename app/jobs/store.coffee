@@ -15,7 +15,7 @@ class JobStore
 
   getStorageId: ->
     prefix = config.storagePrefix
-    "#{prefix}-jobs"
+    "#{prefix}-saved-jobs"
 
   saveToStorage: ->
     return unless window.localStorage?

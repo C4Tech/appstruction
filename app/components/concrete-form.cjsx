@@ -10,6 +10,7 @@ MoneyField = require "forms/input-money"
 NavigationActions = require "navigation/actions"
 NumberField = require "forms/input-field"
 PercentField = require "forms/input-percentage"
+Str = require "util/str"
 VolumeField = require "forms/input-volume"
 
 module.exports = React.createClass
@@ -36,7 +37,7 @@ module.exports = React.createClass
     }
 
   componentDidMount: ->
-    NavigationActions.setTitle "Concrete"
+    NavigationActions.setTitle <Help title="Concrete" helpText={Str.concrete} />
     NavigationActions.setNext "component", "labor"
     NavigationActions.setPrev "add"
 
@@ -74,7 +75,7 @@ module.exports = React.createClass
   render: ->
     <div>
       <ChooseField name="type"
-                  label={<Help title="What item" helpText="Dropdown Help" />}
+                  label={<Help title="What item" helpText={Str.dropdown} />}
                    type="concrete"
                    className="concrete-type"
                    value={@props.item.type}

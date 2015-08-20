@@ -16,7 +16,7 @@ class ChoicesStore
 
   getStorageId: ->
     prefix = config.storagePrefix
-    "#{prefix}-choices"
+    "#{prefix}-select-choices"
 
   saveToStorage: ->
     return unless window.localStorage?
