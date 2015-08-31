@@ -1,0 +1,11 @@
+
+(env) ->
+  # Default local storage prefix
+  prefix = "cole"
+
+  # Use API Environment if set
+  prefix += "-#{env.APP_ENV}" if env.APP_ENV?
+
+  {
+    "storagePrefix": prefix
+  }

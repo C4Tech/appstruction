@@ -1,0 +1,21 @@
+@import "app/styles/_variables.less";
+
+.btn-main-nav,
+.btn-main-nav:hover {
+    color: #FFFFFF;
+}
+
+.btn-nav {
+  .button-variant(@btn-nav-color; @btn-nav-bg; @btn-nav-border);
+}
+
+.btn-icon {
+  header & {
+    cursor: pointer;
+    margin-left: 15px;
+  }
+
+  h4 & {
+    margin-top: 5px;
+  }
+}

@@ -1,0 +1,25 @@
+@import "app/styles/_variables.less";
+
+.panel-heading a {
+    text-transform: capitalize;
+    display: block;
+}
+
+.panel-overview {
+  .panel-variant(@gray-dark; @white; @gray-base; @gray-dark);
+
+  .btn-edit {
+    margin-bottom: 5px;
+  }
+
+  .list-group {
+    color: #000;
+  }
+}
+
+.panel-cost {
+  border: none;
+  border-radius: 0;
+  background: @white;
+  color: @gray-dark;
+}
