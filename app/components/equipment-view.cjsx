@@ -9,15 +9,15 @@ module.exports = React.createClass
         quantity: 0
         time: 0
         timeUnits: null
-        rate: 0
-        rateUnits: "hour"
+        price: 0
+        priceUnits: "hour"
     }
 
   render: ->
     item = @props.item
     nothing = <div>No Equipment</div>
 
-    return nothing unless item.rate and item.time
+    return nothing unless item.price and item.time
 
     type = ChoicesStore.getLabelFor "equipment", item.type, item.quantity, true
     units = Time.getLabelFor "time", item.timeUnits, item.time, true
