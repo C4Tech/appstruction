@@ -58,7 +58,6 @@ class JobStore
     return cost unless component?.items?.length
 
     cost += item.cost for own key, item of component.items when item.cost > 0.0
-    cost = component.cost if cost is parseFloat component.cost
     cost
 
   onSetCurrent: (payload) ->

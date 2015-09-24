@@ -15,7 +15,7 @@ module.exports = React.createClass
     {
       item:
         scope: ""
-        cost: 0.0
+        price: 0.0
     }
 
   componentDidMount: ->
@@ -27,7 +27,7 @@ module.exports = React.createClass
 
   recalculate: (item) ->
     item = @props.item
-    item.cost = Cost.calculate item.cost
+    item.cost = Cost.calculate item.price
     log.debug "subcontractor row (#{item.scope}): #{item.cost}"
 
     item
@@ -38,7 +38,7 @@ module.exports = React.createClass
                  value={@props.item.scope}
                  onChange={@handleChange} />
 
-      <MoneyField name="cost" label="Contractor Amount"
-                  value={@props.item.cost}
+      <MoneyField name="price" label="Contractor Amount"
+                  value={@props.item.price}
                   onChange={@handleChange} />
     </div>
