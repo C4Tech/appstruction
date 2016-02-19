@@ -1,60 +1,50 @@
 {
-  "name": "cole-cement",
-  "version": "0.1",
-  "description": "Cole construction app",
+  "name": "appstruction",
+  "description": "Estimate cement pouring jobs with ease.",
+  "version": "1.1.0",
   "dependencies": {
-    "jquery": "~2.1",
-    "underscore": "~1.6",
-    "backbone": "~1.1",
-    "backbone.localstorage": "~1.1",
-    "hammerjs": "~1.0",
-    "jquery-hammerjs": "~1.0",
-    "font-awesome": "~4.1",
-    "bootstrap": "~3.1",
-    "select2": "~3.4.5",
-    "select2-bootstrap-css": "~1.3.0",
-    "js-quantities": "~1.3.0",
-    "bootbox": "~4.2.0",
-    "jspdf": "~1.0.178"
+    "alt": "^0.17.1",
+    "Array.prototype.findIndex": "^1.0.0",
+    "bootstrap": "^3.3.2",
+    "classnames": "^2.1.3",
+    "font-awesome": "^4.3.0",
+    "js-quantities": "^1.5.0",
+    "jspdf": "^1.1.0",
+    "loglevel": "^1.3.0",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.23.7",
+    "react-router": "^0.13.3",
+    "react-select": "^0.5.5",
+    "pluralize": "~1.1.2"
   },
   "overrides": {
-    "backbone": {
-      "main": [
-        "backbone.js"
-      ],
-      "dependencies": {
-        "underscore": "~1.6",
-        "jquery": "~2.1"
-      }
-    },
-    "underscore": {
-      "main": [
-        "underscore.js"
-      ]
-    },
-    "backbone.localstorage": {
-      "main": [
-        "backbone.localStorage.js"
-      ],
-      "dependencies": {
-        "backbone": "~1.1"
-      }
+    "bootstrap": {
+      "main": "/fonts/*",
+      "dependencies": {}
     },
     "font-awesome": {
-      "main": [
-        "css/font-awesome.css"
-      ]
+      "main": "/fonts/*"
     },
-    "select2-bootstrap-css": {
-      "main": [
-        "select2-bootstrap.css"
-      ],
+    "loglevel": {
+      "main": "dist/loglevel.js"
+    },
+    "jspdf": {
+      "main": "dist/jspdf.js"
+    },
+    "react-input-autosize": {
+      "main": "dist/react-input-autosize.js",
       "dependencies": {
-        "select2": "~3.4.5"
+        "react": "^0.13.3"
       }
+    },
+    "react-select": {
+      "main": [
+        "dist/react-select.js",
+        "dist/default.css"
+      ]
     }
   },
   "resolutions": {
-    "backbone": "~1.1"
+    "classnames": "^2.1.3"
   }
 }

@@ -1,0 +1,15 @@
+@import "app/styles/_variables.less";
+
+.form-control {
+  margin-bottom: 1em;
+
+  &.has-sibling-field {
+    margin-bottom: 0px;
+  }
+}
+
+.Select-control {
+  .has-error & {
+    &:extend(.has-error .form-control);
+  }
+}
