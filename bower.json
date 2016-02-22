@@ -2,6 +2,7 @@
   "name": "appstruction",
   "description": "Estimate cement pouring jobs with ease.",
   "version": "1.1.0",
+  "license": "GPL-3.0",
   "dependencies": {
     "alt": "^0.17.1",
     "Array.prototype.findIndex": "^1.0.0",

@@ -3,6 +3,7 @@
   "description": "Estimate cement pouring jobs with ease.",
   "author": "C4 Tech and Design",
   "version": "1.1.0",
+  "license": "GPL-3.0",
   "private": true,
   "engines": {
     "node": "*"
