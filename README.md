@@ -15,6 +15,7 @@ Brunch automatically handles vendor-specific CSS differences.
 Directory Structure
 -------------------
 
+```
 / - Repository root
 |- app/ - Contains original code for the application
 |- bower_components/ - Contains third-party UI components (e.g. Bootstrap)
@@ -25,6 +26,7 @@ Directory Structure
 |- screenshots/ - Contains screenshots of the interface with expected styling
 |- test/ - Contains test scripts
 |- www/ - Generated web app which gets injected into PhoneGap builds
+```
 
 Build Requirements
 ------------------
